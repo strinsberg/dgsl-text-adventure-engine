@@ -7,9 +7,6 @@ class Entity:
     def describe(self):
         return self.spec.description
 
-    def accept(self, visitor):
-        pass
-
 
 class Spec:
     def __init__(self, obj_id):
