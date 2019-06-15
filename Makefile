@@ -24,3 +24,8 @@ docs:
 	cd docs/code; \
 	make clean; \
 	make html
+
+# Add and fix docstrings
+.PHONY: pyment
+pyment:
+	pyment -o google -w dgsl_engine

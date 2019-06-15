@@ -9,9 +9,6 @@ VERB = "look"
 
 
 class MockEvent:
-    def __init__(self):
-        self.verb = VERB
-
     def execute(self, entity):
         return entity.describe()
 
@@ -40,21 +37,17 @@ class TestEntity(unittest.TestCase):
 
 class TestSpec(unittest.TestCase):
     def setUp(self):
-        self.spec = entity.Spec(ID)
+        self.spec = entity.EntitySpec(ID)
 
     def test_init(self):
         self.assertEqual(self.spec.id, ID)
         self.assertEqual(self.spec.name, NULL)
         self.assertEqual(self.spec.description, NULL)
 
-    def test_matches(self):
-        spec = entity.Spec(ID)
-        self.assertTrue(self.spec.matches(spec))
-
 
 class TestStates(unittest.TestCase):
     def test_init(self):
-        states = entity.States()
+        states = entity.EntityStates()
         self.assertTrue(states.active)
         self.assertTrue(states.obtainable)
         self.assertFalse(states.hidden)
@@ -63,19 +56,19 @@ class TestStates(unittest.TestCase):
 class TestEvents(unittest.TestCase):
     def setUp(self):
         self.mock_event = MockEvent()
-        self.events = entity.Events()
+        self.events = entity.EntityEvents()
         self.entity = entity.Entity(ID)
 
     def test_add(self):
-        self.events.add(self.mock_event)
+        self.events.add(VERB, self.mock_event)
         self.assertTrue(VERB in self.events.events)
 
     def test_has(self):
-        self.events.add(self.mock_event)
+        self.events.add(VERB, self.mock_event)
         self.assertTrue(self.events.has_event(VERB))
 
     def test_execute(self):
-        self.events.add(self.mock_event)
+        self.events.add(VERB, self.mock_event)
         self.assertEqual(self.events.execute(VERB, self.entity), NULL)
 
 

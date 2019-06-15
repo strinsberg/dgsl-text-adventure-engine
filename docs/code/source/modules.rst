@@ -1,22 +1,18 @@
 dgsl_engine
 ===========
   
-entity
+Entity Base
 -------------------
 
-Entity base class as well as supporting classes and functions.
-
-.. automodule:: dgsl_engine.entity
+.. automodule:: dgsl_engine.entity_base
    :members:
    :undoc-members:
    :show-inheritance:
 
-event
+Event Base
 ------------------
 
-Event base as well as supporting classes and functions.
-
-.. automodule:: dgsl_engine.event
+.. automodule:: dgsl_engine.event_base
    :members:
    :undoc-members:
    :show-inheritance:

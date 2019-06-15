@@ -12,10 +12,3 @@ Welcome to Dgsl Text Adventure Engine's documentation!
 
    modules
 
-
-Indices and tables
-==================
-
-* :ref:`genindex`
-* :ref:`modindex`
-* :ref:`search`
