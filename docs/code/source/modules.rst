@@ -4,7 +4,7 @@ dgsl_engine
 entity
 -------------------
 
-Entity class tree as well as supporting classes and functions.
+Entity base class as well as supporting classes and functions.
 
 .. automodule:: dgsl_engine.entity
    :members:
@@ -14,7 +14,7 @@ Entity class tree as well as supporting classes and functions.
 event
 ------------------
 
-Event class tree as well as supporting classes and functions.
+Event base as well as supporting classes and functions.
 
 .. automodule:: dgsl_engine.event
    :members:

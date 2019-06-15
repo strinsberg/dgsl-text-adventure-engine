@@ -22,4 +22,5 @@ lint-tests:
 .PHONY: docs
 docs:
 	cd docs/code; \
+	make clean; \
 	make html

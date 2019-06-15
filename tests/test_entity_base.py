@@ -1,18 +1,22 @@
 import unittest
-import dgsl_engine.entity as entity
+import dgsl_engine.entity_base as entity
 
 ID = "1234"
 NULL = "Null"
 VERB = "look"
 
+# Mocks ###############################################################
 
-# Simple mock event for testing events
+
 class MockEvent:
     def __init__(self):
         self.verb = VERB
 
     def execute(self, entity):
         return entity.describe()
+
+
+# Entity tests ########################################################
 
 
 class TestEntity(unittest.TestCase):
@@ -29,6 +33,9 @@ class TestEntity(unittest.TestCase):
         description = "A nice entity"
         self.entity.spec.description = description
         self.assertEqual(self.entity.describe(), description)
+
+
+# Supporting classes ##################################################
 
 
 class TestSpec(unittest.TestCase):
