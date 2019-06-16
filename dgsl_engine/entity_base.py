@@ -70,8 +70,8 @@ class EntityEvents:
     triggered by other events instead of player actions.
 
     Attributes:
-        events (dict <str, :class:`Event <dgsl_engine.event_base.Event>`>): Events
-            attached to an entity.
+        events (dict <str, :class:`Event <dgsl_engine.event_base.Event>`>): 
+            Events attached to an entity.
     """
 
     def __init__(self):
@@ -121,21 +121,63 @@ class EntityEvents:
 
 
 class Inventory:
+    """Inventory for holding entities.
+
+    Can be used in for loops to iterate over all items it contains.
+    
+    ::
+    
+        for item in inventory:
+            print(item)
+
+    Attributes:
+        items (dict <str, :class:`Entity <dgsl_engine.entity_base.Entity>`>):
+            Entities in the inventory.
+    """
+
     def __init__(self):
         self.items = {}
 
+    def __iter__(self):
+        for k in self.items:
+            yield self.items[k]
+
     def add(self, item):
+        """Add an Entity to the inventory.
+
+        Args:
+            item (Entity): An Entity.
+        
+        Returns:
+            bool: True if the Entity is added, False if the entity is
+            already there.
+        """
         if item.spec.id not in self.items:
             self.items[item.spec.id] = item
             return True
         return False
 
     def remove(self, item_id):
+        """Remove an Entity.
+
+        Args:
+            item_id (str): The id of the entity to remove.
+        
+        Returns:
+            Entity: The Entity with the given id.
+        
+        Raises:
+            KeyError: If there is no entity with item_id
+        """
         return self.items.pop(item_id)
 
     def has_item(self, item_id):
-        return item_id in self.items
+        """Checks to see if an Entity with the given id is in the inventory.
 
-    def __iter__(self):
-        for k in self.items:
-            yield self.items[k]
+        Args:
+            item_id (str): The id of the entity to find.
+        
+        Returns:
+            bool: True if the Entity is there, False otherwise.
+        """
+        return item_id in self.items
