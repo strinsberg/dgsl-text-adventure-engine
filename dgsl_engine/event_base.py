@@ -4,8 +4,8 @@ Base Event as well as supporting classes and functions.
 from abc import ABC, abstractmethod
 
 
-class Event(ABC):
-    """ABC for all Events that execute in response to player actions.
+class Event:
+    """Base for all Events that execute in response to player actions.
     
     Attributes:
       id (str): A unique identifier.
@@ -17,9 +17,7 @@ class Event(ABC):
         self.id = obj_id
         self.only_once = False
         self.is_done = False
-        super(Event, self).__init__()
 
-    @abstractmethod
     def execute(self, affected):
         """Execute the event on the affected entity and return the result.
 
@@ -29,4 +27,17 @@ class Event(ABC):
         Returns:
           str: A description of the results.
         """
+        # All the base version does is notify it's observers
+        # You have to subclass or decorate it
+        pass
+
+
+class EventDecorator(Event, ABC):
+    def __init__(self, obj_id, event):
+        Event.__init__(self, obj_id)
+        self.event = event
+        ABC.__init__(self)  # is this the right order?
+
+    @abstractmethod
+    def execute(self, affected):
         pass

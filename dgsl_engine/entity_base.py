@@ -77,6 +77,10 @@ class EntityEvents:
     def __init__(self):
         self.events = {}
 
+    def __iter__(self):
+        for k in self.events:
+            yield self.events[k]
+
     def add(self, verb, event):
         """Adds an event with for a given verb.
 
