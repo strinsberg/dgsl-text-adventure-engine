@@ -2,8 +2,10 @@ import unittest
 import dgsl_engine.entity_base as entity
 
 ID = "1234"
+ID2 = "5678"
 NULL = "Null"
 VERB = "look"
+VERB2 = "use"
 
 # Mocks ###############################################################
 
@@ -56,12 +58,17 @@ class TestStates(unittest.TestCase):
 class TestEvents(unittest.TestCase):
     def setUp(self):
         self.mock_event = MockEvent()
+        self.other_mock_event = MockEvent()
         self.events = entity.EntityEvents()
         self.entity = entity.Entity(ID)
-
-    def test_add(self):
         self.events.add(VERB, self.mock_event)
-        self.assertTrue(VERB in self.events.events)
+
+    def test_add_new(self):
+        self.assertTrue(self.events.add(VERB2, self.other_mock_event))
+        self.assertTrue(VERB2 in self.events.events)
+
+    def test_add_already_there(self):
+        self.assertFalse(self.events.add(VERB, self.mock_event))
 
     def test_has(self):
         self.events.add(VERB, self.mock_event)
@@ -71,6 +78,37 @@ class TestEvents(unittest.TestCase):
         self.events.add(VERB, self.mock_event)
         self.assertEqual(self.events.execute(VERB, self.entity), NULL)
 
+
+class TestInventory(unittest.TestCase):
+    def setUp(self):
+        self.inventory = entity.Inventory()
+        self.entity = entity.Entity(ID)
+        self.entity2 = entity.Entity(ID2)
+        self.inventory.add(self.entity)
+
+    def test_add_new(self):
+        self.assertTrue(self.inventory.add(self.entity2))
+        self.assertTrue(ID2 in self.inventory.items)
+
+    def test_add_already_there(self):
+        self.assertFalse(self.inventory.add(self.entity))
+
+    def test_remove(self):
+        removed = self.inventory.remove(ID)
+        self.assertEqual(self.entity, removed)
+
+    def test_has_item(self):
+        self.assertTrue(self.inventory.has_item(ID))
+
+    def test_iter(self):
+        self.inventory.add(self.entity2)
+        ids = []
+        for item in self.inventory:
+            ids.append(item.spec.id)
+        self.assertEqual(", ".join(ids), ", ".join([ID, ID2]))
+
+
+# Main #################################################################s
 
 if __name__ == '__main__':
     unittest.main()

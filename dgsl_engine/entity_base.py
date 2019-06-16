@@ -118,3 +118,24 @@ class EntityEvents:
             False otherwise.
         """
         return verb in self.events
+
+
+class Inventory:
+    def __init__(self):
+        self.items = {}
+
+    def add(self, item):
+        if item.spec.id not in self.items:
+            self.items[item.spec.id] = item
+            return True
+        return False
+
+    def remove(self, item_id):
+        return self.items.pop(item_id)
+
+    def has_item(self, item_id):
+        return item_id in self.items
+
+    def __iter__(self):
+        for k in self.items:
+            yield self.items[k]
