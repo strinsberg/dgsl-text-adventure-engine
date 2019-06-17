@@ -25,6 +25,11 @@ docs:
 	make clean; \
 	make html
 
+# Run all
+.PHONY: all
+all: coverage docs lint
+
+
 # Add and fix docstrings
 .PHONY: pyment
 pyment:
