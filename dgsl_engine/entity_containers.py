@@ -24,7 +24,7 @@ class Container(entity_base.Entity):
         Raises:
             ContainerError: If the item is a Player or a Room.
         """
-        return add_to_container(item, self)
+        return _add_to_container(item, self)
 
 
 class Room(Container):
@@ -39,7 +39,7 @@ class Room(Container):
         Raises:
             ContainerError: If  the entity is a Room.
         """
-        return add_to_room(item, self)
+        return _add_to_room(item, self)
 
 
 class Player(Container):
@@ -54,22 +54,22 @@ class ContainerError(Exception):
 
 
 @singledispatch
-def add_to_container(item, container):
+def _add_to_container(item, container):
     return container.inventory.add(item)
 
 
-@add_to_container.register(Room)
-@add_to_container.register(Player)
+@_add_to_container.register(Room)
+@_add_to_container.register(Player)
 def _(item, container):
     raise ContainerError("Error: Can't add " + str(type(item)) + " to a " +
                          str(type(container)))
 
 
 @singledispatch
-def add_to_room(item, room):
+def _add_to_room(item, room):
     return room.inventory.add(item)
 
 
-@add_to_room.register(Room)
+@_add_to_room.register(Room)
 def _(item, room):
     raise ContainerError("Error: Can't add a Room to a Room")
