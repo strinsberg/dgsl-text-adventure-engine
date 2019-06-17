@@ -9,20 +9,35 @@ class TestContainer(unittest.TestCase):
     def setUp(self):
         self.container = container.Container(ID)
         self.entity = entity.Entity(ID)
-        self.container.inventory.add(self.entity)
+        self.room = container.Room(ID)
+        self.player = container.Player(ID)
 
     def test_init(self):
+        self.container.inventory.add(self.entity)
         self.assertTrue(self.container.inventory.has_item(ID))
+
+    def test_add_entity(self):
+        self.assertTrue(self.container.add(self.entity))
+
+    def test_add_throws(self):
+        with self.assertRaises(container.ContainerError):
+            self.container.add(self.player)
+        with self.assertRaises(container.ContainerError):
+            self.container.add(self.room)
 
 
 class TestRoom(unittest.TestCase):
-    pass
-    # Not really anythong to test yet
+    def setUp(self):
+        self.container = container.Room(ID)
+        self.room = container.Room(ID)
+
+    def test_add_throws(self):
+        with self.assertRaises(container.ContainerError):
+            self.container.add(self.room)
 
 
 class TestPlayer(unittest.TestCase):
     pass
-    # Not really anything to test yet
 
 
 if __name__ == '__main__':

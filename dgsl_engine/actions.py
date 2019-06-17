@@ -1,9 +1,15 @@
-class Action:
-    pass
+from abc import ABC, abstractmethod
+
+
+class Action(ABC):
+    @abstractmethod
+    def execute(self, player):
+        pass
 
 
 class Get(Action):
-    pass
+    def execute(self, player):
+        pass
 
 
 class Use(Action):
