@@ -7,7 +7,7 @@ class MoveEntity(event_base.Event):
         self.destination = None
 
     def execute(self, affected):
-        # here = affected.owner
-        # here.inventory.remove(affected.spec.id)
-        # self.destination.inventory.add(affected)
-        pass
+        here = affected.owner
+        if self.destination.add(affected):
+            here.inventory.remove(affected.spec.id)
+        return super(MoveEntity, self).execute(affected)

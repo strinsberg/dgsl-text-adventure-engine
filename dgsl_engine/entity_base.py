@@ -11,12 +11,14 @@ class Entity:
         states (EntityStates): The entities various states.
         events (EntityEvents): Events attached to the entity that can be
             triggered by player interactions.
+        owner (Container): The container that the entity is in.
     """
 
     def __init__(self, obj_id):
         self.spec = EntitySpec(obj_id)
         self.states = EntityStates()
         self.events = EntityEvents()
+        self.owner = None
 
     def describe(self):
         """Gives a description of the entity.

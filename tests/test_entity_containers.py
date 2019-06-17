@@ -18,6 +18,7 @@ class TestContainer(unittest.TestCase):
 
     def test_add_entity(self):
         self.assertTrue(self.container.add(self.entity))
+        self.assertEqual(self.entity.owner, self.container)
 
     def test_add_throws(self):
         with self.assertRaises(container.ContainerError):
@@ -34,6 +35,7 @@ class TestRoom(unittest.TestCase):
     def test_add_entity(self):
         ent = entity.Entity(ID)
         self.assertTrue(self.container.add(ent))
+        self.assertEqual(ent.owner, self.container)
 
     def test_add_throws(self):
         with self.assertRaises(container.ContainerError):

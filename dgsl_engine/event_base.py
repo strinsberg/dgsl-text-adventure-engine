@@ -29,15 +29,15 @@ class Event:
         """
         # All the base version does is notify it's observers
         # You have to subclass or decorate it
-        pass
+        return ""
 
 
 class EventDecorator(Event, ABC):
-    def __init__(self, obj_id, event):
+    def __init__(self, obj_id, event):  # pragma: no cover
         Event.__init__(self, obj_id)
         self.event = event
         ABC.__init__(self)  # is this the right order?
 
     @abstractmethod
-    def execute(self, affected):
+    def execute(self, affected):  # pragma: no cover
         pass

@@ -28,7 +28,10 @@ class Container(entity_base.Entity):
         Raises:
             ContainerError: If the item is a Player or a Room.
         """
-        return _add_to_container(item, self)
+        if _add_to_container(item, self):
+            item.owner = self
+            return True
+        return False
 
 
 class Room(Container):
@@ -43,7 +46,10 @@ class Room(Container):
         Raises:
             ContainerError: If  the entity is a Room.
         """
-        return _add_to_room(item, self)
+        if _add_to_room(item, self):
+            item.owner = self
+            return True
+        return False
 
 
 class Player(Container):
