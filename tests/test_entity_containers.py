@@ -31,6 +31,10 @@ class TestRoom(unittest.TestCase):
         self.container = container.Room(ID)
         self.room = container.Room(ID)
 
+    def test_add_entity(self):
+        ent = entity.Entity(ID)
+        self.assertTrue(self.container.add(ent))
+
     def test_add_throws(self):
         with self.assertRaises(container.ContainerError):
             self.container.add(self.room)
@@ -38,6 +42,7 @@ class TestRoom(unittest.TestCase):
 
 class TestPlayer(unittest.TestCase):
     pass
+    # Will add tests when more functionality is added to the player
 
 
 if __name__ == '__main__':

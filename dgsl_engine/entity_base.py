@@ -164,10 +164,8 @@ class Inventory:
             item_id (str): The id of the entity to remove.
         
         Returns:
-            Entity: The Entity with the given id.
-        
-        Raises:
-            KeyError: If there is no entity with item_id
+            Entity: The Entity with the given id. None if the Entity is
+            not in the inventory.
         """
         return self.items.pop(item_id, None)
 

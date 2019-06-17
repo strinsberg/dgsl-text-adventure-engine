@@ -1,3 +1,7 @@
+"""
+Classes of Entities that can contain other entities and related
+functions and exceptions.
+"""
 from functools import singledispatch
 from . import entity_base
 
@@ -50,6 +54,7 @@ class Player(Container):
 
 
 class ContainerError(Exception):
+    """Exception for adding the wrong item type to a container."""
     pass
 
 
