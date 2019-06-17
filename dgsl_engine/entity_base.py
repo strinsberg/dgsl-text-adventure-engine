@@ -169,7 +169,7 @@ class Inventory:
         Raises:
             KeyError: If there is no entity with item_id
         """
-        return self.items.pop(item_id)
+        return self.items.pop(item_id, None)
 
     def has_item(self, item_id):
         """Checks to see if an Entity with the given id is in the inventory.
