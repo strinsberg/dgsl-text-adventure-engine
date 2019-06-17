@@ -1,6 +1,15 @@
 dgsl_engine
 ===========
   
+Game
+-------------------
+
+.. automodule:: dgsl_engine.game
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+
 Entity Base
 -------------------
 
@@ -8,6 +17,16 @@ Entity Base
    :members:
    :undoc-members:
    :show-inheritance:
+ 
+ 
+Entity Containers
+-------------------
+
+.. automodule:: dgsl_engine.entity_containers
+   :members:
+   :undoc-members:
+   :show-inheritance:
+ 
 
 Event Base
 ------------------
@@ -16,4 +35,5 @@ Event Base
    :members:
    :undoc-members:
    :show-inheritance:
+
 

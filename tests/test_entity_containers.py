@@ -12,13 +12,16 @@ class TestContainer(unittest.TestCase):
         self.room = container.Room(ID)
         self.player = container.Player(ID)
 
-    def test_init(self):
-        self.container.inventory.add(self.entity)
-        self.assertTrue(self.container.inventory.has_item(ID))
-
     def test_add_entity(self):
         self.assertTrue(self.container.add(self.entity))
         self.assertEqual(self.entity.owner, self.container)
+
+    def test_iter(self):
+        self.container.add(self.entity)
+        result = ""
+        for item in self.container:
+            result += item.spec.id
+        self.assertEqual(result, ID)
 
     def test_add_throws(self):
         with self.assertRaises(container.ContainerError):

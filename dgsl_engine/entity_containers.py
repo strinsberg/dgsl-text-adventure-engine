@@ -19,6 +19,9 @@ class Container(entity_base.Entity):
         entity_base.Entity.__init__(self, obj_id)
         self.inventory = entity_base.Inventory()
 
+    def __iter__(self):
+        return self.inventory.__iter__()
+
     def add(self, item):
         """Add an item to the container.
         
