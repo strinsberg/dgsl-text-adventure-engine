@@ -11,6 +11,17 @@ class Game:
         User specifies actions for the player to take and the result of
         those actions is passed to out (default print).
         """
+        # begin game
+        # loop
+        # get input
+        # parse input
+        # collect entities
+        # take action
+        # display the result
+        # if player dead or quit goto end
+        # goto loop
+        # end
+        # cleanup and say goodbye
         pass
 
     def _resolve_action(self, command):

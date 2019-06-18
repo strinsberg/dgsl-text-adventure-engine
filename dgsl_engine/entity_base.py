@@ -31,6 +31,10 @@ class Entity:
         """
         return self.spec.description
 
+    def accept(self, visitor):
+        """Accepts the visitor and calls the appropriate visit."""
+        visitor.visit_entity(self)
+
 
 class EntitySpec:
     """The textual details of an Entity.

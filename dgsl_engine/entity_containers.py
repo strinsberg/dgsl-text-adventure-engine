@@ -36,6 +36,9 @@ class Container(entity_base.Entity):
             return True
         return False
 
+    def accept(self, visitor):
+        visitor.visit_container(self)
+
 
 class Room(Container):
     """A location in a World that can hold players."""
