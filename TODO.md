@@ -3,7 +3,6 @@ TODOs
 
 * Construct Game object /main loop
 * Add simple Parser
-* Add an message decorator for single events
 * Add GameBuilder that can read the .world json files
 * Start putting together some new UML diagrams. Do them up with python in mind.
 * Finish setup.py and learn about setup tools and what it can do for you

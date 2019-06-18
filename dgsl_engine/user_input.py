@@ -1,17 +1,11 @@
 class Parser:
-    def __init__(self):
-        pass
-
     def parse(self, user_input):
-        pass
+        words = user_input.strip().split()
+        return {'verb': words[0], 'subject': " ".join(words[1:])}
 
 
-class Resolver:
-    def __init__(self):
-        pass
-
-    def resolve(self, parsed_command):
-        pass
+class Collector:
+    pass
 
 
 class Menu:
