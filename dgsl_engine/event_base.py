@@ -33,9 +33,10 @@ class Event:
 
 
 class EventDecorator(Event, ABC):
-    def __init__(self, obj_id, event):  # pragma: no cover
-        Event.__init__(self, obj_id)
+    def __init__(self, event):  # pragma: no cover
+        Event.__init__(self, event.id)
         self.event = event
+        self.id = event.id
         ABC.__init__(self)  # is this the right order?
 
     @abstractmethod

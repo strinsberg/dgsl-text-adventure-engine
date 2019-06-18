@@ -1,4 +1,5 @@
 from . import event_base
+from . import actions
 
 
 class MoveEntity(event_base.Event):
@@ -7,7 +8,5 @@ class MoveEntity(event_base.Event):
         self.destination = None
 
     def execute(self, affected):
-        here = affected.owner
-        if self.destination.add(affected):
-            here.inventory.remove(affected.spec.id)
+        actions.move(affected, self.destination)
         return super(MoveEntity, self).execute(affected)
