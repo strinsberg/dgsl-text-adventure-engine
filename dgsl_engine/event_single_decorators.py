@@ -9,5 +9,5 @@ class MessageDecorator(event_base.EventDecorator):
     def execute(self, affected):
         result = self.event.execute(affected)
         if result != "":
-            self.message + '\n' + result
+            self.message = result + '\n' + self.message
         return self.message
