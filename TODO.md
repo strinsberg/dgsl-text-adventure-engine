@@ -9,7 +9,7 @@ TODOs
 * Start putting together some new UML diagrams. Do them up with python in mind.
 * Finish setup.py and learn about setup tools and what it can do for you
 * See if you can figure out how to get CI working with gitlab
-* figure out how to setup logging and a debug mode to allow displaying certain information without having to put print statements everywhere. As well as just some debugging info that can be turned off with a global constant like DEBUG.
+* figure out how to setup logging and a debug mode to allow displaying certain information without having to put print statements everywhere. As well as just some debugging info that can be turned off with a global constant like DEBUG. Even try to learn how to use the debugger to better debug instead of putting print statements everywhere. Logs can be for things like parser info and other things it will be nice to see when you are working, debugger can be for problems these won't catch.
 * Once the initial game is running and everything has test, is linted, is documented fully, and has complete design documentation create an initial release (for yourself only). Branch from this point on and add features one at a time with appropriate change_log entries as you merge in changes. Do not move forward until you are fully setup with all the software engineering tools. Once this is done you can just add things one by one and slowly build a full featured working engine.
 
 Ideas
