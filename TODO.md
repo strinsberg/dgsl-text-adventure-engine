@@ -1,12 +1,16 @@
 TODOs
 =====
 
-* Construct Game object /main loop
-* Make get not take things the player already has
+* Add unit tests to all classes
 * Add GameBuilder that can read the .world json files
+* create a simple test world that has everything that is already implemented and eventually add to it until it contains one of every type of entity and event. This will be the testing ground for the Game builder and for initial play testing as things get working.
+* Make sure to fully document everything as well
+* Make get not take things the player already has
 * Start putting together some new UML diagrams. Do them up with python in mind.
 * Finish setup.py and learn about setup tools and what it can do for you
 * See if you can figure out how to get CI working with gitlab
+* figure out how to setup logging and a debug mode to allow displaying certain information without having to put print statements everywhere. As well as just some debugging info that can be turned off with a global constant like DEBUG.
+* Once the initial game is running and everything has test, is linted, is documented fully, and has complete design documentation create an initial release (for yourself only). Branch from this point on and add features one at a time with appropriate change_log entries as you merge in changes. Do not move forward until you are fully setup with all the software engineering tools. Once this is done you can just add things one by one and slowly build a full featured working engine.
 
 Ideas
 =====
@@ -20,7 +24,7 @@ Game loop stuff
 * Parser returns a dict that always has 'verb' and a list of 'subjects'
 * *Later* the dict from parser can go to a menu that will ask which subject
 * verb and subject will be passed to a function that deals with the action and returns the resulting string. This is so that it can be adjusted to work internally however it wants. Should be a Game method.
-* *later* upgrade the code inside the above method to work with a factory and action obejcets when it gets more complex.
+* *later* upgrade the code inside the above method to work with a factory and action objects when it gets more complex.
 * The results from the action will be output to the screen
 * If the player is dead the game will end
 
@@ -28,10 +32,10 @@ Game loop stuff
 Events
 ------
 
-* I wonder if in the future it would be possible to decide what in a room is affected by an action? Say the player does something that is not directly to an object, but that object wants to respond to that action anyway? Could they observe the player when they enter the room? and then unobserve when they leave again? Then the player could have events in their own events object under the games verbs and they could do nothing but be observable. I suppose that then quests and other things would be able to subscribe to the player and be activated when the player did things. It would have to be a different kind of observer pair than the events have I think. Some information might need to be passed to notify (like the verb). maybe there could even be different ones for different things, like an entity observer and a quest observer. Also perhaps even other events can subscribe to these events easily. That way they could be triggered on a specific player action.
+* I wonder if in the future it would be possible to decide what in a room is affected by an action? Say the player does something that is not directly to an object, but that object wants to respond to that action anyway? Could they observe the player when they enter the room? and then un-observe when they leave again? Then the player could have events in their own events object under the games verbs and they could do nothing but be observable. I suppose that then quests and other things would be able to subscribe to the player and be activated when the player did things. It would have to be a different kind of observer pair than the events have I think. Some information might need to be passed to notify (like the verb). maybe there could even be different ones for different things, like an entity observer and a quest observer. Also perhaps even other events can subscribe to these events easily. That way they could be triggered on a specific player action.
 * There could even be one that was for all player actions. Then the entity and quest notify could just send info rather than having the events observed. The entity could just be told what verb was used and execute the associated event if it has it. If the entity has many events but only one that they want to observe the player then they can just have that event registered directly. This would be more flexible.
-* Another thing is how actions that would affect every entity in the room would work? Maybe they could just get the contents of the room they are in and do something to all of them. Could even use a visitor to get certain kinds of things based on the type of event it is. I imagine this would be the best way to do it. Probably even instead of useing the entity of the event the affected of the event could be used to get all things in the room.
-* it might be necessary to have a way to register with the player for all actions. Or there could be a way to have a special event tag that would be run after the players action by the game. Say verbs that end with _turnend. Then before looking for input, or even before showing the results each object in the players current room could be searched for events that have the right verb and they could all be run one at a time and their affects applied to the player. I think for starters it would be esiest to have them subscribe directly to player events.
+* Another thing is how actions that would affect every entity in the room would work? Maybe they could just get the contents of the room they are in and do something to all of them. Could even use a visitor to get certain kinds of things based on the type of event it is. I imagine this would be the best way to do it. Probably even instead of using the entity of the event the affected of the event could be used to get all things in the room.
+* it might be necessary to have a way to register with the player for all actions. Or there could be a way to have a special event tag that would be run after the players action by the game. Say hidden verbs that end with _turnend. Then before looking for input, or even before showing the results each object in the players current room could be searched for events that have the right verb and they could all be run one at a time and their affects applied to the player. I think for starters it would be esiest to have them subscribe directly to player events.
 * Make kill a toggleHidden instead and it can work just like toggle active but instead work for hidden items. So that things can be hidden but revealed by player actions, or available and then hidden. Using the one time only attribute and adding a message about death could be used if someone dies. Like the player being hidden.
 
 
@@ -49,3 +53,9 @@ Environment
 Conditions
 ----------
 * Should all accept more than one answer if desired. So a question can have multiple right answers or has_item can check for having more than one item (like all peices of a key). Some environments could require protection from more than one thing. It will just allow for more flexibility.
+
+Custom verbs
+------------
+* custom verbs should be allowed and probably extend the grammar in some way. They may not have the same full featured functionality, but it would be fun.
+* finding a way to have similar verbs work the same would also be ideal.
+* some way to distinguish hidden verbs and such so they don't get added to the game. perhaps with a prefix or ending. That way they can be available to the game, but not accesible by the player, unless perhaps in debug mode.
