@@ -1,4 +1,6 @@
-import dgsl_engine.entity
+if __name__ == '__main__':
+    import dgsl_engine.game as game
+    import dgsl_engine.user_input as user_input
 
-entity = dgsl_engine.entity.Entity("1234")
-print(entity.spec.id)
+    parser = user_input.Parser()
+    game.Game(parser).run()

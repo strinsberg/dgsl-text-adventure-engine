@@ -41,7 +41,7 @@ class Container(entity_base.Entity):
 
 
 class Room(Container):
-    """A location in a World that can hold players."""
+    """A location in a World that can hold any entity except other rooms."""
 
     def __init__(self, obj_id):
         Container.__init__(self, obj_id)
@@ -59,7 +59,11 @@ class Room(Container):
 
 
 class Player(Container):
-    """The player character."""
+    """The player character.
+    
+    Cannot contain Rooms.
+
+    """
 
     def __init__(self, obj_id):
         Container.__init__(self, obj_id)
