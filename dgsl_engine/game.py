@@ -1,3 +1,7 @@
+from . import user_input
+from . import commands
+
+
 class Game:
     def __init__(self, world, parser, resolver, out=print, inp=input):
         self._in = inp
@@ -17,10 +21,16 @@ class Game:
             raw_input = self._in("\n> ")
             self._out("\n----------------------------------------------------")
             parsed_input = self.parser.parse(raw_input)
-            result = self.resolver.resovle_input(parsed_input, self.world)
+            if parsed_input['code'] == user_input.ParseCodes.COMMAND:
+                result, status = commands.execute_command(
+                    parsed_input['verb'], parsed_input['obj'], self.world)
+            else:
+                result = self.resolver.resovle_input(parsed_input, self.world)
+                status = True
+
             self._out(result)
 
-            if self._game_over():
+            if self._game_over(status):
                 break
 
         self._cleanup()
@@ -31,8 +41,10 @@ class Game:
     def _cleanup(self):
         self._out("Thanks for playing")
 
-    def _game_over(self):
-        return self.world.player.states.hidden
+    def _game_over(self, status):
+        if not status or self.world.player.states.hidden:
+            return True
+        return False
 
 
 class World:
