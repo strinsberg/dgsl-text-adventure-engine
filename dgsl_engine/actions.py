@@ -1,14 +1,13 @@
-def take_action(parsed_command, world):
-    subject = parsed_command['subject']
-    verb = parsed_command['verb']
+def take_action(verb, obj, other, world):
+    # will eventually have to deal with other. Might just pass it to the action.
     if verb == 'get':
-        message = _get(world.player, subject)
+        message = _get(world.player, obj)
     elif verb == 'use':
-        message = _use(world.player, subject)
+        message = _use(world.player, obj)
 
-    if subject.events.has_event(verb):
-        print(subject.events.execute(verb, subject))
-        message += "\n" + subject.events.execute(verb, subject)
+    if obj.events.has_event(verb):
+        print(obj.events.execute(verb, obj))
+        message += "\n" + obj.events.execute(verb, obj)
     return message
 
 

@@ -1,4 +1,6 @@
 import enum
+from . import actions
+from . import commands
 
 
 class ParseCodes(enum.Enum):
@@ -14,7 +16,8 @@ class Parser:
     def parse(self, user_input):
         words = user_input.strip().split()
         verb = words[0]
-        noun = " ".join(words[1:])
+        obj = " ".join(words[1:])
+        other = None
         code = None
         message = None
 
@@ -27,25 +30,61 @@ class Parser:
 
         return {
             'verb': verb,
-            'subject': noun,
+            'object': obj,
+            'other': other,
             'code': code,
             'message': message
         }
 
 
 class ActionResolver:
-    pass
+    def __init__(self, entity_collector):
+        self.collector = entity_collector
+
+    def resolve_input(self, parsed_input, world):
+        if parsed_input['code'] == ParseCodes.COMMAND:
+            return commands.execute_command(parsed_input['verb'],
+                                            parsed_input['object'])
+
+        if parsed_input['code'] is not None:
+            return parsed_input['message']
+
+        entities = self.collector.collect(parsed_input['object'],
+                                          parsed_input['other'],
+                                          world.player.owner)
+        size = len(entities)
+        if size > 1:
+            menu = Menu(entities)
+            idx = menu.ask()
+            if idx != size:
+                entity = entities[idx]
+            else:
+                return "Cancelled"
+        if size == 1:
+            entity = entities[0]
+        elif size == 0:
+            pass
+
+        # Eventually add the other collecting code
+        return actions.take_action(parsed_input['verb'], entity, None, world)
 
 
 class Collector:
     """Visitor that collects all items that match with player input."""
 
-    def __init__(self, parsed):
-        self.parsed = parsed
+    def __init__(self):
+        self.obj = None
+        self.other = None
         self.entities = []
 
+    def collect(self, obj, other, entity):
+        self.obj = obj
+        self.other = other
+        entity.accept(self)
+        return self.entities
+
     def visit_entity(self, entity):
-        if entity.spec.name.find(self.parsed['subject']) > -1:
+        if entity.spec.name.find(self.obj) > -1:
             self.entities.append(entity)
 
     def visit_container(self, container):
@@ -55,4 +94,8 @@ class Collector:
 
 
 class Menu:
-    pass
+    def __init__(self, choices):
+        self.choices = choices
+
+    def ask(self):
+        return 0

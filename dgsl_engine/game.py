@@ -17,7 +17,7 @@ class Game:
             raw_input = self._in("\n> ")
             self._out("\n----------------------------------------------------")
             parsed_input = self.parser.parse(raw_input)
-            result = self.resolver.resovle_input(parsed_input)
+            result = self.resolver.resovle_input(parsed_input, self.world)
             self._out(result)
 
             if self._game_over():
