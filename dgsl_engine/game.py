@@ -1,14 +1,10 @@
-from . import actions
-from . import user_input
-from . import entity_containers as containers
-
-
 class Game:
-    def __init__(self, parser, out=print, inp=input):
+    def __init__(self, world, parser, resolver, out=print, inp=input):
         self._in = inp
         self._out = out
         self.parser = parser
-        self.world = None
+        self.world = world
+        self.resolver = resolver
         self._setup()
 
     def run(self):
@@ -17,48 +13,25 @@ class Game:
         User specifies actions for the player to take and the result of
         those actions is passed to out (default print).
         """
-        self.world.player.spec.name = self._opening()
-
         while True:
             raw_input = self._in("\n> ")
             self._out("\n----------------------------------------------------")
             parsed_input = self.parser.parse(raw_input)
+            result = self.resolver.resovle_input(parsed_input)
+            self._out(result)
 
-            if parsed_input['code'] is not None:
-                done = self._handle_code(parsed_input)
-            else:
-                self._out(actions.take_action(parsed_input, self.world))
-
-            if self._finished() or done:
-                self._out("Thanks for playing", '\n')
-                # add cleanup if necessary
+            if self._game_over():
                 break
 
+        self._cleanup()
+
     def _setup(self):
-        # Eventually replace with some code that builds things
-        # parser can be given grammer if that is necessary
-        self.world = World()
-        self.world.player = containers.Player("Bogus ID")
+        pass
 
-    def _opening(self):
-        self._out(self.world.name)
-        self._out("Version:", self.world.version, '\n')
-        self._out(self.world.welcome, '\n')
-        name = self._in("What is your name? ")
-        self._out('\n')
-        self._out("Welcome", self.world.player_title, name, '\n')
-        self._out(self.world.opening, '\n')
-        return name
+    def _cleanup(self):
+        self._out("Thanks for playing")
 
-    def _handle_code(self, parsed):
-        if parsed['code'] == user_input.ParseCodes.BAD_VERB:
-            self._out(parsed['message'])
-        elif parsed['code'] == user_input.ParseCodes.COMMAND:
-            return True
-
-        return False
-
-    def _finished(self):
+    def _game_over(self):
         return self.world.player.states.hidden
 
 

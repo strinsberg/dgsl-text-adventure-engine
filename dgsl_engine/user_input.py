@@ -33,6 +33,10 @@ class Parser:
         }
 
 
+class ActionResolver:
+    pass
+
+
 class Collector:
     """Visitor that collects all items that match with player input."""
 
