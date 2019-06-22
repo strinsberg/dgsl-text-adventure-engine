@@ -11,7 +11,7 @@ class TestParser(unittest.TestCase):
     def test_parse(self):
         parsed = self.parser.parse(INPUT)
         self.assertEqual(parsed['verb'], "get")
-        self.assertEqual(parsed['subject'], 'chocolate cake')
+        self.assertEqual(parsed['object'], 'chocolate cake')
 
 
 # Main #################################################################
