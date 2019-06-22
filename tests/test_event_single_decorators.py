@@ -6,6 +6,16 @@ ID = "m3f208"
 MESSAGE = "It's been a long time old friend"
 NOTE = "You shouldn't trust this person!"
 
+# Mocks ################################################################
+
+
+class MockVisitor:
+    def visit_event(self, event):
+        self.result = event.id
+
+
+# Tests ################################################################
+
 
 class TestMessage(unittest.TestCase):
     def setUp(self):
@@ -21,6 +31,11 @@ class TestMessage(unittest.TestCase):
     def test_message_with_more(self):
         message = decorators.MessageDecorator(self.base_with_message, NOTE)
         self.assertEqual(message.execute(None), MESSAGE + '\n' + NOTE)
+
+    def test_visit(self):
+        visitor = MockVisitor()
+        self.base_with_message.accept(visitor)
+        self.assertEqual(visitor.result, ID)
 
 
 # Main #################################################################

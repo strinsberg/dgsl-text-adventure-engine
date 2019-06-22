@@ -13,4 +13,5 @@ class MessageDecorator(event_base.EventDecorator):
         return self.message
 
     def accept(self, visitor):
+        # Probably should do something for the decorator too at some point?
         self.event.accept(visitor)

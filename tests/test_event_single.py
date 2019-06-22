@@ -9,6 +9,16 @@ ID3 = "9876"
 ID4 = "5432"
 ID5 = "entity"
 
+# Mocks ################################################################
+
+
+class MockVisitor:
+    def visit_move(self, move):
+        self.result = move.id
+
+
+# Tests ################################################################
+
 
 class TestMoveEntity(unittest.TestCase):
     def setUp(self):
@@ -35,6 +45,11 @@ class TestMoveEntity(unittest.TestCase):
             self.move.execute(self.player)
         self.assertTrue(self.room.inventory.has_item(ID3))
         self.assertFalse(self.container.inventory.has_item(ID3))
+
+    def test_visit(self):
+        visitor = MockVisitor()
+        self.move.accept(visitor)
+        self.assertEqual(visitor.result, ID4)
 
 
 # Main #################################################################
