@@ -11,3 +11,6 @@ class MessageDecorator(event_base.EventDecorator):
         if result != "":
             self.message = result + '\n' + self.message
         return self.message
+
+    def accept(self, visitor):
+        self.event.accept(visitor)

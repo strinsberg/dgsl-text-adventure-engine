@@ -31,6 +31,9 @@ class Event:
         # You have to subclass or decorate it
         return ""
 
+    def accept(self, visitor):
+        visitor.visit_event(self)
+
 
 class EventDecorator(Event, ABC):
     def __init__(self, event):  # pragma: no cover
@@ -41,4 +44,8 @@ class EventDecorator(Event, ABC):
 
     @abstractmethod
     def execute(self, affected):  # pragma: no cover
+        pass
+
+    @abstractmethod
+    def accept(self, visitor):  # pragma: no cover
         pass

@@ -10,3 +10,6 @@ class MoveEntity(event_base.Event):
     def execute(self, affected):
         actions.move(affected, self.destination)
         return super(MoveEntity, self).execute(affected)
+
+    def accept(self, visitor):
+        visitor.visit_move(self)
