@@ -21,3 +21,9 @@ class TestMessage(unittest.TestCase):
     def test_message_with_more(self):
         message = decorators.MessageDecorator(self.base_with_message, NOTE)
         self.assertEqual(message.execute(None), MESSAGE + '\n' + NOTE)
+
+
+# Main #################################################################
+
+if __name__ == '__main__':
+    unittest.main()

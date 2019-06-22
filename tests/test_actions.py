@@ -16,10 +16,9 @@ CONT_NAME = "an old wooden box"
 MESSAGE = "You feel cursed!"
 
 
-def parse(verb, subject):
-    return {'verb': verb, 'subject': subject}
-
-
+# Eventually this should be split up to test each action seperately
+# Also eventually updated with factories so that it is easy to get certain
+# entities and events without all this typing.
 class TestActions(unittest.TestCase):
     def setUp(self):
         self.world = game.World()
@@ -40,27 +39,33 @@ class TestActions(unittest.TestCase):
         self.world.entities[ROOM_ID] = self.room
 
     def test_get_obtainable(self):
-        parsed = parse('get', self.container)
-        result = actions.take_action(parsed, self.world)
+        result = actions._take_action('get', self.container, None, self.world)
         self.assertFalse(self.room.inventory.has_item(CONT_ID))
         self.assertTrue(self.world.player.inventory.has_item(CONT_ID))
         self.assertEqual(result, "You take " + CONT_NAME)
 
     def test_get_not_obtainable(self):
         self.container.states.obtainable = False
-        parsed = parse('get', self.container)
-        result = actions.take_action(parsed, self.world)
+        result = actions._take_action('get', self.container, None, self.world)
         self.assertTrue(self.room.inventory.has_item(CONT_ID))
         self.assertFalse(self.world.player.inventory.has_item(CONT_ID))
         self.assertEqual(result, "You can't take that")
 
     def test_use_ring_no_event(self):
-        parsed = parse('use', self.entity)
-        result = actions.take_action(parsed, self.world)
+        result = actions._take_action('use', self.entity, None, self.world)
         self.assertEqual(result, "You can't use that")
 
     def test_use_ring_has_event(self):
         self.entity.events.add('use', self.event)
-        parsed = parse('use', self.entity)
-        result = actions.take_action(parsed, self.world)
+        result = actions._take_action('use', self.entity, None, self.world)
         self.assertEqual(result, "You use {}\n{}".format(ENT_NAME, MESSAGE))
+
+
+class TestActionResolver(unittest.TestCase):
+    pass
+
+
+# Main #################################################################
+
+if __name__ == '__main__':
+    unittest.main()

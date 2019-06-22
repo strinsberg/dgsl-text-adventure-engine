@@ -12,3 +12,9 @@ class TestParser(unittest.TestCase):
         parsed = self.parser.parse(INPUT)
         self.assertEqual(parsed['verb'], "get")
         self.assertEqual(parsed['subject'], 'chocolate cake')
+
+
+# Main #################################################################
+
+if __name__ == '__main__':
+    unittest.main()

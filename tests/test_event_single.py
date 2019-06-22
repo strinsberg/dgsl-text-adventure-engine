@@ -35,3 +35,9 @@ class TestMoveEntity(unittest.TestCase):
             self.move.execute(self.player)
         self.assertTrue(self.room.inventory.has_item(ID3))
         self.assertFalse(self.container.inventory.has_item(ID3))
+
+
+# Main #################################################################
+
+if __name__ == '__main__':
+    unittest.main()
