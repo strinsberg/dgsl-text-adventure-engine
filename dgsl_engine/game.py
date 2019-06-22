@@ -21,15 +21,15 @@ class Game:
             raw_input = self._in("\n> ")
             self._out("\n----------------------------------------------------")
             parsed_input = self.parser.parse(raw_input)
+
             if parsed_input['code'] == user_input.ParseCodes.COMMAND:
                 result, status = commands.execute_command(
-                    parsed_input['verb'], parsed_input['obj'], self.world)
+                    parsed_input['verb'], parsed_input['obj'], self)
             else:
                 result = self.resolver.resovle_input(parsed_input, self.world)
                 status = True
 
             self._out(result)
-
             if self._game_over(status):
                 break
 

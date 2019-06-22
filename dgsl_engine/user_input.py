@@ -42,10 +42,6 @@ class ActionResolver:
         self.collector = entity_collector
 
     def resolve_input(self, parsed_input, world):
-        if parsed_input['code'] == ParseCodes.COMMAND:
-            return commands.execute_command(parsed_input['verb'],
-                                            parsed_input['object'])
-
         if parsed_input['code'] is not None:
             return parsed_input['message']
 
@@ -60,6 +56,7 @@ class ActionResolver:
                 entity = entities[idx]
             else:
                 return "Cancelled"
+
         if size == 1:
             entity = entities[0]
         elif size == 0:
@@ -94,8 +91,14 @@ class Collector:
 
 
 class Menu:
-    def __init__(self, choices):
+    def __init__(self, choices, out=print):
         self.choices = choices
+        self._out = out
 
     def ask(self):
-        return 0
+        for i, choice in enumerate(self.choices):
+            self._out("{}. {}".format(str(i + 1), choice))
+        self._out(str("{}. {}".format(len(self.choices + 1), "Cancel")))
+
+        # Do some validation?
+        return int(input("Choice: "))
