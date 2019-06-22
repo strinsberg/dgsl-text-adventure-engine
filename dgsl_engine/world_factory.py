@@ -1,4 +1,6 @@
 from . import entity_containers as containers
+from . import entity_factory
+from . import event_factory
 
 
 class World:
@@ -17,28 +19,35 @@ class WorldFactory:
     def new(self, world_json):
         world = World()
 
+        self._create_objects(world, world_json)
+        self._connect_objects(world, world_json)
+        self._setup_world(world, world_json)
+
+        return world
+
+    def _create_objects(self, world, world_json):
         for obj in world_json['objects']:
             if obj['type'] == 'player':
                 world.player = containers.Player(obj['id'])
-                set_up_entity(world.player, obj)
+                entity_factory.setup_entity(world.player, obj)
             elif is_entity(obj):
-                world.entities[obj['id']] = new_entity(obj)
+                world.entities[obj['id']] = entity_factory.new_entity(obj)
             elif is_event(obj):
-                world.events[obj['id']] = new_event(obj)
+                world.events[obj['id']] = event_factory.new_event(obj)
 
+    def _connect_objects(self, world, world_json):
         for obj in world_json['objects']:
             if is_entity(obj):
                 self._connect_entity(obj)
             elif is_event(obj):
                 self._connect_event(obj)
 
+    def _setup_world(self, world, world_json):
         world.name = world_json['name']
         world.version = world_json['version']
         world.welcome = world_json['welcome']
-        world.opening = world_json['opening']
-        world.player_title = world_json['player_title']
-
-        return world
+        #world.opening = world_json['opening']
+        #world.player_title = world_json['player_title']
 
     def _connect_entity(self, obj):
         pass
@@ -48,24 +57,8 @@ class WorldFactory:
 
 
 def is_entity(obj):
-    return True
+    return obj['type'] in ['entity', 'container', 'room', 'player']
 
 
 def is_event(obj):
-    return True
-
-
-def new_entity(obj):
-    return {}
-
-
-def new_event(obj):
-    return {}
-
-
-def set_up_entity(entity, obj):
-    return {}
-
-
-def set_up_event(entity, obj):
-    return {}
+    return obj['type'] in ['inform', 'move', 'toggle', 'transfer']

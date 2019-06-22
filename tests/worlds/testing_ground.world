@@ -1,0 +1,151 @@
+{
+  "name": "testing ground",
+  "objects": {
+    "2371020d-f7dd-4a98-9a4c-865688377de8": {
+      "id": "2371020d-f7dd-4a98-9a4c-865688377de8",
+      "message": "barbara, clem, whinny, lars",
+      "name": "list",
+      "once": 0,
+      "subjects": [],
+      "type": "inform",
+      "verb": "use"
+    },
+    "53b33006-f98c-430e-aee0-53002171c8b8": {
+      "active": 1,
+      "description": "Best room on the ship",
+      "events": [],
+      "hidden": 0,
+      "id": "53b33006-f98c-430e-aee0-53002171c8b8",
+      "items": [
+        {
+          "id": "738915d8-78a0-4161-87fb-359ee1fcefbb",
+          "name": "common room door"
+        },
+        {
+          "id": "78ad7618-75fc-4294-98fa-139a0434c723",
+          "name": "ring"
+        }
+      ],
+      "name": "captains room",
+      "obtainable": 0,
+      "type": "room"
+    },
+    "644a31eb-8896-43c3-9ad1-5ab1ae5b210a": {
+      "destination": {
+        "id": "53b33006-f98c-430e-aee0-53002171c8b8",
+        "name": "captains room"
+      },
+      "id": "644a31eb-8896-43c3-9ad1-5ab1ae5b210a",
+      "name": "go",
+      "once": 0,
+      "subjects": [],
+      "type": "move",
+      "verb": "use"
+    },
+    "738915d8-78a0-4161-87fb-359ee1fcefbb": {
+      "active": 1,
+      "description": "a door leading to the common room",
+      "events": [
+        {
+          "id": "7c5bf066-e704-4292-9d71-42a25ae567fb",
+          "name": "go",
+          "verb": "use"
+        }
+      ],
+      "hidden": 0,
+      "id": "738915d8-78a0-4161-87fb-359ee1fcefbb",
+      "items": [],
+      "name": "common room door",
+      "obtainable": 0,
+      "type": "entity"
+    },
+    "78ad7618-75fc-4294-98fa-139a0434c723": {
+      "active": 1,
+      "description": "a beautiful gold ring",
+      "events": [],
+      "hidden": 0,
+      "id": "78ad7618-75fc-4294-98fa-139a0434c723",
+      "items": [],
+      "name": "ring",
+      "obtainable": 1,
+      "type": "entity"
+    },
+    "7c5bf066-e704-4292-9d71-42a25ae567fb": {
+      "destination": {
+        "id": "f467fcd3-13b0-40ea-aec4-42d95d823ddd",
+        "name": "common room"
+      },
+      "id": "7c5bf066-e704-4292-9d71-42a25ae567fb",
+      "name": "go",
+      "once": 0,
+      "subjects": [],
+      "type": "move",
+      "verb": "use"
+    },
+    "7d00885b-0142-4118-9c8b-016a11f599d4": {
+      "active": 1,
+      "description": "A list of crew members and such",
+      "events": [
+        {
+          "id": "2371020d-f7dd-4a98-9a4c-865688377de8",
+          "name": "list",
+          "verb": "use"
+        }
+      ],
+      "hidden": 0,
+      "id": "7d00885b-0142-4118-9c8b-016a11f599d4",
+      "items": [],
+      "name": "crew manifest",
+      "obtainable": 1,
+      "type": "entity"
+    },
+    "eace0959-3266-42ce-a70a-c8179c508d36": {
+      "active": 1,
+      "description": "a door leading to the captains room",
+      "events": [
+        {
+          "id": "644a31eb-8896-43c3-9ad1-5ab1ae5b210a",
+          "name": "go",
+          "verb": "use"
+        }
+      ],
+      "hidden": 0,
+      "id": "eace0959-3266-42ce-a70a-c8179c508d36",
+      "items": [],
+      "name": "captains room door",
+      "obtainable": 0,
+      "type": "entity"
+    },
+    "f467fcd3-13b0-40ea-aec4-42d95d823ddd": {
+      "active": 1,
+      "description": "a place for the crew to relax",
+      "events": [],
+      "hidden": 0,
+      "id": "f467fcd3-13b0-40ea-aec4-42d95d823ddd",
+      "items": [
+        {
+          "id": "eace0959-3266-42ce-a70a-c8179c508d36",
+          "name": "captains room door"
+        },
+        {
+          "id": "7d00885b-0142-4118-9c8b-016a11f599d4",
+          "name": "crew manifest"
+        }
+      ],
+      "name": "common room",
+      "obtainable": 0,
+      "type": "room"
+    },
+    "player": {
+      "description": "",
+      "id": "player",
+      "items": [],
+      "name": "player",
+      "start": null,
+      "type": "player"
+    }
+  },
+  "player": "player",
+  "version": "0.0",
+  "welcome": "fun is waiting!"
+}
