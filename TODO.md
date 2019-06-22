@@ -3,7 +3,6 @@ TODOs
 
 * Add unit tests to all classes
 * Add GameBuilder that can read the .world json files
-* create a simple test world that has everything that is already implemented and eventually add to it until it contains one of every type of entity and event. This will be the testing ground for the Game builder and for initial play testing as things get working.
 * Make sure to fully document everything as well
 * Make get not take things the player already has
 * Start putting together some new UML diagrams. Do them up with python in mind.
@@ -59,3 +58,9 @@ Custom verbs
 * custom verbs should be allowed and probably extend the grammar in some way. They may not have the same full featured functionality, but it would be fun.
 * finding a way to have similar verbs work the same would also be ideal.
 * some way to distinguish hidden verbs and such so they don't get added to the game. perhaps with a prefix or ending. That way they can be available to the game, but not accesible by the player, unless perhaps in debug mode.
+
+Testing
+-------
+* Had to do some branching with the menu class to get input without calling input. I really would like to try to figure out how to get input in a way that I can pass an iostream of some kind rather than what I have done. There is likely a way to do it I just need to look into it.
+* It would also be nice to replace the print with the same kind of thing so I can pass an iostream into it as well and not worry about a clumsy class to simulate output.
+* What I have done here is working nicely, but I feel it is more complicated than it needs to be.
