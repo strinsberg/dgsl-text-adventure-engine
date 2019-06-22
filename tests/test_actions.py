@@ -5,6 +5,9 @@ import dgsl_engine.entity_containers as containers
 import dgsl_engine.entity_base as entity
 import dgsl_engine.event_base as event_base
 import dgsl_engine.event_single_decorators as decorators
+import dgsl_engine.entity_factory as ent_fact
+
+# All these tests will need to be fixed as Action resolver is going to change
 
 ID = "223084"
 P_ID = "1234"
@@ -15,10 +18,73 @@ ENT_NAME = "a golden ring"
 CONT_NAME = "an old wooden box"
 MESSAGE = "You feel cursed!"
 
+OBJ = {
+    'id': '1234',
+    'type': 'entity',
+    'name': 'test object',
+    'description': 'a simple testing object',
+    'active': 1,
+    'obtainable': 1,
+    'hidden': 0
+}
 
-# Eventually this should be split up to test each action seperately
-# Also eventually updated with factories so that it is easy to get certain
-# entities and events without all this typing.
+# Mocks ################################################################
+
+
+class MockCollectorFactory:
+    def __init__(self, n):
+        self.n = n
+
+    def make(self, *args):
+        return self
+
+    def collect(self):
+        return [x for x in range(self.n)]
+
+
+class MockMenuFactory:
+    def __init__(self, n):
+        self.n = n
+
+    def make(self, *args):
+        return self
+
+    def ask(self, *args):
+        return self.n
+
+
+class MockWorld:
+    def __init__(self, *args):
+        fact = ent_fact.EntityFactory()
+        self.player = fact.new(OBJ)
+        self.player.owner = None
+
+
+# Tests ################################################################
+
+
+class TestActionResolver(unittest.TestCase):
+    def setUp(self):
+        self.collector_factory = MockCollectorFactory(0)
+        self.menu_factory = MockMenuFactory(0)
+        self.ent_fact = ent_fact.EntityFactory()
+        self.parsed_input = {
+            'verb': 'unused',
+            'object': self.ent_fact.new(OBJ),
+            'other': None
+        }
+
+    def test_resolve_input_no_results(self):
+        pass
+
+    def test_resolve_input_one_result(self):
+        pass
+
+    def test_resolve_input_many_results(self):
+        pass
+
+
+@unittest.skip
 class TestActions(unittest.TestCase):
     def setUp(self):
         self.world = game.World()
@@ -59,10 +125,6 @@ class TestActions(unittest.TestCase):
         self.entity.events.add('use', self.event)
         result = actions._take_action('use', self.entity, None, self.world)
         self.assertEqual(result, "You use {}\n{}".format(ENT_NAME, MESSAGE))
-
-
-class TestActionResolver(unittest.TestCase):
-    pass
 
 
 # Main #################################################################

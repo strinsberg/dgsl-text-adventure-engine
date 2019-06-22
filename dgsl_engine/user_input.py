@@ -4,7 +4,7 @@ from . import commands
 
 
 class ParseCodes(enum.Enum):
-    BAD_VERB = 1
+    ERROR = 1
     COMMAND = 2
 
 
@@ -25,7 +25,7 @@ class Parser:
             if verb in self.commands:
                 code = ParseCodes.COMMAND
             else:
-                code = ParseCodes.BAD_VERB
+                code = ParseCodes.ERROR
                 message = "You don't know how to " + verb
 
         return {

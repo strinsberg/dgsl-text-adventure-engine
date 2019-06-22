@@ -35,7 +35,7 @@ class TestParser(unittest.TestCase):
 
     def test_not_valid_verb(self):
         parsed = self.parser.parse('crump')
-        self.assertEqual(parsed['code'], user_input.ParseCodes.BAD_VERB)
+        self.assertEqual(parsed['code'], user_input.ParseCodes.ERROR)
         self.assertEqual(parsed['message'], "You don't know how to crump")
 
 
