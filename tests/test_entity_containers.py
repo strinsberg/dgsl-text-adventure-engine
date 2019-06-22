@@ -54,6 +54,11 @@ class TestRoom(unittest.TestCase):
         self.room = container.Room(ID)
         self.other_room = container.Room(ID)
 
+    def test_init(self):
+        self.assertTrue(self.room.states.active)
+        self.assertFalse(self.room.states.obtainable)
+        self.assertFalse(self.room.states.hidden)
+
     def test_add_entity(self):
         ent = entity.Entity(ID)
         self.assertTrue(self.room.add(ent))

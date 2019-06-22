@@ -45,6 +45,9 @@ class Room(Container):
 
     def __init__(self, obj_id):
         Container.__init__(self, obj_id)
+        self.states.active = True
+        self.states.obtainable = False
+        self.states.hidden = False
 
     def add(self, item):
         """See Container.add.
