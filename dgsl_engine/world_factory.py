@@ -16,6 +16,10 @@ class World:
 
 
 class WorldFactory:
+    def __init__(self):
+        self.entity_factory = entity_factory.EntityFactory()
+        self.event_factory = event_factory.EventFactory()
+
     def new(self, world_json):
         world = World()
 
@@ -27,13 +31,14 @@ class WorldFactory:
 
     def _create_objects(self, world, world_json):
         for obj in world_json['objects']:
-            if obj['type'] == 'player':
-                world.player = containers.Player(obj['id'])
-                entity_factory.setup_entity(world.player, obj)
-            elif is_entity(obj):
-                world.entities[obj['id']] = entity_factory.new_entity(obj)
+            if is_entity(obj):
+                entity = self.entity_factory.new(obj)
+                if obj['type'] != 'player':
+                    world.entities[obj['id']] = entity
+                else:
+                    world.player = entity
             elif is_event(obj):
-                world.events[obj['id']] = event_factory.new_event(obj)
+                world.events[obj['id']] = self.event_factory.new(obj)
 
     def _connect_objects(self, world, world_json):
         for obj in world_json['objects']:
