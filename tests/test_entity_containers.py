@@ -4,6 +4,16 @@ import dgsl_engine.entity_base as entity
 
 ID = "1234"
 
+# Mocks ################################################################
+
+
+class MockVisitor:
+    def visit_container(self, container):
+        self.result = container.spec.id
+
+
+# Tests ################################################################
+
 
 class TestContainer(unittest.TestCase):
     def setUp(self):
@@ -29,26 +39,42 @@ class TestContainer(unittest.TestCase):
         with self.assertRaises(container.ContainerError):
             self.container.add(self.room)
 
+    def test_add_already_there(self):
+        self.container.add(self.entity)
+        self.assertFalse(self.container.add(self.entity))
+
+    def test_visit(self):
+        visitor = MockVisitor()
+        self.container.accept(visitor)
+        self.assertEqual(visitor.result, ID)
+
 
 class TestRoom(unittest.TestCase):
     def setUp(self):
-        self.container = container.Room(ID)
         self.room = container.Room(ID)
+        self.other_room = container.Room(ID)
 
     def test_add_entity(self):
         ent = entity.Entity(ID)
-        self.assertTrue(self.container.add(ent))
-        self.assertEqual(ent.owner, self.container)
+        self.assertTrue(self.room.add(ent))
+        self.assertEqual(ent.owner, self.room)
 
     def test_add_throws(self):
         with self.assertRaises(container.ContainerError):
-            self.container.add(self.room)
+            self.room.add(self.other_room)
+
+    def test_add_already_there(self):
+        ent = entity.Entity(ID)
+        self.room.add(ent)
+        self.assertFalse(self.room.add(ent))
 
 
 class TestPlayer(unittest.TestCase):
     pass
     # Will add tests when more functionality is added to the player
 
+
+# Main #################################################################
 
 if __name__ == '__main__':
     unittest.main()

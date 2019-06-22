@@ -15,6 +15,11 @@ class MockEvent:
         return entity.describe()
 
 
+class MockVisitor:
+    def visit_entity(self, entity):
+        self.result = entity.spec.id
+
+
 # Entity tests ########################################################
 
 
@@ -32,6 +37,11 @@ class TestEntity(unittest.TestCase):
         description = "A nice entity"
         self.entity.spec.description = description
         self.assertEqual(self.entity.describe(), description)
+
+    def test_visit(self):
+        visitor = MockVisitor()
+        self.entity.accept(visitor)
+        self.assertEqual(visitor.result, ID)
 
 
 # Supporting classes ##################################################
