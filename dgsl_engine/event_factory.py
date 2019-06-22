@@ -1,2 +1,3 @@
-def new_event(obj):
-    return {}
+class EventFactory:
+    def new(self, obj):
+        pass
