@@ -42,10 +42,16 @@ class Menu:
         self.choices = choices
         self._out = out
 
-    def ask(self):
+    def ask(self, input_=None):
         for i, choice in enumerate(self.choices):
-            self._out("{}. {}".format(str(i + 1), choice))
-        self._out(str("{}. {}".format(len(self.choices + 1), "Cancel")))
+            self._out("{}. {}\n".format(str(i + 1), choice))
+        self._out(str("{}. {}\n".format(len(self.choices) + 1, "Cancel")))
 
         # Do some validation?
-        return int(input("Choice: "))
+        if input_ is None:
+            # Can replace all of this if I can figure out how to send input
+            # like with streams in c++. And remove the no cover.
+            result = int(input("Choice: "))  # pragma: no cover
+        else:
+            result = int(input_[0])
+        return result
