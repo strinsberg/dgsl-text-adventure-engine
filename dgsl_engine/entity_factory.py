@@ -1,6 +1,6 @@
-class EntityFactory:
-    def new(self, obj):
-        pass
+def new_entity(obj):
+    return {}
 
-    def setup(self, entity, obj):
-        pass
+
+def setup_entity(entity, obj):
+    pass
