@@ -7,12 +7,27 @@ def _extend(obj, extra):
     return d
 
 
-INFORM = {
-    'id': 'mf90ae',
-    'type': 'event',
+# Simple Events ########################################################
+
+EVENT = {
+    'id': 'rmr22',
     'once': 1,
-    'message': "Get it while it's hot",
+    'type': 'event',
+    'name': 'test event',
+    'subjects': [],
 }
+
+INFORM = _extend(
+    EVENT, {
+        'id': 'mf90ae',
+        'name': 'test event with message',
+        'message': "Get it while it's hot",
+        'subjects': [{
+            'id': EVENT['id']
+        }]
+    })
+
+# Entities #############################################################
 
 OBJ = {
     'description': 'a simple testing object',
@@ -53,5 +68,21 @@ ROOM = _extend(
             'id': ENTITY['id']
         }, {
             'id': CONTAINER['id']
+        }]
+    })
+
+# Events that need Entities ############################################
+
+MOVE = _extend(
+    EVENT, {
+        'id': 'ru490',
+        'type': 'move',
+        'name': 'test move event',
+        'destination': {
+            'id': ROOM['id']
+        },
+        'verb': 'use',
+        'subjects': [{
+            'id': INFORM['id']
         }]
     })

@@ -17,6 +17,7 @@ class Event:
         self.id = obj_id
         self.only_once = False
         self.is_done = False
+        self.subjects = []
 
     def execute(self, affected):
         """Execute the event on the affected entity and return the result.
@@ -33,6 +34,9 @@ class Event:
 
     def accept(self, visitor):
         visitor.visit_event(self)
+
+    def register(self, event):
+        self.subjects.append(event)
 
 
 class EventDecorator(Event, ABC):

@@ -1,14 +1,14 @@
 import unittest
 import dgsl_engine.visitors as visitor
-import dgsl_engine.entity_factory as ent_fact
-import dgsl_engine.event_factory as evt_fact
-import dgsl_engine.game as game
+from dgsl_engine.entity_factory import EntityFactory
+from dgsl_engine.event_factory import EventFactory
+from dgsl_engine.game import World
 from . import json_objects as objects
 
 
 class TestEntityCollector(unittest.TestCase):
     def setUp(self):
-        self.ent_fact = ent_fact.EntityFactory()
+        self.ent_fact = EntityFactory()
         self.room = self.ent_fact.new(objects.ROOM)
         self.entity = self.ent_fact.new(objects.ENTITY)
         self.container = self.ent_fact.new(objects.CONTAINER)
@@ -39,12 +39,12 @@ class TestEntityCollector(unittest.TestCase):
 
 class TestEntityConnector(unittest.TestCase):
     def setUp(self):
-        self.ent_fact = ent_fact.EntityFactory()
-        self.evt_fact = evt_fact.EventFactory()
+        self.ent_fact = EntityFactory()
+        self.evt_fact = EventFactory()
         self.json_objs = [
             objects.ENTITY, objects.CONTAINER, objects.PLAYER, objects.ROOM
         ]
-        self.world = game.World()
+        self.world = World()
         self.entity = self.ent_fact.new(objects.ENTITY)
         self.container = self.ent_fact.new(objects.CONTAINER)
         self.player = self.ent_fact.new(objects.PLAYER)
@@ -56,7 +56,6 @@ class TestEntityConnector(unittest.TestCase):
         self.world.add_event(self.evt_fact.new(objects.INFORM))
 
     def test_connect_entity(self):
-        print(self.world.entities)
         connector = visitor.EntityConnector(objects.ENTITY, self.world)
         connector.connect(self.entity)
         self.assertTrue(self.entity.events.has_event('use'))
@@ -71,7 +70,29 @@ class TestEntityConnector(unittest.TestCase):
 
 
 class TestEventConnector(unittest.TestCase):
-    pass
+    def setUp(self):
+        self.evt_fact = EventFactory()
+        self.event = self.evt_fact.new(objects.EVENT)
+        self.inform = self.evt_fact.new(objects.INFORM)
+        self.move = self.evt_fact.new(objects.MOVE)
+        self.ent_fact = EntityFactory()
+        self.room = self.ent_fact.new(objects.ROOM)
+        self.world = World()
+        self.world.add_event(self.event)
+        self.world.add_event(self.inform)
+        self.world.add_event(self.move)
+        self.world.add_entity(self.room)
+
+    def test_connect_event(self):
+        connector = visitor.EventConnector(objects.INFORM, self.world)
+        connector.connect(self.inform)
+        self.assertIn(self.event, self.inform.subjects)
+
+    def test_connect_move(self):
+        connector = visitor.EventConnector(objects.MOVE, self.world)
+        connector.connect(self.move)
+        self.assertIn(self.inform, self.move.subjects)
+        self.assertIs(self.move.destination, self.room)
 
 
 # Main #################################################################

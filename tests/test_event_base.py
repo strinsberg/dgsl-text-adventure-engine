@@ -19,6 +19,7 @@ class MockVisitor:
 class TestEventBase(unittest.TestCase):
     def setUp(self):
         self.event = event_base.Event(ID)
+        self.other_event = event_base.Event(ID)
         self.entity = entity_base.Entity(ID)
 
     def test_init(self):
@@ -33,6 +34,10 @@ class TestEventBase(unittest.TestCase):
         visitor = MockVisitor()
         self.event.accept(visitor)
         self.assertEqual(visitor.result, ID)
+
+    def test_register(self):
+        self.event.register(self.other_event)
+        self.assertIn(self.other_event, self.event.subjects)
 
 
 # Main #################################################################

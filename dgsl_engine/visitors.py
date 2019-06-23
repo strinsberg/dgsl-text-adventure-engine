@@ -55,8 +55,8 @@ class EntityConnector:
         for event in self.entity_json['events']:
             event_id = event['id']
             event_verb = event['verb']
-            event = self.world.events[event_id]
-            entity.events.add(event_verb, event)
+            e = self.world.events[event_id]
+            entity.events.add(event_verb, e)
 
     def _connect_items(self, container):
         for item in self.entity_json['items']:
@@ -68,11 +68,27 @@ class EntityConnector:
 class EventConnector:
     """Visitor to connect events when building a world."""
 
-    def __init__(self, event, world):
-        pass
+    def __init__(self, event_json, world):
+        self.event_json = event_json
+        self.world = world
+
+    def connect(self, event):
+        self._connect_subjects(event)
+        event.accept(self)
 
     def visit_event(self, event):
         pass
 
     def visit_move(self, move):
+        dest_id = self.event_json['destination']['id']
+        destination = self.world.entities[dest_id]
+        move.destination = destination
+
+    def _connect_subjects(self, event):
+        for sub in self.event_json['subjects']:
+            subject = self.world.events[sub['id']]
+            event.register(subject)
+
+    # Add something like this when you add group events
+    def _connect_events(self, group):  # pragma: no cover
         pass
