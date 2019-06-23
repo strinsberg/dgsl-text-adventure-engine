@@ -1,31 +1,53 @@
 import unittest
 import dgsl_engine.actions as actions
-import dgsl_engine.game as game
-import dgsl_engine.entity_containers as containers
-import dgsl_engine.entity_base as entity
-import dgsl_engine.event_base as event_base
-import dgsl_engine.event_single_decorators as decorators
 import dgsl_engine.entity_factory as ent_fact
+import dgsl_engine.event_factory as evt_fact
+import copy
 
-# All these tests will need to be fixed as Action resolver is going to change
+# I eventually need to move all custom contants and mock to their own modules
+# so that they can be reused in each testing environment if possible
 
-ID = "223084"
-P_ID = "1234"
-ROOM_ID = "5678"
-CONT_ID = "6543"
-ENT_ID = "04938"
-ENT_NAME = "a golden ring"
-CONT_NAME = "an old wooden box"
-MESSAGE = "You feel cursed!"
+# Constant Objects #####################################################
 
 OBJ = {
-    'id': '1234',
-    'type': 'entity',
-    'name': 'test object',
     'description': 'a simple testing object',
     'active': 1,
     'obtainable': 1,
     'hidden': 0
+}
+
+
+def extend(obj, extra):
+    d = copy.deepcopy(obj)
+    d.update(extra)
+    return d
+
+
+PLAYER = extend(OBJ, {
+    'id': '1234',
+    'type': 'player',
+    'name': 'test player',
+})
+
+ROOM = extend(OBJ, {
+    'id': '9234',
+    'type': 'room',
+    'name': 'test room',
+})
+
+CONTAINER = extend(OBJ, {
+    'id': 'sjaf90fj',
+    'type': 'container',
+    'name': 'test container',
+})
+
+ENTITY = extend(OBJ, {'id': '23u4', 'type': 'entity', 'name': 'test entity'})
+
+EVENT = {
+    'id': 'mf90ae',
+    'type': 'event',
+    'once': 1,
+    'message': "Get it while it's hot",
 }
 
 # Mocks ################################################################
@@ -53,11 +75,15 @@ class MockMenuFactory:
         return self.n
 
 
-class MockWorld:
-    def __init__(self, *args):
-        fact = ent_fact.EntityFactory()
-        self.player = fact.new(OBJ)
-        self.player.owner = None
+class MockActionFactory:
+    def new(self, verb, player, entity, other):
+        self.entity = entity
+        return self
+
+    def take_action(self):
+        if self.entity is None:
+            return "Verb with no object"
+        return "Result found"
 
 
 # Tests ################################################################
@@ -65,66 +91,103 @@ class MockWorld:
 
 class TestActionResolver(unittest.TestCase):
     def setUp(self):
-        self.collector_factory = MockCollectorFactory(0)
-        self.menu_factory = MockMenuFactory(0)
+        self.col_fact = MockCollectorFactory(0)
+        self.menu_fact = MockMenuFactory(0)
+        self.act_fact = MockActionFactory()
+
         self.ent_fact = ent_fact.EntityFactory()
+        self.player = self.ent_fact.new(PLAYER)
+        self.player.owner = None
+
         self.parsed_input = {
             'verb': 'unused',
-            'object': self.ent_fact.new(OBJ),
+            'object': 'test object',
             'other': None
         }
 
+    def test_resolve_input_verb_only(self):
+        resolver = actions.ActionResolver(self.col_fact, self.menu_fact,
+                                          self.act_fact)
+        self.parsed_input['object'] = '   '
+        self.assertEqual(
+            resolver.resolve_input(self.parsed_input, self.player),
+            "Verb with no object")
+
     def test_resolve_input_no_results(self):
-        pass
+        resolver = actions.ActionResolver(self.col_fact, self.menu_fact,
+                                          self.act_fact)
+        self.assertEqual(
+            resolver.resolve_input(self.parsed_input, self.player),
+            "There is no test object")
 
     def test_resolve_input_one_result(self):
-        pass
+        fact = MockCollectorFactory(1)
+        resolver = actions.ActionResolver(fact, self.menu_fact, self.act_fact)
+        self.assertEqual(
+            resolver.resolve_input(self.parsed_input, self.player),
+            "Result found")
 
     def test_resolve_input_many_results(self):
-        pass
+        fact = MockCollectorFactory(5)
+        resolver = actions.ActionResolver(fact, self.menu_fact, self.act_fact)
+        self.assertEqual(
+            resolver.resolve_input(self.parsed_input, self.player),
+            "Result found")
+
+    def test_resolve_input_many_results_cancel(self):
+        fact = MockCollectorFactory(5)
+        m_fact = MockMenuFactory(5)
+        resolver = actions.ActionResolver(fact, m_fact, self.act_fact)
+        self.assertEqual(
+            resolver.resolve_input(self.parsed_input, self.player),
+            "Cancelled")
+
+    def test_resolve_input_many_results_menu_out_of_range(self):
+        fact = MockCollectorFactory(5)
+        m_fact = MockMenuFactory(-1)
+        resolver = actions.ActionResolver(fact, m_fact, self.act_fact)
+        self.assertEqual(
+            resolver.resolve_input(self.parsed_input, self.player),
+            "That is not a choice")
 
 
-@unittest.skip
+# As each action grows in complexity split this up. The factory can just be
+# tested as part of the Actions unless it gets more functionality.
 class TestActions(unittest.TestCase):
     def setUp(self):
-        self.world = game.World()
-        self.world.player = containers.Player(P_ID)
-        self.room = containers.Room(ROOM_ID)
-        self.entity = entity.Entity(ENT_ID)
-        self.container = containers.Container(CONT_ID)
+        self.action_factory = actions.ActionFactory()
+        self.ent_fact = ent_fact.EntityFactory()
+        self.player = self.ent_fact.new(PLAYER)
+        self.room = self.ent_fact.new(ROOM)
+        self.container = self.ent_fact.new(CONTAINER)
+        self.entity = self.ent_fact.new(ENTITY)
+        self.event = evt_fact.EventFactory().new(EVENT)
 
-        self.entity.spec.name = ENT_NAME
-        self.container.spec.name = CONT_NAME
+    def test_null_entity(self):
+        action = self.action_factory.new("any", None, None, None)
+        self.assertEqual(action.take_action(), "Nothing happens")
 
-        self.room.add(self.container)
-        self.room.add(self.world.player)
-        self.container.add(self.entity)
-
-        self.event = decorators.MessageDecorator(event_base.Event(ID), MESSAGE)
-
-        self.world.entities[ROOM_ID] = self.room
-
-    def test_get_obtainable(self):
-        result = actions._take_action('get', self.container, None, self.world)
-        self.assertFalse(self.room.inventory.has_item(CONT_ID))
-        self.assertTrue(self.world.player.inventory.has_item(CONT_ID))
-        self.assertEqual(result, "You take " + CONT_NAME)
+    def test_get_from_room(self):
+        self.room.add(self.entity)
+        action = self.action_factory.new('get', self.player, self.entity, None)
+        self.assertEqual(action.take_action(), 'You take test entity')
 
     def test_get_not_obtainable(self):
-        self.container.states.obtainable = False
-        result = actions._take_action('get', self.container, None, self.world)
-        self.assertTrue(self.room.inventory.has_item(CONT_ID))
-        self.assertFalse(self.world.player.inventory.has_item(CONT_ID))
-        self.assertEqual(result, "You can't take that")
+        self.entity.states.obtainable = False
+        self.room.add(self.entity)
+        action = self.action_factory.new('get', self.player, self.entity, None)
+        self.assertEqual(action.take_action(), "You can't take that")
 
-    def test_use_ring_no_event(self):
-        result = actions._take_action('use', self.entity, None, self.world)
-        self.assertEqual(result, "You can't use that")
-
-    def test_use_ring_has_event(self):
+    def test_use_has_event(self):
         self.entity.events.add('use', self.event)
-        result = actions._take_action('use', self.entity, None, self.world)
-        self.assertEqual(result, "You use {}\n{}".format(ENT_NAME, MESSAGE))
+        self.room.add(self.entity)
+        action = self.action_factory.new('use', self.player, self.entity, None)
+        self.assertEqual(action.take_action(), "You use test entity")
+
+    def test_use_no_event(self):
+        self.room.add(self.entity)
+        action = self.action_factory.new('use', self.player, self.entity, None)
+        self.assertEqual(action.take_action(), "You can't use that")
 
 
 # Main #################################################################

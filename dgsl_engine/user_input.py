@@ -54,4 +54,7 @@ class Menu:
             result = int(input("Choice: "))  # pragma: no cover
         else:
             result = int(input_[0])
+
+        if result > len(self.choices) + 1:
+            return -1
         return result

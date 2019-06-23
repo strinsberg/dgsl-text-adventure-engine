@@ -54,6 +54,10 @@ class TestMenu(unittest.TestCase):
             "3. jump around\n"
             "4. Cancel\n")
 
+    def test_ask_out_range(self):
+        idx = self.menu.ask(['10'])
+        self.assertEqual(idx, -1)
+
 
 # Main #################################################################
 
