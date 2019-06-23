@@ -72,6 +72,11 @@ class Action(ABC):
     def take_action(self):  # pragma: no cover
         pass
 
+    def _add_result(self, text, result):
+        if result.strip() == '':
+            return text
+        return "{}\n{}".format(text, result)
+
 
 class NullAction(Action):
     def take_action(self):
@@ -82,15 +87,20 @@ class Get(Action):
     def take_action(self):
         if self.entity.states.obtainable:
             move(self.entity, self.player)
-            return "You take " + self.entity.spec.name
+            moved = "You take " + self.entity.spec.name
+            result = ''
+            if self.entity.events.has_event('get'):
+                result = self.entity.events.execute('get', self.player)
+            return self._add_result(moved, result)
         return "You can't take that"
 
 
 class Use(Action):
     def take_action(self):
         if self.entity.events.has_event('use'):
-            return "You use " + self.entity.spec.name + " " + self.entity.events.execute(
-                'use', self.player)
+            used = "You use " + self.entity.spec.name
+            result = self.entity.events.execute('use', self.player)
+            return self._add_result(used, result)
         return "You can't use that"
 
 
