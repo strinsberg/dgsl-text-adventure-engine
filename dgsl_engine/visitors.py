@@ -1,4 +1,3 @@
-from functools import singledispatch
 from . import entity_base
 from . import event_base
 
@@ -77,17 +76,3 @@ class EventConnector:
 
     def visit_move(self, move):
         pass
-
-
-class ConnectorFactory:
-    @singledispatch
-    def make(self, obj, world):
-        pass
-
-    @make.register(entity_base.Entity)
-    def _(self, entity, world):
-        return EntityConnector(entity, world)
-
-    @make.register(event_base.Event)
-    def _(self, event, world):
-        return EventConnector(event, world)
