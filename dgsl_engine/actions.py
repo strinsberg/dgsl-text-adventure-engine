@@ -89,7 +89,8 @@ class Get(Action):
 class Use(Action):
     def take_action(self):
         if self.entity.events.has_event('use'):
-            return "You use " + self.entity.spec.name
+            return "You use " + self.entity.spec.name + " " + self.entity.events.execute(
+                'use', self.player)
         return "You can't use that"
 
 

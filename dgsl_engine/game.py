@@ -3,8 +3,8 @@ from . import commands
 
 
 class Game:
-    def __init__(self, world, parser, resolver, out=print, inp=input):
-        self._in = inp
+    def __init__(self, world, parser, resolver, out=print, in_=input):
+        self._in = in_
         self._out = out
         self.parser = parser
         self.world = world
@@ -25,11 +25,11 @@ class Game:
             status = True
             if parsed_input['code'] == user_input.ParseCodes.COMMAND:
                 result, status = commands.execute_command(
-                    parsed_input['verb'], parsed_input['obj'], self)
+                    parsed_input['verb'], parsed_input['object'], self)
             elif parsed_input['code'] == user_input.ParseCodes.ERROR:
                 result = parsed_input['message']
             else:
-                result = self.resolver.resovle_input(parsed_input,
+                result = self.resolver.resolve_input(parsed_input,
                                                      self.world.player)
 
             self._out(result)
