@@ -14,6 +14,10 @@ class EntityCollector:
 
     def collect(self):
         self.room.accept(self)
+        if self.room in self.entities:
+            # It would be better not to add it than to remove it
+            # Maybe accept or visit could have an exclude
+            self.entities.remove(self.room)
         return self.entities
 
     def visit_entity(self, entity):
@@ -67,8 +71,8 @@ class ConnectorFactory:
 
     @make.register(entity_base.Entity)
     def _(self, entity, world):
-        pass
+        return EntityConnector(entity, world)
 
     @make.register(event_base.Event)
     def _(self, event, world):
-        pass
+        return EventConnector(event, world)

@@ -58,3 +58,8 @@ class Menu:
         if result > len(self.choices) + 1:
             return -1
         return result
+
+
+class MenuFactory:
+    def make(self, choices):
+        return Menu(choices)
