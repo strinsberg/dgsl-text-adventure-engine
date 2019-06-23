@@ -1,8 +1,7 @@
 TODOs
 =====
 
-* Add GameFactory to game module
-* Test the game module
+* Test the game and game factory
 * maybe add a couple of basic actions like look, drop, and inventory. Before you call version 0.1 finished.
 * Mess around with the game to see if there are any unexpected things. Like getting things the player already has.
 * Try to fully document everything
