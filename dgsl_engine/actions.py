@@ -90,6 +90,10 @@ class NullAction(Action):
 
 class Get(Action):
     def take_action(self):
+        if self.entity is None:
+            return "Get what?"
+        if self.player.inventory.has_item(self.entity.spec.id):
+            return "You already have it"
         if self.entity.states.obtainable:
             move(self.entity, self.player)
             moved = "You take " + self.entity.spec.name
@@ -98,13 +102,52 @@ class Get(Action):
         return "You can't take that"
 
 
+class Drop(Action):
+    def take_action(self):
+        if self.entity is None:
+            return "Drop what?"
+        if self.player.inventory.has_item(self.entity.spec.id):
+            move(self.entity, self.player.owner)
+            dropped = "You drop " + self.entity.spec.name
+            result = self._execute_event('drop')
+            return self._add_result(dropped, result)
+        return "You don't have it"
+
+
 class Use(Action):
     def take_action(self):
-        if self.entity.events.has_event('use'):
+        if self.entity is None:
+            return "Use what?"
+        result = self._execute_event('use')
+        if result != '':
             used = "You use " + self.entity.spec.name
-            result = self._execute_event('use')
             return self._add_result(used, result)
         return "You can't use that"
+
+
+class Look(Action):
+    def take_action(self):
+        if self.entity is not None:
+            description = "You see " + self.entity.describe()
+            result = self._execute_event('look')
+            return self._add_result(description, result)
+        return self.player.owner.describe()
+
+
+class CheckInventory(Action):
+    def take_action(self):
+        if self.entity is None:
+            result = ["You are carrying ..."]
+            if self.player.inventory.items:
+                for item in self.player:
+                    result.append(item.describe())
+            else:
+                result.append("Nothing")
+            return "\n".join(result)
+        else:
+            if self.player.inventory.has_item(self.entity.spec.id):
+                return "You have that"
+            return "You don't have that"
 
 
 def move(entity, destination):
