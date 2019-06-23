@@ -23,8 +23,10 @@ class EntityFactory:
             self._setup(entity, obj)
 
         except KeyError as err:
-            raise exceptions.InvalidParameterError(
-                "Error: object is not complete: " + str(err))
+            raise exceptions.InvalidParameterError("Error: object " +
+                                                   obj['name'] +
+                                                   " is not complete: " +
+                                                   str(err))
 
         return entity
 
@@ -32,7 +34,7 @@ class EntityFactory:
         entity.spec.name = obj['name']
         entity.spec.description = obj['description']
 
-        if obj['type'] != 'room':
+        if obj['type'] not in ['room', 'player']:
             entity.states.active = num_to_bool(obj['active'])
             entity.states.obtainable = num_to_bool(obj['obtainable'])
             entity.states.hidden = num_to_bool(obj['hidden'])

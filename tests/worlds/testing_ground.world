@@ -140,8 +140,9 @@
       "description": "",
       "id": "player",
       "items": [],
+      "events": [],
       "name": "player",
-      "start": null,
+      "start": "53b33006-f98c-430e-aee0-53002171c8b8",
       "type": "player"
     }
   },

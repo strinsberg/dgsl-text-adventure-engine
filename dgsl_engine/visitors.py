@@ -34,6 +34,10 @@ class EntityCollectorFactory:
         return EntityCollector(obj, other, entity)
 
 
+# Should think about catching key errors here incase the world editor fails
+# to provide all we need or a file is edited by hand and a mistake is made
+# Or aome kind of validation should be done of the world before attempting to
+# load it. Make sure all objects are complete and that there are no cycles.
 class EntityConnector:
     """Visitor to connect entities when building a world."""
 

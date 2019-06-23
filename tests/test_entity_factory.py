@@ -51,7 +51,7 @@ class TestEntityFactory(unittest.TestCase):
             self.fact.new(self.obj)
 
     def test_unfinished_obj_throws(self):
-        obj = {'id': 'm40c0'}
+        obj = {'id': 'm40c0', 'name': 'unfinished'}
         with self.assertRaises(exceptions.InvalidParameterError):
             self.fact.new(obj)
 

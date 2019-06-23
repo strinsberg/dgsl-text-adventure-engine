@@ -2,7 +2,7 @@ import unittest
 import dgsl_engine.visitors as visitor
 from dgsl_engine.entity_factory import EntityFactory
 from dgsl_engine.event_factory import EventFactory
-from dgsl_engine.game import World
+from dgsl_engine.world import World
 from . import json_objects as objects
 
 

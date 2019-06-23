@@ -48,21 +48,3 @@ class Game:
         if not status or self.world.player.states.hidden:
             return True
         return False
-
-
-class World:
-    def __init__(self):
-        self.name = "Untitled"
-        self.welcome = "Welcome to my game!"
-        self.opening = "You are in a very interesting place!"
-        self.player_title = "Captain"
-        self.version = "0.0.0"
-        self.player = None
-        self.entities = {}
-        self.events = {}
-
-    def add_entity(self, entity):
-        self.entities[entity.spec.id] = entity
-
-    def add_event(self, event):
-        self.events[event.id] = event
