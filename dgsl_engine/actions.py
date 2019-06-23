@@ -57,8 +57,13 @@ class ActionFactory:
             return Get(player, entity, other)
         if verb in ['use']:
             return Use(player, entity, other)
-        else:
-            return NullAction(player, entity, other)
+        if verb in ['drop']:
+            return Drop(player, entity, other)
+        if verb in ['look']:
+            return Look(player, entity, other)
+        if verb in ['inventory']:
+            return CheckInventory(player, entity, other)
+        return NullAction(player, entity, other)
 
 
 class Action(ABC):

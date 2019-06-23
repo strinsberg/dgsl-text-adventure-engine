@@ -62,6 +62,8 @@ ROOM = _extend(
         'room',
         'name':
         'test room',
+        'description':
+        'You are in a strange test room',
         'items': [{
             'id': PLAYER['id'],
         }, {

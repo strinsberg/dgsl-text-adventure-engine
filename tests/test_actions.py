@@ -91,6 +91,15 @@ class TestActions(unittest.TestCase):
         action = self.action_factory.new('get', self.player, self.entity, None)
         self.assertEqual(action.take_action(), 'You take test entity')
 
+    def test_get_no_target_object(self):
+        action = self.action_factory.new('get', self.player, None, None)
+        self.assertEqual(action.take_action(), "Get what?")
+
+    def test_get_player_has(self):
+        self.player.add(self.entity)
+        action = self.action_factory.new('get', self.player, self.entity, None)
+        self.assertEqual(action.take_action(), "You already have it")
+
     def test_get_not_obtainable(self):
         self.entity.states.obtainable = False
         self.room.add(self.entity)
@@ -108,6 +117,62 @@ class TestActions(unittest.TestCase):
         self.room.add(self.entity)
         action = self.action_factory.new('use', self.player, self.entity, None)
         self.assertEqual(action.take_action(), "You can't use that")
+
+    def test_use_no_target(self):
+        action = self.action_factory.new('use', self.player, None, None)
+        self.assertEqual(action.take_action(), "Use what?")
+
+    def test_drop(self):
+        self.room.add(self.player)
+        self.player.add(self.entity)
+        action = self.action_factory.new('drop', self.player, self.entity,
+                                         None)
+        self.assertEqual(action.take_action(), 'You drop test entity')
+
+    def test_drop_no_item(self):
+        action = self.action_factory.new('drop', self.player, self.entity,
+                                         None)
+        self.assertEqual(action.take_action(), "You don't have it")
+
+    def test_drop_no_target(self):
+        action = self.action_factory.new('drop', self.player, None, None)
+        self.assertEqual(action.take_action(), "Drop what?")
+
+    def test_look(self):
+        self.room.add(self.player)
+        action = self.action_factory.new('look', self.player, self.entity,
+                                         None)
+        self.assertEqual(action.take_action(),
+                         "You see a simple testing object")
+
+    def test_look_no_target(self):
+        self.room.add(self.player)
+        action = self.action_factory.new('look', self.player, None, None)
+        self.assertEqual(action.take_action(),
+                         "You are in a strange test room")
+
+    def test_check_inventory(self):
+        self.player.add(self.entity)
+        self.player.add(self.container)
+        action = self.action_factory.new('inventory', self.player, None, None)
+        self.assertEqual(action.take_action(), ("You are carrying ...\n"
+                                                "a simple testing object\n"
+                                                "a simple testing object"))
+
+    def test_check_inventory_empty(self):
+        action = self.action_factory.new('inventory', self.player, None, None)
+        self.assertEqual(action.take_action(), "You are carrying ...\nNothing")
+
+    def test_check_for_item_in_inventory(self):
+        self.player.add(self.entity)
+        action = self.action_factory.new('inventory', self.player, self.entity,
+                                         None)
+        self.assertEqual(action.take_action(), "You have that")
+
+    def test_check_for_item_not_there(self):
+        action = self.action_factory.new('inventory', self.player, self.entity,
+                                         None)
+        self.assertEqual(action.take_action(), "You don't have that")
 
 
 # Main #################################################################
