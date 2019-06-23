@@ -38,17 +38,32 @@ class EntityCollectorFactory:
 class EntityConnector:
     """Visitor to connect entities when building a world."""
 
-    def __init__(self, entity, world):
-        pass
+    def __init__(self, entity_json, world):
+        self.entity_json = entity_json
+        self.world = world
 
-    def connect(self):
-        pass
+    def connect(self, entity):
+        self._connect_events(entity)
+        entity.accept(self)
 
     def visit_entity(self, entity):
         pass
 
     def visit_container(self, container):
-        pass
+        self._connect_items(container)
+
+    def _connect_events(self, entity):
+        for event in self.entity_json['events']:
+            event_id = event['id']
+            event_verb = event['verb']
+            event = self.world.events[event_id]
+            entity.events.add(event_verb, event)
+
+    def _connect_items(self, container):
+        for item in self.entity_json['items']:
+            item_id = item['id']
+            entity = self.world.entities[item_id]
+            container.add(entity)
 
 
 class EventConnector:

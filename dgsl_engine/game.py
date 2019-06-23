@@ -60,3 +60,9 @@ class World:
         self.player = None
         self.entities = {}
         self.events = {}
+
+    def add_entity(self, entity):
+        self.entities[entity.spec.id] = entity
+
+    def add_event(self, event):
+        self.events[event.id] = event
