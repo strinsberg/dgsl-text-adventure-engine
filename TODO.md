@@ -1,14 +1,23 @@
 TODOs
 =====
 
-* Test the game and game factory
-* Should make the parser take a list of verbs and commands somewhere else. maybe?
-* Try to fully document everything
-* Do some UML diagrams for what you have
+priority
+--------
+
+* Do a full coverage of reasonable documentation
+* Do some UML diagrams for current design elements
+* Try to fix as many pylint errors as possible (possibly ignore some if justified).
 * See if you can figure out how to get CI working with gitlab
-* Start adding more features using git branches. For each set of features make sure they are fully tested, documented, and designed before moving on. Don't just code everything at once and forget the rest of the stuff.
 * Get setup.py made. When more game functionality has been added and merged then make it possible to install the game.
-* figure out how to setup logging and a debug mode to allow displaying certain information without having to put print statements everywhere. As well as just some debugging info that can be turned off with a global constant like DEBUG. Even try to learn how to use the debugger to better debug instead of putting print statements everywhere. Logs can be for things like parser info and other things it will be nice to see when you are working, debugger can be for problems these won't catch.
+
+Other
+-----
+
+* Start adding more features using git branches. For each set of features make sure they are fully tested, documented, and designed before moving on. Don't just code everything at once and forget the rest of the stuff.
+* Use the changelog as you add features and fix bugs. Probably a good thing to note each branch merge and what it brought. Look up some info on using a changelog effectively.
+* Think about adding some logging to print debug information in special places. This way there can be some idea of what is going on behind the scenes even when not all the desired functionality is there. It can also assist in finding things that don't make sense
+* Start building a play testing world. The current one will do for testing the world factory, but we will want another one for playing. Start with the stuff you already have and add features as they are needed. May require a little work on the editor as well. Only need a few rooms and an object of every type and events to cover every type.
+
 
 Ideas
 =====
@@ -64,3 +73,8 @@ Testing
 * I should as I go see what Kinds of objects and constants I need often and I can create a file for all of them in tests. This way I can import it and use them rather than always creating all of them. I could create the actual objects, but then the file could have errors and be a source of pain so I think it best to just keep it agnostic of the rest of the modules.
 * I should also have a mock module if it becomes necessary. This or learn how to make mocks properly. They are very nice for keeping the number of classes and possibility of problems low. however, they can get a bit complicated and messy, so it would be nice to store them somewhere else like the json_objects, etc. or to learn a better way of doing it.
 * infact it seems that maybe what I am calling mocking really isn't mocking. I think it is really helpful because without it I could not really do test driven development as easily. Maybe I am making stubs and drivers or whatever. I could rename things to fit with that I dea better. I certainly like having classes that mimic the returns I need rather than having to have every class and module working just to test a class that works with some of them.
+
+Parsing
+-------
+
+* Should make the parser take a list of verbs and commands somewhere else. maybe?

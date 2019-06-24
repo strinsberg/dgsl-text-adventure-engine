@@ -1,21 +1,9 @@
 import unittest
 import dgsl_engine.user_input as user_input
+from . import fakes
 
 INPUT = "get chocolate cake"
-
-# Mocks ################################################################
-
-
-class MockOutput:
-    def __init__(self):
-        self.text = []
-
-    def make_capture(self):
-        return lambda text: self.text.append(text)
-
-    def get_text(self):
-        return "".join(self.text)
-
+choices = ["climb the cliff", "eat the bagel", "jump around"]
 
 # Testing ##############################################################
 
@@ -41,9 +29,8 @@ class TestParser(unittest.TestCase):
 
 class TestMenu(unittest.TestCase):
     def setUp(self):
-        self.choices = ["climb the cliff", "eat the bagel", "jump around"]
-        self.out = MockOutput()
-        self.menu = user_input.Menu(self.choices, self.out.make_capture())
+        self.out = fakes.FakeOutput()
+        self.menu = user_input.Menu(choices, self.out.make_capture())
 
     def test_ask(self):
         idx = self.menu.ask(['1'])
@@ -57,6 +44,13 @@ class TestMenu(unittest.TestCase):
     def test_ask_out_range(self):
         idx = self.menu.ask(['10'])
         self.assertEqual(idx, -1)
+
+
+class TestMenuFactory(unittest.TestCase):
+    def test_menu_factory(self):
+        factory = user_input.MenuFactory()
+        menu = factory.make(choices)
+        self.assertIs(menu.choices, choices)
 
 
 # Main #################################################################

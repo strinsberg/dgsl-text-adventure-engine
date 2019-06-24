@@ -87,9 +87,11 @@ class TestActions(unittest.TestCase):
         self.assertEqual(action.take_action(), "Nothing happens")
 
     def test_get_from_room(self):
+        self.entity.events.add('get', self.event)
         self.room.add(self.entity)
         action = self.action_factory.new('get', self.player, self.entity, None)
-        self.assertEqual(action.take_action(), 'You take test entity')
+        self.assertEqual(action.take_action(),
+                         "You take test entity\nGet it while it's hot")
 
     def test_get_no_target_object(self):
         action = self.action_factory.new('get', self.player, None, None)
