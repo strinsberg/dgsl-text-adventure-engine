@@ -10,7 +10,7 @@ class ParseCodes(enum.Enum):
 
 class Parser:
     def __init__(self):
-        self.verbs = ['get', 'use']
+        self.verbs = ['get', 'take', 'drop', 'use', 'look', 'inventory']
         self.commands = ['quit', 'exit']
 
     def parse(self, user_input):

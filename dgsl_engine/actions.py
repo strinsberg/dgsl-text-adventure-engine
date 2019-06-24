@@ -123,8 +123,8 @@ class Use(Action):
     def take_action(self):
         if self.entity is None:
             return "Use what?"
-        result = self._execute_event('use')
-        if result != '':
+        if self.entity.events.has_event('use'):
+            result = self.entity.events.execute('use', self.player)
             used = "You use " + self.entity.spec.name
             return self._add_result(used, result)
         return "You can't use that"
