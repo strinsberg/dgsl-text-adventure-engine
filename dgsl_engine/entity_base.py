@@ -5,7 +5,7 @@ Base Event as well as supporting classes and functions.
 
 class Entity:
     """An entity that exists in the game world.
-    
+
     Attributes:
         spec (EntitySpec): Details about the entity.
         states (EntityStates): The entities various states.
@@ -22,10 +22,10 @@ class Entity:
 
     def describe(self):
         """Gives a description of the entity.
-        
+
         Can be extended to give more detailed descriptions of complex
         entities.
-        
+
         Returns:
             str: The entity's description.
         """
@@ -38,7 +38,7 @@ class Entity:
 
 class EntitySpec:
     """The textual details of an Entity.
-    
+
     Attributes:
         id (str): A unique identifer.
         name (str): A name or brief description.
@@ -53,7 +53,7 @@ class EntitySpec:
 
 class EntityStates:
     """The various states of an Entity.
-    
+
     Attributes:
         active (bool): If an entity will respond to interactions.
         obtainable (bool): If an entity can be picked up.
@@ -68,7 +68,7 @@ class EntityStates:
 
 class EntityEvents:
     """The responses to player actions.
-    
+
     Events are identified by a verb. If the player interacts with the
     entity using a verb that the entity has an event for it can be
     executed (if active and not hidden). Events can also be stored with
@@ -76,7 +76,7 @@ class EntityEvents:
     triggered by other events instead of player actions.
 
     Attributes:
-        events (dict <str, :class:`Event <dgsl_engine.event_base.Event>`>): 
+        events (dict <str, :class:`Event <dgsl_engine.event_base.Event>`>):
             Events attached to an entity.
     """
 
@@ -130,9 +130,9 @@ class Inventory:
     """Inventory for holding entities.
 
     Can be used in for loops to iterate over all items it contains.
-    
+
     ::
-    
+
         for item in inventory:
             print(item)
 
@@ -153,7 +153,7 @@ class Inventory:
 
         Args:
             item (Entity): An Entity.
-        
+
         Returns:
             bool: True if the Entity is added, False if the entity is
             already there.
@@ -168,7 +168,7 @@ class Inventory:
 
         Args:
             item_id (str): The id of the entity to remove.
-        
+
         Returns:
             Entity: The Entity with the given id. None if the Entity is
             not in the inventory.
@@ -180,7 +180,7 @@ class Inventory:
 
         Args:
             item_id (str): The id of the entity to find.
-        
+
         Returns:
             bool: True if the Entity is there, False otherwise.
         """

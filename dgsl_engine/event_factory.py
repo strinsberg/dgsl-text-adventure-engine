@@ -1,3 +1,4 @@
+"""Event factory to create new events from json event objects."""
 from . import event_base
 from . import event_single
 from . import event_single_decorators as evs
@@ -5,7 +6,14 @@ from . import exceptions
 
 
 class EventFactory:
+    """Event factory to create new events from json event objects."""
+
     def new(self, obj):
+        """Create and return a new event from an event json.
+
+        Args:
+            obj (dict): A json object with information for an event.
+        """
         try:
             type_ = obj['type']
             id_ = obj['id']
@@ -39,4 +47,5 @@ class EventFactory:
 
 
 def num_to_bool(num):
-    return num == 1
+    """Turn a number into a bool."""
+    return num != 0

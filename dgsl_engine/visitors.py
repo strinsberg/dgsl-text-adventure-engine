@@ -1,9 +1,14 @@
-from . import entity_base
-from . import event_base
+"""Visitors for Collecting entities and for connecting game objects."""
 
 
 class EntityCollector:
-    """Visitor that collects all items that match with player input."""
+    """Visitor that collects all items that match with player input.
+
+    Attributes:
+        obj (str): The direct object to collect.
+        other (str): The indirect object to collect.
+        room (Room): The room to collect the items from.
+    """
 
     def __init__(self, obj, other, room):
         self.obj = obj
@@ -12,6 +17,12 @@ class EntityCollector:
         self.entities = []
 
     def collect(self):
+        """Collect all objects that match the obj text.
+
+        Returns:
+            list of Entities: A list with all the entities that could
+                be a match for the obj.
+        """
         self.room.accept(self)
         if self.room in self.entities:
             # It would be better not to add it than to remove it
@@ -20,17 +31,29 @@ class EntityCollector:
         return self.entities
 
     def visit_entity(self, entity):
+        """Visit and entity."""
         if entity.spec.name.find(self.obj) > -1:
             self.entities.append(entity)
 
     def visit_container(self, container):
+        """Visit a container."""
         self.visit_entity(container)
         for item in container:
             item.accept(self)
 
 
 class EntityCollectorFactory:
+    """Factory to make an entity collector."""
+
     def make(self, obj, other, entity):
+        """Makes an entity collector.
+
+        Args:
+            See EntityCollector Attributes.
+
+        Returns:
+            EntityCollector: The new entity collector.
+        """
         return EntityCollector(obj, other, entity)
 
 
@@ -46,21 +69,23 @@ class EntityConnector:
         self.world = world
 
     def connect(self, entity):
+        """Some info."""
         self._connect_events(entity)
         entity.accept(self)
 
     def visit_entity(self, entity):
-        pass
+        """Some info."""
 
     def visit_container(self, container):
+        """Some info."""
         self._connect_items(container)
 
     def _connect_events(self, entity):
-        for event in self.entity_json['events']:
-            event_id = event['id']
-            event_verb = event['verb']
-            e = self.world.events[event_id]
-            entity.events.add(event_verb, e)
+        for event_json in self.entity_json['events']:
+            event_id = event_json['id']
+            event_verb = event_json['verb']
+            event = self.world.events[event_id]
+            entity.events.add(event_verb, event)
 
     def _connect_items(self, container):
         for item in self.entity_json['items']:
@@ -77,13 +102,15 @@ class EventConnector:
         self.world = world
 
     def connect(self, event):
+        """Some info."""
         self._connect_subjects(event)
         event.accept(self)
 
     def visit_event(self, event):
-        pass
+        """Some info."""
 
     def visit_move(self, move):
+        """Some info."""
         dest_id = self.event_json['destination']['id']
         destination = self.world.entities[dest_id]
         move.destination = destination

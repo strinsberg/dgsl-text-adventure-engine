@@ -1,19 +1,30 @@
+"""Classes and functions for getting and processing user input."""
 import enum
-from . import actions
 from . import commands
 
 
 class ParseCodes(enum.Enum):
+    """Enum for parser return codes."""
     ERROR = 1
     COMMAND = 2
 
 
 class Parser:
+    """Turns raw user input into form useable by a resolver."""
+
     def __init__(self):
         self.verbs = ['get', 'take', 'drop', 'use', 'look', 'inventory']
         self.commands = ['quit', 'exit']
 
     def parse(self, user_input):
+        """
+
+        Args:
+          user_input:
+
+        Returns:
+
+        """
         words = user_input.strip().split()
         verb = words[0]
         obj = " ".join(words[1:])
@@ -38,11 +49,21 @@ class Parser:
 
 
 class Menu:
+    """Asks a user to choose one of a list of choices."""
+
     def __init__(self, choices, out=print):
         self.choices = choices
         self._out = out
 
     def ask(self, input_=None):
+        """
+
+        Args:
+          input_:  (Default value = None)
+
+        Returns:
+
+        """
         for i, choice in enumerate(self.choices):
             self._out("{}. {}\n".format(str(i + 1), choice))
         self._out(str("{}. {}\n".format(len(self.choices) + 1, "Cancel")))
@@ -61,5 +82,15 @@ class Menu:
 
 
 class MenuFactory:
+    """Creates a Menu"""
+
     def make(self, choices):
+        """
+
+        Args:
+          choices:
+
+        Returns:
+
+        """
         return Menu(choices)

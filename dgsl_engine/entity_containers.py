@@ -8,7 +8,7 @@ from . import entity_base
 
 class Container(entity_base.Entity):
     """Entity that can have other entities inside of it.
-    
+
     Cannot hold a Player or a Room.
 
     Attributes:
@@ -24,10 +24,10 @@ class Container(entity_base.Entity):
 
     def add(self, item):
         """Add an item to the container.
-        
+
         Returns:
             bool: True if the item is added to the containers inventory.
-        
+
         Raises:
             ContainerError: If the item is a Player or a Room.
         """
@@ -63,9 +63,8 @@ class Room(Container):
 
 class Player(Container):
     """The player character.
-    
-    Cannot contain Rooms.
 
+    Cannot contain Rooms.
     """
 
     def __init__(self, obj_id):
@@ -77,7 +76,6 @@ class Player(Container):
 
 class ContainerError(Exception):
     """Exception for adding the wrong item type to a container."""
-    pass
 
 
 @singledispatch

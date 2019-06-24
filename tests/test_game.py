@@ -18,9 +18,9 @@ class TestGame(unittest.TestCase):
         self.world.player = Player('id')
         self.parser = user_input.Parser()
         self.resolver = fakes.FakeResolver(results)
-        self.game = game.Game(self.world, self.parser, self.resolver,
-                              self.output.make_capture(),
-                              self.input.make_stream())
+        self.game = game.Game(self.world, self.parser, self.resolver)
+        self.game._out = self.output.make_capture()
+        self.game._in = self.input.make_stream()
 
     def test_run(self):
         self.game.run()

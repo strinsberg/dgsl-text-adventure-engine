@@ -1,10 +1,22 @@
+"""Module for Entity factory and supporting functions."""
 from . import entity_base
 from . import entity_containers
 from . import exceptions
 
 
 class EntityFactory:
+    """Factory to create new entities from json objects of entity
+    information."""
+
     def new(self, obj):
+        """Create a new entity from an entity json.
+
+        Args:
+            obj (dict): A json object of entity info.
+
+        Returns:
+            Entity: The new entity.
+        """
         try:
             type_ = obj['type']
             id_ = obj['id']
@@ -41,4 +53,5 @@ class EntityFactory:
 
 
 def num_to_bool(num):
-    return num == 1
+    """Turns a number into a bool."""
+    return num != 0

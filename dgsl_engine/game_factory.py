@@ -1,3 +1,4 @@
+"""Module for the game factory."""
 import os
 import json
 import dgsl_engine.game as game
@@ -8,7 +9,17 @@ import dgsl_engine.visitors as visitors
 
 
 class GameFactory:
+    """Creates a new game with some default components."""
+
     def new(self, world_name):
+        """
+
+        Args:
+          world_name:
+
+        Returns:
+
+        """
         parser = user_input.Parser()
 
         collector_factory = visitors.EntityCollectorFactory()
@@ -29,5 +40,13 @@ class GameFactory:
         return game.Game(game_world, parser, resolver)
 
     def _name_to_path(self, name):
+        """
+
+        Args:
+          name:
+
+        Returns:
+
+        """
         words = name.split()
         return "_".join(words) + ".world"

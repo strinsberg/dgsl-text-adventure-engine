@@ -1,11 +1,23 @@
+"""Module for Game and supporting functions."""
 from . import user_input
 from . import commands
 
 
 class Game:
-    def __init__(self, world, parser, resolver, out=print, in_=input):
-        self._in = in_
-        self._out = out
+    """The Game object.
+
+    Attributes:
+        world (World): The game world.
+        parser (Parser): Get the users actions from input text.
+        resolver (Resolver): Resolves the desired player action and
+            returns a string of the result.
+        _out: A function that displays output. (default print)
+        _in_: A function that collects user input. (default input)
+    """
+
+    def __init__(self, world, parser, resolver):
+        self._in = print
+        self._out = input
         self.parser = parser
         self.world = world
         self.resolver = resolver
@@ -13,9 +25,9 @@ class Game:
 
     def run(self):
         """Main game loop.
-        
+
         User specifies actions for the player to take and the result of
-        those actions is passed to out (default print).
+        those actions is passed to out.
         """
         while True:
             raw_input = self._in("\n> ")
