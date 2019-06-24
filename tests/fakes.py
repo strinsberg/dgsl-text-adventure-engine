@@ -41,3 +41,39 @@ class FakeAction:
         if self.entity is None:
             return "Verb with no object"
         return "Result found"
+
+
+class FakeOutput:
+    def __init__(self):
+        self.text = []
+
+    def make_capture(self):
+        return lambda text: self.text.append(text)
+
+    def get_text(self):
+        return "".join(self.text)
+
+
+class FakeInput:
+    def __init__(self, text_list):
+        self.text_list = text_list
+        self.prompts = []
+        self.idx = -1
+
+    def make_stream(self):
+        return self.next
+
+    def next(self, prompt):
+        self.prompts.append(prompt)
+        self.idx += 1
+        return self.text_list[self.idx]
+
+
+class FakeResolver:
+    def __init__(self, results):
+        self.results = results
+        self.idx = -1
+
+    def resolve_input(self, input, player):
+        self.idx += 1
+        return self.results[self.idx]
