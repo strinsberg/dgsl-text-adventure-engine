@@ -1,3 +1,11 @@
+class FakeVisitor:
+    def visit_event(self, event):
+        self.result = event.id
+
+    def visit_move(self, event):
+        self.visit_event(event)
+
+
 class FakeCollector:
     """Fake collector and factory.
     

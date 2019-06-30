@@ -1,5 +1,5 @@
 """Base Event as well as supporting classes and functions."""
-from abc import ABC, abstractmethod
+from . import actions
 
 
 class Event:
@@ -10,6 +10,7 @@ class Event:
         self.id = obj_id
         self.only_once = False
         self.is_done = False
+        self.message = None
         self.subjects = []
 
     def execute(self, affected):
@@ -23,9 +24,9 @@ class Event:
           str: A description of the results.
 
         """
-        # All the base version does is notify it's observers
-        # You have to subclass or decorate it
-        return ""
+        result = self.message if self.message is not None else ''
+        # Add the results of observers later
+        return result
 
     def accept(self, visitor):
         """
@@ -50,17 +51,14 @@ class Event:
         self.subjects.append(event)
 
 
-class EventDecorator(Event, ABC):
-    """Abstract class for event decorators."""
+class MoveEntity(Event):
+    """Event to move an entity to a destination."""
 
-    def __init__(self, event):  # pragma: no cover
-        Event.__init__(self, event.id)
-        self.event = event
-        self.id = event.id
-        ABC.__init__(self)  # is this the right order?
+    def __init__(self, obj_id):
+        super(MoveEntity, self).__init__(obj_id)
+        self.destination = None
 
-    @abstractmethod
-    def execute(self, affected):  # pragma: no cover
+    def execute(self, affected):
         """
 
         Args:
@@ -69,9 +67,10 @@ class EventDecorator(Event, ABC):
         Returns:
 
         """
+        actions.move(affected, self.destination)
+        return super(MoveEntity, self).execute(affected)
 
-    @abstractmethod
-    def accept(self, visitor):  # pragma: no cover
+    def accept(self, visitor):
         """
 
         Args:
@@ -80,3 +79,4 @@ class EventDecorator(Event, ABC):
         Returns:
 
         """
+        visitor.visit_move(self)

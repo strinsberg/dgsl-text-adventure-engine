@@ -22,13 +22,6 @@ class TestEventFactory(unittest.TestCase):
         event = self.fact.new(self.obj)
         self.assertEqual(event.id, OBJ['id'])
 
-    def test_new_with_message_decorator(self):
-        self.obj['type'] = 'event'
-        self.obj['message'] = 'Some real interesting message'
-        event = self.fact.new(self.obj)
-        self.assertEqual(event.id, OBJ['id'])
-        self.assertEqual(event.execute(None), self.obj['message'])
-
     def test_new_unfinished_object_throws(self):
         with self.assertRaises(exceptions.InvalidParameterError):
             self.fact.new({'id': '09r8320'})
