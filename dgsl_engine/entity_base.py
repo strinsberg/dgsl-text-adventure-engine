@@ -1,6 +1,7 @@
 """
 Base Event as well as supporting classes and functions.
 """
+from . import exceptions
 
 
 class Entity:
@@ -67,6 +68,24 @@ class EntityStates:
         self.active = True
         self.obtainable = True
         self.hidden = False
+
+    def toggle_active(self):
+        if self.active:
+            self.active = False
+        else:
+            self.active = True
+
+    def toggle_obtainable(self):
+        if self.obtainable:
+            self.obtainable = False
+        else:
+            self.obtainable = True
+
+    def toggle_hidden(self):
+        if self.hidden:
+            self.hidden = False
+        else:
+            self.hidden = True
 
 
 class EntityEvents:

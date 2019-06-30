@@ -11,7 +11,7 @@ def _extend(obj, extra):
 
 EVENT = {
     'id': 'rmr22',
-    'once': 1,
+    'once': 0,
     'type': 'event',
     'name': 'test event',
     'subjects': [],
@@ -42,6 +42,24 @@ TAKE = _extend(
         'message': 'Ive been looking for that',
         'type': 'take'
     })
+
+TOGGLE_ACTIVE = _extend(
+    EVENT, {
+        'type': 'toggle_active',
+    }
+)
+
+TOGGLE_OBTAINABLE = _extend(
+    EVENT, {
+        'type': 'toggle_obtainable',
+    }
+)
+
+TOGGLE_HIDDEN = _extend(
+    EVENT, {
+        'type': 'toggle_hidden',
+    }
+)
 
 # Entities #############################################################
 

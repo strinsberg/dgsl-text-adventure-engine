@@ -24,7 +24,12 @@ class Event:
           str: A description of the results.
 
         """
-        result = self.message if self.message is not None else ''
+        if self.is_done:
+            result = ''
+        else:
+            result = self.message if self.message is not None else ''
+            if self.only_once:
+                self.is_done = True
         # Add the results of observers later
         return result
 
@@ -118,3 +123,45 @@ class Take(Event):
 
     def __repr__(self):
         return "<Take '{}'>".format(self.id)
+
+
+class Toggle(Event):
+    def __init__(self, obj_id):
+        super(Toggle, self).__init__(obj_id)
+        self.target = None
+
+
+class ToggleActive(Toggle):
+    def execute(self, affected):
+        if self.is_done:
+            return ''
+        self.target.states.toggle_active()
+        return super(ToggleActive, self).execute(affected)
+
+    def __repr__(self):
+        return "<ToggleActive '{}'>".format(self.id)
+
+
+class ToggleObtainable(Toggle):
+    def execute(self, affected):
+        if self.is_done:
+            return ''
+        self.target.states.toggle_obtainable()
+        return super(ToggleObtainable, self).execute(affected)
+
+    def __repr__(self):
+        return "<ToggleObtainable '{}'>".format(self.id)
+
+
+class ToggleHidden(Toggle):
+    def execute(self, affected):
+        if self.is_done:
+            return ''
+        if self.target is None:
+            affected.states.toggle_hidden()
+        else:
+            self.target.states.toggle_hidden()
+        return super(ToggleHidden, self).execute(affected)
+
+    def __repr__(self):
+        return "<ToggleHidden '{}'>".format(self.id)

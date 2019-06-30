@@ -45,8 +45,7 @@ class TestEvent(unittest.TestCase):
         self.assertEqual(self.event.__repr__(), rep)
 
 
-# Tests ################################################################
-
+### Transfers ###
 
 class TestMoveEntity(unittest.TestCase):
     def setUp(self):
@@ -130,6 +129,82 @@ class TestTake(unittest.TestCase):
     def test_repr(self):
         rep = "<Take '{}'>".format(self.take.id)
         self.assertEqual(self.take.__repr__(), rep)
+
+
+### Toggles ###
+
+class TestToggleActive(unittest.TestCase):
+    def setUp(self):
+        self.ent_fact = entity_factory.EntityFactory()
+        self.entity = self.ent_fact.new(objects.ENTITY)
+
+        self.evt_fact = event_factory.EventFactory()
+        self.event = self.evt_fact.new(objects.TOGGLE_ACTIVE)
+        self.event.target = self.entity
+
+    def test_execute(self):
+        self.assertTrue(self.entity.states.active)
+        self.event.execute(None)
+        self.assertFalse(self.entity.states.active)
+        self.event.execute(None)
+        self.assertTrue(self.entity.states.active)
+
+    def test_execute_only_once(self):
+        self.event.only_once = True
+        self.assertTrue(self.entity.states.active)
+        self.event.execute(None)
+        self.assertFalse(self.entity.states.active)
+        self.event.execute(None)
+        self.assertFalse(self.entity.states.active)
+
+    def test_repr(self):
+        rep = "<ToggleActive '{}'>".format(self.event.id)
+        self.assertEqual(repr(self.event), rep)
+
+
+class TestToggleObtainable(unittest.TestCase):
+    def setUp(self):
+        self.ent_fact = entity_factory.EntityFactory()
+        self.entity = self.ent_fact.new(objects.ENTITY)
+
+        self.evt_fact = event_factory.EventFactory()
+        self.event = self.evt_fact.new(objects.TOGGLE_OBTAINABLE)
+        self.event.target = self.entity
+
+    def test_execute(self):
+        self.assertTrue(self.entity.states.obtainable)
+        self.event.execute(None)
+        self.assertFalse(self.entity.states.obtainable)
+
+    def test_repr(self):
+        rep = "<ToggleObtainable '{}'>".format(self.event.id)
+        self.assertEqual(repr(self.event), rep)
+
+
+class TestToggleHidden(unittest.TestCase):
+    def setUp(self):
+        self.ent_fact = entity_factory.EntityFactory()
+        self.entity = self.ent_fact.new(objects.ENTITY)
+        self.player = self.ent_fact.new(objects.PLAYER)
+
+        self.evt_fact = event_factory.EventFactory()
+        self.event = self.evt_fact.new(objects.TOGGLE_HIDDEN)
+        self.event.target = self.entity
+
+    def test_execute(self):
+        self.assertFalse(self.entity.states.hidden)
+        self.event.execute(None)
+        self.assertTrue(self.entity.states.hidden)
+
+    def test_execute_on_affected(self):
+        self.event.target = None
+        self.assertFalse(self.player.states.hidden)
+        self.event.execute(self.player)
+        self.assertTrue(self.player.states.hidden)
+
+    def test_repr(self):
+        rep = "<ToggleHidden '{}'>".format(self.event.id)
+        self.assertEqual(repr(self.event), rep)
 
 
 # Main #################################################################

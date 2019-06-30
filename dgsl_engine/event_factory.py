@@ -24,6 +24,12 @@ class EventFactory:
                 event = event_base.Give(id_)
             elif type_ == 'take':
                 event = event_base.Take(id_)
+            elif type_ == 'toggle_active':
+                event = event_base.ToggleActive(id_)
+            elif type_ == 'toggle_obtainable':
+                event = event_base.ToggleObtainable(id_)
+            elif type_ == 'toggle_hidden':
+                event = event_base.ToggleHidden(id_)
             else:
                 raise exceptions.InvalidParameterError(
                     "Error: invalid obj of type " + type_)
