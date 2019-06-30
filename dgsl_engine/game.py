@@ -16,8 +16,8 @@ class Game:
     """
 
     def __init__(self, world, parser, resolver):
-        self._in = print
-        self._out = input
+        self._in = input
+        self._out = print
         self.parser = parser
         self.world = world
         self.resolver = resolver
