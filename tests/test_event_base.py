@@ -31,6 +31,10 @@ class TestEvent(unittest.TestCase):
         # Will need to change when event gets subjects
         self.assertEqual(self.event.execute(self.entity), RESULT)
 
+    def test_execute_is_done(self):
+        self.event.is_done = True
+        self.assertEqual(self.event.execute(None), '')
+
     def test_visit(self):
         visitor = fakes.FakeVisitor()
         self.event.accept(visitor)
@@ -176,6 +180,12 @@ class TestToggleObtainable(unittest.TestCase):
         self.event.execute(None)
         self.assertFalse(self.entity.states.obtainable)
 
+    def test_execute_is_done(self):
+        self.event.is_done = True
+        self.assertTrue(self.entity.states.obtainable)
+        self.event.execute(None)
+        self.assertTrue(self.entity.states.obtainable)
+
     def test_repr(self):
         rep = "<ToggleObtainable '{}'>".format(self.event.id)
         self.assertEqual(repr(self.event), rep)
@@ -195,6 +205,12 @@ class TestToggleHidden(unittest.TestCase):
         self.assertFalse(self.entity.states.hidden)
         self.event.execute(None)
         self.assertTrue(self.entity.states.hidden)
+
+    def test_execute_is_done(self):
+        self.event.is_done = True
+        self.assertFalse(self.entity.states.hidden)
+        self.event.execute(None)
+        self.assertFalse(self.entity.states.hidden)
 
     def test_execute_on_affected(self):
         self.event.target = None

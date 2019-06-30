@@ -58,11 +58,29 @@ class TestSpec(unittest.TestCase):
 
 
 class TestStates(unittest.TestCase):
-    def test_init(self):
-        states = entity.EntityStates()
-        self.assertTrue(states.active)
-        self.assertTrue(states.obtainable)
-        self.assertFalse(states.hidden)
+    def setUp(self):
+        self.states = entity.EntityStates()
+
+    def test_toggle_active(self):
+        self.assertTrue(self.states.active)
+        self.states.toggle_active()
+        self.assertFalse(self.states.active)
+        self.states.toggle_active()
+        self.assertTrue(self.states.active)
+
+    def test_toggle_obtainable(self):
+        self.assertTrue(self.states.obtainable)
+        self.states.toggle_obtainable()
+        self.assertFalse(self.states.obtainable)
+        self.states.toggle_obtainable()
+        self.assertTrue(self.states.obtainable)
+
+    def test_toggle_hidden(self):
+        self.assertFalse(self.states.hidden)
+        self.states.toggle_hidden()
+        self.assertTrue(self.states.hidden)
+        self.states.toggle_hidden()
+        self.assertFalse(self.states.hidden)
 
 
 class TestEvents(unittest.TestCase):
