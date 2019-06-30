@@ -44,6 +44,16 @@ class Container(entity_base.Entity):
     def accept(self, visitor):
         visitor.visit_container(self)
 
+    def __repr__(self):
+        return "<Container '{}', Name: '{}', Contents: {}>".format(
+            self.spec.id, self.spec.name, self._repr_contents())
+
+    def _repr_contents(self):
+        contents = []
+        for item in self:
+            contents.append(repr(item))
+        return '{' + ", ".join(contents) + '}'
+
 
 class Room(Container):
     """A location in a World that can hold any entity except other rooms."""
@@ -65,6 +75,10 @@ class Room(Container):
             return True
         return False
 
+    def __repr__(self):
+        return "<Room '{}', Name: '{}', Contents: {}>".format(
+            self.spec.id, self.spec.name, self._repr_contents())
+
 
 class Player(Container):
     """The player character.
@@ -77,6 +91,10 @@ class Player(Container):
         self.states.active = True
         self.states.obtainable = False
         self.states.hidden = False
+
+    def __repr__(self):
+        return "<Player '{}', Name: '{}', Contents: {}>".format(
+            self.spec.id, self.spec.name, self._repr_contents())
 
 
 class ContainerError(Exception):

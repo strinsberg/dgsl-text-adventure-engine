@@ -17,7 +17,7 @@ RESULT = ''
 # Tests ################################################################
 
 
-class TestEventBase(unittest.TestCase):
+class TestEvent(unittest.TestCase):
     def setUp(self):
         self.event = event_base.Event(ID)
         self.other_event = event_base.Event(ID)
@@ -39,6 +39,10 @@ class TestEventBase(unittest.TestCase):
     def test_register(self):
         self.event.register(self.other_event)
         self.assertIn(self.other_event, self.event.subjects)
+
+    def test_repr(self):
+        rep = "<Event '{}'>".format(self.event.id)
+        self.assertEqual(self.event.__repr__(), rep)
 
 
 # Tests ################################################################
@@ -75,6 +79,10 @@ class TestMoveEntity(unittest.TestCase):
         self.move.accept(visitor)
         self.assertEqual(visitor.result, ID4)
 
+    def test_repr(self):
+        rep = "<Move '{}'>".format(self.move.id)
+        self.assertEqual(self.move.__repr__(), rep)
+
 
 class TestGive(unittest.TestCase):
     def setUp(self):
@@ -94,6 +102,10 @@ class TestGive(unittest.TestCase):
         self.give.execute(self.player)
         self.assertIs(self.container.get(self.entity.spec.id), None)
         self.assertIs(self.player.get(self.entity.spec.id), self.entity)
+
+    def test_repr(self):
+        rep = "<Give '{}'>".format(self.give.id)
+        self.assertEqual(self.give.__repr__(), rep)
 
 
 class TestTake(unittest.TestCase):
@@ -115,8 +127,12 @@ class TestTake(unittest.TestCase):
         self.assertIs(self.player.get(self.entity.spec.id), None)
         self.assertIs(self.container.get(self.entity.spec.id), self.entity)
 
-# Main #################################################################
+    def test_repr(self):
+        rep = "<Take '{}'>".format(self.take.id)
+        self.assertEqual(self.take.__repr__(), rep)
 
+
+# Main #################################################################
 
 if __name__ == '__main__':
     unittest.main()

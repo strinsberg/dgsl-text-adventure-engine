@@ -3,6 +3,7 @@ import dgsl_engine.entity_containers as container
 import dgsl_engine.entity_base as entity
 
 ID = "1234"
+ID2 = '590ddsf'
 
 # Mocks ################################################################
 
@@ -55,11 +56,22 @@ class TestContainer(unittest.TestCase):
         self.container.accept(visitor)
         self.assertEqual(visitor.result, ID)
 
+    def test_repr(self):
+        self.container.spec.name = 'test container'
+        self.entity.spec.name = 'test entity'
+        rep = ("<Container '{}', Name: '{}', "
+               "Contents: {{<Entity '{}', Name: '{}'>}}>").format(
+            self.container.spec.id, self.container.spec.name,
+            self.entity.spec.id, self.entity.spec.name)
+        self.container.add(self.entity)
+        self.assertEqual(repr(self.container), rep)
+
 
 class TestRoom(unittest.TestCase):
     def setUp(self):
         self.room = container.Room(ID)
         self.other_room = container.Room(ID)
+        self.entity = entity.Entity(ID2)
 
     def test_init(self):
         self.assertTrue(self.room.states.active)
@@ -80,9 +92,32 @@ class TestRoom(unittest.TestCase):
         self.room.add(ent)
         self.assertFalse(self.room.add(ent))
 
+    def test_repr(self):
+        self.room.spec.name = 'test room'
+        self.entity.spec.name = 'test entity'
+        rep = ("<Room '{}', Name: '{}', "
+               "Contents: {{<Entity '{}', Name: '{}'>}}>").format(
+            self.room.spec.id, self.room.spec.name,
+            self.entity.spec.id, self.entity.spec.name)
+        self.room.add(self.entity)
+        self.assertEqual(repr(self.room), rep)
+
 
 class TestPlayer(unittest.TestCase):
-    pass
+    def setUp(self):
+        self.player = container.Player(ID)
+        self.entity = entity.Entity(ID2)
+        self.player.add(self.entity)
+
+    def test_repr(self):
+        self.player.spec.name = 'test entity'
+        self.entity.spec.name = 'test entity'
+        rep = ("<Player '{}', Name: '{}', "
+               "Contents: {{<Entity '{}', Name: '{}'>}}>").format(
+            self.player.spec.id, self.player.spec.name,
+            self.entity.spec.id, self.entity.spec.name)
+        self.player.add(self.entity)
+        self.assertEqual(repr(self.player), rep)
     # Will add tests when more functionality is added to the player
 
 

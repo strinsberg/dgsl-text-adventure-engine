@@ -50,8 +50,8 @@ class Event:
         """
         self.subjects.append(event)
 
-    def __rep__(self):
-        return "<Event ID={}>".format(self.id)
+    def __repr__(self):
+        return "<Event '{}'>".format(self.id)
 
 
 class MoveEntity(Event):
@@ -84,8 +84,8 @@ class MoveEntity(Event):
         """
         visitor.visit_move(self)
 
-    def __rep__(self):
-        return "<Event Type=Move ID={}".format(self.id)
+    def __repr__(self):
+        return "<Move '{}'>".format(self.id)
 
 
 class Give(Event):
@@ -100,8 +100,8 @@ class Give(Event):
             actions.move(item, affected)
         return super(Give, self).execute(affected)
 
-    def __rep__(self):
-        return "<Event Type=Give ID={}".format(self.id)
+    def __repr__(self):
+        return "<Give '{}'>".format(self.id)
 
 
 class Take(Event):
@@ -116,5 +116,5 @@ class Take(Event):
             actions.move(item, self.new_owner)
         return super(Take, self).execute(affected)
 
-    def __rep__(self):
-        return "<Event Type=Take ID={}".format(self.id)
+    def __repr__(self):
+        return "<Take '{}'>".format(self.id)

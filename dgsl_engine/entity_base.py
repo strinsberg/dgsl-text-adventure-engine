@@ -35,8 +35,8 @@ class Entity:
         """Accepts the visitor and calls the appropriate visit."""
         visitor.visit_entity(self)
 
-    def __rep__(self):
-        return "<Entity ID={} Name={}>".format(self.spec.id, self.spec.name)
+    def __repr__(self):
+        return "<Entity '{}', Name: '{}'>".format(self.spec.id, self.spec.name)
 
 
 class EntitySpec:

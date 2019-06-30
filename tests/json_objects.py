@@ -72,21 +72,21 @@ CONTAINER = _extend(OBJ, {
 
 ROOM = _extend(
     OBJ, {
-        'id':
-        '9234',
-        'type':
-        'room',
-        'name':
-        'test room',
-        'description':
-        'You are in a strange test room',
-        'items': [{
-            'id': PLAYER['id'],
-        }, {
-            'id': ENTITY['id']
-        }, {
-            'id': CONTAINER['id']
-        }]
+        'id': '9234',
+        'type': 'room',
+        'name': 'test room',
+        'description': 'You are in a strange test room',
+        'items': [
+            {
+                'id': PLAYER['id'],
+            },
+            {
+                'id': ENTITY['id']
+            },
+            {
+                'id': CONTAINER['id']
+            }
+        ]
     })
 
 # Events that need Entities ############################################
@@ -100,7 +100,9 @@ MOVE = _extend(
             'id': ROOM['id']
         },
         'verb': 'use',
-        'subjects': [{
-            'id': INFORM['id']
-        }]
+        'subjects': [
+            {
+                'id': INFORM['id']
+            }
+        ]
     })
