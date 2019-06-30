@@ -2,7 +2,10 @@ import unittest
 import dgsl_engine.event_base as event_base
 import dgsl_engine.entity_base as entity_base
 import dgsl_engine.entity_containers as containers
+import dgsl_engine.event_factory as event_factory
+import dgsl_engine.entity_factory as entity_factory
 from . import fakes
+from . import json_objects as objects
 
 ID = '1234'
 ID2 = "5678"
@@ -73,7 +76,47 @@ class TestMoveEntity(unittest.TestCase):
         self.assertEqual(visitor.result, ID4)
 
 
+class TestGive(unittest.TestCase):
+    def setUp(self):
+        self.ent_fact = entity_factory.EntityFactory()
+        self.container = self.ent_fact.new(objects.CONTAINER)
+        self.entity = self.ent_fact.new(objects.ENTITY)
+        self.container.add(self.entity)
+        self.player = self.ent_fact.new(objects.PLAYER)
+
+        self.evt_fact = event_factory.EventFactory()
+        self.give = self.evt_fact.new(objects.GIVE)
+        self.give.item_id = self.entity.spec.id
+        self.give.owner = self.container
+
+    def test_execute(self):
+        self.assertIs(self.container.get(self.entity.spec.id), self.entity)
+        self.give.execute(self.player)
+        self.assertIs(self.container.get(self.entity.spec.id), None)
+        self.assertIs(self.player.get(self.entity.spec.id), self.entity)
+
+
+class TestTake(unittest.TestCase):
+    def setUp(self):
+        self.ent_fact = entity_factory.EntityFactory()
+        self.container = self.ent_fact.new(objects.CONTAINER)
+        self.entity = self.ent_fact.new(objects.ENTITY)
+        self.player = self.ent_fact.new(objects.PLAYER)
+        self.player.add(self.entity)
+
+        self.evt_fact = event_factory.EventFactory()
+        self.take = self.evt_fact.new(objects.TAKE)
+        self.take.item_id = self.entity.spec.id
+        self.take.new_owner = self.container
+
+    def test_execute(self):
+        self.assertIs(self.player.get(self.entity.spec.id), self.entity)
+        self.take.execute(self.player)
+        self.assertIs(self.player.get(self.entity.spec.id), None)
+        self.assertIs(self.container.get(self.entity.spec.id), self.entity)
+
 # Main #################################################################
+
 
 if __name__ == '__main__':
     unittest.main()

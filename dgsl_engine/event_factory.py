@@ -20,6 +20,10 @@ class EventFactory:
                 event = event_base.Event(id_)
             elif type_ == 'move':
                 event = event_base.MoveEntity(id_)
+            elif type_ == 'give':
+                event = event_base.Give(id_)
+            elif type_ == 'take':
+                event = event_base.Take(id_)
             else:
                 raise exceptions.InvalidParameterError(
                     "Error: invalid obj of type " + type_)

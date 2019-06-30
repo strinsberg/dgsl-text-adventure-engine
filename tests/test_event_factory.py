@@ -10,7 +10,7 @@ class TestEventFactory(unittest.TestCase):
         self.fact = factory.EventFactory()
         self.obj = OBJ
 
-    def test_new_entity(self):
+    def test_new_event(self):
         self.obj['type'] = 'event'
         event = self.fact.new(self.obj)
         self.assertEqual(event.id, OBJ['id'])
@@ -19,6 +19,16 @@ class TestEventFactory(unittest.TestCase):
 
     def test_new_move(self):
         self.obj['type'] = 'move'
+        event = self.fact.new(self.obj)
+        self.assertEqual(event.id, OBJ['id'])
+
+    def test_new_give(self):
+        self.obj['type'] = 'give'
+        event = self.fact.new(self.obj)
+        self.assertEqual(event.id, OBJ['id'])
+
+    def test_new_take(self):
+        self.obj['type'] = 'take'
         event = self.fact.new(self.obj)
         self.assertEqual(event.id, OBJ['id'])
 

@@ -26,6 +26,13 @@ class TestContainer(unittest.TestCase):
         self.assertTrue(self.container.add(self.entity))
         self.assertEqual(self.entity.owner, self.container)
 
+    def test_get_item_there(self):
+        self.container.add(self.entity)
+        self.assertIs(self.container.get(self.entity.spec.id), self.entity)
+
+    def test_get_item_not_there(self):
+        self.assertIs(self.container.get(self.entity.spec.id), None)
+
     def test_iter(self):
         self.container.add(self.entity)
         result = ""

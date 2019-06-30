@@ -27,6 +27,22 @@ INFORM = _extend(
         }]
     })
 
+GIVE = _extend(
+    EVENT, {
+        'id': 'faeim302',
+        'name': 'test give',
+        'message': 'I bet you will like this!',
+        'type': 'give'
+    })
+
+TAKE = _extend(
+    EVENT, {
+        'id': 'faeim302',
+        'name': 'test take',
+        'message': 'Ive been looking for that',
+        'type': 'take'
+    })
+
 # Entities #############################################################
 
 OBJ = {
