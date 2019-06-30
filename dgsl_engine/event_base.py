@@ -80,3 +80,29 @@ class MoveEntity(Event):
 
         """
         visitor.visit_move(self)
+
+
+class Give(Event):
+    def __init__(self, obj_id):
+        super(Give, self).__init__(obj_id)
+        self.item_id = None
+        self.owner = None
+
+    def execute(self, affected):
+        item = self.owner.get(self.item_id)
+        if item is not None:
+            actions.move(item, affected)
+        return super(Give, self).execute(affected)
+
+
+class Take(Event):
+    def __init__(self, obj_id):
+        super(Take, self).__init__(obj_id)
+        self.item_id = None
+        self.new_owner = None
+
+    def execute(self, affected):
+        item = affected.get(self.item_id)
+        if item is not None:
+            actions.move(item, self.new_owner)
+        return super(Take, self).execute(affected)

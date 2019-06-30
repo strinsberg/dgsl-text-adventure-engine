@@ -36,6 +36,11 @@ class Container(entity_base.Entity):
             return True
         return False
 
+    def get(self, item_id):
+        if self.inventory.has_item:
+            return self.inventory.items[item_id]
+        return None
+
     def accept(self, visitor):
         visitor.visit_container(self)
 
