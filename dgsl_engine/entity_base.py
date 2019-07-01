@@ -210,21 +210,24 @@ class Inventory:
 
 
 class Equipped:
-    def __init__(self):
+    def __init__(self, owner):
+        self.owner = owner
         self.equipment = {}
 
     def equip(self, equipment):
         slot = equipment.slot
         old = None
         if slot in self.equipment:
-            old = self.equipment[slot]
+            old = self.remove(slot)
         self.equipment[slot] = equipment
+        equipment.owner = self.owner
         return old
 
     def remove(self, slot):
         old = None
         if slot in self.equipment:
             old = self.equipment[slot]
+            old.owner = None
             del(slot, self.equipment)
         return old
 
