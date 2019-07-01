@@ -207,3 +207,28 @@ class Inventory:
             bool: True if the Entity is there, False otherwise.
         """
         return item_id in self.items
+
+
+class Equipped:
+    def __init__(self):
+        self.equipment = {}
+
+    def equip(self, equipment):
+        slot = equipment.slot
+        old = None
+        if slot in self.equipment:
+            old = self.equipment[slot]
+        self.equipment[slot] = equipment
+        return old
+
+    def remove(self, slot):
+        old = None
+        if slot in self.equipment:
+            old = self.equipment[slot]
+            del(slot, self.equipment)
+        return old
+
+    def get(self, slot):
+        if slot in self.equipment:
+            return self.equipment[slot]
+        return None
