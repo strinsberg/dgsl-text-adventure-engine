@@ -7,6 +7,7 @@ import dgsl_engine.entity_factory as entity_factory
 from . import fakes
 from . import json_objects as objects
 
+# Should change to use the factories and json_objs sometime?
 ID = '1234'
 ID2 = "5678"
 ID3 = "9876"
