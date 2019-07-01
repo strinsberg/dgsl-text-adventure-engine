@@ -61,6 +61,11 @@ TOGGLE_HIDDEN = _extend(
     }
 )
 
+GROUP = _extend(
+    EVENT, {
+        'type': 'group',
+    }
+)
 # Entities #############################################################
 
 OBJ = {

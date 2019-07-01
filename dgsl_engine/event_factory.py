@@ -1,6 +1,7 @@
 """Event factory to create new events from json event objects."""
 from . import event_base
 from . import exceptions
+from . import event_composites
 
 
 class EventFactory:
@@ -30,6 +31,8 @@ class EventFactory:
                 event = event_base.ToggleObtainable(id_)
             elif type_ == 'toggle_hidden':
                 event = event_base.ToggleHidden(id_)
+            elif type_ == 'group':
+                event = event_composites.GroupEvent(id_)
             else:
                 raise exceptions.InvalidParameterError(
                     "Error: invalid obj of type " + type_)

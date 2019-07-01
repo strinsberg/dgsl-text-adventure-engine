@@ -11,11 +11,11 @@ class GroupEvent(event_base.Event):
         results = []
 
         for event in self.events:
-            r = event.execute()
+            r = event.execute(affected)
             if r != '':
                 results.append(r)
 
-        r = super(GroupEvent).execute(affected)
+        r = super(GroupEvent, self).execute(affected)
         if r != '':
             results.append(r)
 
