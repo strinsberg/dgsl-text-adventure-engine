@@ -33,21 +33,27 @@ class Protected:
         self.effects = effects
 
     def test(self, character):
-        not_equipped = self._get_carried_equipment(character)
+        not_equipped = self._get_valid_carried(character)
         protected = set()
         for effect in self.effects:
             protected = False
+
             for equipment in character.equipped:
                 if effect in equipment.protection:
                     protected = True
-            for equipment in not_equipped:
-                if effect in equipment.protection:
-                    protected = True
+                    break
+
+            if not protected:
+                for equipment in not_equipped:
+                    if effect in equipment.protection:
+                        protected = True
+                        break
+
             if not protected:
                 return False
         return True
 
-    def _get_carried_equipment(self, character):
+    def _get_valid_carried(self, character):
         collector = visitors.EntityTypeCollector(['equipment'], character)
         equipment = collector.collect()
         results = []

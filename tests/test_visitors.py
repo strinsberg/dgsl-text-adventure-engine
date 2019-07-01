@@ -54,6 +54,26 @@ class TestEntityCollector(unittest.TestCase):
     # If the factory ever gets ore complex then add it's own test
 
 
+class TestEntityTypeCollector(unittest.TestCase):
+    def setUp(self):
+        pass
+
+    def test_collect_entity(self):
+        pass
+
+    def test_collect_container(self):
+        pass
+
+    def test_collect_player(self):
+        pass
+
+    def test_collect_npc(self):
+        pass
+
+    def test_collect_equipment(self):
+        pass
+
+
 class TestEntityConnector(unittest.TestCase):
     def setUp(self):
         self.ent_fact = EntityFactory()

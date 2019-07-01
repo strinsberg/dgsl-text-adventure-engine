@@ -136,6 +136,27 @@ class TestInventory(unittest.TestCase):
         self.assertEqual(", ".join(ids), ", ".join([ID, ID2]))
 
 
+class TestEquipped(unittest.TestCase):
+    def setUp(self):
+        self.equipment = None
+        self.equipment2 = None
+
+    def test_equip(self):
+        pass
+
+    def test_equip_already_there(self):
+        pass
+
+    def test_remove(self):
+        pass
+
+    def test_remove_not_there(self):
+        pass
+
+    def test_get(self):
+        pass
+
+
 # Main #################################################################s
 
 if __name__ == '__main__':

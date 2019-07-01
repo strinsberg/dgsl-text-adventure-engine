@@ -41,3 +41,17 @@ class TestHasItem(unittest.TestCase):
     def test_no_item(self):
         res = self.has_item.test(self.container)
         self.assertFalse(res)
+
+
+class TestProtected(unittest.TestCase):
+    def setUp(self):
+        pass
+
+    def test_has_protection_equipped(self):
+        pass
+
+    def test_has_protection_carrying(self):
+        pass
+
+    def test_no_protection(self):
+        pass
