@@ -11,7 +11,7 @@ class Interaction(Event):
         self._out = print
 
     def execute(self, affected):
-        choices = self._make_choices(affected)
+        options, choices = self._make_choices(affected)
         menu = Menu(choices, self._out, self._in)
 
         while True:
@@ -29,7 +29,7 @@ class Interaction(Event):
                 self._out('Not a valid choice!')
                 continue
             else:
-                self._out(self.options[idx].choose(affected))
+                self._out(options[idx].choose(affected))
 
             if self.break_out:
                 self._out()
@@ -41,11 +41,13 @@ class Interaction(Event):
         self.options.append(option)
 
     def _make_choices(self, affected):
+        options = []
         choices = []
         for opt in self.options:
             if opt.is_visible(affected):
+                options.append(opt)
                 choices.append(opt.text)
-        return choices
+        return options, choices
 
 
 class Option:

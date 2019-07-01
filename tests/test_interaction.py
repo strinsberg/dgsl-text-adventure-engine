@@ -56,13 +56,13 @@ class TestInteraction(unittest.TestCase):
         in_ = fakes.FakeInput(['1'])
         self.interaction._out = out_.make_capture()
         self.interaction._in = in_.make_stream()
-        self.event.is_done = True
+        self.inform.is_done = True
         self.interaction.execute(None)
         self.assertEqual(out_.get_text(),
-                         ("\n1. Ask for advice\n"
+                         ("\n1. Fix the reactor\n"
                           "2. Cancel\n\n"
                           "--------------------------------------------------\n"
-                          "Get it while it's hot\n\n"))
+                          "I will need help with this\n\n"))
 
     def test_execute_with_message(self):
         self.interaction.message = 'Come again soon!'
