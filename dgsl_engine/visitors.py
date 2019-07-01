@@ -61,10 +61,48 @@ class EntityCollectorFactory:
         return EntityCollector(obj, other, entity)
 
 
+class EntityTypeCollector:
+    """this is a little gross, better to make a base collector with all
+    the methods implemented with pass. then make specific type collectors
+    or something with just their method implemented. though this would not
+    work easily for multiple types."""
+
+    def __init__(self, types, container):
+        self.types = types
+        self.container = container
+        self.results = []
+
+    def collect(self):
+        for entity in self.container:
+            entity.accept(self)
+        return self.results
+
+    def visit_entity(self, entity):
+        if 'entity' in self.types:
+            self.results.append(entity)
+
+    def visit_container(self, entity):
+        if 'container' in self.types:
+            self.results.append(entity)
+
+    def visit_player(self, entity):
+        if 'player' in self.types:
+            self.results.append(entity)
+
+    def visit_npc(self, entity):
+        if 'npc' in self.types:
+            self.results.append(entity)
+
+    def visit_equipment(self, entity):
+        if 'equipment' in self.types:
+            self.results.append(entity)
+
 # Should think about catching key errors here incase the world editor fails
 # to provide all we need or a file is edited by hand and a mistake is made
 # Or aome kind of validation should be done of the world before attempting to
 # load it. Make sure all objects are complete and that there are no cycles.
+
+
 class EntityConnector:
     """Visitor to connect entities when building a world."""
 

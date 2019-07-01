@@ -214,6 +214,10 @@ class Equipped:
         self.owner = owner
         self.equipment = {}
 
+    def __iter__(self):
+        for k in self.equipment:
+            yield self.equipment[k]
+
     def equip(self, equipment):
         slot = equipment.slot
         old = None
