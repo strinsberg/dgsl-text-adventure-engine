@@ -33,6 +33,23 @@ class TestEntityCollector(unittest.TestCase):
         for entity in entities:
             self.assertTrue(self.room.inventory.has_item(entity.spec.id))
 
+    def test_visit_npc_for_npc(self):
+        npc = self.ent_fact.new(objects.NPC)
+        npc.add(self.entity)
+        self.room.add(npc)
+        collector = visitor.EntityCollector('pauline', None, self.room)
+        entities = collector.collect()
+        self.assertIs(entities[0], npc)
+
+    def test_visit_npc_for_contents(self):
+        npc = self.ent_fact.new(objects.NPC)
+        npc.add(self.entity)
+        self.room.add(npc)
+        self.room.inventory.remove(self.entity.spec.id)
+        collector = visitor.EntityCollector('test', None, self.room)
+        entities = collector.collect()
+        self.assertNotIn(self.entity, entities)
+
     # Add visit specific functions when you start adding more
     # If the factory ever gets ore complex then add it's own test
 
