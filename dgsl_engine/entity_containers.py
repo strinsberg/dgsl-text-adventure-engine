@@ -80,7 +80,14 @@ class Room(Container):
             self.spec.id, self.spec.name, self._repr_contents())
 
 
-class Player(Container):
+# Should be an ABC
+class Character(Container):
+    def __init__(self, obj_id):
+        super(Character, self).__init__(obj_id)
+        self.equipped = entity_base.Equipped(self)
+
+
+class Player(Character):
     """The player character.
 
     Cannot contain Rooms.
@@ -97,7 +104,7 @@ class Player(Container):
             self.spec.id, self.spec.name, self._repr_contents())
 
 
-class Npc(Container):
+class Npc(Character):
     """A non player character.
 
     Items it holds cannot be found when looking for items.
