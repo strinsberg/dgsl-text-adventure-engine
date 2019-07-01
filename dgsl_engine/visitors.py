@@ -41,6 +41,10 @@ class EntityCollector:
         for item in container:
             item.accept(self)
 
+    def visit_npc(self, npc):
+        """Visit an Npc."""
+        self.visit_entity(npc)
+
 
 class EntityCollectorFactory:
     """Factory to make an entity collector."""

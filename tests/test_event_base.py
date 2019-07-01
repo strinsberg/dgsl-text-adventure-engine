@@ -37,7 +37,7 @@ class TestEvent(unittest.TestCase):
         self.assertEqual(self.event.execute(None), '')
 
     def test_visit(self):
-        visitor = fakes.FakeVisitor()
+        visitor = fakes.FakeEventVisitor()
         self.event.accept(visitor)
         self.assertEqual(visitor.result, ID)
 
@@ -79,7 +79,7 @@ class TestMoveEntity(unittest.TestCase):
         self.assertFalse(self.container.inventory.has_item(ID3))
 
     def test_visit(self):
-        visitor = fakes.FakeVisitor()
+        visitor = fakes.FakeEventVisitor()
         self.move.accept(visitor)
         self.assertEqual(visitor.result, ID4)
 

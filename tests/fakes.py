@@ -1,9 +1,17 @@
-class FakeVisitor:
+class FakeEventVisitor:
     def visit_event(self, event):
         self.result = event.id
 
     def visit_move(self, event):
         self.visit_event(event)
+
+
+class FakeEntityVisitor:
+    def visit_entity(self, entity):
+        self.result = entity.spec.id
+
+    def visit_npc(self, npc):
+        self.visit_entity(npc)
 
 
 class FakeCollector:

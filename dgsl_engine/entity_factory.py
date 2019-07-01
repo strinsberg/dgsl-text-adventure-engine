@@ -28,6 +28,8 @@ class EntityFactory:
                 entity = entity_containers.Room(id_)
             elif type_ == 'player':
                 entity = entity_containers.Player(id_)
+            elif type_ == 'npc':
+                entity = entity_containers.Npc(id_)
             else:
                 raise exceptions.InvalidParameterError(
                     "Error: invalid obj of type " + type_)

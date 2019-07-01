@@ -97,9 +97,27 @@ class Player(Container):
             self.spec.id, self.spec.name, self._repr_contents())
 
 
+class Npc(Container):
+    """A non player character.
+
+    Items it holds cannot be found when looking for items.
+    """
+
+    def __repr__(self):
+        return "<Npc '{}', Name: '{}', Contents: {}>".format(
+            self.spec.id, self.spec.name, self._repr_contents())
+
+    def accept(self, visitor):
+        visitor.visit_npc(self)
+
+
+# Exceptions ###########################################################
+
 class ContainerError(Exception):
     """Exception for adding the wrong item type to a container."""
 
+
+# Helpers ##############################################################
 
 @singledispatch
 def _add_to_container(item, container):

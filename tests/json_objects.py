@@ -112,6 +112,12 @@ CONTAINER = _extend(OBJ, {
     'name': 'test container',
 })
 
+NPC = _extend(OBJ, {
+    'id': 'jsd0f',
+    'type': 'npc',
+    'name': 'pauline',
+})
+
 ROOM = _extend(
     OBJ, {
         'id': '9234',

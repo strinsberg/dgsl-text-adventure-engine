@@ -1,6 +1,9 @@
 import unittest
 import dgsl_engine.entity_containers as container
 import dgsl_engine.entity_base as entity
+from dgsl_engine.entity_factory import EntityFactory
+from . import json_objects as objects
+from . import fakes
 
 ID = "1234"
 ID2 = '590ddsf'
@@ -51,7 +54,7 @@ class TestContainer(unittest.TestCase):
         self.container.add(self.entity)
         self.assertFalse(self.container.add(self.entity))
 
-    def test_visit(self):
+    def test_accept(self):
         visitor = MockVisitor()
         self.container.accept(visitor)
         self.assertEqual(visitor.result, ID)
@@ -121,7 +124,26 @@ class TestPlayer(unittest.TestCase):
     # Will add tests when more functionality is added to the player
 
 
-# Main #################################################################
+class TestNpc(unittest.TestCase):
+    def setUp(self):
+        self.fact = EntityFactory()
+        self.npc = self.fact.new(objects.NPC)
+        self.entity = self.fact.new(objects.ENTITY)
+        self.npc.add(self.entity)
 
+    def test_accept(self):
+        visitor = fakes.FakeEntityVisitor()
+        self.npc.accept(visitor)
+        self.assertEqual(visitor.result, self.npc.spec.id)
+
+    def test_repr(self):
+        rep = ("<Npc '{}', Name: '{}', "
+               "Contents: {{<Entity '{}', Name: '{}'>}}>").format(
+            self.npc.spec.id, self.npc.spec.name,
+            self.entity.spec.id, self.entity.spec.name)
+        self.assertEqual(repr(self.npc), rep)
+
+
+# Main #################################################################
 if __name__ == '__main__':
     unittest.main()
