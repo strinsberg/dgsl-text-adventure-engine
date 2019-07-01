@@ -8,7 +8,7 @@ class FakeVisitor:
 
 class FakeCollector:
     """Fake collector and factory.
-    
+
     Factory returns itself. Collect returns a list of integers."""
 
     def __init__(self, n):
@@ -23,7 +23,7 @@ class FakeCollector:
 
 class FakeMenu:
     """Fake menu and factory.
-    
+
     Factory returns itself. Menu returns the constructor value."""
 
     def __init__(self, n):
@@ -38,7 +38,7 @@ class FakeMenu:
 
 class FakeAction:
     """Fake action and factory.
-    
+
     Factory returns itself. action returns strings based on params to new."""
 
     def new(self, verb, player, entity, other):
@@ -85,3 +85,11 @@ class FakeResolver:
     def resolve_input(self, input, player):
         self.idx += 1
         return self.results[self.idx]
+
+
+class FakeCondition:
+    def __init__(self, result):
+        self.result = result
+
+    def test(self, affected):
+        return self.result

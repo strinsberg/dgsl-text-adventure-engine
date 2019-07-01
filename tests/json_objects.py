@@ -74,6 +74,12 @@ ORDERED = _extend(
     }
 )
 
+CONDITIONAL = _extend(
+    EVENT, {
+        'type': 'conditional',
+    }
+)
+
 # Entities #############################################################
 
 OBJ = {

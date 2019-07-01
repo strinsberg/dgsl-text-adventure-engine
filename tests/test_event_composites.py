@@ -2,6 +2,7 @@ import unittest
 from dgsl_engine.event_factory import EventFactory
 import dgsl_engine.exceptions as exceptions
 from . import json_objects as objects
+from . import fakes
 
 
 # Tests ################################################################
@@ -77,7 +78,67 @@ class TestOrderedGroup(unittest.TestCase):
         self.assertEqual(res, 'Nothing happens')
 
 
-# Main #################################################################
+class TestConditionalEvent(unittest.TestCase):
+    def setUp(self):
+        self.fact = EventFactory()
+        self.conditional = self.fact.new(objects.CONDITIONAL)
+        self.success = self.fact.new(objects.INFORM)
+        self.failure = self.fact.new(objects.EVENT)
+        self.failure.message = 'Not a chance!'
+        self.will_pass = fakes.FakeCondition(True)
+        self.will_fail = fakes.FakeCondition(False)
 
+    def test_execute_success(self):
+        self.conditional.condition = self.will_pass
+        self.conditional.success = self.success
+        res = self.conditional.execute(None)
+        self.assertEqual(res, "Get it while it's hot")
+        self.assertFalse(self.conditional.is_done)
+        res = self.conditional.execute(None)
+        self.assertEqual(res, "Get it while it's hot")
+
+    def test_execute_success_only_once(self):
+        self.conditional.condition = self.will_pass
+        self.conditional.success = self.success
+        self.conditional.only_once = True
+        res = self.conditional.execute(None)
+        self.assertEqual(res, "Get it while it's hot")
+        self.assertTrue(self.conditional.is_done)
+
+    def test_execute_failure(self):
+        self.conditional.condition = self.will_fail
+        self.conditional.failure = self.failure
+        res = self.conditional.execute(None)
+        self.assertEqual(res, 'Not a chance!')
+
+    def test_execute_fail_no_failure(self):
+        self.conditional.condition = self.will_fail
+        res = self.conditional.execute(None)
+        self.assertEqual(res, '')
+
+    def test_execute_with_message_success(self):
+        self.conditional.condition = self.will_pass
+        self.conditional.message = 'Come back anytime!'
+        self.conditional.success = self.success
+        res = self.conditional.execute(None)
+        self.assertEqual(res, "Get it while it's hot\nCome back anytime!")
+
+    def test_execute_with_message_failure(self):
+        self.conditional.condition = self.will_fail
+        self.conditional.message = 'Come back anytime!'
+        self.conditional.failure = self.failure
+        res = self.conditional.execute(None)
+        self.assertEqual(res, "Not a chance!\nCome back anytime!")
+
+    def test_execute_only_message(self):
+        self.conditional.condition = self.will_pass
+        self.conditional.message = 'Come back anytime!'
+        self.conditional.success = self.success
+        self.success.message = ''
+        res = self.conditional.execute(None)
+        self.assertEqual(res, "Come back anytime!")
+
+
+# Main #################################################################
 if __name__ == '__main__':
     unittest.main()

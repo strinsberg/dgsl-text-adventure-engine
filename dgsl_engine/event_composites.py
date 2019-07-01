@@ -43,7 +43,7 @@ class OrderedGroup(GroupEvent):
                 return 'Nothing happens'
 
         res = self.events[self.idx].execute(affected)
-        res_super = event_base.Event.execute(self, affected)
+        res_super = event_base.Event.execute(self, affected)  # not ok?
 
         if res != '':
             if res_super != '':
@@ -56,3 +56,30 @@ class OrderedGroup(GroupEvent):
         if size >= 1:
             self.events[size - 1].only_once = True
         super(OrderedGroup, self).add(event)
+
+
+class ConditionalEvent(event_base.Event):
+    def __init__(self, obj_id):
+        super(ConditionalEvent, self).__init__(obj_id)
+        self.condition = None
+        self.success = None
+        self.failure = None
+
+    def execute(self, affected):
+        suceeded = self.condition.test(affected)
+        res_super = super(ConditionalEvent, self).execute(affected)
+
+        if suceeded:
+            res = self.success.execute(affected)
+            if self.only_once:
+                self.is_done = True
+        elif self.failure is not None:
+            res = self.failure.execute(affected)
+        else:
+            res = ''
+
+        if res != '':
+            if res_super != '':
+                return res + '\n' + res_super
+            return res
+        return res_super
