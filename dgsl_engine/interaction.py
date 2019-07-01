@@ -16,7 +16,7 @@ class Interaction(Event):
 
         while True:
             self._out()
-            idx = menu.ask() - 1
+            idx = menu.ask()
 
             if idx >= len(choices):
                 self._out()

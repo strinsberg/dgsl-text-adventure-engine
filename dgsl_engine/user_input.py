@@ -69,17 +69,15 @@ class Menu:
             self._out("{}. {}".format(str(i + 1), choice))
         self._out(str("{}. {}".format(len(self.choices) + 1, "Cancel")))
 
-        # Do some validation?
+        # Validate to make sure it is an int?
         if input_ is None:
-            # Can replace all of this if I can figure out how to send input
-            # like with streams in c++. And remove the no cover.
-            result = int(self._in("Choice: "))  # pragma: no cover
+            result = int(self._in("Choice: "))
         else:
             result = int(input_[0])
 
         if result > len(self.choices) + 1:
             return -1
-        return result
+        return result - 1  # Because the menu item is i + 1
 
 
 class MenuFactory:

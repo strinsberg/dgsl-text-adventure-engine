@@ -34,7 +34,7 @@ class TestMenu(unittest.TestCase):
 
     def test_ask(self):
         idx = self.menu.ask(['1'])
-        self.assertEqual(idx, 1)
+        self.assertEqual(idx, 0)
         self.assertEqual(
             self.out.get_text(), "1. climb the cliff\n"
             "2. eat the bagel\n"
