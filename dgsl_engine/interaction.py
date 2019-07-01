@@ -30,8 +30,12 @@ class Option:
 
 class ConditionalOption(Option):
     def __init__(self, text, event, condition):
-        super(ConditionalOption, self).__init__(self, text, event)
+        super(ConditionalOption, self).__init__(text, event)
         self.condition = condition
 
     def is_visible(self, affected):
-        pass
+        super_success = super(ConditionalOption, self).is_visible(affected)
+
+        if super_success:
+            return self.condition.test(affected)
+        return False
