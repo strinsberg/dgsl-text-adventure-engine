@@ -93,6 +93,11 @@ class TestActions(unittest.TestCase):
         self.assertEqual(action.take_action(),
                          "You take test entity\nGet it while it's hot")
 
+    def test_get_from_room_no_event(self):
+        self.room.add(self.entity)
+        action = self.action_factory.new('get', self.player, self.entity, None)
+        self.assertEqual(action.take_action(), "You take test entity")
+
     def test_get_no_target_object(self):
         action = self.action_factory.new('get', self.player, None, None)
         self.assertEqual(action.take_action(), "Get what?")
@@ -127,6 +132,15 @@ class TestActions(unittest.TestCase):
     def test_drop(self):
         self.room.add(self.player)
         self.player.add(self.entity)
+        self.entity.events.add('drop', self.event)
+        action = self.action_factory.new('drop', self.player, self.entity,
+                                         None)
+        self.assertEqual(action.take_action(),
+                         "You drop test entity\nGet it while it's hot")
+
+    def test_drop_no_event(self):
+        self.room.add(self.player)
+        self.player.add(self.entity)
         action = self.action_factory.new('drop', self.player, self.entity,
                                          None)
         self.assertEqual(action.take_action(), 'You drop test entity')
@@ -141,6 +155,15 @@ class TestActions(unittest.TestCase):
         self.assertEqual(action.take_action(), "Drop what?")
 
     def test_look(self):
+        self.room.add(self.player)
+        self.entity.events.add('look', self.event)
+        action = self.action_factory.new('look', self.player, self.entity,
+                                         None)
+        self.assertEqual(
+            action.take_action(),
+            "You see a simple testing object\nGet it while it's hot")
+
+    def test_look_no_event(self):
         self.room.add(self.player)
         action = self.action_factory.new('look', self.player, self.entity,
                                          None)
@@ -175,6 +198,22 @@ class TestActions(unittest.TestCase):
         action = self.action_factory.new('inventory', self.player, self.entity,
                                          None)
         self.assertEqual(action.take_action(), "You don't have that")
+
+    def test_talk(self):
+        action = self.action_factory.new(
+            'talk', self.player, self.entity, None)
+        self.entity.events.add('talk', self.event)
+        self.assertEqual(action.take_action(), "Get it while it's hot")
+
+    def test_talk_doest_talk(self):
+        action = self.action_factory.new(
+            'talk', self.player, self.entity, None)
+        self.assertEqual(action.take_action(), "That doesn't talk")
+
+    def test_talk_no_target(self):
+        action = self.action_factory.new(
+            'talk', self.player, None, None)
+        self.assertEqual(action.take_action(), "To whom?")
 
 
 # Main #################################################################

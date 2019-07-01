@@ -105,6 +105,8 @@ class ActionFactory:
             return Look(player, entity, other)
         if verb in ['inventory']:
             return CheckInventory(player, entity, other)
+        if verb in ['talk']:
+            return Talk(player, entity, other)
         return NullAction(player, entity, other)
 
 
@@ -136,12 +138,7 @@ class Action(ABC):
     def _execute_event(self, verb):
         if self.entity.events.has_event(verb):
             return self.entity.events.execute(verb, self.player)
-        return ''
-
-    def _add_result(self, text, result):
-        if result.strip() == '':
-            return text
-        return "{}\n{}".format(text, result)
+        return None
 
 
 class NullAction(Action):
@@ -165,7 +162,9 @@ class Get(Action):
             move(self.entity, self.player)
             moved = "You take " + self.entity.spec.name
             result = self._execute_event('get')
-            return self._add_result(moved, result)
+            if result is not None:
+                return "{}\n{}".format(moved, result)
+            return moved
         return "You can't take that"
 
 
@@ -180,7 +179,9 @@ class Drop(Action):
             move(self.entity, self.player.owner)
             dropped = "You drop " + self.entity.spec.name
             result = self._execute_event('drop')
-            return self._add_result(dropped, result)
+            if result is not None:
+                return "{}\n{}".format(dropped, result)
+            return dropped
         return "You don't have it"
 
 
@@ -194,7 +195,7 @@ class Use(Action):
         if self.entity.events.has_event('use'):
             result = self.entity.events.execute('use', self.player)
             used = "You use " + self.entity.spec.name
-            return self._add_result(used, result)
+            return "{}\n{}".format(used, result)
         return "You can't use that"
 
 
@@ -206,7 +207,9 @@ class Look(Action):
         if self.entity is not None:
             description = "You see " + self.entity.describe()
             result = self._execute_event('look')
-            return self._add_result(description, result)
+            if result is not None:
+                return "{}\n{}".format(description, result)
+            return description
         return self.player.owner.describe()
 
 
@@ -228,6 +231,16 @@ class CheckInventory(Action):
         if self.player.inventory.has_item(self.entity.spec.id):
             return "You have that"
         return "You don't have that"
+
+
+class Talk(Action):
+    def take_action(self):
+        if self.entity is not None:
+            result = self._execute_event('talk')
+            if result is not None:
+                return result
+            return "That doesn't talk"
+        return "To whom?"
 
 
 def move(entity, destination):
