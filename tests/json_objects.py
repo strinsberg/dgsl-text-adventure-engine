@@ -66,6 +66,14 @@ GROUP = _extend(
         'type': 'group',
     }
 )
+
+
+ORDERED = _extend(
+    EVENT, {
+        'type': 'ordered',
+    }
+)
+
 # Entities #############################################################
 
 OBJ = {

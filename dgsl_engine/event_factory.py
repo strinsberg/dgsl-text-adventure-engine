@@ -33,6 +33,8 @@ class EventFactory:
                 event = event_base.ToggleHidden(id_)
             elif type_ == 'group':
                 event = event_composites.GroupEvent(id_)
+            elif type_ == 'ordered':
+                event = event_composites.OrderedGroup(id_)
             else:
                 raise exceptions.InvalidParameterError(
                     "Error: invalid obj of type " + type_)

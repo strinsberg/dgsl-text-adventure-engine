@@ -22,8 +22,37 @@ class GroupEvent(event_base.Event):
         return "\n".join(results)
 
     def add(self, event):
-        if event not in self.events:
-            self.events.append(event)
-        else:
-            raise exceptions.InvalidParameterError(
-                "Already contains event: " + event.id)
+        for e in self.events:
+            if event.id == e.id:
+                raise exceptions.InvalidParameterError(
+                    "Already contains event: " + event.id)
+
+        self.events.append(event)
+
+
+class OrderedGroup(GroupEvent):
+    def __init__(self, obj_id):
+        super(OrderedGroup, self).__init__(obj_id)
+        self.idx = 0
+
+    def execute(self, affected):
+        if self.events[self.idx].is_done:
+            if self.idx < len(self.events) - 1:
+                self.idx += 1
+            else:
+                return 'Nothing happens'
+
+        res = self.events[self.idx].execute(affected)
+        res_super = event_base.Event.execute(self, affected)
+
+        if res != '':
+            if res_super != '':
+                return res + '\n' + res_super
+            return res
+        return res_super
+
+    def add(self, event):
+        size = len(self.events)
+        if size >= 1:
+            self.events[size - 1].only_once = True
+        super(OrderedGroup, self).add(event)
