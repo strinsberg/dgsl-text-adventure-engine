@@ -2,6 +2,7 @@
 from . import event_base
 from . import exceptions
 from . import event_composites
+from . import interaction
 
 
 class EventFactory:
@@ -37,6 +38,8 @@ class EventFactory:
                 event = event_composites.OrderedGroup(id_)
             elif type_ == 'conditional':
                 event = event_composites.ConditionalEvent(id_)
+            elif type_ == 'interaction':
+                event = interaction.Interaction(id_)
             else:
                 raise exceptions.InvalidParameterError(
                     "Error: invalid obj of type " + type_)

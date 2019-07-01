@@ -51,9 +51,10 @@ class Parser:
 class Menu:
     """Asks a user to choose one of a list of choices."""
 
-    def __init__(self, choices, out=print):
+    def __init__(self, choices, out=print, _in=input):
         self.choices = choices
         self._out = out
+        self._in = _in
 
     def ask(self, input_=None):
         """
@@ -72,7 +73,7 @@ class Menu:
         if input_ is None:
             # Can replace all of this if I can figure out how to send input
             # like with streams in c++. And remove the no cover.
-            result = int(input("Choice: "))  # pragma: no cover
+            result = int(self._in("Choice: "))  # pragma: no cover
         else:
             result = int(input_[0])
 

@@ -80,6 +80,11 @@ CONDITIONAL = _extend(
     }
 )
 
+INTERACTION = _extend(
+    EVENT, {
+        'type': 'interaction',
+    }
+)
 # Entities #############################################################
 
 OBJ = {
