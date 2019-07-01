@@ -4,17 +4,18 @@ TODOs
 priority
 --------
 
-* Do a full coverage of reasonable documentation
+* get all starting features implemented
+* make sure test coverage is 100%
+* Do initial documentation
 * Do some UML diagrams for current design elements
 * Try to fix as many pylint errors as possible (possibly ignore some if justified).
 * See if you can figure out how to get CI working with gitlab
 * Get setup.py made. When more game functionality has been added and merged then make it possible to install the game.
+* Make the test world have all kinds of entities and events so that all classes that use it can be properly tested and so that some initial play testing can be done to work out finer details and catch any strange bugs.
 
 Other
 -----
 
-* Start adding more features using git branches. For each set of features make sure they are fully tested, documented, and designed before moving on. Don't just code everything at once and forget the rest of the stuff.
-* Use the changelog as you add features and fix bugs. Probably a good thing to note each branch merge and what it brought. Look up some info on using a changelog effectively.
 * Think about adding some logging to print debug information in special places. This way there can be some idea of what is going on behind the scenes even when not all the desired functionality is there. It can also assist in finding things that don't make sense
 * Start building a play testing world. The current one will do for testing the world factory, but we will want another one for playing. Start with the stuff you already have and add features as they are needed. May require a little work on the editor as well. Only need a few rooms and an object of every type and events to cover every type.
 
