@@ -66,8 +66,8 @@ class Menu:
 
         """
         for i, choice in enumerate(self.choices):
-            self._out("{}. {}\n".format(str(i + 1), choice))
-        self._out(str("{}. {}\n".format(len(self.choices) + 1, "Cancel")))
+            self._out("{}. {}".format(str(i + 1), choice))
+        self._out(str("{}. {}".format(len(self.choices) + 1, "Cancel")))
 
         # Do some validation?
         if input_ is None:

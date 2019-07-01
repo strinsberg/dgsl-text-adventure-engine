@@ -21,6 +21,7 @@ class TestGame(unittest.TestCase):
         self.game = game.Game(self.world, self.parser, self.resolver)
         self.game._out = self.output.make_capture()
         self.game._in = self.input.make_stream()
+        self.maxDiff = None
 
     def test_run(self):
         self.game.run()
@@ -28,10 +29,10 @@ class TestGame(unittest.TestCase):
         expected_out = ''
         for output in results:
             expected_out += (
-                "\n----------------------------------------------------" +
-                output)
-        expected_out += "\n----------------------------------------------------"
-        self.assertEqual(out, expected_out + "".join(other_results))
+                "\n----------------------------------------------------\n" +
+                output + '\n')
+        expected_out += "\n----------------------------------------------------\n"
+        self.assertEqual(out, expected_out + "\n".join(other_results) + '\n')
 
 
 # Main #################################################################

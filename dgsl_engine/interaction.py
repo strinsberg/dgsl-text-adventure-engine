@@ -15,24 +15,24 @@ class Interaction(Event):
         menu = Menu(choices, self._out, self._in)
 
         while True:
-            self._out('\n')
+            self._out()
             idx = menu.ask() - 1
 
             if idx >= len(choices):
-                self._out('\n')
+                self._out()
                 break
 
             self._out(
-                '\n--------------------------------------------------\n')
+                '\n--------------------------------------------------')
 
             if idx < 0:
-                self._out('Not a valid choice!\n')
+                self._out('Not a valid choice!')
                 continue
             else:
-                self._out(self.options[idx].choose(affected) + '\n')
+                self._out(self.options[idx].choose(affected))
 
             if self.break_out:
-                self._out('\n')
+                self._out()
                 break
 
         return super(Interaction, self).execute(affected)

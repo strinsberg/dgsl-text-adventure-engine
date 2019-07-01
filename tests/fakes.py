@@ -56,10 +56,14 @@ class FakeOutput:
         self.text = []
 
     def make_capture(self):
-        return lambda text: self.text.append(text)
+        return self.capture
 
     def get_text(self):
         return "".join(self.text)
+
+    def capture(self, text=None):
+        out = text + '\n' if text is not None else '\n'
+        self.text.append(out)
 
 
 class FakeInput:
