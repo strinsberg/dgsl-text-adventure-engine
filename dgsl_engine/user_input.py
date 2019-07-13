@@ -13,7 +13,8 @@ class Parser:
     """Turns raw user input into form useable by a resolver."""
 
     def __init__(self):
-        self.verbs = ['get', 'take', 'drop', 'use', 'look', 'inventory']
+        self.verbs = ['get', 'take', 'drop',
+                      'use', 'look', 'inventory', 'talk']
         self.commands = ['quit', 'exit']
 
     def parse(self, user_input):

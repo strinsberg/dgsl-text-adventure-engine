@@ -83,6 +83,7 @@ CONDITIONAL = _extend(
 INTERACTION = _extend(
     EVENT, {
         'type': 'interaction',
+        'breakout': 0,
     }
 )
 # Entities #############################################################

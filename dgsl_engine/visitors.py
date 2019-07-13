@@ -25,8 +25,6 @@ class EntityCollector:
         """
         self.room.accept(self)
         if self.room in self.entities:
-            # It would be better not to add it than to remove it
-            # Maybe accept or visit could have an exclude
             self.entities.remove(self.room)
         return self.entities
 
@@ -40,6 +38,13 @@ class EntityCollector:
         self.visit_entity(container)
         for item in container:
             item.accept(self)
+
+    # Need a visit for character to deal with equipment.
+    def visit_character(self, character):
+        pass
+
+    def visit_equipment(self, equipment):
+        self.visit_entity(equipment)
 
     def visit_npc(self, npc):
         """Visit an Npc."""

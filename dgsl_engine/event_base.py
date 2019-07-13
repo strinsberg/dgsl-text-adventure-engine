@@ -13,6 +13,7 @@ class Event:
         self.message = None
         self.subjects = []
 
+    # Affected should just be the player
     def execute(self, affected):
         """Execute the event on the affected entity and return the
         result.
@@ -59,6 +60,7 @@ class Event:
         return "<Event '{}'>".format(self.id)
 
 
+# Should be move and be about the player
 class MoveEntity(Event):
     """Event to move an entity to a destination."""
 

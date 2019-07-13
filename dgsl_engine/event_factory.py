@@ -40,6 +40,7 @@ class EventFactory:
                 event = event_composites.ConditionalEvent(id_)
             elif type_ == 'interaction':
                 event = interaction.Interaction(id_)
+                event.break_out = obj['breakout']
             else:
                 raise exceptions.InvalidParameterError(
                     "Error: invalid obj of type " + type_)

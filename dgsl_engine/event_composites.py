@@ -66,10 +66,10 @@ class ConditionalEvent(event_base.Event):
         self.failure = None
 
     def execute(self, affected):
-        suceeded = self.condition.test(affected)
+        succeeded = self.condition.test(affected)
         res_super = super(ConditionalEvent, self).execute(affected)
 
-        if suceeded:
+        if succeeded:
             res = self.success.execute(affected)
             if self.only_once:
                 self.is_done = True

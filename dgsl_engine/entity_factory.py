@@ -2,6 +2,7 @@
 from . import entity_base
 from . import entity_containers
 from . import exceptions
+from . import equipment
 
 
 class EntityFactory:
@@ -30,6 +31,9 @@ class EntityFactory:
                 entity = entity_containers.Player(id_)
             elif type_ == 'npc':
                 entity = entity_containers.Npc(id_)
+            elif type_ == 'equipment':
+                entity = equipment.Equipment(id_)
+                self._setup_equipment(entity, obj)
             else:
                 raise exceptions.InvalidParameterError(
                     "Error: invalid obj of type " + type_)
@@ -37,10 +41,9 @@ class EntityFactory:
             self._setup(entity, obj)
 
         except KeyError as err:
-            raise exceptions.InvalidParameterError("Error: object " +
-                                                   obj['name'] +
-                                                   " is not complete: " +
-                                                   str(err))
+            raise exceptions.InvalidParameterError(
+                "Error: object " + obj['name'] + " is not complete: " +
+                str(err))
 
         return entity
 
@@ -52,6 +55,9 @@ class EntityFactory:
             entity.states.active = num_to_bool(obj['active'])
             entity.states.obtainable = num_to_bool(obj['obtainable'])
             entity.states.hidden = num_to_bool(obj['hidden'])
+
+    def _setup_equipment(self, entity, obj):
+        pass
 
 
 def num_to_bool(num):
