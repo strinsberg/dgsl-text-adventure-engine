@@ -107,6 +107,17 @@ class Give(Event):
             actions.move(item, affected)
         return super(Give, self).execute(affected)
 
+    def accept(self, visitor):
+        """
+
+        Args:
+          visitor:
+
+        Returns:
+
+        """
+        visitor.visit_give(self)
+
     def __repr__(self):
         return "<Give '{}'>".format(self.id)
 
@@ -123,6 +134,17 @@ class Take(Event):
             actions.move(item, self.new_owner)
         return super(Take, self).execute(affected)
 
+    def accept(self, visitor):
+        """
+
+        Args:
+          visitor:
+
+        Returns:
+
+        """
+        visitor.visit_take(self)
+
     def __repr__(self):
         return "<Take '{}'>".format(self.id)
 
@@ -131,6 +153,17 @@ class Toggle(Event):
     def __init__(self, obj_id):
         super(Toggle, self).__init__(obj_id)
         self.target = None
+
+    def accept(self, visitor):
+        """
+
+        Args:
+          visitor:
+
+        Returns:
+
+        """
+        visitor.visit_toggle(self)
 
 
 class ToggleActive(Toggle):

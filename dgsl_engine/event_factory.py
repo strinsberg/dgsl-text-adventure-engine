@@ -24,8 +24,10 @@ class EventFactory:
                 event = event_base.MoveEntity(id_)
             elif type_ == 'give':
                 event = event_base.Give(id_)
+                self._setup_transfer(event, obj)
             elif type_ == 'take':
                 event = event_base.Take(id_)
+                self._setup_transfer(event, obj)
             elif type_ == 'toggle_active':
                 event = event_base.ToggleActive(id_)
             elif type_ == 'toggle_obtainable':
@@ -40,7 +42,7 @@ class EventFactory:
                 event = event_composites.ConditionalEvent(id_)
             elif type_ == 'interaction':
                 event = interaction.Interaction(id_)
-                event.break_out = obj['breakout']
+                self._setup_interaction(event, obj)
             else:
                 raise exceptions.InvalidParameterError(
                     "Error: invalid obj of type " + type_)
@@ -56,6 +58,12 @@ class EventFactory:
         event.only_once = num_to_bool(obj['once'])
         if 'message' in obj:
             event.message = obj['message']
+
+    def _setup_transfer(self, event, obj):
+        event.item_id = obj['item_id']
+
+    def _setup_interaction(self, event, obj):
+        event.break_out = obj['breakout']
 
 
 def num_to_bool(num):

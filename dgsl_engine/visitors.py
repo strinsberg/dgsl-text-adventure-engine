@@ -127,6 +127,10 @@ class EntityConnector:
         """Some info."""
         self._connect_items(container)
 
+    def visit_character(self, character):
+        self.visit_container(character)
+        # self.connect_equipment(character)
+
     def _connect_events(self, entity):
         for event_json in self.entity_json['events']:
             event_id = event_json['id']
@@ -161,6 +165,24 @@ class EventConnector:
         dest_id = self.event_json['destination']['id']
         destination = self.world.entities[dest_id]
         move.destination = destination
+
+    def visit_give(self, give):
+        pass
+
+    def visit_take(self, take):
+        pass
+
+    def visit_toggle(self, toggle):
+        pass
+
+    def visit_group(self, take):
+        pass
+
+    def visit_conditional(self, take):
+        pass
+
+    def visit_interaction(self, take):
+        pass
 
     def _connect_subjects(self, event):
         for sub in self.event_json['subjects']:

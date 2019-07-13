@@ -24,11 +24,13 @@ class TestEventFactory(unittest.TestCase):
 
     def test_new_give(self):
         self.obj['type'] = 'give'
+        self.obj['item_id'] = 'none'
         event = self.fact.new(self.obj)
         self.assertEqual(event.id, OBJ['id'])
 
     def test_new_take(self):
         self.obj['type'] = 'take'
+        self.obj['item_id'] = 'none'
         event = self.fact.new(self.obj)
         self.assertEqual(event.id, OBJ['id'])
 

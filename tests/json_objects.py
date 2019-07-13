@@ -32,7 +32,8 @@ GIVE = _extend(
         'id': 'faeim302',
         'name': 'test give',
         'message': 'I bet you will like this!',
-        'type': 'give'
+        'type': 'give',
+        'item_id': 'none',
     })
 
 TAKE = _extend(
@@ -40,7 +41,8 @@ TAKE = _extend(
         'id': 'faeim302',
         'name': 'test take',
         'message': 'Ive been looking for that',
-        'type': 'take'
+        'type': 'take',
+        'item_id': 'none',
     })
 
 TOGGLE_ACTIVE = _extend(

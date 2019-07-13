@@ -135,7 +135,7 @@ def is_entity(obj):
     Returns:
 
     """
-    return obj['type'] in ['entity', 'container', 'room', 'player']
+    return obj['type'] in ['entity', 'container', 'room', 'player', 'equipment']
 
 
 def is_event(obj):
@@ -147,4 +147,6 @@ def is_event(obj):
     Returns:
 
     """
-    return obj['type'] in ['inform', 'move', 'toggle', 'transfer']
+    return obj['type'] in ['inform', 'move', 'transfer', 'toggle_active',
+                           'toggle_obtainable', 'toggle_hidden', 'group',
+                           'ordered', 'conditional', 'interaction']
