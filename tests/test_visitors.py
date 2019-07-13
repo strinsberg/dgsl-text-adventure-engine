@@ -50,6 +50,11 @@ class TestEntityCollector(unittest.TestCase):
         entities = collector.collect()
         self.assertNotIn(self.entity, entities)
 
+    def test_visit_player_for_player(self):
+        pass
+
+    def test_visit_player_for_equipment(self):
+        pass
     # Add visit specific functions when you start adding more
     # If the factory ever gets ore complex then add it's own test
 

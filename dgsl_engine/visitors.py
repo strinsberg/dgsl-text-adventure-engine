@@ -41,7 +41,12 @@ class EntityCollector:
 
     # Need a visit for character to deal with equipment.
     def visit_character(self, character):
-        pass
+        for equipment in character.equipped:
+            equipment.accept(self)
+
+    def visit_player(self, player):
+        self.visit_container(player)
+        self.visit_character(player)
 
     def visit_equipment(self, equipment):
         self.visit_entity(equipment)
@@ -49,6 +54,7 @@ class EntityCollector:
     def visit_npc(self, npc):
         """Visit an Npc."""
         self.visit_entity(npc)
+        self.visit_character(npc)
 
 
 class EntityCollectorFactory:
@@ -130,6 +136,12 @@ class EntityConnector:
     def visit_character(self, character):
         self.visit_container(character)
         # self.connect_equipment(character)
+
+    def visit_player(self, player):
+        self.visit_character(player)
+
+    def visit_npc(self, npc):
+        self.visit_character(npc)
 
     def _connect_events(self, entity):
         for event_json in self.entity_json['events']:

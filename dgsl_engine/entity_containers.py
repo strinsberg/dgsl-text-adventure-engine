@@ -99,6 +99,9 @@ class Player(Character):
         self.states.obtainable = False
         self.states.hidden = False
 
+    def accept(self, visitor):
+        visitor.visit_player(self)
+
     def __repr__(self):
         return "<Player '{}', Name: '{}', Contents: {}>".format(
             self.spec.id, self.spec.name, self._repr_contents())
