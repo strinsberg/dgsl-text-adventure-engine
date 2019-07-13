@@ -4,9 +4,9 @@ from .entity_base import Entity
 class Equipment(Entity):
     def __init__(self, obj_id):
         super(Equipment, self).__init__(obj_id)
-        self.protection = []
+        self.protects = []
         self.slot = "empty"
-        self.must_be_equipped = True
+        self.must_equip = True
         self.owner = None
 
     def accept(self, visitor):

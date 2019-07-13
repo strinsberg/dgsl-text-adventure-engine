@@ -140,6 +140,17 @@ ROOM = _extend(
         ]
     })
 
+EQUIPMENT = _extend(
+    OBJ, {
+        'type': 'equipment',
+        'name': 'hat',
+        'description': 'a red toque with a small stoplight stitched onto the front',
+        'slot': 'head',
+        'protects': ['cold', 'wind'],
+        'must_equip': 1,
+    }
+)
+
 # Events that need Entities ############################################
 
 MOVE = _extend(

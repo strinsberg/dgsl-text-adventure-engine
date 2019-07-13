@@ -57,7 +57,9 @@ class EntityFactory:
             entity.states.hidden = num_to_bool(obj['hidden'])
 
     def _setup_equipment(self, entity, obj):
-        pass
+        entity.protects = obj['protects']
+        entity.slot = obj['slot']
+        entity.must_equip = obj['must_equip']
 
 
 def num_to_bool(num):
