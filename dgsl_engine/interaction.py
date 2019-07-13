@@ -49,6 +49,9 @@ class Interaction(Event):
                 choices.append(opt.text)
         return options, choices
 
+    def accept(self, visitor):
+        visitor.visit_interaction(self)
+
 
 class Option:
     def __init__(self, text, event):

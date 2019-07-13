@@ -29,6 +29,9 @@ class GroupEvent(event_base.Event):
 
         self.events.append(event)
 
+    def accept(self, visitor):
+        visitor.visit_group(self)
+
 
 class OrderedGroup(GroupEvent):
     def __init__(self, obj_id):
@@ -83,3 +86,6 @@ class ConditionalEvent(event_base.Event):
                 return res + '\n' + res_super
             return res
         return res_super
+
+    def accept(self, visitor):
+        visitor.visit_conditional(self)
