@@ -107,6 +107,11 @@ class TestGive(unittest.TestCase):
         self.assertIs(self.container.get(self.entity.spec.id), None)
         self.assertIs(self.player.get(self.entity.spec.id), self.entity)
 
+    def test_accept(self):
+        visitor = fakes.FakeEventVisitor()
+        self.give.accept(visitor)
+        self.assertEqual(visitor.result, self.give.id)
+
     def test_repr(self):
         rep = "<Give '{}'>".format(self.give.id)
         self.assertEqual(self.give.__repr__(), rep)
@@ -130,6 +135,11 @@ class TestTake(unittest.TestCase):
         self.take.execute(self.player)
         self.assertIs(self.player.get(self.entity.spec.id), None)
         self.assertIs(self.container.get(self.entity.spec.id), self.entity)
+
+    def test_accept(self):
+        visitor = fakes.FakeEventVisitor()
+        self.take.accept(visitor)
+        self.assertEqual(visitor.result, self.take.id)
 
     def test_repr(self):
         rep = "<Take '{}'>".format(self.take.id)
@@ -161,6 +171,11 @@ class TestToggleActive(unittest.TestCase):
         self.assertFalse(self.entity.states.active)
         self.event.execute(None)
         self.assertFalse(self.entity.states.active)
+
+    def test_accept(self):
+        visitor = fakes.FakeEventVisitor()
+        self.event.accept(visitor)
+        self.assertEqual(visitor.result, self.event.id)
 
     def test_repr(self):
         rep = "<ToggleActive '{}'>".format(self.event.id)

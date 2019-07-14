@@ -93,6 +93,11 @@ class TestInteraction(unittest.TestCase):
                           "--------------------------------------------------\n"
                           "Get it while it's hot\n\n"))
 
+    def test_accept(self):
+        visitor = fakes.FakeEventVisitor()
+        self.interaction.accept(visitor)
+        self.assertEqual(visitor.result, self.interaction.id)
+
 
 class TestOption(unittest.TestCase):
     def setUp(self):

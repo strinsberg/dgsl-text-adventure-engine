@@ -32,6 +32,11 @@ class TestGroupEvent(unittest.TestCase):
         res = self.group.execute(None)
         self.assertEqual(res, "Get it while it's hot\nWhat just happend?")
 
+    def test_accept(self):
+        visitor = fakes.FakeEventVisitor()
+        self.group.accept(visitor)
+        self.assertEqual(visitor.result, self.group.id)
+
 
 class TestOrderedGroup(unittest.TestCase):
     def setUp(self):
@@ -137,6 +142,11 @@ class TestConditionalEvent(unittest.TestCase):
         self.success.message = ''
         res = self.conditional.execute(None)
         self.assertEqual(res, "Come back anytime!")
+
+    def test_accept(self):
+        visitor = fakes.FakeEventVisitor()
+        self.conditional.accept(visitor)
+        self.assertEqual(visitor.result, self.conditional.id)
 
 
 # Main #################################################################

@@ -5,6 +5,24 @@ class FakeEventVisitor:
     def visit_move(self, event):
         self.visit_event(event)
 
+    def visit_give(self, event):
+        self.visit_event(event)
+
+    def visit_take(self, event):
+        self.visit_event(event)
+
+    def visit_toggle(self, event):
+        self.visit_event(event)
+
+    def visit_interaction(self, event):
+        self.visit_event(event)
+
+    def visit_conditional(self, event):
+        self.visit_event(event)
+
+    def visit_group(self, event):
+        self.visit_event(event)
+
 
 class FakeEntityVisitor:
     def visit_entity(self, entity):

@@ -13,5 +13,5 @@ class Equipment(Entity):
         visitor.visit_equipment(self)
 
     def __repr__(self):
-        return "<Equipment '{}', Name: '{}'>".format(
+        return "<Equipment: '{}', Name: '{}'>".format(
             self.spec.id, self.spec.name)
