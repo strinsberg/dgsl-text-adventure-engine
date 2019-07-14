@@ -12,6 +12,7 @@ class TestEntityCollector(unittest.TestCase):
         self.room = self.ent_fact.new(objects.ROOM)
         self.entity = self.ent_fact.new(objects.ENTITY)
         self.container = self.ent_fact.new(objects.CONTAINER)
+        self.equipment = self.ent_fact.new(objects.EQUIPMENT)
         self.room.add(self.entity)
         self.room.add(self.container)
 
@@ -50,11 +51,31 @@ class TestEntityCollector(unittest.TestCase):
         entities = collector.collect()
         self.assertNotIn(self.entity, entities)
 
+    def test_visit_npc_for_equipment(self):
+        npc = self.ent_fact.new(objects.NPC)
+        npc.equipped.equip(self.equipment)
+        self.room.add(npc)
+        self.room.inventory.remove(self.entity.spec.id)
+        collector = visitor.EntityCollector('hat', None, self.room)
+        entities = collector.collect()
+        self.assertNotIn(self.equipment, entities)
+
     def test_visit_player_for_player(self):
-        pass
+        player = self.ent_fact.new(objects.PLAYER)
+        player.add(self.entity)
+        self.room.add(player)
+        collector = visitor.EntityCollector('test player', None, self.room)
+        entities = collector.collect()
+        self.assertIs(entities[0], player)
 
     def test_visit_player_for_equipment(self):
-        pass
+        player = self.ent_fact.new(objects.PLAYER)
+        player.equipped.equip(self.equipment)
+        self.room.add(player)
+        collector = visitor.EntityCollector('hat', None, self.room)
+        entities = collector.collect()
+        self.assertIs(entities[0], self.equipment)
+
     # Add visit specific functions when you start adding more
     # If the factory ever gets ore complex then add it's own test
 
@@ -109,6 +130,12 @@ class TestEntityConnector(unittest.TestCase):
         self.assertTrue(self.room.inventory.has_item(self.entity.spec.id))
         self.assertTrue(self.room.inventory.has_item(self.player.spec.id))
         self.assertTrue(self.room.inventory.has_item(self.container.spec.id))
+
+    def test_connect_player(self):
+        pass
+
+    def test_connect_npc(self):
+        pass
 
 
 class TestEventConnector(unittest.TestCase):

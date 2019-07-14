@@ -94,7 +94,7 @@ class Player(Character):
     """
 
     def __init__(self, obj_id):
-        Container.__init__(self, obj_id)
+        super(Player, self).__init__(obj_id)
         self.states.active = True
         self.states.obtainable = False
         self.states.hidden = False

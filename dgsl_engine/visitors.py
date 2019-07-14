@@ -54,7 +54,6 @@ class EntityCollector:
     def visit_npc(self, npc):
         """Visit an Npc."""
         self.visit_entity(npc)
-        self.visit_character(npc)
 
 
 class EntityCollectorFactory:

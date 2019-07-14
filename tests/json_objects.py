@@ -142,6 +142,7 @@ ROOM = _extend(
 
 EQUIPMENT = _extend(
     OBJ, {
+        'id': 'fje93jjf',
         'type': 'equipment',
         'name': 'hat',
         'description': 'a red toque with a small stoplight stitched onto the front',
