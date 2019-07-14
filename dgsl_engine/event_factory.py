@@ -3,6 +3,7 @@ from . import event_base
 from . import exceptions
 from . import event_composites
 from . import interaction
+from . import conditions
 
 
 class EventFactory:
@@ -64,6 +65,17 @@ class EventFactory:
 
     def _setup_interaction(self, event, obj):
         event.break_out = obj['breakout']
+
+
+def make_condition(cond_json):
+    type_ = cond_json['type']
+    if type_ == 'has_item':
+        return conditions.HasItem(cond_json['item_id'])
+    if type_ == 'question':
+        return conditions.Question(
+            cond_json['question'], cond_json['answer'])
+    if type_ == 'protected':
+        return conditions.Protected(cond_json['effects'])
 
 
 def num_to_bool(num):

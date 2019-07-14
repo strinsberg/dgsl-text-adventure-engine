@@ -1,4 +1,5 @@
 """Visitors for Collecting entities and for connecting game objects."""
+from . import event_factory
 
 
 class EntityCollector:
@@ -201,28 +202,54 @@ class EventConnector:
         move.destination = destination
 
     def visit_give(self, give):
-        pass
+        owner_id = self.event_json['owner']['id']
+        owner = self.world.entities[owner_id]
+        give.owner = owner
+        give.item_id = self.event_json['item_id']
 
     def visit_take(self, take):
-        pass
+        new_owner_id = self.event_json['target']['id']
+        new_owner = self.world.entities[new_owner_id]
+        take.new_owner = new_owner
+        take.item_id = self.event_json['item_id']
 
     def visit_toggle(self, toggle):
-        pass
+        target_id = self.event_json['target']['id']
+        target = self.world.entities[target_id]
+        toggle.target = target
 
-    def visit_group(self, take):
-        pass
+    def visit_group(self, group):
+        for obj in self.event_json['events']:
+            event_id = obj['id']
+            event = self.world.events[event_id]
+            group.add(event)
 
-    def visit_conditional(self, take):
-        pass
+    def visit_conditional(self, conditional):
+        success_id = self.event_json['success']['id']
+        fail_id = self.event_json['failure']['id']
+        conditional.success = self.world.events[success_id]
+        conditional.failure = self.world.events[fail_id]
+        # may need to use an id to find the condition json in the json obj
+        conditional.condition = event_factory.make_condition(
+            self.event_json['condition'])
 
-    def visit_interaction(self, take):
-        pass
+    def visit_interaction(self, interaction):
+        for opt in self.event_json['options']:
+            self._connect_option(interaction, opt)
 
     def _connect_subjects(self, event):
         for sub in self.event_json['subjects']:
             subject = self.world.events[sub['id']]
             event.register(subject)
 
-    # Add something like this when you add group events
-    def _connect_events(self, group):  # pragma: no cover
-        pass
+    def _connect_option(self, interaction, opt_json):
+        text = opt_json['text']
+        event_id = opt_json['event']['id']
+        event = self.world.events[event_id]
+
+        if opt_json['type'] == 'conditional':
+            # may need to use an id to find the condition json in the json obj
+            condition = event_factory.make_condition(opt_json['condition'])
+            interaction.add(text, event, condition)
+        else:
+            interaction.add(text, event)
