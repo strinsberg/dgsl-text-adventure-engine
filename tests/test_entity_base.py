@@ -1,5 +1,7 @@
 import unittest
 import dgsl_engine.entity_base as entity
+import dgsl_engine.entity_factory as ent_fact
+from . import json_objects
 
 ID = "1234"
 ID2 = "5678"
@@ -138,26 +140,45 @@ class TestInventory(unittest.TestCase):
 
 class TestEquipped(unittest.TestCase):
     def setUp(self):
-        self.equipment = None
-        self.equipment2 = None
+        self.fact = ent_fact.EntityFactory()
+        self.equipment = self.fact.new(json_objects.EQUIPMENT)
+        self.equipment2 = self.fact.new(json_objects.EQUIPMENT2)
+        self.equipped = entity.Equipped(None)
 
     def test_equip(self):
-        pass
+        old = self.equipped.equip(self.equipment)
+        self.assertIs(self.equipped.equipment['head'], self.equipment)
+        self.assertIsNone(old)
 
     def test_equip_already_there(self):
-        pass
+        self.equipped.equip(self.equipment)
+        old = self.equipped.equip(self.equipment2)
+        self.assertIs(self.equipped.equipment['head'], self.equipment2)
+        self.assertIs(old, self.equipment)
 
     def test_remove(self):
-        pass
+        self.equipped.equip(self.equipment)
+        ent = self.equipped.remove('head')
+        self.assertIs(ent, self.equipment)
+        self.assertNotIn('head', self.equipped.equipment)
 
     def test_remove_not_there(self):
-        pass
+        self.assertNotIn('head', self.equipped.equipment)
+        ent = self.equipped.remove('head')
+        self.assertIsNone(ent)
 
     def test_get(self):
-        pass
+        self.equipped.equip(self.equipment)
+        ent = self.equipped.get('head')
+        self.assertIs(ent, self.equipment)
+        self.assertIs(self.equipped.equipment['head'], self.equipment)
+
+    def test_get_not_there(self):
+        ent = self.equipped.get('head')
+        self.assertIsNone(ent, self.equipment)
 
 
-# Main #################################################################s
+# Main #################################################################
 
 if __name__ == '__main__':
     unittest.main()

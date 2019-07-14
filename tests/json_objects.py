@@ -152,6 +152,19 @@ EQUIPMENT = _extend(
     }
 )
 
+
+EQUIPMENT2 = _extend(
+    OBJ, {
+        'id': 'fan309bk',
+        'type': 'equipment',
+        'name': 'cap',
+        'description': 'a tattered old basebal cap',
+        'slot': 'head',
+        'protects': ['sun'],
+        'must_equip': 1,
+    }
+)
+
 # Events that need Entities ############################################
 
 MOVE = _extend(

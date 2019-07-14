@@ -232,7 +232,7 @@ class Equipped:
         if slot in self.equipment:
             old = self.equipment[slot]
             old.owner = None
-            del(slot, self.equipment)
+            del self.equipment[slot]
         return old
 
     def get(self, slot):
