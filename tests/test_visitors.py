@@ -126,6 +126,12 @@ class TestEntityTypeCollector(unittest.TestCase):
         self.assertIn(self.equipment, self.collector.results)
         self.assertEqual(len(self.collector.results), 1)
 
+    def test_collect_room(self):
+        self.collector = visitor.EntityTypeCollector(['room'], self.room)
+        self.collector.collect()
+        self.assertIn(self.room, self.collector.results)
+        self.assertEqual(len(self.collector.results), 1)
+
 
 class TestEntityConnector(unittest.TestCase):
     def setUp(self):
@@ -138,11 +144,13 @@ class TestEntityConnector(unittest.TestCase):
         self.entity = self.ent_fact.new(objects.ENTITY)
         self.container = self.ent_fact.new(objects.CONTAINER)
         self.player = self.ent_fact.new(objects.PLAYER)
+        self.npc = self.ent_fact.new(objects.NPC)
         self.room = self.ent_fact.new(objects.ROOM)
         self.world.add_entity(self.entity)
         self.world.add_entity(self.container)
         self.world.add_entity(self.room)
         self.world.add_entity(self.player)
+        self.world.add_entity(self.npc)
         self.world.add_event(self.evt_fact.new(objects.INFORM))
 
     def test_connect_entity(self):
@@ -156,13 +164,18 @@ class TestEntityConnector(unittest.TestCase):
         self.assertTrue(self.room.events.has_event('use'))
         self.assertTrue(self.room.inventory.has_item(self.entity.spec.id))
         self.assertTrue(self.room.inventory.has_item(self.player.spec.id))
+        self.assertTrue(self.room.inventory.has_item(self.npc.spec.id))
         self.assertTrue(self.room.inventory.has_item(self.container.spec.id))
 
     def test_connect_player(self):
-        pass
+        connector = visitor.EntityConnector(objects.PLAYER, self.world)
+        connector.connect(self.player)
+        self.assertTrue(self.player.events.has_event('use'))
 
     def test_connect_npc(self):
-        pass
+        connector = visitor.EntityConnector(objects.NPC, self.world)
+        connector.connect(self.npc)
+        self.assertTrue(self.npc.events.has_event('use'))
 
 
 class TestEventConnector(unittest.TestCase):

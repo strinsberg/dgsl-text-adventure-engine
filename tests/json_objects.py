@@ -107,6 +107,7 @@ PLAYER = _extend(OBJ, {
     'id': '1234',
     'type': 'player',
     'name': 'test player',
+    'items': {}
 })
 
 CONTAINER = _extend(OBJ, {
@@ -119,6 +120,7 @@ NPC = _extend(OBJ, {
     'id': 'jsd0f',
     'type': 'npc',
     'name': 'pauline',
+    'items': {}
 })
 
 ROOM = _extend(
@@ -136,6 +138,9 @@ ROOM = _extend(
             },
             {
                 'id': CONTAINER['id']
+            },
+            {
+                'id': NPC['id']
             }
         ]
     })
