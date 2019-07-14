@@ -39,6 +39,9 @@ class EntityCollector:
         for item in container:
             item.accept(self)
 
+    def visit_room(self, room):
+        self.visit_container(room)
+
     # Need a visit for character to deal with equipment.
     def visit_character(self, character):
         for equipment in character.equipped:
@@ -77,14 +80,13 @@ class EntityTypeCollector:
     or something with just their method implemented. though this would not
     work easily for multiple types."""
 
-    def __init__(self, types, container):
+    def __init__(self, types, entity):
         self.types = types
-        self.container = container
+        self.entity = entity
         self.results = []
 
     def collect(self):
-        for entity in self.container:
-            entity.accept(self)
+        self.entity.accept(self)
         return self.results
 
     def visit_entity(self, entity):
@@ -94,18 +96,36 @@ class EntityTypeCollector:
     def visit_container(self, entity):
         if 'container' in self.types:
             self.results.append(entity)
+        self._collect_all(entity)
 
     def visit_player(self, entity):
         if 'player' in self.types:
             self.results.append(entity)
+        self._collect_all(entity)
+        self._collect_equipped(entity)
 
     def visit_npc(self, entity):
         if 'npc' in self.types:
             self.results.append(entity)
+        self._collect_all(entity)
+        self._collect_equipped(entity)
+
+    def visit_room(self, entity):
+        if 'room' in self.types:
+            self.results.append(entity)
+        self._collect_all(entity)
 
     def visit_equipment(self, entity):
         if 'equipment' in self.types:
             self.results.append(entity)
+
+    def _collect_all(self, container):
+        for item in container:
+            item.accept(self)
+
+    def _collect_equipped(self, character):
+        for item in character.equipped:
+            item.accept(self)
 
 # Should think about catching key errors here incase the world editor fails
 # to provide all we need or a file is edited by hand and a mistake is made
@@ -131,6 +151,9 @@ class EntityConnector:
     def visit_container(self, container):
         """Some info."""
         self._connect_items(container)
+
+    def visit_room(self, room):
+        self.visit_container(room)
 
     def visit_character(self, character):
         self.visit_container(character)

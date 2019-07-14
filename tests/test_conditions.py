@@ -58,6 +58,7 @@ class TestProtected(unittest.TestCase):
 
     def test_has_protection_carrying(self):
         self.player.equipped.equip(self.cap)
+        self.cap.must_equip = False
         self.hat.must_equip = False
         self.player.add(self.hat)
         result = self.protected.test(self.player)

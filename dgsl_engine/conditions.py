@@ -58,6 +58,7 @@ class Protected:
         equipment = collector.collect()
         results = []
         for equip in equipment:
-            if not equip.must_equip:
+            if not equip.must_equip and not equip.equipped:
+                print(equip)
                 results.append(equip)
         return results

@@ -82,22 +82,49 @@ class TestEntityCollector(unittest.TestCase):
 
 class TestEntityTypeCollector(unittest.TestCase):
     def setUp(self):
-        pass
+        self.fact = EntityFactory()
+        self.entity = self.fact.new(objects.ENTITY)
+        self.container = self.fact.new(objects.CONTAINER)
+        self.player = self.fact.new(objects.PLAYER)
+        self.npc = self.fact.new(objects.NPC)
+        self.room = self.fact.new(objects.ROOM)
+        self.equipment = self.fact.new(objects.EQUIPMENT)
+        self.container.add(self.entity)
+        self.player.add(self.container)
+        self.room.add(self.player)
+        self.room.add(self.npc)
+        self.player.equipped.equip(self.equipment)
 
     def test_collect_entity(self):
-        pass
+        self.collector = visitor.EntityTypeCollector(
+            ['entity'], self.container)
+        self.collector.collect()
+        self.assertIn(self.entity, self.collector.results)
+        self.assertEqual(len(self.collector.results), 1)
 
     def test_collect_container(self):
-        pass
+        self.collector = visitor.EntityTypeCollector(['container'], self.room)
+        self.collector.collect()
+        self.assertIn(self.container, self.collector.results)
+        self.assertEqual(len(self.collector.results), 1)
 
     def test_collect_player(self):
-        pass
+        self.collector = visitor.EntityTypeCollector(['player'], self.room)
+        self.collector.collect()
+        self.assertIn(self.player, self.collector.results)
+        self.assertEqual(len(self.collector.results), 1)
 
     def test_collect_npc(self):
-        pass
+        self.collector = visitor.EntityTypeCollector(['npc'], self.room)
+        self.collector.collect()
+        self.assertIn(self.npc, self.collector.results)
+        self.assertEqual(len(self.collector.results), 1)
 
     def test_collect_equipment(self):
-        pass
+        self.collector = visitor.EntityTypeCollector(['equipment'], self.room)
+        self.collector.collect()
+        self.assertIn(self.equipment, self.collector.results)
+        self.assertEqual(len(self.collector.results), 1)
 
 
 class TestEntityConnector(unittest.TestCase):

@@ -75,6 +75,9 @@ class Room(Container):
             return True
         return False
 
+    def accept(self, visitor):
+        visitor.visit_room(self)
+
     def __repr__(self):
         return "<Room '{}', Name: '{}', Contents: {}>".format(
             self.spec.id, self.spec.name, self._repr_contents())

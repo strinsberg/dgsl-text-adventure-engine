@@ -225,6 +225,7 @@ class Equipped:
             old = self.remove(slot)
         self.equipment[slot] = equipment
         equipment.owner = self.owner
+        equipment.equipped = True
         return old
 
     def remove(self, slot):
@@ -232,6 +233,7 @@ class Equipped:
         if slot in self.equipment:
             old = self.equipment[slot]
             old.owner = None
+            old.equipped = False
             del self.equipment[slot]
         return old
 

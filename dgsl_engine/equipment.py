@@ -8,6 +8,7 @@ class Equipment(Entity):
         self.slot = "empty"
         self.must_equip = True
         self.owner = None
+        self.equipped = False
 
     def accept(self, visitor):
         visitor.visit_equipment(self)
