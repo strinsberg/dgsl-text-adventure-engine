@@ -39,13 +39,13 @@ class Protected:
             protected = False
 
             for equipment in character.equipped:
-                if effect in equipment.protection:
+                if effect in equipment.protects:
                     protected = True
                     break
 
             if not protected:
                 for equipment in not_equipped:
-                    if effect in equipment.protection:
+                    if effect in equipment.protects:
                         protected = True
                         break
 
@@ -58,6 +58,6 @@ class Protected:
         equipment = collector.collect()
         results = []
         for equip in equipment:
-            if not equip.must_be_equipped:
+            if not equip.must_equip:
                 results.append(equip)
         return results

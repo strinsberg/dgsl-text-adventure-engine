@@ -45,13 +45,26 @@ class TestHasItem(unittest.TestCase):
 
 class TestProtected(unittest.TestCase):
     def setUp(self):
-        pass
+        self.protected = conditions.Protected(['cold', 'wind'])
+        self.fact = EntityFactory()
+        self.hat = self.fact.new(objects.EQUIPMENT)
+        self.cap = self.fact.new(objects.EQUIPMENT2)
+        self.player = self.fact.new(objects.PLAYER)
 
     def test_has_protection_equipped(self):
-        pass
+        self.player.equipped.equip(self.hat)
+        result = self.protected.test(self.player)
+        self.assertTrue(result)
 
     def test_has_protection_carrying(self):
-        pass
+        self.player.equipped.equip(self.cap)
+        self.hat.must_equip = False
+        self.player.add(self.hat)
+        result = self.protected.test(self.player)
+        self.assertTrue(result)
 
     def test_no_protection(self):
-        pass
+        self.player.equipped.equip(self.cap)
+        self.player.add(self.hat)
+        result = self.protected.test(self.player)
+        self.assertFalse(result)
