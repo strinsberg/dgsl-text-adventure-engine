@@ -44,6 +44,23 @@ class TestEventFactory(unittest.TestCase):
             self.fact.new(self.obj)
 
 
+class TestMakeCondition(unittest.TestCase):
+    def setUp(self):
+        pass
+
+    def test_make_has_item(self):
+        pass
+
+    def test_make_question(self):
+        pass
+
+    def test_make_protected(self):
+        pass
+
+    def test_bad_json(self):
+        pass
+
+
 # Main #################################################################
 
 if __name__ == '__main__':

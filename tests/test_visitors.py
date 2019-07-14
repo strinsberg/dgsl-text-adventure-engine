@@ -203,8 +203,26 @@ class TestEventConnector(unittest.TestCase):
         self.assertIn(self.inform, self.move.subjects)
         self.assertIs(self.move.destination, self.room)
 
+    def test_connect_give(self):
+        pass
+
+    def test_connect_take(self):
+        pass
+
+    def test_connect_toggle(self):
+        pass
+
+    def test_connect_group(self):
+        pass
+
+    def test_connect_conditional(self):
+        pass
+
+    def test_connect_interaction(self):
+        pass
 
 # Main #################################################################
+
 
 if __name__ == '__main__':
     unittest.main()
