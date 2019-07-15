@@ -3,6 +3,7 @@ from .user_input import Menu
 
 
 class Interaction(Event):
+    """ """
     def __init__(self, obj_id):
         super(Interaction, self).__init__(obj_id)
         self.options = []
@@ -11,6 +12,14 @@ class Interaction(Event):
         self._out = print
 
     def execute(self, affected):
+        """
+
+        Args:
+          affected: 
+
+        Returns:
+
+        """
         options, choices = self._make_choices(affected)
         menu = Menu(choices, self._out, self._in)
 
@@ -38,9 +47,25 @@ class Interaction(Event):
         return super(Interaction, self).execute(affected)
 
     def add(self, option):
+        """
+
+        Args:
+          option: 
+
+        Returns:
+
+        """
         self.options.append(option)
 
     def _make_choices(self, affected):
+        """
+
+        Args:
+          affected: 
+
+        Returns:
+
+        """
         options = []
         choices = []
         for opt in self.options:
@@ -50,29 +75,63 @@ class Interaction(Event):
         return options, choices
 
     def accept(self, visitor):
+        """
+
+        Args:
+          visitor: 
+
+        Returns:
+
+        """
         visitor.visit_interaction(self)
 
 
 class Option:
+    """ """
     def __init__(self, text, event):
         self.text = text
         self.event = event
 
     def is_visible(self, affected):
+        """
+
+        Args:
+          affected: 
+
+        Returns:
+
+        """
         if self.event.is_done:
             return False
         return True
 
     def choose(self, affected):
+        """
+
+        Args:
+          affected: 
+
+        Returns:
+
+        """
         return self.event.execute(affected)
 
 
 class ConditionalOption(Option):
+    """ """
     def __init__(self, text, event, condition):
         super(ConditionalOption, self).__init__(text, event)
         self.condition = condition
 
     def is_visible(self, affected):
+        """
+
+        Args:
+          affected: 
+
+        Returns:
+
+        """
         super_success = super(ConditionalOption, self).is_visible(affected)
 
         if super_success:

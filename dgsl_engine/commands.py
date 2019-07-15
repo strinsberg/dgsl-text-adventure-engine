@@ -5,9 +5,9 @@ def execute_command(verb, arg, game):
     """
 
     Args:
-      verb:
-      arg:
-      game:
+      verb: 
+      arg: 
+      game: 
 
     Returns:
 
@@ -21,7 +21,7 @@ def _quit(game):
     """
 
     Args:
-      game:
+      game: 
 
     Returns:
 

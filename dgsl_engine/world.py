@@ -21,7 +21,7 @@ class World:
         """
 
         Args:
-          entity:
+          entity: 
 
         Returns:
 
@@ -32,7 +32,7 @@ class World:
         """
 
         Args:
-          event:
+          event: 
 
         Returns:
 
@@ -51,7 +51,7 @@ class WorldFactory:
         """
 
         Args:
-          world_json:
+          world_json: 
 
         Returns:
 
@@ -68,8 +68,8 @@ class WorldFactory:
         """
 
         Args:
-          new_world:
-          world_json:
+          new_world: 
+          world_json: 
 
         Returns:
 
@@ -89,8 +89,8 @@ class WorldFactory:
         """
 
         Args:
-          new_world:
-          world_json:
+          new_world: 
+          world_json: 
 
         Returns:
 
@@ -113,8 +113,8 @@ class WorldFactory:
         """
 
         Args:
-          new_world:
-          world_json:
+          new_world: 
+          world_json: 
 
         Returns:
 
@@ -130,7 +130,7 @@ def is_entity(obj):
     """
 
     Args:
-      obj:
+      obj: 
 
     Returns:
 
@@ -142,7 +142,7 @@ def is_event(obj):
     """
 
     Args:
-      obj:
+      obj: 
 
     Returns:
 

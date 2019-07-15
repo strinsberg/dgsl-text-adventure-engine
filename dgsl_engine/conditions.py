@@ -3,6 +3,7 @@ from . import visitors
 
 
 class Question:
+    """ """
     def __init__(self, question, answer):
         self.question = question
         self.answer = answer
@@ -10,6 +11,14 @@ class Question:
         self._out = print
 
     def test(self, entity):
+        """
+
+        Args:
+          entity: 
+
+        Returns:
+
+        """
         self._out(self.question)
         ans = self._in("Answer: ")
         if ans.strip() == self.answer:
@@ -18,10 +27,19 @@ class Question:
 
 
 class HasItem:
+    """ """
     def __init__(self, item_id):
         self.item_id = item_id
 
     def test(self, container):
+        """
+
+        Args:
+          container: 
+
+        Returns:
+
+        """
         item = container.get(self.item_id)
         if item is not None:
             return True
@@ -29,10 +47,19 @@ class HasItem:
 
 
 class Protected:
+    """ """
     def __init__(self, effects):
         self.effects = effects
 
     def test(self, character):
+        """
+
+        Args:
+          character: 
+
+        Returns:
+
+        """
         not_equipped = self._get_valid_carried(character)
         protected = set()
         for effect in self.effects:
@@ -54,6 +81,14 @@ class Protected:
         return True
 
     def _get_valid_carried(self, character):
+        """
+
+        Args:
+          character: 
+
+        Returns:
+
+        """
         collector = visitors.EntityTypeCollector(['equipment'], character)
         equipment = collector.collect()
         results = []

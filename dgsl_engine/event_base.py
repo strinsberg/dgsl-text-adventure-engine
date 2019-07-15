@@ -4,7 +4,13 @@ from . import actions
 
 class Event:
     """Base for all Events that execute in response to player
-    actions."""
+    actions.
+
+    Args:
+
+    Returns:
+
+    """
 
     def __init__(self, obj_id):
         self.id = obj_id
@@ -38,7 +44,7 @@ class Event:
         """
 
         Args:
-          visitor:
+          visitor: 
 
         Returns:
 
@@ -49,7 +55,7 @@ class Event:
         """
 
         Args:
-          event:
+          event: 
 
         Returns:
 
@@ -72,7 +78,7 @@ class MoveEntity(Event):
         """
 
         Args:
-          affected:
+          affected: 
 
         Returns:
 
@@ -84,7 +90,7 @@ class MoveEntity(Event):
         """
 
         Args:
-          visitor:
+          visitor: 
 
         Returns:
 
@@ -96,12 +102,21 @@ class MoveEntity(Event):
 
 
 class Give(Event):
+    """ """
     def __init__(self, obj_id):
         super(Give, self).__init__(obj_id)
         self.item_id = None
         self.item_owner = None
 
     def execute(self, affected):
+        """
+
+        Args:
+          affected: 
+
+        Returns:
+
+        """
         item = self.item_owner.get(self.item_id)
         if item is not None:
             actions.move(item, affected)
@@ -111,7 +126,7 @@ class Give(Event):
         """
 
         Args:
-          visitor:
+          visitor: 
 
         Returns:
 
@@ -123,12 +138,21 @@ class Give(Event):
 
 
 class Take(Event):
+    """ """
     def __init__(self, obj_id):
         super(Take, self).__init__(obj_id)
         self.item_id = None
         self.new_owner = None
 
     def execute(self, affected):
+        """
+
+        Args:
+          affected: 
+
+        Returns:
+
+        """
         item = affected.get(self.item_id)
         if item is not None:
             actions.move(item, self.new_owner)
@@ -138,7 +162,7 @@ class Take(Event):
         """
 
         Args:
-          visitor:
+          visitor: 
 
         Returns:
 
@@ -150,6 +174,7 @@ class Take(Event):
 
 
 class Toggle(Event):
+    """ """
     def __init__(self, obj_id):
         super(Toggle, self).__init__(obj_id)
         self.target = None
@@ -158,7 +183,7 @@ class Toggle(Event):
         """
 
         Args:
-          visitor:
+          visitor: 
 
         Returns:
 
@@ -167,7 +192,16 @@ class Toggle(Event):
 
 
 class ToggleActive(Toggle):
+    """ """
     def execute(self, affected):
+        """
+
+        Args:
+          affected: 
+
+        Returns:
+
+        """
         if self.is_done:
             return ''
         self.target.states.toggle_active()
@@ -178,7 +212,16 @@ class ToggleActive(Toggle):
 
 
 class ToggleObtainable(Toggle):
+    """ """
     def execute(self, affected):
+        """
+
+        Args:
+          affected: 
+
+        Returns:
+
+        """
         if self.is_done:
             return ''
         self.target.states.toggle_obtainable()
@@ -189,7 +232,16 @@ class ToggleObtainable(Toggle):
 
 
 class ToggleHidden(Toggle):
+    """ """
     def execute(self, affected):
+        """
+
+        Args:
+          affected: 
+
+        Returns:
+
+        """
         if self.is_done:
             return ''
         if self.target is None:

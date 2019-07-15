@@ -2,6 +2,7 @@ from .entity_base import Entity
 
 
 class Equipment(Entity):
+    """ """
     def __init__(self, obj_id):
         super(Equipment, self).__init__(obj_id)
         self.protects = []
@@ -11,6 +12,14 @@ class Equipment(Entity):
         self.equipped = False
 
     def accept(self, visitor):
+        """
+
+        Args:
+          visitor: 
+
+        Returns:
+
+        """
         visitor.visit_equipment(self)
 
     def __repr__(self):

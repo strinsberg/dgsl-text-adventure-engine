@@ -15,7 +15,7 @@ class GameFactory:
         """
 
         Args:
-          world_name:
+          world_name: 
 
         Returns:
 
@@ -43,7 +43,7 @@ class GameFactory:
         """
 
         Args:
-          name:
+          name: 
 
         Returns:
 

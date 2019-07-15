@@ -3,11 +3,20 @@ from . import exceptions
 
 
 class GroupEvent(event_base.Event):
+    """ """
     def __init__(self, obj_id):
         super(GroupEvent, self).__init__(obj_id)
         self.events = []
 
     def execute(self, affected):
+        """
+
+        Args:
+          affected: 
+
+        Returns:
+
+        """
         results = []
 
         for event in self.events:
@@ -22,6 +31,14 @@ class GroupEvent(event_base.Event):
         return "\n".join(results)
 
     def add(self, event):
+        """
+
+        Args:
+          event: 
+
+        Returns:
+
+        """
         for e in self.events:
             if event.id == e.id:
                 raise exceptions.InvalidParameterError(
@@ -30,15 +47,32 @@ class GroupEvent(event_base.Event):
         self.events.append(event)
 
     def accept(self, visitor):
+        """
+
+        Args:
+          visitor: 
+
+        Returns:
+
+        """
         visitor.visit_group(self)
 
 
 class OrderedGroup(GroupEvent):
+    """ """
     def __init__(self, obj_id):
         super(OrderedGroup, self).__init__(obj_id)
         self.idx = 0
 
     def execute(self, affected):
+        """
+
+        Args:
+          affected: 
+
+        Returns:
+
+        """
         if self.events[self.idx].is_done:
             if self.idx < len(self.events) - 1:
                 self.idx += 1
@@ -55,6 +89,14 @@ class OrderedGroup(GroupEvent):
         return res_super
 
     def add(self, event):
+        """
+
+        Args:
+          event: 
+
+        Returns:
+
+        """
         size = len(self.events)
         if size >= 1:
             self.events[size - 1].only_once = True
@@ -62,6 +104,7 @@ class OrderedGroup(GroupEvent):
 
 
 class ConditionalEvent(event_base.Event):
+    """ """
     def __init__(self, obj_id):
         super(ConditionalEvent, self).__init__(obj_id)
         self.condition = None
@@ -69,6 +112,14 @@ class ConditionalEvent(event_base.Event):
         self.failure = None
 
     def execute(self, affected):
+        """
+
+        Args:
+          affected: 
+
+        Returns:
+
+        """
         succeeded = self.condition.test(affected)
         res_super = super(ConditionalEvent, self).execute(affected)
 
@@ -88,4 +139,12 @@ class ConditionalEvent(event_base.Event):
         return res_super
 
     def accept(self, visitor):
+        """
+
+        Args:
+          visitor: 
+
+        Returns:
+
+        """
         visitor.visit_conditional(self)

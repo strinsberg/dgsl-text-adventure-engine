@@ -1,6 +1,5 @@
 """Classes and functions for getting and processing user input."""
 import enum
-from . import commands
 
 
 class ParseCodes(enum.Enum):
@@ -9,7 +8,7 @@ class ParseCodes(enum.Enum):
     COMMAND = 2
 
 
-class Parser:
+class Parser:  # pylint: disable=too-few-public-methods
     """Turns raw user input into form useable by a resolver."""
 
     def __init__(self):
@@ -49,7 +48,7 @@ class Parser:
         }
 
 
-class Menu:
+class Menu:  # pylint: disable=too-few-public-methods
     """Asks a user to choose one of a list of choices."""
 
     def __init__(self, choices, out=print, _in=input):
@@ -61,7 +60,7 @@ class Menu:
         """
 
         Args:
-          input_:  (Default value = None)
+          input_: (Default value = None)
 
         Returns:
 
@@ -81,10 +80,10 @@ class Menu:
         return result - 1  # Because the menu item is i + 1
 
 
-class MenuFactory:
+class MenuFactory:  # pylint: disable=too-few-public-methods
     """Creates a Menu"""
 
-    def make(self, choices):
+    def make(self, choices):  # pylint: disable=no-self-use
         """
 
         Args:
