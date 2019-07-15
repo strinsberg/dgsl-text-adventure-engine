@@ -21,12 +21,12 @@ test:
   script:
     # - python setup.py test
     - pip install nose pylint
-    - make coverage
+    - make tests
     - make lint
-    - mv cover public/
+    - mv cover docs/
   artifacts:
     paths:
-      - public
+      - docs
   only:
     - master
     
@@ -34,9 +34,9 @@ pages:
   script:
     - pip install sphinx sphinx-rtd-theme
     - make docs
-    - mv docs/code/build/html public/
+    - mv docs/code/build/html docs/
   artifacts:
     paths:
-      - public
+      - docs
   only:
     - master
