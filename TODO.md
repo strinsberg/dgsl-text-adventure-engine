@@ -4,14 +4,16 @@ TODOs
 priority
 --------
 
-* get all starting features implemented
-* make sure test coverage is 100%
 * Do initial documentation
 * Do some UML diagrams for current design elements
+* standardize tests and possibly use mocking instead of fakes. Think about dependencies and how much extra is being tested by a test suite. See if you can make tests not use any more of the codebase than they need. look into ways to deal with streams so that the current input output thing is not being done (it works, but could be nicer)
 * Try to fix as many pylint errors as possible (possibly ignore some if justified).
 * See if you can figure out how to get CI working with gitlab
-* Get setup.py made. When more game functionality has been added and merged then make it possible to install the game.
-* Make the test world have all kinds of entities and events so that all classes that use it can be properly tested and so that some initial play testing can be done to work out finer details and catch any strange bugs.
+* create a test world that instantiates at least one of every game structure. Make it just big enough to test out common functionality and search for edge cases.
+* Get setup.py setup so it is possible to install and run the game.
+* call this a base version of the game and consider it a beta release. Start the changelog and create new branches when adding bug fixes and feature additions.
+* Don't add any new features to the game until the project is in good shape for what it is. There is also a world editor to work on getting fully functional to work with the new game engine.
+
 
 Other
 -----
