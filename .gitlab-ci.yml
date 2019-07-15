@@ -23,10 +23,10 @@ test:
     - pip install nose coverage pylint
     - make coverage
     - make lint
-    - mv cover docs/
+    - mv cover public/
   artifacts:
     paths:
-      - docs
+      - public
     expire_in: 10 days
   only:
     - master
@@ -35,10 +35,10 @@ pages:
   script:
     - pip install sphinx sphinx-rtd-theme
     - make docs
-    - mv docs/code/build/html docs/
+    - mv docs/code/build/html public/
   artifacts:
     paths:
-      - docs
+      - public
     expire_in: 10 days
   only:
     - master
