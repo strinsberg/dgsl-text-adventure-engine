@@ -4,11 +4,10 @@ TODOs
 priority
 --------
 
+* get the script for the main game working with the test world. Consider how you are going to get the game to work with the test world while debugging, but later ask for a world name and actually open one from the world dir. Maybe this can go along with setting up a debugging flag and logging.
 * Do initial documentation
 * Do some UML diagrams for current design elements
 * standardize tests and possibly use mocking instead of fakes. Think about dependencies and how much extra is being tested by a test suite. See if you can make tests not use any more of the codebase than they need. look into ways to deal with streams so that the current input output thing is not being done (it works, but could be nicer)
-* Try to fix as many pylint errors as possible (possibly ignore some if justified).
-* See if you can figure out how to get CI working with gitlab
 * create a test world that instantiates at least one of every game structure. Make it just big enough to test out common functionality and search for edge cases.
 * Get setup.py setup so it is possible to install and run the game.
 * call this a base version of the game and consider it a beta release. Start the changelog and create new branches when adding bug fixes and feature additions.
