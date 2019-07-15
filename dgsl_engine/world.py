@@ -8,11 +8,7 @@ class World:
     """A Game world that holds entities and the player."""
 
     def __init__(self):
-        self.name = "Untitled"
-        self.welcome = "Welcome to my game!"
-        self.opening = "You are in a very interesting place!"
-        self.player_title = "Captain"
-        self.version = "0.0.0"
+        self.details = None
         self.player = None
         self.entities = {}
         self.events = {}
@@ -21,7 +17,7 @@ class World:
         """
 
         Args:
-          entity: 
+          entity:
 
         Returns:
 
@@ -32,7 +28,7 @@ class World:
         """
 
         Args:
-          event: 
+          event:
 
         Returns:
 
@@ -40,7 +36,17 @@ class World:
         self.events[event.id] = event
 
 
-class WorldFactory:
+class WorldDetails:  # pylint: disable=too-few-public-methods
+    """World detials data class"""
+
+    def __init__(self, name, welcome, opening, version):
+        self.name = name
+        self.welcome = welcome
+        self.opening = opening
+        self.version = version
+
+
+class WorldFactory:  # pylint: disable=too-few-public-methods
     """Creates a new world from a compatible json object."""
 
     def __init__(self):
@@ -51,7 +57,7 @@ class WorldFactory:
         """
 
         Args:
-          world_json: 
+          world_json:
 
         Returns:
 
@@ -59,8 +65,8 @@ class WorldFactory:
         new_world = World()
 
         self._create_objects(new_world, world_json)
-        self._connect_objects(new_world, world_json)
-        self._setup_world(new_world, world_json)
+        _connect_objects(new_world, world_json)
+        _setup_world(new_world, world_json)
 
         return new_world
 
@@ -68,8 +74,8 @@ class WorldFactory:
         """
 
         Args:
-          new_world: 
-          world_json: 
+          new_world:
+          world_json:
 
         Returns:
 
@@ -85,52 +91,54 @@ class WorldFactory:
             elif is_event(obj):
                 new_world.add_event(self.event_factory.new(obj))
 
-    def _connect_objects(self, new_world, world_json):
-        """
 
-        Args:
-          new_world: 
-          world_json: 
+def _connect_objects(new_world, world_json):
+    """
 
-        Returns:
+    Args:
+        new_world:
+        world_json:
 
-        """
-        for id_ in world_json['objects']:
-            obj = world_json['objects'][id_]
-            if is_entity(obj):
-                conn = visitors.EntityConnector(obj, new_world)
-                entity = new_world.entities[id_]
-                conn.connect(entity)
-                if obj['type'] == 'player':
-                    start_room = new_world.entities[obj['start']]
-                    start_room.add(entity)
-            elif is_event(obj):
-                conn = visitors.EventConnector(obj, new_world)
-                event = new_world.events[id_]
-                conn.connect(event)
+    Returns:
 
-    def _setup_world(self, new_world, world_json):
-        """
+    """
+    for id_ in world_json['objects']:
+        obj = world_json['objects'][id_]
+        if is_entity(obj):
+            conn = visitors.EntityConnector(obj, new_world)
+            entity = new_world.entities[id_]
+            conn.connect(entity)
+            if obj['type'] == 'player':
+                start_room = new_world.entities[obj['start']]
+                start_room.add(entity)
+        elif is_event(obj):
+            conn = visitors.EventConnector(obj, new_world)
+            event = new_world.events[id_]
+            conn.connect(event)
 
-        Args:
-          new_world: 
-          world_json: 
 
-        Returns:
+def _setup_world(new_world, world_json):
+    """
 
-        """
-        new_world.name = world_json['name']
-        new_world.version = world_json['version']
-        new_world.welcome = world_json['welcome']
-        #world.opening = world_json['opening']
-        #world.player_title = world_json['player_title']
+    Args:
+        new_world:
+        world_json:
+
+    Returns:
+
+    """
+    details = WorldDetails(
+        world_json['name'], world_json['welcome'],
+        "You are playing this game!", world_json['version'])
+    new_world.details = details
+    #new_world.details.opening = world_json['opening']
 
 
 def is_entity(obj):
     """
 
     Args:
-      obj: 
+      obj:
 
     Returns:
 
@@ -142,7 +150,7 @@ def is_event(obj):
     """
 
     Args:
-      obj: 
+      obj:
 
     Returns:
 

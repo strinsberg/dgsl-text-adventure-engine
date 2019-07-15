@@ -11,9 +11,9 @@ class TestGameFactory(unittest.TestCase):
 
     def test_new(self):
         # Not really an adequate tests, but it runs the code.
-        self.assertEqual(self.game.world.name, 'testing ground')
-        self.assertEqual(self.game.world.version, '0.0')
-        self.assertEqual(self.game.world.welcome, 'fun is waiting!')
+        self.assertEqual(self.game.world.details.name, 'testing ground')
+        self.assertEqual(self.game.world.details.version, '0.0')
+        self.assertEqual(self.game.world.details.welcome, 'fun is waiting!')
 
 
 # Main #################################################################

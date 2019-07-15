@@ -1,7 +1,7 @@
 # Run tests with verbose results
 .PHONY: tests
 tests:
-	nosetests -v
+	nosetests
 
 # Run tests with coverage
 .PHONY: coverage

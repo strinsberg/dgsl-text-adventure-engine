@@ -30,7 +30,7 @@ class TestWorldFactory(unittest.TestCase):
     def test_connect_objects(self):
         new_world = world.World()
         self.world_fact._create_objects(new_world, self.world_json)
-        self.world_fact._connect_objects(new_world, self.world_json)
+        world._connect_objects(new_world, self.world_json)
 
         # Can only realy test a few based on knowledge of the test world
         # Ring in room
@@ -58,9 +58,9 @@ class TestWorldFactory(unittest.TestCase):
 
         # Check to see world details are setup properly
         self.assertIs(player, new_world.player)
-        self.assertEqual(new_world.name, 'testing ground')
-        self.assertEqual(new_world.version, '0.0')
-        self.assertEqual(new_world.welcome, 'fun is waiting!')
+        self.assertEqual(new_world.details.name, 'testing ground')
+        self.assertEqual(new_world.details.version, '0.0')
+        self.assertEqual(new_world.details.welcome, 'fun is waiting!')
 
 
 # Main #################################################################
