@@ -20,7 +20,7 @@ cache:
 test:
   script:
     # - python setup.py test
-    - pip install nosetest pylint
+    - pip install nosetests pylint
     - make coverage
     - make lint
     - mv cover public/
