@@ -42,18 +42,22 @@ class EntityCollector:
             item.accept(self)
 
     def visit_room(self, room):
+        """empty"""
         self.visit_container(room)
 
     # Need a visit for character to deal with equipment.
     def visit_character(self, character):
+        """empty"""
         for equipment in character.equipped:
             equipment.accept(self)
 
     def visit_player(self, player):
+        """empty"""
         self.visit_container(player)
         self.visit_character(player)
 
     def visit_equipment(self, equipment):
+        """empty"""
         self.visit_entity(equipment)
 
     def visit_npc(self, npc):
@@ -61,10 +65,10 @@ class EntityCollector:
         self.visit_entity(npc)
 
 
-class EntityCollectorFactory:
+class EntityCollectorFactory:  # pylint: disable=too-few-public-methods
     """Factory to make an entity collector."""
 
-    def make(self, obj, other, entity):
+    def make(self, obj, other, entity):  # pylint: disable=no-self-use
         """Makes an entity collector.
 
         Args:
@@ -88,44 +92,53 @@ class EntityTypeCollector:
         self.results = []
 
     def collect(self):
+        """empty"""
         self.entity.accept(self)
         return self.results
 
     def visit_entity(self, entity):
+        """empty"""
         if 'entity' in self.types:
             self.results.append(entity)
 
     def visit_container(self, entity):
+        """empty"""
         if 'container' in self.types:
             self.results.append(entity)
         self._collect_all(entity)
 
     def visit_player(self, entity):
+        """empty"""
         if 'player' in self.types:
             self.results.append(entity)
         self._collect_all(entity)
         self._collect_equipped(entity)
 
     def visit_npc(self, entity):
+        """empty"""
         if 'npc' in self.types:
             self.results.append(entity)
         self._collect_all(entity)
         self._collect_equipped(entity)
 
     def visit_room(self, entity):
+        """empty"""
         if 'room' in self.types:
             self.results.append(entity)
         self._collect_all(entity)
 
     def visit_equipment(self, entity):
+        """empty"""
         if 'equipment' in self.types:
             self.results.append(entity)
 
     def _collect_all(self, container):
+        """empty"""
         for item in container:
             item.accept(self)
 
     def _collect_equipped(self, character):
+        """empty"""
         for item in character.equipped:
             item.accept(self)
 
@@ -155,19 +168,24 @@ class EntityConnector:
         self._connect_items(container)
 
     def visit_room(self, room):
+        """empty"""
         self.visit_container(room)
 
     def visit_character(self, character):
+        """empty"""
         self.visit_container(character)
         # self.connect_equipment(character)
 
     def visit_player(self, player):
+        """empty"""
         self.visit_character(player)
 
     def visit_npc(self, npc):
+        """empty"""
         self.visit_character(npc)
 
     def _connect_events(self, entity):
+        """empty"""
         for event_json in self.entity_json['events']:
             event_id = event_json['id']
             event_verb = event_json['verb']
@@ -175,6 +193,7 @@ class EntityConnector:
             entity.events.add(event_verb, event)
 
     def _connect_items(self, container):
+        """empty"""
         for item in self.entity_json['items']:
             item_id = item['id']
             entity = self.world.entities[item_id]
@@ -203,27 +222,32 @@ class EventConnector:
         move.destination = destination
 
     def visit_give(self, give):
+        """empty"""
         owner_id = self.event_json['item_owner']['id']
         owner = self.world.entities[owner_id]
         give.item_owner = owner
 
     def visit_take(self, take):
+        """empty"""
         new_owner_id = self.event_json['new_owner']['id']
         new_owner = self.world.entities[new_owner_id]
         take.new_owner = new_owner
 
     def visit_toggle(self, toggle):
+        """empty"""
         target_id = self.event_json['target']['id']
         target = self.world.entities[target_id]
         toggle.target = target
 
     def visit_group(self, group):
+        """empty"""
         for obj in self.event_json['events']:
             event_id = obj['id']
             event = self.world.events[event_id]
             group.add(event)
 
     def visit_conditional(self, conditional):
+        """empty"""
         success_id = self.event_json['success']['id']
         fail_id = self.event_json['failure']['id']
         conditional.success = self.world.events[success_id]
@@ -232,15 +256,18 @@ class EventConnector:
             self.event_json['condition'])
 
     def visit_interaction(self, interaction):
+        """empty"""
         for opt in self.event_json['options']:
             self._connect_option(interaction, opt)
 
     def _connect_subjects(self, event):
+        """empty"""
         for sub in self.event_json['subjects']:
             subject = self.world.events[sub['id']]
             event.register(subject)
 
     def _connect_option(self, interaction, opt_json):
+        """empty"""
         text = opt_json['text']
         event_id = opt_json['event']['id']
         event = self.world.events[event_id]

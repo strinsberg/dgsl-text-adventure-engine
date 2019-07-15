@@ -5,11 +5,11 @@ from . import exceptions
 from . import equipment
 
 
-class EntityFactory:
+class EntityFactory:  # pylint: disable=too-few-public-methods
     """Factory to create new entities from json objects of entity
     information."""
 
-    def new(self, obj):
+    def new(self, obj):  # pylint: disable=no-self-use
         """Create a new entity from an entity json.
 
         Args:
@@ -33,12 +33,12 @@ class EntityFactory:
                 entity = entity_containers.Npc(id_)
             elif type_ == 'equipment':
                 entity = equipment.Equipment(id_)
-                self._setup_equipment(entity, obj)
+                _setup_equipment(entity, obj)
             else:
                 raise exceptions.InvalidParameterError(
                     "Error: invalid obj of type " + type_)
 
-            self._setup(entity, obj)
+            _setup_entity(entity, obj)
 
         except KeyError as err:
             raise exceptions.InvalidParameterError(
@@ -47,19 +47,21 @@ class EntityFactory:
 
         return entity
 
-    def _setup(self, entity, obj):
-        entity.spec.name = obj['name']
-        entity.spec.description = obj['description']
 
-        if obj['type'] not in ['room', 'player']:
-            entity.states.active = num_to_bool(obj['active'])
-            entity.states.obtainable = num_to_bool(obj['obtainable'])
-            entity.states.hidden = num_to_bool(obj['hidden'])
+def _setup_entity(entity, obj):
+    entity.spec.name = obj['name']
+    entity.spec.description = obj['description']
 
-    def _setup_equipment(self, entity, obj):
-        entity.protects = obj['protects']
-        entity.slot = obj['slot']
-        entity.must_equip = obj['must_equip']
+    if obj['type'] not in ['room', 'player']:
+        entity.states.active = num_to_bool(obj['active'])
+        entity.states.obtainable = num_to_bool(obj['obtainable'])
+        entity.states.hidden = num_to_bool(obj['hidden'])
+
+
+def _setup_equipment(entity, obj):
+    entity.protects = obj['protects']
+    entity.slot = obj['slot']
+    entity.must_equip = obj['must_equip']
 
 
 def num_to_bool(num):

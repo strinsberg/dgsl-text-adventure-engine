@@ -37,6 +37,7 @@ class Container(entity_base.Entity):
         return False
 
     def get(self, item_id):
+        """empty"""
         if self.inventory.has_item(item_id):
             return self.inventory.items[item_id]
         return None
@@ -85,6 +86,8 @@ class Room(Container):
 
 # Should be an ABC
 class Character(Container):
+    """empty"""
+
     def __init__(self, obj_id):
         super(Character, self).__init__(obj_id)
         self.equipped = entity_base.Equipped(self)

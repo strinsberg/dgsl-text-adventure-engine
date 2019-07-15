@@ -2,6 +2,9 @@
 actions."""
 from abc import ABC, abstractmethod
 
+# pylint: disable=too-few-public-methods
+# They must be objects for polymorphism and only need one method
+
 
 class ActionResolver:
     """Takes parsed user input and executes the desired action.
@@ -80,7 +83,7 @@ class ActionResolver:
 class ActionFactory:
     """Factory to return action objects."""
 
-    def new(self, verb, player, entity, other):
+    def new(self, verb, player, entity, other):  # pylint: disable=no-self-use
         """Creates a new action object based on the given verb.
 
         Args:
@@ -95,19 +98,20 @@ class ActionFactory:
             Action: The new action. If the verb does not exist returns
                 a null action.
         """
+        action = NullAction(player, entity, other)
         if verb in ['get', 'take']:
-            return Get(player, entity, other)
-        if verb in ['use']:
-            return Use(player, entity, other)
-        if verb in ['drop']:
-            return Drop(player, entity, other)
-        if verb in ['look']:
-            return Look(player, entity, other)
-        if verb in ['inventory']:
-            return CheckInventory(player, entity, other)
-        if verb in ['talk']:
-            return Talk(player, entity, other)
-        return NullAction(player, entity, other)
+            action = Get(player, entity, other)
+        elif verb in ['use']:
+            action = Use(player, entity, other)
+        elif verb in ['drop']:
+            action = Drop(player, entity, other)
+        elif verb in ['look']:
+            action = Look(player, entity, other)
+        elif verb in ['inventory']:
+            action = CheckInventory(player, entity, other)
+        elif verb in ['talk']:
+            action = Talk(player, entity, other)
+        return action
 
 
 class Action(ABC):
@@ -234,6 +238,8 @@ class CheckInventory(Action):
 
 
 class Talk(Action):
+    """empty"""
+
     def take_action(self):
         if self.entity is not None:
             result = self._execute_event('talk')
