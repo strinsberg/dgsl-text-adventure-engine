@@ -1,6 +1,7 @@
 import unittest
 import dgsl_engine.event_factory as factory
 import dgsl_engine.exceptions as exceptions
+from . import json_objects
 
 OBJ = {'id': '1234', 'once': 1}
 
@@ -45,20 +46,30 @@ class TestEventFactory(unittest.TestCase):
 
 
 class TestMakeCondition(unittest.TestCase):
-    def setUp(self):
-        pass
-
     def test_make_has_item(self):
-        pass
+        has_item = factory.make_condition(json_objects.HAS_ITEM)
+        self.assertEqual(has_item.item_id, json_objects.HAS_ITEM['item_id'])
 
     def test_make_question(self):
-        pass
+        question = factory.make_condition(json_objects.QUESTION)
+        q = json_objects.QUESTION['question']
+        a = json_objects.QUESTION['answer']
+        self.assertEqual(question.question, q)
+        self.assertEqual(question.answer, a)
 
     def test_make_protected(self):
-        pass
+        protected = factory.make_condition(json_objects.PROTECTED)
+        self.assertEqual(protected.effects, json_objects.PROTECTED['effects'])
 
-    def test_bad_json(self):
-        pass
+    def test_incomplete_json(self):
+        obj = {}
+        with self.assertRaises(exceptions.InvalidParameterError):
+            factory.make_condition(obj)
+
+    def test_bad_type(self):
+        obj = {'type': 'camel'}
+        with self.assertRaises(exceptions.InvalidParameterError):
+            factory.make_condition(obj)
 
 
 # Main #################################################################

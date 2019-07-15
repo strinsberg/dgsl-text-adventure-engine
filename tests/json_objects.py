@@ -187,3 +187,21 @@ MOVE = _extend(
             }
         ]
     })
+
+# Conditions ###########################################################
+
+HAS_ITEM = {
+    'type': 'has_item',
+    'item_id': 'm3wsf0dm',
+}
+
+QUESTION = {
+    'type': 'question',
+    'question': 'What is your favorite color?',
+    'answer': "I don't know"
+}
+
+PROTECTED = {
+    'type': 'protected',
+    'effects': ['cold', 'wind', 'radiation']
+}

@@ -46,14 +46,14 @@ class EventFactory:
                 self._setup_interaction(event, obj)
             else:
                 raise exceptions.InvalidParameterError(
-                    "Error: invalid obj of type " + type_)
+                    "Error: invalid obj of type " + str(type_))
 
             self._setup(event, obj)
             return event
 
         except KeyError as err:
             raise exceptions.InvalidParameterError(
-                "Error: object is not complete: " + str(err))
+                "Error: JSON is not complete: " + str(err))
 
     def _setup(self, event, obj):
         event.only_once = num_to_bool(obj['once'])
@@ -68,14 +68,21 @@ class EventFactory:
 
 
 def make_condition(cond_json):
-    type_ = cond_json['type']
-    if type_ == 'has_item':
-        return conditions.HasItem(cond_json['item_id'])
-    if type_ == 'question':
-        return conditions.Question(
-            cond_json['question'], cond_json['answer'])
-    if type_ == 'protected':
-        return conditions.Protected(cond_json['effects'])
+    try:
+        type_ = cond_json['type']
+        if type_ == 'has_item':
+            return conditions.HasItem(cond_json['item_id'])
+        if type_ == 'question':
+            return conditions.Question(
+                cond_json['question'], cond_json['answer'])
+        if type_ == 'protected':
+            return conditions.Protected(cond_json['effects'])
+        raise exceptions.InvalidParameterError(
+            "Error: Invalid object of type " + str(type_))
+
+    except KeyError as err:
+        raise exceptions.InvalidParameterError(
+            "Error: JSON is not complete: " + str(err))
 
 
 def num_to_bool(num):
