@@ -212,7 +212,12 @@ class TestEventConnector(unittest.TestCase):
         self.assertEqual(give.item_owner, cont)
 
     def test_connect_take(self):
-        pass
+        take = self.evt_fact.new(objects.TAKE)
+        cont = self.ent_fact.new(objects.NPC)
+        self.world.add_entity(cont)
+        connector = visitor.EventConnector(objects.TAKE, self.world)
+        connector.connect(take)
+        self.assertEqual(take.new_owner, cont)
 
     def test_connect_toggle(self):
         pass

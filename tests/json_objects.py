@@ -27,15 +27,6 @@ INFORM = _extend(
         }]
     })
 
-TAKE = _extend(
-    EVENT, {
-        'id': 'faeim302',
-        'name': 'test take',
-        'message': 'Ive been looking for that',
-        'type': 'take',
-        'item_id': 'none',
-    })
-
 TOGGLE_ACTIVE = _extend(
     EVENT, {
         'type': 'toggle_active',
@@ -187,6 +178,16 @@ GIVE = _extend(
         'type': 'give',
         'item_id': 'none',
         'item_owner': {'id': NPC['id']}
+    })
+
+TAKE = _extend(
+    EVENT, {
+        'id': 'faeim302',
+        'name': 'test take',
+        'message': 'Ive been looking for that',
+        'type': 'take',
+        'item_id': 'none',
+        'new_owner': {'id': NPC['id']}
     })
 
 # Conditions ###########################################################

@@ -207,10 +207,9 @@ class EventConnector:
         give.item_owner = owner
 
     def visit_take(self, take):
-        new_owner_id = self.event_json['target']['id']
+        new_owner_id = self.event_json['new_owner']['id']
         new_owner = self.world.entities[new_owner_id]
         take.new_owner = new_owner
-        take.item_id = self.event_json['item_id']
 
     def visit_toggle(self, toggle):
         target_id = self.event_json['target']['id']
