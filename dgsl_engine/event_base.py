@@ -13,14 +13,14 @@ class Event:
     """
 
     def __init__(self, obj_id):
-        self.id = obj_id
+        self.id = obj_id  # pylint: disable=invalid-name
         self.only_once = False
         self.is_done = False
         self.message = None
         self.subjects = []
 
     # Affected should just be the player
-    def execute(self, affected):
+    def execute(self, affected):  # pylint: disable=unused-argument
         """Execute the event on the affected entity and return the
         result.
 
@@ -44,7 +44,7 @@ class Event:
         """
 
         Args:
-          visitor: 
+          visitor:
 
         Returns:
 
@@ -55,7 +55,7 @@ class Event:
         """
 
         Args:
-          event: 
+          event:
 
         Returns:
 
@@ -78,7 +78,7 @@ class MoveEntity(Event):
         """
 
         Args:
-          affected: 
+          affected:
 
         Returns:
 
@@ -90,7 +90,7 @@ class MoveEntity(Event):
         """
 
         Args:
-          visitor: 
+          visitor:
 
         Returns:
 
@@ -102,7 +102,8 @@ class MoveEntity(Event):
 
 
 class Give(Event):
-    """ """
+    """Give """
+
     def __init__(self, obj_id):
         super(Give, self).__init__(obj_id)
         self.item_id = None
@@ -112,7 +113,7 @@ class Give(Event):
         """
 
         Args:
-          affected: 
+          affected:
 
         Returns:
 
@@ -126,7 +127,7 @@ class Give(Event):
         """
 
         Args:
-          visitor: 
+          visitor:
 
         Returns:
 
@@ -138,7 +139,8 @@ class Give(Event):
 
 
 class Take(Event):
-    """ """
+    """Take """
+
     def __init__(self, obj_id):
         super(Take, self).__init__(obj_id)
         self.item_id = None
@@ -148,7 +150,7 @@ class Take(Event):
         """
 
         Args:
-          affected: 
+          affected:
 
         Returns:
 
@@ -162,7 +164,7 @@ class Take(Event):
         """
 
         Args:
-          visitor: 
+          visitor:
 
         Returns:
 
@@ -174,7 +176,8 @@ class Take(Event):
 
 
 class Toggle(Event):
-    """ """
+    """ Event"""
+
     def __init__(self, obj_id):
         super(Toggle, self).__init__(obj_id)
         self.target = None
@@ -183,7 +186,7 @@ class Toggle(Event):
         """
 
         Args:
-          visitor: 
+          visitor:
 
         Returns:
 
@@ -192,12 +195,13 @@ class Toggle(Event):
 
 
 class ToggleActive(Toggle):
-    """ """
+    """Active """
+
     def execute(self, affected):
         """
 
         Args:
-          affected: 
+          affected:
 
         Returns:
 
@@ -212,12 +216,13 @@ class ToggleActive(Toggle):
 
 
 class ToggleObtainable(Toggle):
-    """ """
+    """ Obtainable"""
+
     def execute(self, affected):
         """
 
         Args:
-          affected: 
+          affected:
 
         Returns:
 
@@ -232,12 +237,13 @@ class ToggleObtainable(Toggle):
 
 
 class ToggleHidden(Toggle):
-    """ """
+    """Hidden """
+
     def execute(self, affected):
         """
 
         Args:
-          affected: 
+          affected:
 
         Returns:
 

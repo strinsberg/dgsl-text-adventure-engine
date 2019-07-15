@@ -1,9 +1,11 @@
+"""Interaction event"""
 from .event_base import Event
 from .user_input import Menu
 
 
 class Interaction(Event):
-    """ """
+    """ Interaction"""
+
     def __init__(self, obj_id):
         super(Interaction, self).__init__(obj_id)
         self.options = []
@@ -15,7 +17,7 @@ class Interaction(Event):
         """
 
         Args:
-          affected: 
+          affected:
 
         Returns:
 
@@ -50,7 +52,7 @@ class Interaction(Event):
         """
 
         Args:
-          option: 
+          option:
 
         Returns:
 
@@ -61,7 +63,7 @@ class Interaction(Event):
         """
 
         Args:
-          affected: 
+          affected:
 
         Returns:
 
@@ -78,7 +80,7 @@ class Interaction(Event):
         """
 
         Args:
-          visitor: 
+          visitor:
 
         Returns:
 
@@ -87,16 +89,17 @@ class Interaction(Event):
 
 
 class Option:
-    """ """
+    """ option"""
+
     def __init__(self, text, event):
         self.text = text
         self.event = event
 
-    def is_visible(self, affected):
+    def is_visible(self, affected):  # pylint: disable=unused-argument
         """
 
         Args:
-          affected: 
+          affected:
 
         Returns:
 
@@ -109,7 +112,7 @@ class Option:
         """
 
         Args:
-          affected: 
+          affected:
 
         Returns:
 
@@ -118,7 +121,8 @@ class Option:
 
 
 class ConditionalOption(Option):
-    """ """
+    """conditional """
+
     def __init__(self, text, event, condition):
         super(ConditionalOption, self).__init__(text, event)
         self.condition = condition
@@ -127,7 +131,7 @@ class ConditionalOption(Option):
         """
 
         Args:
-          affected: 
+          affected:
 
         Returns:
 
