@@ -99,7 +99,7 @@ class TestGive(unittest.TestCase):
         self.evt_fact = event_factory.EventFactory()
         self.give = self.evt_fact.new(objects.GIVE)
         self.give.item_id = self.entity.spec.id
-        self.give.owner = self.container
+        self.give.item_owner = self.container
 
     def test_execute(self):
         self.assertIs(self.container.get(self.entity.spec.id), self.entity)

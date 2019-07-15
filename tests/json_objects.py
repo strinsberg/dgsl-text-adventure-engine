@@ -27,15 +27,6 @@ INFORM = _extend(
         }]
     })
 
-GIVE = _extend(
-    EVENT, {
-        'id': 'faeim302',
-        'name': 'test give',
-        'message': 'I bet you will like this!',
-        'type': 'give',
-        'item_id': 'none',
-    })
-
 TAKE = _extend(
     EVENT, {
         'id': 'faeim302',
@@ -186,6 +177,16 @@ MOVE = _extend(
                 'id': INFORM['id']
             }
         ]
+    })
+
+GIVE = _extend(
+    EVENT, {
+        'id': 'faeim302',
+        'name': 'test give',
+        'message': 'I bet you will like this!',
+        'type': 'give',
+        'item_id': 'none',
+        'item_owner': {'id': NPC['id']}
     })
 
 # Conditions ###########################################################
