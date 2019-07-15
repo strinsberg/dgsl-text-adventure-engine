@@ -3,7 +3,7 @@ import os
 import json
 import dgsl_engine.world as world
 
-test_world_path = 'tests/worlds/testing_ground.world'
+test_world_path = 'tests/worlds/testing_ground'
 
 
 class TestWorld(unittest.TestCase):
