@@ -9,7 +9,8 @@ def main():
     (Test world only for now)
     Then runs the game.
     """
-    world_name = 'testing ground'
+    world_name = 'tests/worlds/testing_ground'
+
     game = GameFactory().new(world_name)
     game.run()
 

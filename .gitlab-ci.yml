@@ -20,13 +20,15 @@ cache:
 test:
   script:
     # - python setup.py test
-    - pip install nose pylint
-    - make tests
+    - pip install nose cover pylint
+    - make coverage
     - make lint
     - mv cover docs/
   artifacts:
     paths:
       - docs
+    expire_in:
+      - 10 days
   only:
     - master
     
@@ -38,5 +40,7 @@ pages:
   artifacts:
     paths:
       - docs
+    expire_in:
+      - 10 days
   only:
     - master

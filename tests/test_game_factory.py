@@ -7,7 +7,7 @@ import dgsl_engine.game_factory as factory
 class TestGameFactory(unittest.TestCase):
     def setUp(self):
         fact = factory.GameFactory()
-        self.game = fact.new('testing_ground')
+        self.game = fact.new('tests/worlds/testing_ground')
 
     def test_new(self):
         # Not really an adequate tests, but it runs the code.
