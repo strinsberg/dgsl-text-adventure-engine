@@ -6,10 +6,12 @@ from . import interaction
 from . import conditions
 
 
-class EventFactory:
+class EventFactory:  # pylint: disable=too-few-public-methods
     """Event factory to create new events from json event objects."""
 
-    def new(self, obj):
+    # Turn this into 2 functions to try create single and group
+    # events for the factory to return.
+    def new(self, obj):  # pylint: disable=no-self-use,too-many-branches
         """Create and return a new event from an event json.
 
         Args:
@@ -25,10 +27,10 @@ class EventFactory:
                 event = event_base.MoveEntity(id_)
             elif type_ == 'give':
                 event = event_base.Give(id_)
-                self._setup_transfer(event, obj)
+                _setup_transfer(event, obj)
             elif type_ == 'take':
                 event = event_base.Take(id_)
-                self._setup_transfer(event, obj)
+                _setup_transfer(event, obj)
             elif type_ == 'toggle_active':
                 event = event_base.ToggleActive(id_)
             elif type_ == 'toggle_obtainable':
@@ -43,31 +45,35 @@ class EventFactory:
                 event = event_composites.ConditionalEvent(id_)
             elif type_ == 'interaction':
                 event = interaction.Interaction(id_)
-                self._setup_interaction(event, obj)
+                _setup_interaction(event, obj)
             else:
                 raise exceptions.InvalidParameterError(
                     "Error: invalid obj of type " + str(type_))
 
-            self._setup(event, obj)
+            _setup_event(event, obj)
             return event
 
         except KeyError as err:
             raise exceptions.InvalidParameterError(
                 "Error: JSON is not complete: " + str(err))
 
-    def _setup(self, event, obj):
-        event.only_once = num_to_bool(obj['once'])
-        if 'message' in obj:
-            event.message = obj['message']
 
-    def _setup_transfer(self, event, obj):
-        event.item_id = obj['item_id']
+def _setup_event(event, obj):
+    event.only_once = num_to_bool(obj['once'])
+    if 'message' in obj:
+        event.message = obj['message']
 
-    def _setup_interaction(self, event, obj):
-        event.break_out = obj['breakout']
+
+def _setup_transfer(event, obj):
+    event.item_id = obj['item_id']
+
+
+def _setup_interaction(event, obj):
+    event.break_out = obj['breakout']
 
 
 def make_condition(cond_json):
+    """empty"""
     try:
         type_ = cond_json['type']
         if type_ == 'has_item':

@@ -5,7 +5,7 @@ import dgsl_engine.game as game
 import dgsl_engine.user_input as user_input
 import dgsl_engine.world as world
 import dgsl_engine.actions as actions
-import dgsl_engine.visitors as visitors
+import dgsl_engine.collectors as collectors
 
 
 class GameFactory:  # pylint: disable=too-few-public-methods
@@ -22,7 +22,7 @@ class GameFactory:  # pylint: disable=too-few-public-methods
         """
         parser = user_input.Parser()
 
-        collector_factory = visitors.EntityCollectorFactory()
+        collector_factory = collectors.EntityCollectorFactory()
         menu_factory = user_input.MenuFactory()
         action_factory = actions.ActionFactory()
         resolver = actions.ActionResolver(collector_factory, menu_factory,

@@ -1,7 +1,6 @@
 """
 Base Event as well as supporting classes and functions.
 """
-from . import exceptions
 
 
 class Entity:
@@ -40,7 +39,7 @@ class Entity:
         return "<Entity '{}', Name: '{}'>".format(self.spec.id, self.spec.name)
 
 
-class EntitySpec:
+class EntitySpec:  # pylint: disable=too-few-public-methods
     """The textual details of an Entity.
 
     Attributes:
@@ -50,7 +49,7 @@ class EntitySpec:
     """
 
     def __init__(self, obj_id):
-        self.id = obj_id
+        self.id = obj_id  # pylint: disable=invalid-name
         self.name = "Null"
         self.description = "Null"
 
@@ -70,18 +69,21 @@ class EntityStates:
         self.hidden = False
 
     def toggle_active(self):
+        """empty"""
         if self.active:
             self.active = False
         else:
             self.active = True
 
     def toggle_obtainable(self):
+        """empty"""
         if self.obtainable:
             self.obtainable = False
         else:
             self.obtainable = True
 
     def toggle_hidden(self):
+        """empty"""
         if self.hidden:
             self.hidden = False
         else:
@@ -210,6 +212,8 @@ class Inventory:
 
 
 class Equipped:
+    """empty"""
+
     def __init__(self, owner):
         self.owner = owner
         self.equipment = {}
@@ -219,6 +223,7 @@ class Equipped:
             yield self.equipment[k]
 
     def equip(self, equipment):
+        """empty"""
         slot = equipment.slot
         old = None
         if slot in self.equipment:
@@ -229,6 +234,7 @@ class Equipped:
         return old
 
     def remove(self, slot):
+        """empty"""
         old = None
         if slot in self.equipment:
             old = self.equipment[slot]
@@ -238,6 +244,7 @@ class Equipped:
         return old
 
     def get(self, slot):
+        """empty"""
         if slot in self.equipment:
             return self.equipment[slot]
         return None

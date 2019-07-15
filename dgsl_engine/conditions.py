@@ -1,5 +1,5 @@
 """Conditions to test the player or other entities with."""
-from . import visitors
+from . import collectors
 
 
 class Question:  # pylint: disable=too-few-public-methods
@@ -93,7 +93,7 @@ def _get_valid_carried(character):
     Returns:
 
     """
-    collector = visitors.EntityTypeCollector(['equipment'], character)
+    collector = collectors.EntityTypeCollector(['equipment'], character)
     equipment = collector.collect()
     results = []
     for equip in equipment:

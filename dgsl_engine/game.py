@@ -3,7 +3,7 @@ from . import user_input
 from . import commands
 
 
-class Game:
+class Game:  # pylint: disable=too-few-public-methods
     """The Game object.
 
     Attributes:
@@ -35,7 +35,6 @@ class Game:
             self._out("\n----------------------------------------------------")
             parsed_input = self.parser.parse(raw_input)
 
-            status = True
             if parsed_input['code'] == user_input.ParseCodes.COMMAND:
                 result = commands.execute_command(
                     parsed_input['verb'], parsed_input['object'], self)
