@@ -8,14 +8,14 @@ import dgsl_engine.actions as actions
 import dgsl_engine.visitors as visitors
 
 
-class GameFactory:
+class GameFactory:  # pylint: disable=too-few-public-methods
     """Creates a new game with some default components."""
 
-    def new(self, world_name):
+    def new(self, world_name):  # pylint: disable=no-self-use
         """
 
         Args:
-          world_name: 
+          world_name:
 
         Returns:
 
@@ -28,7 +28,7 @@ class GameFactory:
         resolver = actions.ActionResolver(collector_factory, menu_factory,
                                           action_factory)
 
-        world_path = self._name_to_path(world_name)
+        world_path = _name_to_path(world_name)
         home = os.path.expanduser('~')
         file_path = os.path.join(home, ".dgsl/worlds", world_path)
 
@@ -39,14 +39,15 @@ class GameFactory:
 
         return game.Game(game_world, parser, resolver)
 
-    def _name_to_path(self, name):
-        """
 
-        Args:
-          name: 
+def _name_to_path(name):
+    """
 
-        Returns:
+    Args:
+        name:
 
-        """
-        words = name.split()
-        return "_".join(words) + ".world"
+    Returns:
+
+    """
+    words = name.split()
+    return "_".join(words) + ".world"

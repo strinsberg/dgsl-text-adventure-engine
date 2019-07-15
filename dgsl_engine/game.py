@@ -22,6 +22,7 @@ class Game:
         self.world = world
         self.resolver = resolver
         self._setup()
+        self.end = False
 
     def run(self):
         """Main game loop.
@@ -36,7 +37,7 @@ class Game:
 
             status = True
             if parsed_input['code'] == user_input.ParseCodes.COMMAND:
-                result, status = commands.execute_command(
+                result = commands.execute_command(
                     parsed_input['verb'], parsed_input['object'], self)
             elif parsed_input['code'] == user_input.ParseCodes.ERROR:
                 result = parsed_input['message']
@@ -45,7 +46,7 @@ class Game:
                                                      self.world.player)
 
             self._out(result)
-            if self._game_over(status):
+            if self._game_over():
                 break
 
         self._cleanup()
@@ -56,7 +57,7 @@ class Game:
     def _cleanup(self):
         self._out("Thanks for playing")
 
-    def _game_over(self, status):
-        if not status or self.world.player.states.hidden:
+    def _game_over(self, ):
+        if self.end or self.world.player.states.hidden:
             return True
         return False

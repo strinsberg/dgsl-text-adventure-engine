@@ -5,26 +5,27 @@ def execute_command(verb, arg, game):
     """
 
     Args:
-      verb: 
-      arg: 
-      game: 
+      verb:
+      arg:
+      game:
 
     Returns:
 
     """
     if verb in ['quit', 'exit']:
         return _quit(game)
-    return "Command", True
+    return "Command " + str(arg)
 
 
 def _quit(game):
     """
 
     Args:
-      game: 
+      game:
 
     Returns:
 
     """
     # eventually offer to save game
-    return "Quitting ...", False
+    game.end = True
+    return "Quitting ..."
