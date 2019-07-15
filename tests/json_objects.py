@@ -7,6 +7,25 @@ def _extend(obj, extra):
     return d
 
 
+# Conditions ###########################################################
+
+HAS_ITEM = {
+    'type': 'has_item',
+    'item_id': 'm3wsf0dm',
+}
+
+QUESTION = {
+    'type': 'question',
+    'question': 'What is your favorite color?',
+    'answer': "I don't know"
+}
+
+PROTECTED = {
+    'type': 'protected',
+    'effects': ['cold', 'wind', 'radiation']
+}
+
+
 # Simple Events ########################################################
 
 EVENT = {
@@ -59,8 +78,10 @@ ORDERED = _extend(
 CONDITIONAL = _extend(
     EVENT, {
         'type': 'conditional',
-    }
-)
+        'condition': QUESTION,
+        'success': {'id': EVENT['id']},
+        'failure': {'id': INFORM['id']}
+    })
 
 INTERACTION = _extend(
     EVENT, {
@@ -194,20 +215,3 @@ TOGGLE_ACTIVE = _extend(
         'target': {'id': NPC['id']}
     }
 )
-# Conditions ###########################################################
-
-HAS_ITEM = {
-    'type': 'has_item',
-    'item_id': 'm3wsf0dm',
-}
-
-QUESTION = {
-    'type': 'question',
-    'question': 'What is your favorite color?',
-    'answer': "I don't know"
-}
-
-PROTECTED = {
-    'type': 'protected',
-    'effects': ['cold', 'wind', 'radiation']
-}

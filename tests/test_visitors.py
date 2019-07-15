@@ -235,7 +235,13 @@ class TestEventConnector(unittest.TestCase):
         self.assertIn(self.inform, group.events)
 
     def test_connect_conditional(self):
-        pass
+        conditional = self.evt_fact.new(objects.CONDITIONAL)
+        connector = visitor.EventConnector(objects.CONDITIONAL, self.world)
+        connector.connect(conditional)
+        self.assertEqual(conditional.condition.question,
+                         objects.QUESTION['question'])
+        self.assertIs(conditional.success, self.event)
+        self.assertIs(conditional.failure, self.inform)
 
     def test_connect_interaction(self):
         pass
