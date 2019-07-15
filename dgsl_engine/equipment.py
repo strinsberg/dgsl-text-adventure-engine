@@ -1,8 +1,10 @@
+"""Equipment"""
 from .entity_base import Entity
 
 
 class Equipment(Entity):
-    """ """
+    """Equipment"""
+
     def __init__(self, obj_id):
         super(Equipment, self).__init__(obj_id)
         self.protects = []
@@ -15,7 +17,7 @@ class Equipment(Entity):
         """
 
         Args:
-          visitor: 
+          visitor:
 
         Returns:
 

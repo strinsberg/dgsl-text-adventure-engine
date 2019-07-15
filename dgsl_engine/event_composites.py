@@ -1,9 +1,11 @@
+"""Events that are composed of other events."""
 from . import event_base
 from . import exceptions
 
 
 class GroupEvent(event_base.Event):
-    """ """
+    """Group"""
+
     def __init__(self, obj_id):
         super(GroupEvent, self).__init__(obj_id)
         self.events = []
@@ -12,7 +14,7 @@ class GroupEvent(event_base.Event):
         """
 
         Args:
-          affected: 
+          affected:
 
         Returns:
 
@@ -20,13 +22,13 @@ class GroupEvent(event_base.Event):
         results = []
 
         for event in self.events:
-            r = event.execute(affected)
-            if r != '':
-                results.append(r)
+            result = event.execute(affected)
+            if result != '':
+                results.append(result)
 
-        r = super(GroupEvent, self).execute(affected)
-        if r != '':
-            results.append(r)
+        result = super(GroupEvent, self).execute(affected)
+        if result != '':
+            results.append(result)
 
         return "\n".join(results)
 
@@ -34,13 +36,13 @@ class GroupEvent(event_base.Event):
         """
 
         Args:
-          event: 
+          event:
 
         Returns:
 
         """
-        for e in self.events:
-            if event.id == e.id:
+        for self_event in self.events:
+            if event.id == self_event.id:
                 raise exceptions.InvalidParameterError(
                     "Already contains event: " + event.id)
 
@@ -50,7 +52,7 @@ class GroupEvent(event_base.Event):
         """
 
         Args:
-          visitor: 
+          visitor:
 
         Returns:
 
@@ -59,7 +61,8 @@ class GroupEvent(event_base.Event):
 
 
 class OrderedGroup(GroupEvent):
-    """ """
+    """Ordered"""
+
     def __init__(self, obj_id):
         super(OrderedGroup, self).__init__(obj_id)
         self.idx = 0
@@ -68,7 +71,7 @@ class OrderedGroup(GroupEvent):
         """
 
         Args:
-          affected: 
+          affected:
 
         Returns:
 
@@ -92,7 +95,7 @@ class OrderedGroup(GroupEvent):
         """
 
         Args:
-          event: 
+          event:
 
         Returns:
 
@@ -104,7 +107,8 @@ class OrderedGroup(GroupEvent):
 
 
 class ConditionalEvent(event_base.Event):
-    """ """
+    """Conditional"""
+
     def __init__(self, obj_id):
         super(ConditionalEvent, self).__init__(obj_id)
         self.condition = None
@@ -115,7 +119,7 @@ class ConditionalEvent(event_base.Event):
         """
 
         Args:
-          affected: 
+          affected:
 
         Returns:
 
@@ -142,7 +146,7 @@ class ConditionalEvent(event_base.Event):
         """
 
         Args:
-          visitor: 
+          visitor:
 
         Returns:
 
