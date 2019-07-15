@@ -2,19 +2,20 @@
 from . import visitors
 
 
-class Question:
-    """ """
+class Question:  # pylint: disable=too-few-public-methods
+    """Question"""
+
     def __init__(self, question, answer):
         self.question = question
         self.answer = answer
         self._in = input
         self._out = print
 
-    def test(self, entity):
+    def test(self, entity):  # pylint: disable=unused-argument
         """
 
         Args:
-          entity: 
+          entity:
 
         Returns:
 
@@ -26,8 +27,9 @@ class Question:
         return False
 
 
-class HasItem:
-    """ """
+class HasItem:  # pylint: disable=too-few-public-methods
+    """Has Item"""
+
     def __init__(self, item_id):
         self.item_id = item_id
 
@@ -35,7 +37,7 @@ class HasItem:
         """
 
         Args:
-          container: 
+          container:
 
         Returns:
 
@@ -46,8 +48,9 @@ class HasItem:
         return False
 
 
-class Protected:
-    """ """
+class Protected:  # pylint: disable=too-few-public-methods
+    """Protected"""
+
     def __init__(self, effects):
         self.effects = effects
 
@@ -55,12 +58,12 @@ class Protected:
         """
 
         Args:
-          character: 
+          character:
 
         Returns:
 
         """
-        not_equipped = self._get_valid_carried(character)
+        not_equipped = _get_valid_carried(character)
         protected = set()
         for effect in self.effects:
             protected = False
@@ -80,20 +83,21 @@ class Protected:
                 return False
         return True
 
-    def _get_valid_carried(self, character):
-        """
 
-        Args:
-          character: 
+def _get_valid_carried(character):
+    """
 
-        Returns:
+    Args:
+    character:
 
-        """
-        collector = visitors.EntityTypeCollector(['equipment'], character)
-        equipment = collector.collect()
-        results = []
-        for equip in equipment:
-            if not equip.must_equip and not equip.equipped:
-                print(equip)
-                results.append(equip)
-        return results
+    Returns:
+
+    """
+    collector = visitors.EntityTypeCollector(['equipment'], character)
+    equipment = collector.collect()
+    results = []
+    for equip in equipment:
+        if not equip.must_equip and not equip.equipped:
+            print(equip)
+            results.append(equip)
+    return results
