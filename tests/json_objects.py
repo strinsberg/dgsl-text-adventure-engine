@@ -87,6 +87,19 @@ INTERACTION = _extend(
     EVENT, {
         'type': 'interaction',
         'breakout': 0,
+        'options': [
+            {
+                'type': 'option',
+                'text': 'help out',
+                'event': {'id': EVENT['id']}
+            },
+            {
+                'type': 'conditional',
+                'text': 'ask about barn swallows',
+                'event': {'id': INFORM['id']},
+                'condition': QUESTION,
+            }
+        ]
     }
 )
 # Entities #############################################################

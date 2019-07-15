@@ -1,5 +1,6 @@
 """Visitors for Collecting entities and for connecting game objects."""
 from . import event_factory
+from . import interaction as inter
 
 
 class EntityCollector:
@@ -227,7 +228,6 @@ class EventConnector:
         fail_id = self.event_json['failure']['id']
         conditional.success = self.world.events[success_id]
         conditional.failure = self.world.events[fail_id]
-        # may need to use an id to find the condition json in the json obj
         conditional.condition = event_factory.make_condition(
             self.event_json['condition'])
 
@@ -246,8 +246,7 @@ class EventConnector:
         event = self.world.events[event_id]
 
         if opt_json['type'] == 'conditional':
-            # may need to use an id to find the condition json in the json obj
             condition = event_factory.make_condition(opt_json['condition'])
-            interaction.add(text, event, condition)
+            interaction.add(inter.ConditionalOption(text, event, condition))
         else:
-            interaction.add(text, event)
+            interaction.add(inter.Option(text, event))
