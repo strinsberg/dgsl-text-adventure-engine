@@ -27,12 +27,6 @@ INFORM = _extend(
         }]
     })
 
-TOGGLE_ACTIVE = _extend(
-    EVENT, {
-        'type': 'toggle_active',
-    }
-)
-
 TOGGLE_OBTAINABLE = _extend(
     EVENT, {
         'type': 'toggle_obtainable',
@@ -48,6 +42,10 @@ TOGGLE_HIDDEN = _extend(
 GROUP = _extend(
     EVENT, {
         'type': 'group',
+        'events': [
+            {'id': EVENT['id']},
+            {'id': INFORM['id']}
+        ]
     }
 )
 
@@ -190,6 +188,12 @@ TAKE = _extend(
         'new_owner': {'id': NPC['id']}
     })
 
+TOGGLE_ACTIVE = _extend(
+    EVENT, {
+        'type': 'toggle_active',
+        'target': {'id': NPC['id']}
+    }
+)
 # Conditions ###########################################################
 
 HAS_ITEM = {

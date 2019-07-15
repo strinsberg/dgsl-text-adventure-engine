@@ -220,10 +220,19 @@ class TestEventConnector(unittest.TestCase):
         self.assertEqual(take.new_owner, cont)
 
     def test_connect_toggle(self):
-        pass
+        toggle = self.evt_fact.new(objects.TOGGLE_ACTIVE)
+        cont = self.ent_fact.new(objects.NPC)
+        self.world.add_entity(cont)
+        connector = visitor.EventConnector(objects.TOGGLE_ACTIVE, self.world)
+        connector.connect(toggle)
+        self.assertEqual(toggle.target, cont)
 
     def test_connect_group(self):
-        pass
+        group = self.evt_fact.new(objects.GROUP)
+        connector = visitor.EventConnector(objects.GROUP, self.world)
+        connector.connect(group)
+        self.assertIn(self.event, group.events)
+        self.assertIn(self.inform, group.events)
 
     def test_connect_conditional(self):
         pass
