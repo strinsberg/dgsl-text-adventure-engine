@@ -15,8 +15,13 @@ class TestGameFactory(unittest.TestCase):
         self.assertEqual(self.game.world.details.version, '0.0')
         self.assertEqual(self.game.world.details.welcome, 'fun is waiting!')
 
+    def test_name_to_path(self):
+        name = 'some fun world'
+        path = 'some_fun_world.world'
+        self.assertEqual(factory._name_to_path(name), path)
 
 # Main #################################################################
+
 
 if __name__ == '__main__':
     unittest.main()
