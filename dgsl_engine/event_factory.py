@@ -61,7 +61,9 @@ class EventFactory:  # pylint: disable=too-few-public-methods
 def _setup_event(event, obj):
     event.only_once = num_to_bool(obj['once'])
     if 'message' in obj:
-        event.message = obj['message']
+        message = obj['message'].strip()
+        if message != '':
+            event.message = obj['message']
 
 
 def _setup_transfer(event, obj):

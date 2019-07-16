@@ -12,15 +12,7 @@ priority
 * Get setup.py setup so it is possible to install and run the game.
 * call this a base version of the game and consider it a beta release. Start the changelog and create new branches when adding bug fixes and feature additions.
 * Don't add any new features to the game until the project is in good shape for what it is. There is also a world editor to work on getting fully functional to work with the new game engine.
-
-
-Other
------
-
-* A container should not be allowed to be added to a container it contains
-
-* Think about adding some logging to print debug information in special places. This way there can be some idea of what is going on behind the scenes even when not all the desired functionality is there. It can also assist in finding things that don't make sense
-* Start building a play testing world. The current one will do for testing the world factory, but we will want another one for playing. Start with the stuff you already have and add features as they are needed. May require a little work on the editor as well. Only need a few rooms and an object of every type and events to cover every type.
+* Figure out how to get the docs hosted on the git lab webpage so they are viewable once it is public. This might need to wait until it is public.
 
 
 Ideas
