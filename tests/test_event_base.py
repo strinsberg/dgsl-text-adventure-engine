@@ -70,6 +70,18 @@ class TestMoveEntity(unittest.TestCase):
         self.assertTrue(self.room.inventory.has_item(ID5))
         self.assertFalse(self.container.inventory.has_item(ID5))
 
+    def test_execute_enter(self):
+        self.container.add(self.entity)
+        event = event_base.Event('3902483')
+        event.message = 'Welcome to the room!'
+        self.room.events.add('enter', event)
+
+        self.move.destination = self.room
+        self.move.message = 'You have moved to a new location.'
+        result = self.move.execute(self.entity)
+        self.assertEqual(
+            result, 'You have moved to a new location.\nWelcome to the room!')
+
     def test_execute_raises(self):
         self.room.add(self.player)
         self.move.destination = self.container

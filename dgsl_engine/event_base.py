@@ -84,7 +84,17 @@ class MoveEntity(Event):
 
         """
         actions.move(affected, self.destination)
-        return super(MoveEntity, self).execute(affected)
+
+        result = []
+
+        super_result = super(MoveEntity, self).execute(affected)
+        if super_result.strip() != '':
+            result.append(super_result)
+
+        if self.destination.events.has_event('enter'):
+            result.append(self.destination.events.execute('enter', affected))
+
+        return '\n'.join(result)
 
     def accept(self, visitor):
         """
@@ -121,6 +131,7 @@ class Give(Event):
         item = self.item_owner.get(self.item_id)
         if item is not None:
             actions.move(item, affected)
+        # Might want to add trigger for give events
         return super(Give, self).execute(affected)
 
     def accept(self, visitor):
@@ -158,6 +169,7 @@ class Take(Event):
         item = affected.get(self.item_id)
         if item is not None:
             actions.move(item, self.new_owner)
+        # Might want to add trigger for take events
         return super(Take, self).execute(affected)
 
     def accept(self, visitor):
