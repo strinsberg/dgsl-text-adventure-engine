@@ -42,6 +42,13 @@ class Container(entity_base.Entity):
             return self.inventory.items[item_id]
         return None
 
+    def describe(self):
+        desc = [self.spec.description]
+        if self.states.active:
+            desc.extend(
+                ["It holds " + item.spec.name for item in self.inventory])
+        return "\n".join(desc)
+
     def accept(self, visitor):
         visitor.visit_container(self)
 
@@ -76,6 +83,13 @@ class Room(Container):
             return True
         return False
 
+    def describe(self):
+        desc = [self.spec.description]
+        desc.extend(
+            ["There is " + item.spec.name for item in self.inventory
+             if not isinstance(item, Player)])
+        return "\n".join(desc)
+
     def accept(self, visitor):
         visitor.visit_room(self)
 
@@ -91,6 +105,9 @@ class Character(Container):
     def __init__(self, obj_id):
         super(Character, self).__init__(obj_id)
         self.equipped = entity_base.Equipped(self)
+
+    def describe(self):
+        return self.spec.description
 
 
 class Player(Character):

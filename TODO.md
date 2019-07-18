@@ -4,11 +4,17 @@ TODOs
 priority
 --------
 
+* get a version of the game working so that it can be considered a beta release.
+* Play test the test world. Fix the display and description so it actually lists rooms descriptions etc.
+* add all todos from testing document from building the test world, and the ones that come from play testing the new test world.
+* consider adding a simple and working version of the test world to the test folder so that there is a full featured world to use with testing. Or setup some kind of integration test that makes sure the test world and the game structures are the same. Getting it to load was a pain because both programs did things a bit differently and all the test structures were different so tests did not catch these problems.
+* Fix the unit tests. They are all over the place. Keep track of progress with a section here where finished test suites can be written down so that I know they are done. 
+* Go through the ideas in the todo list and remove the ones that are old and add any new ones
+
 * get the script for the main game working with the test world. Consider how you are going to get the game to work with the test world while debugging, but later ask for a world name and actually open one from the world dir. Maybe this can go along with setting up a debugging flag and logging.
 * Do initial documentation
 * Do some UML diagrams for current design elements
 * standardize tests and possibly use mocking instead of fakes. Think about dependencies and how much extra is being tested by a test suite. See if you can make tests not use any more of the codebase than they need. look into ways to deal with streams so that the current input output thing is not being done (it works, but could be nicer)
-* create a test world that instantiates at least one of every game structure. Make it just big enough to test out common functionality and search for edge cases.
 * Get setup.py setup so it is possible to install and run the game.
 * call this a base version of the game and consider it a beta release. Start the changelog and create new branches when adding bug fixes and feature additions.
 * Don't add any new features to the game until the project is in good shape for what it is. There is also a world editor to work on getting fully functional to work with the new game engine.
