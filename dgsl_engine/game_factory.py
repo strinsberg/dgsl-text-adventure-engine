@@ -35,7 +35,7 @@ class GameFactory:  # pylint: disable=too-few-public-methods
         return game.Game(game_world, parser, resolver)
 
 
-def _name_to_path(name):
+def name_to_path(name):
     """
 
     Args:
