@@ -44,7 +44,8 @@ class Game:  # pylint: disable=too-few-public-methods
                 result = self.resolver.resolve_input(parsed_input,
                                                      self.world.player)
 
-            self._out(result)
+            if result != '':
+                self._out(result)
             if self._game_over():
                 break
 

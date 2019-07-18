@@ -35,8 +35,7 @@ class Event:
             result = ''
         else:
             result = self.message if self.message is not None else ''
-            if self.only_once:  # needs to be overridable
-                self.is_done = True
+            self._check_if_done()
         # Add the results of observers later
         return result
 
@@ -61,6 +60,10 @@ class Event:
 
         """
         self.subjects.append(event)
+
+    def _check_if_done(self):
+        if self.only_once:
+            self.is_done = True
 
     def __repr__(self):
         return "<Event '{}'>".format(self.id)

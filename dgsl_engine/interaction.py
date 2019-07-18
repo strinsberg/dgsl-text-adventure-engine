@@ -22,10 +22,10 @@ class Interaction(Event):
         Returns:
 
         """
-        options, choices = self._make_choices(affected)
-        menu = Menu(choices, self._out, self._in)
-
         while True:
+            options, choices = self._make_choices(affected)
+            menu = Menu(choices, self._out, self._in)
+
             self._out()
             idx = menu.ask()
 
@@ -71,7 +71,6 @@ class Interaction(Event):
         options = []
         choices = []
         for opt in self.options:
-            print(opt)
             if opt.is_visible(affected):
                 options.append(opt)
                 choices.append(opt.text)

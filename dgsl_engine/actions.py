@@ -46,6 +46,9 @@ class ActionResolver:
             if message is not None:
                 return message
 
+        # Adding a \n--------- in here somewhere will give the seperation
+        # desired between resolver menu results and menus. Perhaps make it
+        # in the _get_entities so that it only happens when the menu is used
         action = self.action_factory.new(parsed_input['verb'], player, entity,
                                          other)
         return action.take_action()
@@ -197,6 +200,9 @@ class Use(Action):
         """See Action."""
         if self.entity is None:
             return "Use what?"
+        if not self.entity.states.active:
+            # replace with an inactive message eventually
+            return "For some reason you can't"
         if self.entity.events.has_event('use'):
             result = self.entity.events.execute('use', self.player)
             if result.strip() == '':
@@ -244,6 +250,9 @@ class Talk(Action):
 
     def take_action(self):
         if self.entity is not None:
+            if not self.entity.states.active:
+                # perhaps replace with an inactive message
+                return "They don't have anything to say right now."
             result = self._execute_event('talk')
             if result is not None:
                 return result

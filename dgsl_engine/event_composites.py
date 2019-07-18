@@ -114,6 +114,7 @@ class ConditionalEvent(event_base.Event):
         self.condition = None
         self.success = None
         self.failure = None
+        self.passed = False
 
     def execute(self, affected):
         """
@@ -124,13 +125,13 @@ class ConditionalEvent(event_base.Event):
         Returns:
 
         """
+        self.passed = False
         succeeded = self.condition.test(affected)
         res_super = super(ConditionalEvent, self).execute(affected)
 
         if succeeded:
             res = self.success.execute(affected)
-            if self.only_once:
-                self.is_done = True
+            self.passed = True
         elif self.failure is not None:
             res = self.failure.execute(affected)
         else:
@@ -152,3 +153,7 @@ class ConditionalEvent(event_base.Event):
 
         """
         visitor.visit_conditional(self)
+
+    def _check_if_done(self):
+        if self.passed and self.only_once:
+            self.is_done = True
