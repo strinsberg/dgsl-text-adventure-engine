@@ -3,7 +3,7 @@ import dgsl_engine.event_factory as factory
 import dgsl_engine.exceptions as exceptions
 from . import json_objects
 
-OBJ = {'id': '1234', 'once': 1}
+OBJ = {'id': '1234', 'once': 1, 'item': {'id': 'none'}}
 
 
 class TestEventFactory(unittest.TestCase):
@@ -25,13 +25,13 @@ class TestEventFactory(unittest.TestCase):
 
     def test_new_give(self):
         self.obj['type'] = 'give'
-        self.obj['item_id'] = 'none'
+        self.obj['item']['id'] = 'none'
         event = self.fact.new(self.obj)
         self.assertEqual(event.id, OBJ['id'])
 
     def test_new_take(self):
         self.obj['type'] = 'take'
-        self.obj['item_id'] = 'none'
+        self.obj['item']['id'] = 'none'
         event = self.fact.new(self.obj)
         self.assertEqual(event.id, OBJ['id'])
 
@@ -48,7 +48,7 @@ class TestEventFactory(unittest.TestCase):
 class TestMakeCondition(unittest.TestCase):
     def test_make_has_item(self):
         has_item = factory.make_condition(json_objects.HAS_ITEM)
-        self.assertEqual(has_item.item_id, json_objects.HAS_ITEM['item_id'])
+        self.assertEqual(has_item.item_id, json_objects.HAS_ITEM['item']['id'])
 
     def test_make_question(self):
         question = factory.make_condition(json_objects.QUESTION)

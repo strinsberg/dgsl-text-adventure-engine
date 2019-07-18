@@ -162,10 +162,11 @@ def is_event(obj):
     Returns:
 
     """
-    return obj['type'] in ['event', 'move', 'give', 'take', 'toggle_active',
+    return obj['type'] in ['inform', 'event', 'move', 'give', 'take', 'toggle_active',
                            'toggle_obtainable', 'toggle_hidden', 'group',
                            'ordered', 'conditional', 'interaction']
 
 
 def create_later(obj):
+    """empty"""
     return obj['type'] in ['option', 'conditional_option', 'hasItem', 'protected', 'question']

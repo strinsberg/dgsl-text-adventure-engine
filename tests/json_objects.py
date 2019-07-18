@@ -10,14 +10,15 @@ def _extend(obj, extra):
 # Conditions ###########################################################
 
 HAS_ITEM = {
-    'type': 'has_item',
-    'item_id': 'm3wsf0dm',
+    'type': 'hasItem',
+    'item': {'id': 'm3wsf0dm'},
 }
 
 QUESTION = {
     'type': 'question',
     'question': 'What is your favorite color?',
-    'answer': "I don't know"
+    'answer': "I don't know",
+    'id': 'js09fs',
 }
 
 PROTECTED = {
@@ -78,7 +79,7 @@ ORDERED = _extend(
 CONDITIONAL = _extend(
     EVENT, {
         'type': 'conditional',
-        'condition': QUESTION,
+        'condition': {'id': QUESTION['id']},
         'success': {'id': EVENT['id']},
         'failure': {'id': INFORM['id']}
     })
@@ -89,15 +90,17 @@ INTERACTION = _extend(
         'breakout': 0,
         'options': [
             {
+                'id': 'sdfjsa',
                 'type': 'option',
                 'text': 'help out',
                 'event': {'id': EVENT['id']}
             },
             {
+                'id': 'fjsiajfo',
                 'type': 'conditional',
                 'text': 'ask about barn swallows',
                 'event': {'id': INFORM['id']},
-                'condition': QUESTION,
+                'condition': {'id': QUESTION},
             }
         ]
     }
@@ -208,7 +211,7 @@ GIVE = _extend(
         'name': 'test give',
         'message': 'I bet you will like this!',
         'type': 'give',
-        'item_id': 'none',
+        'item': {'id': 'none'},
         'item_owner': {'id': NPC['id']}
     })
 
@@ -218,7 +221,7 @@ TAKE = _extend(
         'name': 'test take',
         'message': 'Ive been looking for that',
         'type': 'take',
-        'item_id': 'none',
+        'item': {'id': 'none'},
         'new_owner': {'id': NPC['id']}
     })
 

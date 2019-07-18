@@ -46,7 +46,6 @@ class EntityConnector:
 
     def visit_equipment(self, equipment):
         """empty"""
-        pass
 
     def _connect_events(self, entity):
         """empty"""
