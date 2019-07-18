@@ -67,7 +67,7 @@ def _setup_event(event, obj):
 
 
 def _setup_transfer(event, obj):
-    event.item_id = obj['item_id']
+    event.item_id = obj['item']['id']
 
 
 def _setup_interaction(event, obj):
@@ -78,15 +78,15 @@ def make_condition(cond_json):
     """empty"""
     try:
         type_ = cond_json['type']
-        if type_ == 'has_item':
-            return conditions.HasItem(cond_json['item_id'])
+        if type_ == 'hasItem':
+            return conditions.HasItem(cond_json['item']['id'])
         if type_ == 'question':
             return conditions.Question(
                 cond_json['question'], cond_json['answer'])
         if type_ == 'protected':
             return conditions.Protected(cond_json['effects'])
         raise exceptions.InvalidParameterError(
-            "Error: Invalid object of type " + str(type_))
+            "Condition Factory Error: Invalid object of type " + str(type_))
 
     except KeyError as err:
         raise exceptions.InvalidParameterError(

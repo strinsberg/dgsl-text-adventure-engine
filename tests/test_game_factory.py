@@ -18,7 +18,7 @@ class TestGameFactory(unittest.TestCase):
     def test_name_to_path(self):
         name = 'some fun world'
         path = 'some_fun_world.world'
-        self.assertEqual(factory._name_to_path(name), path)
+        self.assertEqual(factory.name_to_path(name), path)
 
 # Main #################################################################
 

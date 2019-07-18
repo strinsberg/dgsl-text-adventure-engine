@@ -142,7 +142,7 @@
       "items": [],
       "events": [],
       "name": "player",
-      "start": "53b33006-f98c-430e-aee0-53002171c8b8",
+      "start": {"id": "53b33006-f98c-430e-aee0-53002171c8b8"},
       "type": "player"
     }
   },

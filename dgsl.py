@@ -29,6 +29,8 @@ def main():
         if os.path.exists(world_path):
             game = GameFactory().new(world_path)
             game.run()
+        else:
+            print("That world does not exist!")
 
     else:
         print()

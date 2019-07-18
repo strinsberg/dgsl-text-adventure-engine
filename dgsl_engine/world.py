@@ -90,6 +90,12 @@ class WorldFactory:  # pylint: disable=too-few-public-methods
                     new_world.player = entity
             elif is_event(obj):
                 new_world.add_event(self.event_factory.new(obj))
+            elif create_later(obj):
+                pass
+            else:
+                raise AttributeError(  # should use different error type
+                    "*** Error: World creator does not recognize type: "
+                    + obj['type'] + " ***")
 
 
 def _connect_objects(new_world, world_json):
@@ -109,10 +115,11 @@ def _connect_objects(new_world, world_json):
             entity = new_world.entities[id_]
             conn.connect(entity)
             if obj['type'] == 'player':
-                start_room = new_world.entities[obj['start']]
+                start_room = new_world.entities[obj['start']['id']]
                 start_room.add(entity)
         elif is_event(obj):
-            conn = visitors.EventConnector(obj, new_world)
+            conn = visitors.EventConnector(
+                obj, new_world, world_json['objects'])
             event = new_world.events[id_]
             conn.connect(event)
 
@@ -143,7 +150,7 @@ def is_entity(obj):
     Returns:
 
     """
-    return obj['type'] in ['entity', 'container', 'room', 'player', 'equipment']
+    return obj['type'] in ['entity', 'container', 'room', 'player', 'equipment', 'npc']
 
 
 def is_event(obj):
@@ -155,6 +162,10 @@ def is_event(obj):
     Returns:
 
     """
-    return obj['type'] in ['inform', 'move', 'transfer', 'toggle_active',
+    return obj['type'] in ['event', 'move', 'give', 'take', 'toggle_active',
                            'toggle_obtainable', 'toggle_hidden', 'group',
                            'ordered', 'conditional', 'interaction']
+
+
+def create_later(obj):
+    return obj['type'] in ['option', 'conditional_option', 'hasItem', 'protected', 'question']

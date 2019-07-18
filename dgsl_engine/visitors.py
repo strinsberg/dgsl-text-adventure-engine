@@ -44,6 +44,10 @@ class EntityConnector:
         """empty"""
         self.visit_character(npc)
 
+    def visit_equipment(self, equipment):
+        """empty"""
+        pass
+
     def _connect_events(self, entity):
         """empty"""
         for event_json in self.entity_json['events']:
@@ -63,9 +67,10 @@ class EntityConnector:
 class EventConnector:
     """Visitor to connect events when building a world."""
 
-    def __init__(self, event_json, world):
+    def __init__(self, event_json, world, world_json):
         self.event_json = event_json
         self.world = world
+        self.world_json = world_json
 
     def connect(self, event):
         """Some info."""
@@ -110,15 +115,18 @@ class EventConnector:
         """empty"""
         success_id = self.event_json['success']['id']
         fail_id = self.event_json['failure']['id']
+        cond_id = self.event_json['condition']['id']
+
         conditional.success = self.world.events[success_id]
         conditional.failure = self.world.events[fail_id]
         conditional.condition = event_factory.make_condition(
-            self.event_json['condition'])
+            self.world_json[cond_id])
 
     def visit_interaction(self, interaction):
         """empty"""
         for opt in self.event_json['options']:
-            self._connect_option(interaction, opt)
+            opt_json = self.world_json[opt['id']]
+            self._connect_option(interaction, opt_json)
 
     def _connect_subjects(self, event):
         """empty"""
@@ -133,7 +141,8 @@ class EventConnector:
         event = self.world.events[event_id]
 
         if opt_json['type'] == 'conditional':
-            condition = event_factory.make_condition(opt_json['condition'])
+            cond_id = opt_json['condition']['id']
+            condition = event_factory.make_condition(self.world_json[cond_id])
             interaction.add(inter.ConditionalOption(text, event, condition))
         else:
             interaction.add(inter.Option(text, event))
