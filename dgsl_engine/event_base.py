@@ -35,7 +35,7 @@ class Event:
             result = ''
         else:
             result = self.message if self.message is not None else ''
-            if self.only_once:
+            if self.only_once:  # needs to be overridable
                 self.is_done = True
         # Add the results of observers later
         return result

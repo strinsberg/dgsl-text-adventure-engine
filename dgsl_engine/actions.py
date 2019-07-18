@@ -62,7 +62,8 @@ class ActionResolver:
 
         size = len(entities)
         if size > 1:
-            menu = self.menu_factory.make(entities)
+            choices = [entity.spec.name for entity in entities]
+            menu = self.menu_factory.make(choices)
             idx = menu.ask()
 
             if idx == -1:
@@ -198,8 +199,9 @@ class Use(Action):
             return "Use what?"
         if self.entity.events.has_event('use'):
             result = self.entity.events.execute('use', self.player)
-            used = "You use " + self.entity.spec.name
-            return "{}\n{}".format(used, result)
+            if result.strip() == '':
+                return "You use " + self.entity.spec.name
+            return result
         return "You can't use that"
 
 

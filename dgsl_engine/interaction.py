@@ -71,6 +71,7 @@ class Interaction(Event):
         options = []
         choices = []
         for opt in self.options:
+            print(opt)
             if opt.is_visible(affected):
                 options.append(opt)
                 choices.append(opt.text)
@@ -119,6 +120,9 @@ class Option:
         """
         return self.event.execute(affected)
 
+    def __repr__(self):
+        return "<Option - Text: '{}'>".format(self.text)
+
 
 class ConditionalOption(Option):
     """conditional """
@@ -137,7 +141,10 @@ class ConditionalOption(Option):
 
         """
         super_success = super(ConditionalOption, self).is_visible(affected)
-
         if super_success:
             return self.condition.test(affected)
         return False
+
+    def __repr__(self):
+        return "<Conditional Option - Text: '{}', Condition: '{}'>".format(
+            self.text, self.condition)

@@ -30,8 +30,16 @@ class EntityCollector:
 
     def visit_entity(self, entity):
         """Visit and entity."""
-        if entity.spec.name.find(self.obj) > -1:
+        if (entity.spec.name.find(self.obj) > -1
+                or entity.spec.description.find(self.obj) > -1):
             self.entities.append(entity)
+        # Split the obj text into words
+        # count how many words are present in a name or a description
+        # add the count and the entity if there is at least one.
+        # Then in the action resolver one can decide if there is a best match
+        # that can be used only or if a menu is needed. Also, should check if
+        # small words are being ignored, and consider if it should match whole
+        # words or just part of words.
 
     def visit_container(self, container):
         """Visit a container."""

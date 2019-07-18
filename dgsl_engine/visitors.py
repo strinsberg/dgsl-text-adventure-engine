@@ -139,7 +139,7 @@ class EventConnector:
         event_id = opt_json['event']['id']
         event = self.world.events[event_id]
 
-        if opt_json['type'] == 'conditional':
+        if opt_json['type'] == 'conditional_option':
             cond_id = opt_json['condition']['id']
             condition = event_factory.make_condition(self.world_json[cond_id])
             interaction.add(inter.ConditionalOption(text, event, condition))

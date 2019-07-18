@@ -77,13 +77,13 @@ class OrderedGroup(GroupEvent):
 
         """
         if self.events[self.idx].is_done:
-            if self.idx < len(self.events) - 1:
-                self.idx += 1
-            else:
-                return 'Nothing happens'
+            return 'Nothing happens'
 
         res = self.events[self.idx].execute(affected)
         res_super = event_base.Event.execute(self, affected)  # not ok?
+
+        if self.idx < len(self.events) - 1:
+            self.idx += 1
 
         if res != '':
             if res_super != '':
