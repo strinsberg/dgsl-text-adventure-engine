@@ -10,6 +10,7 @@ class Interaction(Event):
         super(Interaction, self).__init__(obj_id)
         self.options = []
         self.break_out = False
+        self.end_message = None
         self._in = input
         self._out = print
 
@@ -22,32 +23,38 @@ class Interaction(Event):
         Returns:
 
         """
+        # This may not be ideal
+        if self.message is not None and self.message != '':
+            self._out(self.message + '\n')
+
         while True:
             options, choices = self._make_choices(affected)
             menu = Menu(choices, self._out, self._in)
 
-            self._out()
+            # self._out()
             idx = menu.ask()
-
-            if idx >= len(choices):
-                self._out()
-                break
 
             self._out(
                 '\n--------------------------------------------------')
 
-            if idx < 0:
-                self._out('Not a valid choice!')
+            if idx >= len(choices):
+                if self.end_message is None:
+                    self._out('Cancelled')
+                else:
+                    self._out(self.end_message)
+                break
+            elif idx < 0:
+                self._out('Not a valid choice!\n')
                 continue
             else:
                 result, end = options[idx].choose(affected)
                 self._out(result)
 
+            self._out()
             if self.break_out or end:
-                self._out()
                 break
 
-        return super(Interaction, self).execute(affected)
+        return ''
 
     def add(self, option):
         """

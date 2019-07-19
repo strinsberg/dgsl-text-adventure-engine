@@ -22,6 +22,7 @@ class Question:  # pylint: disable=too-few-public-methods
         """
         self._out(self.question)
         ans = self._in("Answer: ")
+        self._out()
         if ans.strip() == self.answer:
             return True
         return False

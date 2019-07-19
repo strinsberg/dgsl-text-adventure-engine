@@ -38,12 +38,13 @@ class ActionResolver:
         Returns:
             str: The result of the actions resolution.
         """
+        message = None
         if not parsed_input['object'].strip():
             entity = None
             other = None
         else:
             entity, other, message = self._get_entities(parsed_input, player)
-            if message != '\n':
+            if message != '\n' and message is not None:
                 return message
 
         action = self.action_factory.new(parsed_input['verb'], player, entity,
@@ -61,7 +62,7 @@ class ActionResolver:
 
         entity = None
         other = None
-        message = '\n'
+        message = None
 
         size = len(entities)
         if size > 1:
@@ -69,6 +70,7 @@ class ActionResolver:
             menu = self.menu_factory.make(choices)
             idx = menu.ask()
 
+            message = '\n'
             if idx == -1:
                 message += "That is not a choice"
             elif idx == size:

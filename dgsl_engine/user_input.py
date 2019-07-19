@@ -71,7 +71,10 @@ class Menu:  # pylint: disable=too-few-public-methods
 
         # Validate to make sure it is an int?
         if input_ is None:
-            result = int(self._in("Choice: "))
+            try:
+                result = int(self._in("Choice: "))
+            except ValueError:
+                return -1
         else:
             result = int(input_[0])
 
