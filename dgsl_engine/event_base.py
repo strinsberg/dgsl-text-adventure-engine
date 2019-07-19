@@ -92,10 +92,10 @@ class MoveEntity(Event):
 
         super_result = super(MoveEntity, self).execute(affected)
         if super_result.strip() != '':
-            result.append(super_result)
+            result.append(super_result + '\n')
 
-        if self.destination.events.has_event('enter'):
-            result.append(self.destination.events.execute('enter', affected))
+        # This definitely requires that this action is only for the player
+        result.append(self.destination.enter(affected))
 
         return '\n'.join(result)
 

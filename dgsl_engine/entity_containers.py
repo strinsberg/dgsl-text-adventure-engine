@@ -90,6 +90,14 @@ class Room(Container):
              if not isinstance(item, Player)])
         return "\n".join(desc)
 
+    def enter(self, affected):
+        result = []
+        result.append(self.describe())
+        if self.events.has_event('enter'):
+            result.append('')
+            result.append(self.events.execute('enter', affected))
+        return '\n'.join(result)
+
     def accept(self, visitor):
         visitor.visit_room(self)
 
