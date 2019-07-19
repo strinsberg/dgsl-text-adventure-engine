@@ -1,12 +1,12 @@
 DGSL Text Adventure Engine
 ==========================
 
-[![pipeline status](https://gitlab.com/strinsberg/dgsl-text-adventure-engine/badges/master/pipeline.svg)](https://gitlab.com/strinsberg/dgsl-text-adventure-engine/commits/master)
-[![coverage report](https://gitlab.com/strinsberg/dgsl-text-adventure-engine/badges/master/coverage.svg)](https://gitlab.com/strinsberg/dgsl-text-adventure-engine/commits/master)
+[![pipeline status](https://gitlab.com/strinsberg/dgsl-text-adventure-engine/badges/master/pipeline.svg)](https://gitlab.com/strinsberg/dgsl-text-adventure-engine/badges/master/pipeline.svg)
+[![coverage report](https://gitlab.com/strinsberg/dgsl-text-adventure-engine/badges/master/coverage.svg)](https://gitlab.com/strinsberg/dgsl-text-adventure-engine/badges/master/coverage.svg)
 
 The DGSL Text Adventure Engine is a program for running custom text based adventure games.
 
-Game worlds can be created using the DGSL World Editor (add link). ***No Coding Required**. These worlds can then be loaded by the engine and played. You can then share them with your friends that also have a copy of the DGSL engine.
+Game worlds can be created using the DGSL World Editor (add link). **No Coding Required**. These worlds can then be loaded by the engine and played. You can then share them with your friends that also have a copy of the DGSL engine.
 
 **Note** This project is still a work in progress. With the world editor and game engine it is possible to create worlds and play them, but both programs may be subject to changes that break compatibility with older versions.
 
