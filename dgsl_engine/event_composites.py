@@ -21,14 +21,14 @@ class GroupEvent(event_base.Event):
         """
         results = []
 
+        result = super(GroupEvent, self).execute(affected)
+        if result != '':
+            results.append(result)
+
         for event in self.events:
             result = event.execute(affected)
             if result != '':
                 results.append(result)
-
-        result = super(GroupEvent, self).execute(affected)
-        if result != '':
-            results.append(result)
 
         return "\n".join(results)
 
@@ -87,7 +87,7 @@ class OrderedGroup(GroupEvent):
 
         if res != '':
             if res_super != '':
-                return res + '\n' + res_super
+                return res_super + '\n' + res
             return res
         return res_super
 
@@ -104,6 +104,10 @@ class OrderedGroup(GroupEvent):
         if size >= 1:
             self.events[size - 1].only_once = True
         super(OrderedGroup, self).add(event)
+
+    def _check_is_done(self):
+        if self.only_once and self.idx >= len(self.events):
+            self.is_done = True
 
 
 class ConditionalEvent(event_base.Event):
@@ -139,7 +143,7 @@ class ConditionalEvent(event_base.Event):
 
         if res != '':
             if res_super != '':
-                return res + '\n' + res_super
+                return res_super + '\n' + res
             return res
         return res_super
 

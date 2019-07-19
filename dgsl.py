@@ -18,6 +18,13 @@ def main():
     print(VERSION)
     print()
 
+    # Testing
+    game = GameFactory().new(os.path.join(
+        DGSL_DIR, 'worlds', name_to_path('Mystery of Stumplewood')))
+    game.run()
+
+
+'''
     menu = Menu(['Load a world', 'Load a saved game (not implemented)'])
     idx = menu.ask()
 
@@ -35,7 +42,7 @@ def main():
     else:
         print()
         print('See you soon!')
-
+'''
 
 if __name__ == '__main__':
     main()

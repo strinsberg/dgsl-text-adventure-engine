@@ -43,15 +43,15 @@ class ActionResolver:
             other = None
         else:
             entity, other, message = self._get_entities(parsed_input, player)
-            if message is not None:
+            if message != '\n':
                 return message
 
-        # Adding a \n--------- in here somewhere will give the seperation
-        # desired between resolver menu results and menus. Perhaps make it
-        # in the _get_entities so that it only happens when the menu is used
         action = self.action_factory.new(parsed_input['verb'], player, entity,
                                          other)
-        return action.take_action()
+        result = action.take_action()
+        if result != '' and message == '\n':
+            result = message + result
+        return result
 
     def _get_entities(self, parsed_input, player):
         collector = self.collector_fact.make(parsed_input['object'],
@@ -61,7 +61,7 @@ class ActionResolver:
 
         entity = None
         other = None
-        message = None
+        message = '\n'
 
         size = len(entities)
         if size > 1:
@@ -70,9 +70,9 @@ class ActionResolver:
             idx = menu.ask()
 
             if idx == -1:
-                message = "That is not a choice"
+                message += "That is not a choice"
             elif idx == size:
-                message = 'Cancelled'
+                message += 'Cancelled'
             else:
                 entity = entities[idx]
 

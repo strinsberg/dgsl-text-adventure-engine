@@ -40,9 +40,10 @@ class Interaction(Event):
                 self._out('Not a valid choice!')
                 continue
             else:
-                self._out(options[idx].choose(affected))
+                result, end = options[idx].choose(affected)
+                self._out(result)
 
-            if self.break_out:
+            if self.break_out or end:
                 self._out()
                 break
 
@@ -91,9 +92,10 @@ class Interaction(Event):
 class Option:
     """ option"""
 
-    def __init__(self, text, event):
+    def __init__(self, text, event, breakout=False):
         self.text = text
         self.event = event
+        self.breakout = breakout
 
     def is_visible(self, affected):  # pylint: disable=unused-argument
         """
@@ -117,7 +119,7 @@ class Option:
         Returns:
 
         """
-        return self.event.execute(affected)
+        return self.event.execute(affected), self.breakout
 
     def __repr__(self):
         return "<Option - Text: '{}'>".format(self.text)
@@ -126,8 +128,8 @@ class Option:
 class ConditionalOption(Option):
     """conditional """
 
-    def __init__(self, text, event, condition):
-        super(ConditionalOption, self).__init__(text, event)
+    def __init__(self, text, event, condition, breakout=False):
+        super(ConditionalOption, self).__init__(text, event, breakout)
         self.condition = condition
 
     def is_visible(self, affected):
