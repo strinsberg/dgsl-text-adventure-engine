@@ -147,3 +147,48 @@ class EntityTypeCollector:
         """empty"""
         for item in character.equipped:
             item.accept(self)
+
+
+class EntityIdCollector:
+    """Collects an item with mathcing id. Will find it anywhere it is."""
+
+    def __init__(self, obj_id, container):
+        self.obj_id = obj_id
+        self.container = container
+        self.result = None
+
+    def collect(self):
+        self.container.accept(self)
+        return self.result
+
+    def visit_entity(self, entity):
+        if entity.spec.id == self.obj_id:
+            self.result = entity
+
+    def visit_container(self, container):
+        self.visit_entity(container)
+        for item in container:
+            if self.result is None:
+                item.accept(self)
+            else:
+                break
+
+    def visit_room(self, room):
+        self.visit_container(room)
+
+    def visit_character(self, character):
+        self.visit_container(character)
+        for item in character.equipped:
+            if self.result is None:
+                item.accept(self)
+            else:
+                break
+
+    def visit_player(self, player):
+        self.visit_character(player)
+
+    def visit_npc(self, npc):
+        self.visit_character(npc)
+
+    def visit_equipment(self, equipment):
+        self.visit_entity(equipment)

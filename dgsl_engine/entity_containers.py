@@ -4,6 +4,7 @@ functions and exceptions.
 """
 from functools import singledispatch
 from . import entity_base
+from . import collectors
 
 
 class Container(entity_base.Entity):
@@ -38,9 +39,8 @@ class Container(entity_base.Entity):
 
     def get(self, item_id):
         """empty"""
-        if self.inventory.has_item(item_id):
-            return self.inventory.items[item_id]
-        return None
+        collector = collectors.EntityIdCollector(item_id, self)
+        return collector.collect()
 
     def describe(self):
         desc = [self.spec.description]
@@ -94,8 +94,10 @@ class Room(Container):
         result = []
         result.append(self.describe())
         if self.events.has_event('enter'):
-            result.append('')
-            result.append(self.events.execute('enter', affected))
+            enter = self.events.execute('enter', affected)
+            if enter != '':
+                result.append('')
+                result.append(enter)
         return '\n'.join(result)
 
     def accept(self, visitor):
