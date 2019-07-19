@@ -30,6 +30,9 @@ class Game:  # pylint: disable=too-few-public-methods
         User specifies actions for the player to take and the result of
         those actions is passed to out.
         """
+        self._out("\n----------------------------------------------------")
+        self._out(self.world.player.owner.describe())
+
         while True:
             raw_input = self._in("\n> ")
             self._out("\n----------------------------------------------------")

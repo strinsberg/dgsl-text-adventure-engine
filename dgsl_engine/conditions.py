@@ -99,6 +99,5 @@ def _get_valid_carried(character):
     results = []
     for equip in equipment:
         if not equip.must_equip and not equip.equipped:
-            print(equip)
             results.append(equip)
     return results

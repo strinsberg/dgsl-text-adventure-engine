@@ -46,7 +46,7 @@ class Container(entity_base.Entity):
         desc = [self.spec.description]
         if self.states.active:
             desc.extend(
-                ["  - It holds " + item.spec.name for item in self.inventory])
+                ["It holds " + item.spec.name for item in self.inventory])
         return "\n".join(desc)
 
     def accept(self, visitor):

@@ -66,6 +66,7 @@ class OrderedGroup(GroupEvent):
     def __init__(self, obj_id):
         super(OrderedGroup, self).__init__(obj_id)
         self.idx = 0
+        self.last = False
 
     def execute(self, affected):
         """
@@ -76,14 +77,17 @@ class OrderedGroup(GroupEvent):
         Returns:
 
         """
-        if self.events[self.idx].is_done:
-            return 'Nothing happens'
+        if self.is_done:
+            return ''
 
         res = self.events[self.idx].execute(affected)
         res_super = event_base.Event.execute(self, affected)  # not ok?
 
         if self.idx < len(self.events) - 1:
             self.idx += 1
+        else:
+            if self.only_once and self.events[self.idx].is_done:
+                self.is_done = True
 
         if res != '':
             if res_super != '':
@@ -105,9 +109,8 @@ class OrderedGroup(GroupEvent):
             self.events[size - 1].only_once = True
         super(OrderedGroup, self).add(event)
 
-    def _check_is_done(self):
-        if self.only_once and self.idx >= len(self.events):
-            self.is_done = True
+    def _check_if_done(self):
+        pass
 
 
 class ConditionalEvent(event_base.Event):
@@ -131,7 +134,6 @@ class ConditionalEvent(event_base.Event):
         """
         self.passed = False
         succeeded = self.condition.test(affected)
-        res_super = super(ConditionalEvent, self).execute(affected)
 
         if succeeded:
             res = self.success.execute(affected)
@@ -140,6 +142,8 @@ class ConditionalEvent(event_base.Event):
             res = self.failure.execute(affected)
         else:
             res = ''
+
+        res_super = super(ConditionalEvent, self).execute(affected)
 
         if res != '':
             if res_super != '':
