@@ -39,26 +39,29 @@ class ActionResolver:
             str: The result of the actions resolution.
         """
         message = None
+
+        action = self.action_factory.new(parsed_input['verb'], player)
+
         if not parsed_input['object'].strip():
             entity = None
             other = None
         else:
-            entity, other, message = self._get_entities(parsed_input, player)
+            entity, other, message = self._get_entities(
+                parsed_input, player, action)
             if message != '\n' and message is not None:
                 return message
 
-        action = self.action_factory.new(parsed_input['verb'], player, entity,
-                                         other)
-        result = action.take_action()
+        result = action.take_action(entity, other)
         if result != '' and message == '\n':
             result = message + result
         return result
 
-    def _get_entities(self, parsed_input, player):
+    def _get_entities(self, parsed_input, player, act):
         collector = self.collector_fact.make(parsed_input['object'],
                                              parsed_input['other'],
                                              player.owner)
-        entities = collector.collect()
+
+        entities = act.filter_entities(collector.collect())
 
         entity = None
         other = None
@@ -89,7 +92,7 @@ class ActionResolver:
 class ActionFactory:
     """Factory to return action objects."""
 
-    def new(self, verb, player, entity, other):  # pylint: disable=no-self-use
+    def new(self, verb, player):  # pylint: disable=no-self-use
         """Creates a new action object based on the given verb.
 
         Args:
@@ -104,27 +107,27 @@ class ActionFactory:
             Action: The new action. If the verb does not exist returns
                 a null action.
         """
-        action = NullAction(player, entity, other)
+        action = NullAction(player)
         if verb in ['get', 'take']:
-            action = Get(player, entity, other)
+            action = Get(player)
         elif verb in ['use']:
-            action = Use(player, entity, other)
+            action = Use(player)
         elif verb in ['drop']:
-            action = Drop(player, entity, other)
+            action = Drop(player)
         elif verb in ['look']:
-            action = Look(player, entity, other)
+            action = Look(player)
         elif verb in ['inventory']:
-            action = CheckInventory(player, entity, other)
+            action = CheckInventory(player)
         elif verb in ['talk']:
-            action = Talk(player, entity, other)
+            action = Talk(player)
         elif verb in ['equip']:
-            action = Equip(player, entity, other)
+            action = Equip(player)
         elif verb in ['remove']:
-            action = Remove(player, entity, other)
+            action = Remove(player)
         elif verb in ['go']:
-            action = Go(player, entity, other)
+            action = Go(player)
         elif verb in ['give', 'put']:
-            action = Place(player, entity, other)
+            action = Place(player)
         return action
 
 
@@ -133,30 +136,33 @@ class Action(ABC):
 
     Attributes:
         player (Player): The player character taking the action.
-        entity (Entity): The entity that was the direct object of
-            the verb.
-        other (Entity): The entity that was the indirect object of
-            the verb.
     """
 
-    def __init__(self, player, entity, other):
+    def __init__(self, player):
         self.player = player
-        self.entity = entity
-        self.other = other
         super(Action, self).__init__()
 
     @abstractmethod
-    def take_action(self):  # pragma: no cover
+    def take_action(self, entity, other):  # pragma: no cover
         """Executes the action.
+
+        Args:
+            entity (Entity): The entity that was the direct object of
+                the verb.
+            other (Entity): The entity that was the indirect object of
+                the verb.
 
         Returns:
             str: The results of the actions execution.
         """
 
-    def _execute_event(self, verb):
-        if self.entity.events.has_event(verb):
-            return self.entity.events.execute(verb, self.player)
+    def _execute_event(self, verb, entity):
+        if entity.events.has_event(verb):
+            return entity.events.execute(verb, self.player)
         return None
+
+    def filter_entities(self, entities):
+        return entities
 
 
 class NullAction(Action):
@@ -170,33 +176,43 @@ class NullAction(Action):
 class Get(Action):
     """Action to get an object from the players room."""
 
-    def take_action(self):
+    def take_action(self, entity, other):
         """See Action."""
-        if self.entity is None:
+        if entity is None:
             return "Get what?"
-        if self.player.inventory.has_item(self.entity.spec.id):
+        if self.player.inventory.has_item(entity.spec.id):
             return "You already have it"
-        if self.entity.states.obtainable:
-            move(self.entity, self.player)
-            moved = "You take " + self.entity.spec.name
-            result = self._execute_event('get')
+        if entity.states.obtainable:
+            move(entity, self.player)
+            moved = "You take " + entity.spec.name
+            result = self._execute_event('get', entity)
             if result is not None:
                 return "{}\n{}".format(moved, result)
             return moved
         return "You can't take that"
 
+    def filter_entities(self, entities):
+        if len(entities) <= 1:
+            return entities
+        result = []
+        for item in entities:
+            entity = self.player.get(item.spec.id)
+            if entity is None and item is not self.player:
+                result.append(item)
+        return result
+
 
 class Drop(Action):
     """Action to drop an object the player is carrying."""
 
-    def take_action(self):
+    def take_action(self, entity, other):
         """See Action."""
-        if self.entity is None:
+        if entity is None:
             return "Drop what?"
-        if self.player.inventory.has_item(self.entity.spec.id):
-            move(self.entity, self.player.owner)
-            dropped = "You drop " + self.entity.spec.name
-            result = self._execute_event('drop')
+        if self.player.inventory.has_item(entity.spec.id):
+            move(entity, self.player.owner)
+            dropped = "You drop " + entity.spec.name
+            result = self._execute_event('drop', entity)
             if result is not None:
                 return "{}\n{}".format(dropped, result)
             return dropped
@@ -206,17 +222,17 @@ class Drop(Action):
 class Use(Action):
     """An action to use an object."""
 
-    def take_action(self):
+    def take_action(self, entity, other):
         """See Action."""
-        if self.entity is None:
+        if entity is None:
             return "Use what?"
-        if not self.entity.states.active:
+        if not entity.states.active:
             # replace with an inactive message eventually
             return "For some reason you can't"
-        if self.entity.events.has_event('use'):
-            result = self.entity.events.execute('use', self.player)
+        if entity.events.has_event('use'):
+            result = entity.events.execute('use', self.player)
             if result.strip() == '':
-                return "You use " + self.entity.spec.name
+                return "You use " + entity.spec.name
             return result
         return "You can't use that"
 
@@ -224,11 +240,11 @@ class Use(Action):
 class Look(Action):
     """An action to look at an object."""
 
-    def take_action(self):
+    def take_action(self, entity, other):
         """See Action."""
-        if self.entity is not None:
-            description = "You see " + self.entity.describe()
-            result = self._execute_event('look')
+        if entity is not None:
+            description = "You see " + entity.describe()
+            result = self._execute_event('look', entity)
             if result is not None:
                 return "{}\n{}".format(description, result)
             return description
@@ -239,9 +255,9 @@ class CheckInventory(Action):
     """Action to list the contents of the players inventory or check to
     see if an object is in it."""
 
-    def take_action(self):
+    def take_action(self, entity, other):
         """See Action."""
-        if self.entity is None:
+        if entity is None:
             result = ["You are carrying ..."]
             if self.player.inventory.items:
                 for item in self.player:
@@ -258,7 +274,7 @@ class CheckInventory(Action):
 
             return "\n".join(result)
 
-        if self.player.inventory.has_item(self.entity.spec.id):
+        if self.player.inventory.has_item(entity.spec.id):
             return "You have that"
         return "You don't have that"
 
@@ -266,12 +282,12 @@ class CheckInventory(Action):
 class Talk(Action):
     """empty"""
 
-    def take_action(self):
-        if self.entity is not None:
-            if not self.entity.states.active:
+    def take_action(self, entity, other):
+        if entity is not None:
+            if not entity.states.active:
                 # perhaps replace with an inactive message
                 return "They don't have anything to say right now."
-            result = self._execute_event('talk')
+            result = self._execute_event('talk', entity)
             if result is not None:
                 return result
             return "That doesn't talk"
@@ -279,20 +295,20 @@ class Talk(Action):
 
 
 class Equip(Action):
-    def take_action(self):
-        if self.entity is None:
+    def take_action(self, entity, other):
+        if entity is None:
             return "Equip what?"
         # To properly deal with conditional events related to equipping
         # things the actual equip would need to be an event. Then if there
         # is an event (of the right type) it could be consulted. If there is
         # not then the equipment could just be equipped.
         try:
-            old_owner = self.entity.owner
-            self.player.equipped.equip(self.entity)
-            old_owner.inventory.remove(self.entity.spec.id)
+            old_owner = entity.owner
+            self.player.equipped.equip(entity)
+            old_owner.inventory.remove(entity.spec.id)
             message = 'You equip it'
-            if self.entity.events.has_event('equip'):
-                result = self.entity.events.execute('equip', self.player)
+            if entity.events.has_event('equip'):
+                result = entity.events.execute('equip', self.player)
                 if result != '':
                     return message + '\n' + result
             return message
@@ -301,16 +317,16 @@ class Equip(Action):
 
 
 class Remove(Action):
-    def take_action(self):
-        if self.entity is None:
+    def take_action(self, entity, other):
+        if entity is None:
             return "Remove What?"
-        slot = self.player.equipped.wearing(self.entity)
+        slot = self.player.equipped.wearing(entity)
         if slot is not None:
             equipment = self.player.equipped.remove(slot)
             self.player.add(equipment)
             message = "You remove it"
-            if self.entity.events.has_event('remove'):
-                result = self.entity.events.execute('remove', self.player)
+            if entity.events.has_event('remove'):
+                result = entity.events.execute('remove', self.player)
                 if result != '':
                     return message + '\n' + result
             return message
@@ -319,18 +335,18 @@ class Remove(Action):
 
 # Will most likely need multi verb events for this to work with use
 class Go(Action):
-    def take_action(self):
-        if self.entity is None:
+    def take_action(self, entity, other):
+        if entity is None:
             return "Go Where?"
-        if not self.entity.states.active:
+        if not entity.states.active:
             return "For some reason you can't"
-        if self.entity.events.has_event('go'):
-            return self.entity.events.execute('go', self.player)
+        if entity.events.has_event('go'):
+            return entity.events.execute('go', self.player)
         return "Impossible!"
 
 
 class Place(Action):
-    def take_action(self):
+    def take_action(self, entity, other):
         return "Sorry, that action is not yet available."
 
 
