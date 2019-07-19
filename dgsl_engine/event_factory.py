@@ -20,8 +20,7 @@ class EventFactory:  # pylint: disable=too-few-public-methods
         try:
             type_ = obj['type']
             id_ = obj['id']
-            if type_ in ['event',
-                         'inform']:  # remove inform when editor is fixed
+            if type_ in ['event']:
                 event = event_base.Event(id_)
             elif type_ == 'move':
                 event = event_base.MoveEntity(id_)
@@ -31,6 +30,8 @@ class EventFactory:  # pylint: disable=too-few-public-methods
             elif type_ == 'take':
                 event = event_base.Take(id_)
                 _setup_transfer(event, obj)
+            elif type_ == 'end_game':
+                event = event_base.EndGame(id_)
             elif type_ == 'toggle_active':
                 event = event_base.ToggleActive(id_)
             elif type_ == 'toggle_obtainable':

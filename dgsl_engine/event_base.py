@@ -273,3 +273,15 @@ class ToggleHidden(Toggle):
 
     def __repr__(self):
         return "<ToggleHidden '{}'>".format(self.id)
+
+
+class EndGame(Event):
+    """empty"""
+
+    def execute(self, affected):
+        """empty"""
+        affected.states.hidden = True  # really only ever meant for the player
+        return super(EndGame, self).execute(affected)
+
+    def __repr__(self):
+        return "<EndGame '{}'>".format(self.id)

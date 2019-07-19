@@ -58,9 +58,12 @@ class Game:  # pylint: disable=too-few-public-methods
         pass
 
     def _cleanup(self):
+        self._out()
+        if self.world.player.states.hidden:
+            self._out("*** Game Over ***\n")
         self._out("Thanks for playing")
 
-    def _game_over(self, ):
+    def _game_over(self):
         if self.end or self.world.player.states.hidden:
             return True
         return False

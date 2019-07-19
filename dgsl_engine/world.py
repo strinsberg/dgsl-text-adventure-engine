@@ -162,7 +162,8 @@ def is_event(obj):
     Returns:
 
     """
-    return obj['type'] in ['inform', 'event', 'move', 'give', 'take', 'toggle_active',
+    return obj['type'] in ['inform', 'event', 'move', 'give', 'end_game',
+                           'take', 'toggle_active',
                            'toggle_obtainable', 'toggle_hidden', 'group',
                            'ordered', 'conditional', 'interaction']
 
