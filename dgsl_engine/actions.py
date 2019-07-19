@@ -117,6 +117,14 @@ class ActionFactory:
             action = CheckInventory(player, entity, other)
         elif verb in ['talk']:
             action = Talk(player, entity, other)
+        elif verb in ['equip']:
+            action = Equip(player, entity, other)
+        elif verb in ['remove']:
+            action = Remove(player, entity, other)
+        elif verb in ['go']:
+            action = Go(player, entity, other)
+        elif verb in ['give', 'put']:
+            action = Place(player, entity, other)
         return action
 
 
@@ -237,9 +245,17 @@ class CheckInventory(Action):
             result = ["You are carrying ..."]
             if self.player.inventory.items:
                 for item in self.player:
-                    result.append(item.describe())
+                    result.append(item.spec.name)
             else:
                 result.append("Nothing")
+
+            result.append("\nYou are wearing ...")
+            if self.player.equipped.equipment:
+                for item in self.player.equipped:
+                    result.append(item.spec.name)
+            else:
+                result.append("Nothing")
+
             return "\n".join(result)
 
         if self.player.inventory.has_item(self.entity.spec.id):
@@ -260,6 +276,62 @@ class Talk(Action):
                 return result
             return "That doesn't talk"
         return "To whom?"
+
+
+class Equip(Action):
+    def take_action(self):
+        if self.entity is None:
+            return "Equip what?"
+        # To properly deal with conditional events related to equipping
+        # things the actual equip would need to be an event. Then if there
+        # is an event (of the right type) it could be consulted. If there is
+        # not then the equipment could just be equipped.
+        try:
+            old_owner = self.entity.owner
+            self.player.equipped.equip(self.entity)
+            old_owner.inventory.remove(self.entity.spec.id)
+            message = 'You equip it'
+            if self.entity.events.has_event('equip'):
+                result = self.entity.events.execute('equip', self.player)
+                if result != '':
+                    return message + '\n' + result
+            return message
+        except AttributeError:
+            return "You can't equip that!"
+
+
+class Remove(Action):
+    def take_action(self):
+        if self.entity is None:
+            return "Remove What?"
+        slot = self.player.equipped.wearing(self.entity)
+        if slot is not None:
+            equipment = self.player.equipped.remove(slot)
+            self.player.add(equipment)
+            message = "You remove it"
+            if self.entity.events.has_event('remove'):
+                result = self.entity.events.execute('remove', self.player)
+                if result != '':
+                    return message + '\n' + result
+            return message
+        return "You are not wearing that!"
+
+
+# Will most likely need multi verb events for this to work with use
+class Go(Action):
+    def take_action(self):
+        if self.entity is None:
+            return "Go Where?"
+        if not self.entity.states.active:
+            return "For some reason you can't"
+        if self.entity.events.has_event('go'):
+            return self.entity.events.execute('go', self.player)
+        return "Impossible!"
+
+
+class Place(Action):
+    def take_action(self):
+        return "Sorry, that action is not yet available."
 
 
 def move(entity, destination):

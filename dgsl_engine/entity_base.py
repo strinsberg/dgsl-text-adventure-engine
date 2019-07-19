@@ -243,6 +243,12 @@ class Equipped:
             del self.equipment[slot]
         return old
 
+    def wearing(self, equip):
+        for slot, item in self.equipment.items():
+            if item.spec.name == equip.spec.name:
+                return slot
+        return None
+
     def get(self, slot):
         """empty"""
         if slot in self.equipment:

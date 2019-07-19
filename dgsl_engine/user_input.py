@@ -12,8 +12,8 @@ class Parser:  # pylint: disable=too-few-public-methods
     """Turns raw user input into form useable by a resolver."""
 
     def __init__(self):
-        self.verbs = ['get', 'take', 'drop',
-                      'use', 'look', 'inventory', 'talk']
+        self.verbs = ['get', 'take', 'drop', 'equip', 'remove', 'go',
+                      'use', 'look', 'inventory', 'talk', 'give', 'put']
         self.commands = ['quit', 'exit']
 
     def parse(self, user_input):
