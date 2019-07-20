@@ -1,22 +1,28 @@
 import unittest
+from unittest import mock
 import dgsl_engine.actions as actions
-import dgsl_engine.entity_factory as ent_fact
-import dgsl_engine.event_factory as evt_fact
-from . import json_objects as objects
-from . import fakes
+
 
 # Tests ################################################################
 
-
 class TestActionResolver(unittest.TestCase):
     def setUp(self):
-        self.col_fact = fakes.FakeCollector(0)
-        self.menu_fact = fakes.FakeMenu(0)
-        self.act_fact = fakes.FakeAction()
+        self.collector = mock.MagicMock()
+        self.col_fact = mock.MagicMock()
+        self.col_fact.make.return_value = self.collector
 
-        self.ent_fact = ent_fact.EntityFactory()
-        self.player = self.ent_fact.new(objects.PLAYER)
-        self.player.owner = None
+        self.menu = mock.MagicMock()
+        self.menu_fact = mock.MagicMock()
+        self.menu_fact.make.return_value = self.menu
+
+        self.action = mock.MagicMock()
+        self.act_fact = mock.MagicMock()
+        self.act_fact.new.return_value = self.action
+
+        self.player = mock.MagicMock()
+
+        self.resolver = actions.ActionResolver(
+            self.col_fact, self.menu_fact, self.act_fact)
 
         self.parsed_input = {
             'verb': 'unused',
@@ -25,59 +31,72 @@ class TestActionResolver(unittest.TestCase):
         }
 
     def test_resolve_input_verb_only(self):
-        resolver = actions.ActionResolver(self.col_fact, self.menu_fact,
-                                          self.act_fact)
         self.parsed_input['object'] = '   '
-        self.assertEqual(
-            resolver.resolve_input(self.parsed_input, self.player),
-            "Verb with no object")
+        self.action.take_action.return_value = 'Action Taken'
+        result = self.resolver.resolve_input(self.parsed_input, self.player)
+
+        self.act_fact.new.assert_called_with(
+            self.parsed_input['verb'], self.player)
+        self.action.take_action.assert_called_with(None, None)
+        self.assertEqual(result, "Action Taken")
 
     def test_resolve_input_no_results(self):
-        resolver = actions.ActionResolver(self.col_fact, self.menu_fact,
-                                          self.act_fact)
-        self.assertEqual(
-            resolver.resolve_input(self.parsed_input, self.player),
-            "There is no test object")
+        self.action.filter_entities.return_value = []
+        result = self.resolver.resolve_input(self.parsed_input, self.player)
+
+        self.action.filter_entities.assert_called_with(
+            self.collector.collect())
+        self.assertEqual(result, "There is no test object")
 
     def test_resolve_input_one_result(self):
-        fact = fakes.FakeCollector(1)
-        resolver = actions.ActionResolver(fact, self.menu_fact, self.act_fact)
-        self.assertEqual(
-            resolver.resolve_input(self.parsed_input, self.player),
-            "Result found")
+        entity = mock.MagicMock()
+        self.action.filter_entities.return_value = [entity]
+        self.action.take_action.return_value = "Action Taken"
+        result = self.resolver.resolve_input(self.parsed_input, self.player)
 
-    # FakeCollector is no longer enough for this task
-    # However play testing can confirm that some of these work for now.
-    # FIX THEM.
-    @unittest.skip
+        self.action.take_action.assert_called_with(entity, None)
+        self.assertEqual(result, "Action Taken")
+
     def test_resolve_input_many_results(self):
-        fact = fakes.FakeCollector(5)
-        resolver = actions.ActionResolver(fact, self.menu_fact, self.act_fact)
-        self.assertEqual(
-            resolver.resolve_input(self.parsed_input, self.player),
-            "Result found")
+        self.action.take_action.return_value = "Action Taken"
+        entity = mock.MagicMock()
+        entity.spec.name = 'George'
+        other_entity = mock.MagicMock()
+        other_entity.spec.name = 'Sally'
+        self.action.filter_entities.return_value = [entity, other_entity]
+        self.menu.ask.return_value = 1
 
-    @unittest.skip
+        result = self.resolver.resolve_input(self.parsed_input, self.player)
+        self.menu_fact.make.assert_called_with(['George', 'Sally'])
+        self.action.take_action.assert_called_with(other_entity, None)
+        self.assertEqual(result, '\nAction Taken')
+
     def test_resolve_input_many_results_cancel(self):
-        fact = fakes.FakeCollector(5)
-        m_fact = fakes.FakeMenu(5)
-        resolver = actions.ActionResolver(fact, m_fact, self.act_fact)
-        self.assertEqual(
-            resolver.resolve_input(self.parsed_input, self.player),
-            "Cancelled")
+        entity = mock.MagicMock()
+        entity.spec.name = 'George'
+        other_entity = mock.MagicMock()
+        other_entity.spec.name = 'Sally'
+        self.action.filter_entities.return_value = [entity, other_entity]
+        self.menu.ask.return_value = 2
 
-    @unittest.skip
+        result = self.resolver.resolve_input(self.parsed_input, self.player)
+        self.assertEqual(result, '\nCancelled')
+
     def test_resolve_input_many_results_menu_out_of_range(self):
-        fact = fakes.FakeCollector(5)
-        m_fact = fakes.FakeMenu(-1)
-        resolver = actions.ActionResolver(fact, m_fact, self.act_fact)
-        self.assertEqual(
-            resolver.resolve_input(self.parsed_input, self.player),
-            "That is not a choice")
+        entity = mock.MagicMock()
+        entity.spec.name = 'George'
+        other_entity = mock.MagicMock()
+        other_entity.spec.name = 'Sally'
+        self.action.filter_entities.return_value = [entity, other_entity]
+        self.menu.ask.return_value = -1
+
+        result = self.resolver.resolve_input(self.parsed_input, self.player)
+        self.assertEqual(result, '\nThat is not a choice')
 
 
 # As each action grows in complexity split this up. The factory can just be
 # tested as part of the Actions unless it gets more functionality.
+@unittest.skip
 class TestActions(unittest.TestCase):
     def setUp(self):
         self.action_factory = actions.ActionFactory()
