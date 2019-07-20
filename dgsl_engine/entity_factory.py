@@ -61,7 +61,7 @@ def _setup_entity(entity, obj):
 def _setup_equipment(entity, obj):
     entity.protects = obj['protects']
     entity.slot = obj['slot']
-    entity.must_equip = obj['must_equip']
+    entity.must_equip = num_to_bool(obj['must_equip'])
 
 
 def num_to_bool(num):
