@@ -30,7 +30,7 @@ class TestGroupEvent(unittest.TestCase):
     def test_execute_has_message(self):
         self.group.message = 'What just happend?'
         res = self.group.execute(None)
-        self.assertEqual(res, "Get it while it's hot\nWhat just happend?")
+        self.assertEqual(res, "What just happend?\nGet it while it's hot")
 
     def test_accept(self):
         visitor = fakes.FakeEventVisitor()
@@ -63,9 +63,9 @@ class TestOrderedGroup(unittest.TestCase):
     def test_execute_has_message(self):
         self.ordered.message = 'Why?'
         res = self.ordered.execute(None)
-        self.assertEqual(res, 'How dare you!\nWhy?')
+        self.assertEqual(res, 'Why?\nHow dare you!')
         res = self.ordered.execute(None)
-        self.assertEqual(res, "Get it while it's hot\nWhy?")
+        self.assertEqual(res, "Why?\nGet it while it's hot")
 
     def test_execute_only_message(self):
         self.ordered.message = 'Stop bothering me!'
@@ -80,7 +80,7 @@ class TestOrderedGroup(unittest.TestCase):
         self.ordered.execute(None)
         self.ordered.execute(None)
         res = self.ordered.execute(None)
-        self.assertEqual(res, 'Nothing happens')
+        self.assertEqual(res, '')
 
 
 class TestConditionalEvent(unittest.TestCase):
@@ -126,14 +126,14 @@ class TestConditionalEvent(unittest.TestCase):
         self.conditional.message = 'Come back anytime!'
         self.conditional.success = self.success
         res = self.conditional.execute(None)
-        self.assertEqual(res, "Get it while it's hot\nCome back anytime!")
+        self.assertEqual(res, "Come back anytime!\nGet it while it's hot")
 
     def test_execute_with_message_failure(self):
         self.conditional.condition = self.will_fail
         self.conditional.message = 'Come back anytime!'
         self.conditional.failure = self.failure
         res = self.conditional.execute(None)
-        self.assertEqual(res, "Not a chance!\nCome back anytime!")
+        self.assertEqual(res, "Come back anytime!\nNot a chance!")
 
     def test_execute_only_message(self):
         self.conditional.condition = self.will_pass
