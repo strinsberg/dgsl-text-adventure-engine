@@ -3,6 +3,7 @@ Classes of Entities that can contain other entities and related
 functions and exceptions.
 """
 from functools import singledispatch
+from abc import ABC
 from . import entity_base
 from . import collectors
 
@@ -108,8 +109,7 @@ class Room(Container):
             self.spec.id, self.spec.name, self._repr_contents())
 
 
-# Should be an ABC
-class Character(Container):
+class Character(Container, ABC):
     """empty"""
 
     def __init__(self, obj_id):

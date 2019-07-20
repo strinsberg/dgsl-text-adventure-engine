@@ -26,7 +26,7 @@ class TestEntity(unittest.TestCase):
     def test_visit(self):
         visitor = mock.MagicMock()
         self.entity.accept(visitor)
-        self.assertTrue(visitor.assert_called)
+        self.assertTrue(visitor.visit_entity.assert_called)
 
 
 # Supporting classes ###################################################
@@ -71,8 +71,8 @@ class TestStates(unittest.TestCase):
 class TestEvents(unittest.TestCase):
     def setUp(self):
         self.mock_use = mock.MagicMock()
-        self.mock_use.execute = mock.MagicMock(return_value='You use it')
-        self.mock_look = mock.MagicMock(return_value='It looks good')
+        self.mock_use.execute.return_value = 'You use it'
+        self.mock_look = mock.MagicMock()
         self.events = entity.EntityEvents()
         self.events.add(USE, self.mock_use)
 
