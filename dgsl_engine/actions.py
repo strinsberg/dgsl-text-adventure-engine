@@ -168,7 +168,7 @@ class Action(ABC):
 class NullAction(Action):
     """Null action that says nothing happend."""
 
-    def take_action(self):
+    def take_action(self, entity, other):
         """See Action."""
         return "Nothing happens"
 
@@ -179,9 +179,9 @@ class Get(Action):
     def take_action(self, entity, other):
         """See Action."""
         if entity is None:
-            return "Get what?"
+            return "Get What?"
         if self.player.inventory.has_item(entity.spec.id):
-            return "You already have it"
+            return "You already have it!"
         if entity.states.obtainable:
             move(entity, self.player)
             moved = "You take " + entity.spec.name
@@ -208,7 +208,7 @@ class Drop(Action):
     def take_action(self, entity, other):
         """See Action."""
         if entity is None:
-            return "Drop what?"
+            return "Drop What?"
         if self.player.inventory.has_item(entity.spec.id):
             move(entity, self.player.owner)
             dropped = "You drop " + entity.spec.name
@@ -216,7 +216,7 @@ class Drop(Action):
             if result is not None:
                 return "{}\n{}".format(dropped, result)
             return dropped
-        return "You don't have it"
+        return "You don't have that"
 
 
 class Use(Action):
@@ -225,7 +225,7 @@ class Use(Action):
     def take_action(self, entity, other):
         """See Action."""
         if entity is None:
-            return "Use what?"
+            return "Use What?"
         if not entity.states.active:
             # replace with an inactive message eventually
             return "For some reason you can't"

@@ -94,8 +94,241 @@ class TestActionResolver(unittest.TestCase):
         self.assertEqual(result, '\nThat is not a choice')
 
 
-# As each action grows in complexity split this up. The factory can just be
-# tested as part of the Actions unless it gets more functionality.
+# Actions ##############################################################
+
+class TestNullAction(unittest.TestCase):
+    def setUp(self):
+        self.entity = mock.MagicMock()
+        self.action = actions.NullAction(None)
+
+    def test_take_action(self):
+        result = self.action.take_action(None, None)
+        self.assertEqual(result, "Nothing happens")
+
+    def test_execute_event(self):
+        self.entity.events.has_event.return_value = True
+        self.entity.events.execute.return_value = "Event executed"
+
+        result = self.action._execute_event('use', self.entity)
+        self.entity.events.has_event.assert_called_with('use')
+        self.entity.events.execute.assert_called_with('use', None)
+        self.assertEqual(result, 'Event executed')
+
+    def test_execute_event_no_event(self):
+        self.entity.events.has_event.return_value = False
+
+        result = self.action._execute_event('use', self.entity)
+        self.entity.events.has_event.assert_called_with('use')
+        self.assertIsNone(result)
+
+    def test_filter_entities(self):
+        entities = [self.entity]
+        result = self.action.filter_entities(entities)
+        self.assertIs(result, entities)
+
+
+# Transfer Actions #####################################################
+
+class TestGo(unittest.TestCase):
+    def setUp(self):
+        self.entity = mock.MagicMock()
+        self.entity.events.execute.return_value = "Event executed"
+        self.player = mock.MagicMock()
+        self.action = actions.Go(self.player)
+
+    def test_no_entity(self):
+        result = self.action.take_action(None, None)
+        self.assertEqual(result, "Go Where?")
+
+    def test_not_active(self):
+        self.entity.states.active = False
+        result = self.action.take_action(self.entity, self.player)
+        self.assertEqual(result, "For some reason you can't")
+
+    def test_has_event(self):
+        self.entity.events.has_event.return_value = True
+        result = self.action.take_action(self.entity, None)
+        self.entity.events.has_event.assert_called_with('go')
+        self.entity.events.execute.assert_called_with('go', self.player)
+        self.assertEqual(result, "Event executed")
+
+    def test_no_event(self):
+        self.entity.events.has_event.return_value = False
+        result = self.action.take_action(self.entity, None)
+        self.assertEqual(result, "Impossible!")
+
+
+class TestGet(unittest.TestCase):
+    def setUp(self):
+        self.entity = mock.MagicMock()
+        self.entity.spec.name = 'a hat'
+        self.entity.events.execute.return_value = "Event executed"
+        self.player = mock.MagicMock()
+        self.player.inventory.has_item.return_value = False
+        self.action = actions.Get(self.player)
+
+    def test_no_entity(self):
+        result = self.action.take_action(None, None)
+        self.assertEqual(result, "Get What?")
+
+    def test_already_have(self):
+        self.player.inventory.has_item.return_value = True
+        result = self.action.take_action(self.entity, None)
+        self.player.inventory.has_item.assert_called_with(self.entity.spec.id)
+        self.assertEqual(result, "You already have it!")
+
+    @mock.patch('dgsl_engine.actions.move')
+    def test_obtainable(self, mock_move):
+        self.entity.states.obtainable = True
+        self.entity.events.has_event.return_value = True
+        self.entity.events.execute.return_value = "Event executed"
+
+        result = self.action.take_action(self.entity, None)
+        mock_move.assert_called_with(self.entity, self.player)
+        self.assertEqual(result, "You take a hat\nEvent executed")
+
+    def test_obtainable_no_event(self):
+        self.entity.states.obtainable = True
+        self.entity.events.has_event.return_value = False
+        self.entity.events.execute.return_value = "Event executed"
+
+        result = self.action.take_action(self.entity, None)
+        self.assertEqual(result, "You take a hat")
+
+    def test_get_not_obtainable(self):
+        self.entity.states.obtainable = False
+
+        result = self.action.take_action(self.entity, None)
+        self.assertEqual(result, "You can't take that")
+
+    def test_get_filter_entities_only_one(self):
+        entities = [self.entity]
+        result = self.action.filter_entities(entities)
+        self.assertIs(result, entities)
+
+    def test_get_filter_entities_filter_some(self):
+        self.player.get.return_value = None
+        entities = [self.entity, self.player]
+        result = self.action.filter_entities(entities)
+        self.assertTrue(len(result) == 1)
+        self.assertIs(result[0], self.entity)
+
+    def test_get_filter_entities_filter_some_player_has(self):
+        self.player.get.return_value = self.entity
+        entities = [self.entity, self.player]
+        result = self.action.filter_entities(entities)
+        self.assertFalse(result)
+
+
+class TestDrop(unittest.TestCase):
+    def setUp(self):
+        self.entity = mock.MagicMock()
+        self.entity.spec.name = 'a hat'
+        self.entity.events.execute.return_value = "Event executed"
+        self.player = mock.MagicMock()
+        self.player.inventory.has_item.return_value = False
+        self.action = actions.Drop(self.player)
+
+    def test_use_no_entity(self):
+        result = self.action.take_action(None, None)
+        self.assertEqual(result, 'Drop What?')
+
+    @mock.patch('dgsl_engine.actions.move')
+    def test_drop_player_has_item(self, mock_move):
+        self.player.inventory.has_item.return_value = True
+        self.entity.events.has_event.return_value = True
+
+        result = self.action.take_action(self.entity, None)
+        self.player.inventory.has_item.assert_called_with(self.entity.spec.id)
+        mock_move.assert_called_with(self.entity, self.player.owner)
+        self.assertEqual(result, "You drop a hat\nEvent executed")
+
+    def test_drop_player_has_item_no_result(self):
+        self.player.inventory.has_item.return_value = True
+        self.entity.events.has_event.return_value = True
+        self.entity.events.execute.return_value = None
+
+        result = self.action.take_action(self.entity, None)
+        self.assertEqual(result, "You drop a hat")
+
+    def test_drop_no_item(self):
+        result = self.action.take_action(self.entity, None)
+        self.assertEqual(result, "You don't have that")
+
+
+# Interaction Actions ##################################################
+
+class TestUse(unittest.TestCase):
+    def setUp(self):
+        self.entity = mock.MagicMock()
+        self.entity.spec.name = 'a hat'
+        self.entity.events.execute.return_value = "Event executed"
+        self.player = mock.MagicMock()
+        self.player.inventory.has_item.return_value = False
+        self.action = actions.Use(self.player)
+
+    def test_no_entity(self):
+        result = self.action.take_action(None, None)
+        self.assertEqual(result, 'Use What?')
+
+    def test_not_active(self):
+        self.entity.states.active = False
+        result = self.action.take_action(self.entity, self.player)
+        self.assertEqual(result, "For some reason you can't")
+
+    def test_has_event(self):
+        self.entity.events.has_event.return_value = True
+
+        result = self.action.take_action(self.entity, None)
+        self.entity.events.has_event.assert_called_with('use')
+        self.entity.events.execute.assert_called_with('use', self.player)
+        self.assertEqual(result, "Event executed")
+
+    def test_has_event_no_result(self):
+        self.entity.events.has_event.return_value = True
+        self.entity.events.execute.return_value = '  '
+
+        result = self.action.take_action(self.entity, None)
+        self.assertEqual(result, "You use a hat")
+
+    def test_no_event(self):
+        self.entity.events.has_event.return_value = False
+
+        result = self.action.take_action(self.entity, None)
+        self.assertEqual(result, "You can't use that")
+
+
+class TestLook(unittest.TestCase):
+    def setUp(self):
+        self.entity = mock.MagicMock()
+        self.entity.describe.return_value = 'a very nice hat'
+        self.entity.events.execute.return_value = "Event executed"
+        self.player = mock.MagicMock()
+        self.player.owner.describe.return_value = "A very large room"
+        self.action = actions.Look(self.player)
+
+    def test_no_entity(self):
+        result = self.action.take_action(None, None)
+        self.assertEqual(result, 'A very large room')
+
+    def test_has_event(self):
+        self.entity.events.has_event.return_value = True
+
+        result = self.action.take_action(self.entity, None)
+        self.entity.events.has_event.assert_called_with('look')
+        self.entity.events.execute.assert_called_with('look', self.player)
+        self.assertEqual(result, "You see a very nice hat\nEvent executed")
+
+    def test_has_event_no_result(self):
+        self.entity.events.has_event.return_value = True
+        self.entity.events.execute.return_value = None
+
+        result = self.action.take_action(self.entity, None)
+        self.assertEqual(result, "You see a very nice hat")
+
+# Equipment Actions ####################################################
+
+
 @unittest.skip
 class TestActions(unittest.TestCase):
     def setUp(self):
