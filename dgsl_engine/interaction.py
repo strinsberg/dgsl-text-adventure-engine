@@ -1,9 +1,9 @@
 """Interaction event"""
-from .event_base import Event
-from .user_input import Menu
+from . import event_base
+from . import user_input
 
 
-class Interaction(Event):
+class Interaction(event_base.Event):
     """ Interaction"""
 
     def __init__(self, obj_id):
@@ -11,8 +11,6 @@ class Interaction(Event):
         self.options = []
         self.break_out = False
         self.end_message = None
-        self._in = input
-        self._out = print
 
     def execute(self, affected):
         """
@@ -25,35 +23,34 @@ class Interaction(Event):
         """
         # This may not be ideal
         if self.message is not None and self.message != '':
-            self._out(self.message + '\n')
+            print(self.message + '\n')
 
         while True:
             options, choices = self._make_choices(affected)
-            menu = Menu(choices, self._out, self._in)
+            menu = user_input.Menu(choices)
 
-            # self._out()
             idx = menu.ask()
 
-            self._out(
+            print(
                 '\n--------------------------------------------------')
 
             if idx >= len(choices):
                 if self.end_message is None:
-                    self._out('Cancelled')
-                else:
-                    self._out(self.end_message)
+                    print('Cancelled')
                 break
             elif idx < 0:
-                self._out('Not a valid choice!\n')
+                print('Not a valid choice!\n')
                 continue
             else:
                 result, end = options[idx].choose(affected)
-                self._out(result)
+                print(result)
 
-            self._out()
             if self.break_out or end:
                 break
 
+        if self.end_message is not None and self.end_message.strip() != '':
+            print()
+            print(self.end_message)
         return ''
 
     def add(self, option):

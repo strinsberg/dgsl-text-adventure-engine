@@ -1,111 +1,110 @@
 import unittest
+from unittest import mock
+from contextlib import redirect_stdout
+from io import StringIO
 import dgsl_engine.interaction as interaction
-from dgsl_engine.event_factory import EventFactory
-from . import json_objects as objects
-from . import fakes
 
 
 class TestInteraction(unittest.TestCase):
     def setUp(self):
-        self.fact = EventFactory()
-        self.inform = self.fact.new(objects.INFORM)
-        self.event = self.fact.new(objects.EVENT)
-        self.event.message = 'I will need help with this'
+        self.event = mock.MagicMock(is_done=False)
+        self.event.execute.return_value = 'Have some free advice'
+        self.other_event = mock.MagicMock(is_done=False)
+        self.other_event.execute.return_value = 'Thank you for the help'
+        self.condition = mock.MagicMock()
 
-        self.interaction = self.fact.new(objects.INTERACTION)
-        self.option = interaction.Option('Ask for advice', self.inform)
-        self.option2 = interaction.Option('Fix the reactor', self.event)
+        self.interaction = interaction.Interaction('2342308')
+        self.option = interaction.Option(
+            'Ask for advice', self.event, breakout=True)
+        self.cond_option = interaction.ConditionalOption(
+            'Fix the reactor', self.other_event, self.condition, breakout=True)
         self.interaction.add(self.option)
-        self.interaction.add(self.option2)
+        self.interaction.add(self.cond_option)
 
-    def test_execute_all_visible(self):
-        out_ = fakes.FakeOutput()
-        in_ = fakes.FakeInput(['1', '2', '3'])
-        self.interaction._out = out_.make_capture()
-        self.interaction._in = in_.make_stream()
-        self.interaction.execute(None)
-        self.assertEqual(out_.get_text(),
-                         ("\n1. Ask for advice\n"
-                          "2. Fix the reactor\n"
-                          "3. Cancel\n\n"
-                          "--------------------------------------------------\n"
-                          "Get it while it's hot\n\n"
+        self.str_out = StringIO()
 
-                          "1. Ask for advice\n"
-                          "2. Fix the reactor\n"
-                          "3. Cancel\n\n"
-                          "--------------------------------------------------\n"
-                          "I will need help with this\n\n"
+    def tearDown(self):
+        self.str_out.close()
 
-                          "1. Ask for advice\n"
-                          "2. Fix the reactor\n"
-                          "3. Cancel\n\n"))
+    @mock.patch('dgsl_engine.user_input.Menu')
+    def test_execute_option_1(self, mock_menu):
+        mock_menu.return_value.ask.return_value = 0
 
-    def test_execute_not_all_visible(self):
-        out_ = fakes.FakeOutput()
-        in_ = fakes.FakeInput(['2'])
-        self.interaction._out = out_.make_capture()
-        self.interaction._in = in_.make_stream()
-        self.event.is_done = True
-        self.interaction.execute(None)
-        self.assertEqual(out_.get_text(), "\n1. Ask for advice\n2. Cancel\n\n")
+        with redirect_stdout(self.str_out):
+            self.interaction.execute(None)
 
-    def test_execute_breakout(self):
-        self.interaction.break_out = True
-        out_ = fakes.FakeOutput()
-        in_ = fakes.FakeInput(['1'])
-        self.interaction._out = out_.make_capture()
-        self.interaction._in = in_.make_stream()
-        self.inform.is_done = True
-        self.interaction.execute(None)
-        self.assertEqual(out_.get_text(),
-                         ("\n1. Fix the reactor\n"
-                          "2. Cancel\n\n"
-                          "--------------------------------------------------\n"
-                          "I will need help with this\n\n"))
+        self.assertEqual(
+            self.str_out.getvalue(),
+            ("\n--------------------------------------------------\n"
+             "Have some free advice\n"))
 
-    def test_execute_with_message(self):
-        self.interaction.message = 'Come again soon!'
-        out_ = fakes.FakeOutput()
-        in_ = fakes.FakeInput(['2'])
-        self.interaction._out = out_.make_capture()
-        self.interaction._in = in_.make_stream()
-        self.event.is_done = True
-        result = self.interaction.execute(None)
-        self.assertEqual(result, 'Come again soon!')
+    @mock.patch('dgsl_engine.user_input.Menu')
+    def test_execute_option_2(self, mock_menu):
+        mock_menu.return_value.ask.return_value = 1
 
-    def test_execute_invalid_choice(self):
-        self.interaction.break_out = True
-        out_ = fakes.FakeOutput()
-        in_ = fakes.FakeInput(['5', '1'])
-        self.interaction._out = out_.make_capture()
-        self.interaction._in = in_.make_stream()
-        self.event.is_done = True
-        self.interaction.execute(None)
-        self.assertEqual(out_.get_text(),
-                         ("\n1. Ask for advice\n"
-                          "2. Cancel\n\n"
-                          "--------------------------------------------------\n"
-                          "Not a valid choice!\n\n"
+        with redirect_stdout(self.str_out):
+            self.interaction.execute(None)
 
-                          "1. Ask for advice\n"
-                          "2. Cancel\n\n"
-                          "--------------------------------------------------\n"
-                          "Get it while it's hot\n\n"))
+        self.assertEqual(
+            self.str_out.getvalue(),
+            ("\n--------------------------------------------------\n"
+             "Thank you for the help\n"))
+
+    @mock.patch('dgsl_engine.user_input.Menu')
+    def test_execute_cancelled(self, mock_menu):
+        mock_menu.return_value.ask.return_value = 2
+
+        with redirect_stdout(self.str_out):
+            self.interaction.execute(None)
+
+        self.assertEqual(
+            self.str_out.getvalue(),
+            ("\n--------------------------------------------------\n"
+             "Cancelled\n"))
+
+    @mock.patch('dgsl_engine.user_input.Menu')
+    def test_execute_not_a_choice(self, mock_menu):
+        mock_menu.return_value.ask.side_effect = [-1, 2]
+
+        with redirect_stdout(self.str_out):
+            self.interaction.execute(None)
+
+        self.assertEqual(
+            self.str_out.getvalue(),
+            ("\n--------------------------------------------------\n"
+             "Not a valid choice!\n\n"
+             "\n--------------------------------------------------\n"
+             "Cancelled\n"))
+
+    @mock.patch('dgsl_engine.user_input.Menu')
+    def test_execute_messages(self, mock_menu):
+        self.interaction.message = "Something before the menu"
+        self.interaction.end_message = "Something before you go"
+        mock_menu.return_value.ask.return_value = 1
+
+        with redirect_stdout(self.str_out):
+            self.interaction.execute(None)
+
+        self.assertEqual(
+            self.str_out.getvalue(),
+            ("Something before the menu\n\n"
+             "\n--------------------------------------------------\n"
+             "Thank you for the help\n\n"
+             "Something before you go\n"))
 
     def test_accept(self):
-        visitor = fakes.FakeEventVisitor()
+        visitor = mock.MagicMock()
         self.interaction.accept(visitor)
-        self.assertEqual(visitor.result, self.interaction.id)
+        visitor.visit_interaction.assert_called_with(self.interaction)
 
 
 class TestOption(unittest.TestCase):
     def setUp(self):
-        self.fact = EventFactory()
-        self.event = self.fact.new(objects.INFORM)
+        self.event = mock.MagicMock()
         self.option = interaction.Option('Ask for advice', self.event)
 
     def test_is_visible(self):
+        self.event.is_done = False
         vis = self.option.is_visible(None)
         self.assertTrue(vis)
 
@@ -115,30 +114,48 @@ class TestOption(unittest.TestCase):
         self.assertFalse(vis)
 
     def test_choose(self):
-        result = self.option.choose(None)
-        self.assertEqual(result, "Get it while it's hot")
+        self.event.execute.side_effect = ["Executed event", False]
+        result, breakout = self.option.choose(None)
+        self.assertEqual(result, "Executed event")
+        self.assertFalse(breakout)
+
+    def test_repr(self):
+        rep = "<Option - Text: '{}'>".format(self.option.text)
+        self.assertEqual(repr(self.option), rep)
 
 
 class TestConditionalOption(unittest.TestCase):
     def setUp(self):
-        self.fact = EventFactory()
-        self.event = self.fact.new(objects.INFORM)
-        self.will_pass = fakes.FakeCondition(True)
-        self.will_fail = fakes.FakeCondition(False)
+        self.event = mock.MagicMock()
+        self.condition = mock.MagicMock()
         self.option = interaction.ConditionalOption(
-            'Ask for advice', self.event, self.will_pass)
+            'Ask for advice', self.event, self.condition)
 
-    def test_is_visible(self):
+    @mock.patch('dgsl_engine.interaction.Option.is_visible')
+    def test_is_visible(self, mock_is_visible):
+        mock_is_visible.return_value = True
+        self.condition.test.return_value = True
+
         vis = self.option.is_visible(None)
         self.assertTrue(vis)
 
-    def test_is_visible_false(self):
-        option = interaction.ConditionalOption(
-            'Ask for advice', self.event, self.will_fail)
-        vis = option.is_visible(None)
-        self.assertFalse(vis)
+    @mock.patch('dgsl_engine.interaction.Option.is_visible')
+    def test_is_visible_false(self, mock_is_visible):
+        mock_is_visible.return_value = False
 
-    def test_is_visible_is_done(self):
-        self.event.is_done = True
         vis = self.option.is_visible(None)
         self.assertFalse(vis)
+
+    @mock.patch('dgsl_engine.interaction.Option.is_visible')
+    def test_is_visible_is_done(self, mock_is_visible):
+        mock_is_visible.return_value = True
+        self.condition.test.return_value = False
+
+        vis = self.option.is_visible(None)
+        self.assertFalse(vis)
+
+    def test_repr(self):
+        rep = ("<Conditional Option - Text: '{}', "
+               "Condition: '{}'>").format(
+            self.option.text, self.condition)
+        self.assertEqual(repr(self.option), rep)
