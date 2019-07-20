@@ -158,14 +158,17 @@ class EntityIdCollector:
         self.result = None
 
     def collect(self):
+        """empty"""
         self.container.accept(self)
         return self.result
 
     def visit_entity(self, entity):
+        """empty"""
         if entity.spec.id == self.obj_id:
             self.result = entity
 
     def visit_container(self, container):
+        """empty"""
         self.visit_entity(container)
         for item in container:
             if self.result is None:
@@ -174,9 +177,11 @@ class EntityIdCollector:
                 break
 
     def visit_room(self, room):
+        """empty"""
         self.visit_container(room)
 
     def visit_character(self, character):
+        """empty"""
         self.visit_container(character)
         for item in character.equipped:
             if self.result is None:
@@ -185,10 +190,13 @@ class EntityIdCollector:
                 break
 
     def visit_player(self, player):
+        """empty"""
         self.visit_character(player)
 
     def visit_npc(self, npc):
+        """empty"""
         self.visit_character(npc)
 
     def visit_equipment(self, equipment):
+        """empty"""
         self.visit_entity(equipment)

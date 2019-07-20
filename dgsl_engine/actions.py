@@ -161,7 +161,8 @@ class Action(ABC):
             return entity.events.execute(verb, self.player)
         return None
 
-    def filter_entities(self, entities):
+    def filter_entities(self, entities):  # pylint: disable=no-self-use
+        """empty"""
         return entities
 
 
@@ -192,6 +193,7 @@ class Get(Action):
         return "You can't take that"
 
     def filter_entities(self, entities):
+        """empty"""
         if len(entities) <= 1:
             return entities
         result = []
@@ -297,7 +299,10 @@ class Talk(Action):
 
 
 class Equip(Action):
+    """empty"""
+
     def take_action(self, entity, other):
+        """empty"""
         if entity is None:
             return "Equip What?"
         # To properly deal with conditional events related to equipping
@@ -319,7 +324,10 @@ class Equip(Action):
 
 
 class Remove(Action):
+    """empty"""
+
     def take_action(self, entity, other):
+        """empty"""
         if entity is None:
             return "Remove What?"
         slot = self.player.equipped.wearing(entity)
@@ -337,7 +345,10 @@ class Remove(Action):
 
 # Will most likely need multi verb events for this to work with use
 class Go(Action):
+    """empty"""
+
     def take_action(self, entity, other):
+        """empty"""
         if entity is None:
             return "Go Where?"
         if not entity.states.active:
@@ -348,7 +359,10 @@ class Go(Action):
 
 
 class Place(Action):
+    """empty"""
+
     def take_action(self, entity, other):
+        """empty"""
         return "Sorry, that action is not available yet."
 
 

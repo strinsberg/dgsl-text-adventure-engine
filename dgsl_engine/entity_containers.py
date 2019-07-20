@@ -44,6 +44,7 @@ class Container(entity_base.Entity):
         return collector.collect()
 
     def describe(self):
+        """empty"""
         desc = [self.spec.description]
         if self.states.active:
             desc.extend(
@@ -51,6 +52,7 @@ class Container(entity_base.Entity):
         return "\n".join(desc)
 
     def accept(self, visitor):
+        """empty"""
         visitor.visit_container(self)
 
     def __repr__(self):
@@ -85,6 +87,7 @@ class Room(Container):
         return False
 
     def describe(self):
+        """empty"""
         desc = [self.spec.description]
         desc.extend(
             ["There is " + item.spec.name for item in self.inventory
@@ -92,6 +95,7 @@ class Room(Container):
         return "\n".join(desc)
 
     def enter(self, affected):
+        """empty"""
         result = []
         result.append(self.describe())
         if self.events.has_event('enter'):
@@ -102,6 +106,7 @@ class Room(Container):
         return '\n'.join(result)
 
     def accept(self, visitor):
+        """empty"""
         visitor.visit_room(self)
 
     def __repr__(self):
@@ -117,6 +122,7 @@ class Character(Container, ABC):
         self.equipped = entity_base.Equipped(self)
 
     def describe(self):
+        """empty"""
         return self.spec.description
 
 
@@ -133,6 +139,7 @@ class Player(Character):
         self.states.hidden = False
 
     def accept(self, visitor):
+        """empty"""
         visitor.visit_player(self)
 
     def __repr__(self):
@@ -151,6 +158,7 @@ class Npc(Character):
             self.spec.id, self.spec.name, self._repr_contents())
 
     def accept(self, visitor):
+        """empty"""
         visitor.visit_npc(self)
 
 

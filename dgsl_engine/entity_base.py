@@ -244,6 +244,7 @@ class Equipped:
         return old
 
     def wearing(self, equip):
+        """empty"""
         for slot, item in self.equipment.items():
             if item.spec.name == equip.spec.name:
                 return slot

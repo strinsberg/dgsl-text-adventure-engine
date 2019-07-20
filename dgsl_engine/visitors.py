@@ -36,16 +36,16 @@ class EntityConnector:
         self.visit_container(character)
         # self.connect_equipment(character)
 
-    def visit_player(self, player):
+    def visit_equipment(self, equipment):
         """empty"""
-        self.visit_character(player)
 
     def visit_npc(self, npc):
         """empty"""
         self.visit_character(npc)
 
-    def visit_equipment(self, equipment):
+    def visit_player(self, player):
         """empty"""
+        self.visit_character(player)
 
     def _connect_events(self, entity):
         """empty"""
