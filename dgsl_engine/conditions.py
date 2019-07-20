@@ -9,7 +9,6 @@ class Question:  # pylint: disable=too-few-public-methods
         self.question = question
         self.answer = answer
         self._in = input
-        self._out = print
 
     def test(self, entity):  # pylint: disable=unused-argument
         """
@@ -20,9 +19,9 @@ class Question:  # pylint: disable=too-few-public-methods
         Returns:
 
         """
-        self._out(self.question)
+        print(self.question)
         ans = self._in("Answer: ")
-        self._out()
+        print()
         if ans.strip() == self.answer:
             return True
         return False

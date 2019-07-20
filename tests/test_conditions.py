@@ -1,44 +1,51 @@
+import sys
 import unittest
+from unittest import mock
+from io import StringIO
+from contextlib import redirect_stdout
 import dgsl_engine.conditions as conditions
-from dgsl_engine.entity_factory import EntityFactory
-from . import json_objects as objects
-from . import fakes
 
 
 class TestQuestion(unittest.TestCase):
     def setUp(self):
-        self._out = fakes.FakeOutput()
+        self.old_stdin = sys.stdin
+        self.str_out = StringIO()
         self.question = conditions.Question('What is the secret code?', '1234')
-        self.question._out = self._out.make_capture()
+
+    def tearDown(self):
+        self.str_out.close()
+        sys.stdin = self.old_stdin
 
     def test_right_answer(self):
-        in_ = fakes.FakeInput(['1234'])
-        self.question._in = in_.make_stream()
-        res = self.question.test(None)
-        self.assertTrue(res)
-        self.assertEqual(self._out.get_text(),
-                         "What is the secret code?\n")
+        sys.stdin = StringIO('1234')
+
+        with redirect_stdout(self.str_out):
+            res = self.question.test(None)
+            self.assertTrue(res)
+            self.assertEqual(self.str_out.getvalue(),
+                             "What is the secret code?\nAnswer: \n")
+        sys.stdin.close()
 
     def test_wrong_answer(self):
-        in_ = fakes.FakeInput(['f4j8wf'])
-        self.question._in = in_.make_stream()
+        sys.stdin = StringIO('f4j8wf')
         res = self.question.test(None)
         self.assertFalse(res)
+        sys.stdin.close()
 
 
 class TestHasItem(unittest.TestCase):
     def setUp(self):
-        self.fact = EntityFactory()
-        self.container = self.fact.new(objects.CONTAINER)
-        self.entity = self.fact.new(objects.ENTITY)
-        self.has_item = conditions.HasItem(self.entity.spec.id)
+        self.container = mock.MagicMock()
+        self.entity = mock.MagicMock()
+        self.has_item = conditions.HasItem('382038')
 
     def test_has_item(self):
-        self.container.add(self.entity)
+        self.container.get.return_value = self.entity
         res = self.has_item.test(self.container)
         self.assertTrue(res)
 
     def test_no_item(self):
+        self.container.get.return_value = None
         res = self.has_item.test(self.container)
         self.assertFalse(res)
 
@@ -46,26 +53,31 @@ class TestHasItem(unittest.TestCase):
 class TestProtected(unittest.TestCase):
     def setUp(self):
         self.protected = conditions.Protected(['cold', 'wind'])
-        self.fact = EntityFactory()
-        self.hat = self.fact.new(objects.EQUIPMENT)
-        self.cap = self.fact.new(objects.EQUIPMENT2)
-        self.player = self.fact.new(objects.PLAYER)
+        self.hat = mock.MagicMock(protects=['cold', 'wind'], must_equip=True)
+        self.cap = mock.MagicMock(protects=[])
+        self.player = mock.MagicMock()
+        # Can be lists because equipped and inventory are iterable
+        self.player.equipped = []
+        self.player.inventory = []
 
     def test_has_protection_equipped(self):
-        self.player.equipped.equip(self.hat)
+        self.player.equipped.append(self.hat)
+        self.hat.equipped = True
         result = self.protected.test(self.player)
         self.assertTrue(result)
 
-    def test_has_protection_carrying(self):
-        self.player.equipped.equip(self.cap)
-        self.cap.must_equip = False
+    @mock.patch('dgsl_engine.collectors.EntityTypeCollector')
+    def test_has_protection_carrying(self, mock_collector):
+        mock_collector.return_value.collect.return_value = [self.hat]
         self.hat.must_equip = False
-        self.player.add(self.hat)
+        self.hat.equipped = False
         result = self.protected.test(self.player)
         self.assertTrue(result)
 
-    def test_no_protection(self):
-        self.player.equipped.equip(self.cap)
-        self.player.add(self.hat)
+    @mock.patch('dgsl_engine.collectors.EntityTypeCollector')
+    def test_no_protection(self, mock_collector):
+        mock_collector.return_value.collect.return_value = [self.hat]
+        self.hat.equipped = False
+        self.player.equipped.append(self.cap)
         result = self.protected.test(self.player)
         self.assertFalse(result)

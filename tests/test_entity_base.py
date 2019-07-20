@@ -28,6 +28,11 @@ class TestEntity(unittest.TestCase):
         self.entity.accept(visitor)
         self.assertTrue(visitor.visit_entity.assert_called)
 
+    def test_repr(self):
+        rep = "<Entity '{}', Name: '{}'>".format(
+            self.entity.spec.id, self.entity.spec.name)
+        self.assertEqual(repr(self.entity), rep)
+
 
 # Supporting classes ###################################################
 
