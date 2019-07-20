@@ -1,4 +1,5 @@
 import unittest
+from unittest import mock
 import dgsl_engine.event_base as event_base
 import dgsl_engine.entity_base as entity_base
 import dgsl_engine.entity_containers as containers
@@ -50,7 +51,7 @@ class TestEvent(unittest.TestCase):
         self.assertEqual(self.event.__repr__(), rep)
 
 
-### Transfers ###
+# Transfers ############################################################
 
 class TestMoveEntity(unittest.TestCase):
     def setUp(self):
@@ -75,12 +76,16 @@ class TestMoveEntity(unittest.TestCase):
         event = event_base.Event('3902483')
         event.message = 'Welcome to the room!'
         self.room.events.add('enter', event)
+        self.room.spec.description = "You are in a ravine"
+        self.entity.spec.name = 'a silver ring'
 
         self.move.destination = self.room
         self.move.message = 'You have moved to a new location.'
         result = self.move.execute(self.entity)
         self.assertEqual(
-            result, 'You have moved to a new location.\nWelcome to the room!')
+            result, ('You have moved to a new location.\n\n'
+                     "You are in a ravine\nThere is a silver ring\n\n"
+                     'Welcome to the room!'))
 
     def test_execute_raises(self):
         self.room.add(self.player)
@@ -158,7 +163,7 @@ class TestTake(unittest.TestCase):
         self.assertEqual(self.take.__repr__(), rep)
 
 
-### Toggles ###
+# Toggles ##############################################################
 
 class TestToggleActive(unittest.TestCase):
     def setUp(self):
@@ -248,6 +253,23 @@ class TestToggleHidden(unittest.TestCase):
 
     def test_repr(self):
         rep = "<ToggleHidden '{}'>".format(self.event.id)
+        self.assertEqual(repr(self.event), rep)
+
+
+class TestEndGame(unittest.TestCase):
+    def setUp(self):
+        self.player = mock.MagicMock()
+        self.event = event_base.EndGame('2394028')
+
+    @mock.patch('dgsl_engine.event_base.Event.execute')
+    def test_execute(self, mock_execute):
+        mock_execute.return_value = "Event message"
+        result = self.event.execute(self.player)
+        self.assertTrue(self.player.hidden)
+        self.assertEqual(result, 'Event message')
+
+    def test_repr(self):
+        rep = "<EndGame '{}'>".format(self.event.id)
         self.assertEqual(repr(self.event), rep)
 
 
