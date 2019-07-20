@@ -260,14 +260,14 @@ class CheckInventory(Action):
         if entity is None:
             result = ["You are carrying ..."]
             if self.player.inventory.items:
-                for item in self.player:
+                for item in self.player.inventory.items:
                     result.append(item.spec.name)
             else:
                 result.append("Nothing")
 
             result.append("\nYou are wearing ...")
             if self.player.equipped.equipment:
-                for item in self.player.equipped:
+                for item in self.player.equipped.equipment:
                     result.append(item.spec.name)
             else:
                 result.append("Nothing")
@@ -276,6 +276,8 @@ class CheckInventory(Action):
 
         if self.player.inventory.has_item(entity.spec.id):
             return "You have that"
+        if self.player.equipped.wearing(entity):
+            return "You are wearing that"
         return "You don't have that"
 
 
@@ -286,18 +288,18 @@ class Talk(Action):
         if entity is not None:
             if not entity.states.active:
                 # perhaps replace with an inactive message
-                return "They don't have anything to say right now."
+                return "They don't have anything to say right now"
             result = self._execute_event('talk', entity)
             if result is not None:
                 return result
             return "That doesn't talk"
-        return "To whom?"
+        return "To Whom?"
 
 
 class Equip(Action):
     def take_action(self, entity, other):
         if entity is None:
-            return "Equip what?"
+            return "Equip What?"
         # To properly deal with conditional events related to equipping
         # things the actual equip would need to be an event. Then if there
         # is an event (of the right type) it could be consulted. If there is
@@ -347,7 +349,7 @@ class Go(Action):
 
 class Place(Action):
     def take_action(self, entity, other):
-        return "Sorry, that action is not yet available."
+        return "Sorry, that action is not available yet."
 
 
 def move(entity, destination):

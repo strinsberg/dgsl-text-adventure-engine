@@ -326,152 +326,245 @@ class TestLook(unittest.TestCase):
         result = self.action.take_action(self.entity, None)
         self.assertEqual(result, "You see a very nice hat")
 
+
+class TestTalk(unittest.TestCase):
+    def setUp(self):
+        self.npc = mock.MagicMock()
+        self.npc.events.execute.return_value = "Event executed"
+        self.player = mock.MagicMock()
+        self.action = actions.Talk(self.player)
+
+    def test_no_entity(self):
+        result = self.action.take_action(None, None)
+        self.assertEqual(result, 'To Whom?')
+
+    def test_not_active(self):
+        self.npc.states.active = False
+        result = self.action.take_action(self.npc, self.player)
+        self.assertEqual(result, "They don't have anything to say right now")
+
+    def test_has_event(self):
+        self.npc.events.has_event.return_value = True
+        self.npc.events.execute.return_value = "Hello there!"
+
+        result = self.action.take_action(self.npc, None)
+        self.npc.events.has_event.assert_called_with('talk')
+        self.npc.events.execute.assert_called_with('talk', self.player)
+        self.assertEqual(result, "Hello there!")
+
+    def test_has_event_no_result(self):
+        self.npc.events.execute.return_value = None
+
+        result = self.action.take_action(self.npc, None)
+        self.assertEqual(result, "That doesn't talk")
+
+
 # Equipment Actions ####################################################
 
-
-@unittest.skip
-class TestActions(unittest.TestCase):
+class TestInventory(unittest.TestCase):
     def setUp(self):
-        self.action_factory = actions.ActionFactory()
-        self.ent_fact = ent_fact.EntityFactory()
-        self.player = self.ent_fact.new(objects.PLAYER)
-        self.room = self.ent_fact.new(objects.ROOM)
-        self.container = self.ent_fact.new(objects.CONTAINER)
-        self.entity = self.ent_fact.new(objects.ENTITY)
-        self.event = evt_fact.EventFactory().new(objects.INFORM)
+        self.entity = mock.MagicMock()
+        self.entity.spec.name = 'a silver ring'
+        self.equipment = mock.MagicMock(slot='head')
+        self.equipment.spec.name = 'a really big hat'
+        self.player = mock.MagicMock()
+        self.action = actions.CheckInventory(self.player)
 
-    def test_null_entity(self):
-        action = self.action_factory.new("any", None, None, None)
-        self.assertEqual(action.take_action(), "Nothing happens")
+    def test_have_item(self):
+        self.player.inventory.has_item.return_value = True
 
-    def test_get_from_room(self):
-        self.entity.events.add('get', self.event)
-        self.room.add(self.entity)
-        action = self.action_factory.new('get', self.player, self.entity, None)
-        self.assertEqual(action.take_action(),
-                         "You take test entity\nGet it while it's hot")
+        result = self.action.take_action(self.entity, None)
+        self.player.inventory.has_item.assert_called_with(
+            self.entity.spec.id)
+        self.assertEqual(result, "You have that")
 
-    def test_get_from_room_no_event(self):
-        self.room.add(self.entity)
-        action = self.action_factory.new('get', self.player, self.entity, None)
-        self.assertEqual(action.take_action(), "You take test entity")
+    def test_have_item_equipped(self):
+        self.player.inventory.has_item.return_value = False
+        self.player.equipped.wearing.return_value = True
 
-    def test_get_no_target_object(self):
-        action = self.action_factory.new('get', self.player, None, None)
-        self.assertEqual(action.take_action(), "Get what?")
+        result = self.action.take_action(self.equipment, None)
+        self.player.inventory.has_item.assert_called_with(
+            self.equipment.spec.id)
+        self.player.equipped.wearing.assert_called_with(self.equipment)
+        self.assertEqual(result, 'You are wearing that')
 
-    def test_get_player_has(self):
-        self.player.add(self.entity)
-        action = self.action_factory.new('get', self.player, self.entity, None)
-        self.assertEqual(action.take_action(), "You already have it")
+    def test_dont_have_it(self):
+        self.player.inventory.has_item.return_value = False
+        self.player.equipped.wearing.return_value = False
 
-    def test_get_not_obtainable(self):
-        self.entity.states.obtainable = False
-        self.room.add(self.entity)
-        action = self.action_factory.new('get', self.player, self.entity, None)
-        self.assertEqual(action.take_action(), "You can't take that")
-
-    def test_use_has_event(self):
-        self.entity.events.add('use', self.event)
-        self.room.add(self.entity)
-        action = self.action_factory.new('use', self.player, self.entity, None)
-        self.assertEqual(action.take_action(),
-                         "You use test entity\nGet it while it's hot")
-
-    def test_use_no_event(self):
-        self.room.add(self.entity)
-        action = self.action_factory.new('use', self.player, self.entity, None)
-        self.assertEqual(action.take_action(), "You can't use that")
-
-    def test_use_no_target(self):
-        action = self.action_factory.new('use', self.player, None, None)
-        self.assertEqual(action.take_action(), "Use what?")
-
-    def test_drop(self):
-        self.room.add(self.player)
-        self.player.add(self.entity)
-        self.entity.events.add('drop', self.event)
-        action = self.action_factory.new('drop', self.player, self.entity,
-                                         None)
-        self.assertEqual(action.take_action(),
-                         "You drop test entity\nGet it while it's hot")
-
-    def test_drop_no_event(self):
-        self.room.add(self.player)
-        self.player.add(self.entity)
-        action = self.action_factory.new('drop', self.player, self.entity,
-                                         None)
-        self.assertEqual(action.take_action(), 'You drop test entity')
-
-    def test_drop_no_item(self):
-        action = self.action_factory.new('drop', self.player, self.entity,
-                                         None)
-        self.assertEqual(action.take_action(), "You don't have it")
-
-    def test_drop_no_target(self):
-        action = self.action_factory.new('drop', self.player, None, None)
-        self.assertEqual(action.take_action(), "Drop what?")
-
-    def test_look(self):
-        self.room.add(self.player)
-        self.entity.events.add('look', self.event)
-        action = self.action_factory.new('look', self.player, self.entity,
-                                         None)
-        self.assertEqual(
-            action.take_action(),
-            "You see a simple testing object\nGet it while it's hot")
-
-    def test_look_no_event(self):
-        self.room.add(self.player)
-        action = self.action_factory.new('look', self.player, self.entity,
-                                         None)
-        self.assertEqual(action.take_action(),
-                         "You see a simple testing object")
-
-    def test_look_no_target(self):
-        self.room.add(self.player)
-        action = self.action_factory.new('look', self.player, None, None)
-        self.assertEqual(action.take_action(),
-                         "You are in a strange test room")
+        result = self.action.take_action(self.entity, None)
+        self.assertEqual(result, "You don't have that")
 
     def test_check_inventory(self):
-        self.player.add(self.entity)
-        self.player.add(self.container)
-        action = self.action_factory.new('inventory', self.player, None, None)
-        self.assertEqual(action.take_action(), ("You are carrying ...\n"
-                                                "a simple testing object\n"
-                                                "a simple testing object"))
+        self.player.inventory.items = [self.entity]
+        self.player.equipped.equipment = [self.equipment]
 
-    def test_check_inventory_empty(self):
-        action = self.action_factory.new('inventory', self.player, None, None)
-        self.assertEqual(action.take_action(), "You are carrying ...\nNothing")
+        result = self.action.take_action(None, None)
+        self.assertEqual(result, ("You are carrying ...\na silver ring\n\n"
+                                  "You are wearing ...\na really big hat"))
 
-    def test_check_for_item_in_inventory(self):
-        self.player.add(self.entity)
-        action = self.action_factory.new('inventory', self.player, self.entity,
-                                         None)
-        self.assertEqual(action.take_action(), "You have that")
+    def test_check_inventory_nothing(self):
+        self.player.inventory.items = []
+        self.player.equipped.equipment = []
 
-    def test_check_for_item_not_there(self):
-        action = self.action_factory.new('inventory', self.player, self.entity,
-                                         None)
-        self.assertEqual(action.take_action(), "You don't have that")
+        result = self.action.take_action(None, None)
+        self.assertEqual(result, ("You are carrying ...\nNothing\n\n"
+                                  "You are wearing ...\nNothing"))
+
+
+class TestEquip(unittest.TestCase):
+    def setUp(self):
+        self.equipment = mock.MagicMock(slot='head')
+        self.equipment.events.execute.return_value = "Event executed"
+        self.player = mock.MagicMock()
+        self.equipment.owner = self.player
+        self.action = actions.Equip(self.player)
+
+    def test_no_entity(self):
+        result = self.action.take_action(None, None)
+        self.assertEqual(result, 'Equip What?')
+
+    def test_equip(self):
+        self.equipment.events.has_event.return_value = True
+        self.equipment.events.execute.return_value = "Executed event"
+
+        result = self.action.take_action(self.equipment, None)
+        self.player.equipped.equip.assert_called_with(self.equipment)
+        self.player.inventory.remove.assert_called_with(self.equipment.spec.id)
+        self.equipment.events.has_event.assert_called_with('equip')
+        self.equipment.events.execute.assert_called_with('equip', self.player)
+        self.assertEqual(result, "You equip it\nExecuted event")
+
+    def test_equip_no_result(self):
+        self.equipment.events.has_event.return_value = True
+        self.equipment.events.execute.return_value = ''
+
+        result = self.action.take_action(self.equipment, None)
+        self.assertEqual(result, "You equip it")
+
+    def test_equip_no_event(self):
+        self.equipment.events.has_event.return_value = False
+
+        result = self.action.take_action(self.equipment, None)
+        self.equipment.events.execute.assert_not_called()
+        self.assertEqual(result, "You equip it")
+
+    def test_equip_not_equipment(self):
+        self.player.equipped.equip.side_effect = AttributeError('foo')
+
+        result = self.action.take_action(self.equipment, None)
+        self.player.inventory.remove.assert_not_called()
+        self.assertEqual(result, "You can't equip that!")
+
+
+class TestRemove(unittest.TestCase):
+    def setUp(self):
+        self.equipment = mock.MagicMock(slot='head')
+        self.equipment.events.execute.return_value = "Event executed"
+        self.player = mock.MagicMock()
+        self.action = actions.Remove(self.player)
+
+    def test_no_entity(self):
+        result = self.action.take_action(None, None)
+        self.assertEqual(result, 'Remove What?')
+
+    def test_equipped(self):
+        self.player.equipped.wearing.return_value = self.equipment.slot
+        self.player.equipped.remove.return_value = self.equipment
+        self.equipment.events.has_event.return_value = True
+        self.equipment.events.execute.return_value = "Executed event"
+
+        result = self.action.take_action(self.equipment, None)
+        self.player.equipped.wearing.assert_called_with(self.equipment)
+        self.player.equipped.remove.assert_called_with(self.equipment.slot)
+        self.player.add.assert_called_with(self.equipment)
+        self.equipment.events.has_event.assert_called_with('remove')
+        self.equipment.events.execute.assert_called_with('remove', self.player)
+        self.assertEqual(result, 'You remove it\nExecuted event')
+
+    def test_equipped_no_result(self):
+        self.player.equipped.wearing.return_value = self.equipment.slot
+        self.player.equipped.remove.return_value = self.equipment
+        self.equipment.events.has_event.return_value = True
+        self.equipment.events.execute.return_value = ''
+
+        result = self.action.take_action(self.equipment, None)
+        self.assertEqual(result, 'You remove it')
+
+    def test_equipped_no_event(self):
+        self.player.equipped.wearing.return_value = self.equipment.slot
+        self.player.equipped.remove.return_value = self.equipment
+        self.equipment.events.has_event.return_value = False
+
+        result = self.action.take_action(self.equipment, None)
+        self.equipment.events.execute.assert_not_called()
+        self.assertEqual(result, 'You remove it')
+
+    def test_not_equipped(self):
+        self.player.equipped.wearing.return_value = None
+
+        result = self.action.take_action(self.equipment, None)
+        self.assertEqual(result, 'You are not wearing that!')
+
+
+# Not properly implemented #############################################
+
+class TestPlace(unittest.TestCase):
+    def test_for_now(self):
+        self.action = actions.Place(None)
+        self.assertEqual(self.action.take_action(None, None),
+                         "Sorry, that action is not available yet.")
+
+
+# Action Factory #######################################################
+
+class TestActionFactory(unittest.TestCase):
+    def setUp(self):
+        self.fact = actions.ActionFactory()
+
+    def test_drop(self):
+        result = self.fact.new('drop', None)
+        self.assertIsInstance(result, actions.Drop)
+
+    def test_get(self):
+        result = self.fact.new('get', None)
+        self.assertIsInstance(result, actions.Get)
+
+    def test_inventory(self):
+        result = self.fact.new('inventory', None)
+        self.assertIsInstance(result, actions.CheckInventory)
+
+    def test_look(self):
+        result = self.fact.new('look', None)
+        self.assertIsInstance(result, actions.Look)
 
     def test_talk(self):
-        action = self.action_factory.new(
-            'talk', self.player, self.entity, None)
-        self.entity.events.add('talk', self.event)
-        self.assertEqual(action.take_action(), "Get it while it's hot")
+        result = self.fact.new('talk', None)
+        self.assertIsInstance(result, actions.Talk)
 
-    def test_talk_doest_talk(self):
-        action = self.action_factory.new(
-            'talk', self.player, self.entity, None)
-        self.assertEqual(action.take_action(), "That doesn't talk")
+    def test_use(self):
+        result = self.fact.new('use', None)
+        self.assertIsInstance(result, actions.Use)
 
-    def test_talk_no_target(self):
-        action = self.action_factory.new(
-            'talk', self.player, None, None)
-        self.assertEqual(action.take_action(), "To whom?")
+    def test_equip(self):
+        result = self.fact.new('equip', None)
+        self.assertIsInstance(result, actions.Equip)
+
+    def test_remove(self):
+        result = self.fact.new('remove', None)
+        self.assertIsInstance(result, actions.Remove)
+
+    def test_go(self):
+        result = self.fact.new('go', None)
+        self.assertIsInstance(result, actions.Go)
+
+    def test_place(self):
+        result = self.fact.new('give', None)
+        self.assertIsInstance(result, actions.Place)
+
+    def test_not_an_action(self):
+        result = self.fact.new('bad', None)
+        self.assertIsInstance(result, actions.NullAction)
 
 
 # Main #################################################################
