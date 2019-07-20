@@ -1,39 +1,22 @@
 import unittest
+import unittest.mock as mock
 import dgsl_engine.entity_base as entity
-import dgsl_engine.entity_factory as ent_fact
-from . import json_objects
+
+# Constants ############################################################
 
 ID = "1234"
 ID2 = "5678"
 NULL = "Null"
-VERB = "look"
-VERB2 = "use"
-
-# Mocks ###############################################################
+USE = "use"
+LOOK = "look"
 
 
-class MockEvent:
-    def execute(self, entity):
-        return entity.describe()
-
-
-class MockVisitor:
-    def visit_entity(self, entity):
-        self.result = entity.spec.id
-
-
-# Entity tests ########################################################
-
+# Entity tests #########################################################
 
 class TestEntity(unittest.TestCase):
+
     def setUp(self):
         self.entity = entity.Entity(ID)
-
-    def test_init(self):
-        self.assertEqual(self.entity.spec.id, ID)
-        self.assertEqual(self.entity.spec.name, NULL)
-        self.assertEqual(self.entity.states.active, True)
-        self.assertFalse(self.entity.events.events)
 
     def test_describe(self):
         description = "A nice entity"
@@ -41,12 +24,12 @@ class TestEntity(unittest.TestCase):
         self.assertEqual(self.entity.describe(), description)
 
     def test_visit(self):
-        visitor = MockVisitor()
+        visitor = mock.MagicMock()
         self.entity.accept(visitor)
-        self.assertEqual(visitor.result, ID)
+        self.assertTrue(visitor.assert_called)
 
 
-# Supporting classes ##################################################
+# Supporting classes ###################################################
 
 
 class TestSpec(unittest.TestCase):
@@ -87,26 +70,27 @@ class TestStates(unittest.TestCase):
 
 class TestEvents(unittest.TestCase):
     def setUp(self):
-        self.mock_event = MockEvent()
-        self.other_mock_event = MockEvent()
+        self.mock_use = mock.MagicMock()
+        self.mock_use.execute = mock.MagicMock(return_value='You use it')
+        self.mock_look = mock.MagicMock(return_value='It looks good')
         self.events = entity.EntityEvents()
-        self.entity = entity.Entity(ID)
-        self.events.add(VERB, self.mock_event)
+        self.events.add(USE, self.mock_use)
 
     def test_add_new(self):
-        self.assertTrue(self.events.add(VERB2, self.other_mock_event))
-        self.assertTrue(VERB2 in self.events.events)
+        self.assertTrue(self.events.add(LOOK, self.mock_look))
+        self.assertTrue(self.events.events[LOOK] == self.mock_look)
 
     def test_add_already_there(self):
-        self.assertFalse(self.events.add(VERB, self.mock_event))
+        self.assertFalse(self.events.add(USE, self.mock_use))
 
     def test_has(self):
-        self.events.add(VERB, self.mock_event)
-        self.assertTrue(self.events.has_event(VERB))
+        self.events.add(USE, self.mock_use)
+        self.assertTrue(self.events.has_event(USE))
 
     def test_execute(self):
-        self.events.add(VERB, self.mock_event)
-        self.assertEqual(self.events.execute(VERB, self.entity), NULL)
+        self.events.add(USE, self.mock_use)
+        self.assertTrue(self.mock_use.execute.assert_called)
+        self.assertEqual(self.events.execute(USE, None), 'You use it')
 
 
 class TestInventory(unittest.TestCase):
@@ -140,26 +124,25 @@ class TestInventory(unittest.TestCase):
 
 class TestEquipped(unittest.TestCase):
     def setUp(self):
-        self.fact = ent_fact.EntityFactory()
-        self.equipment = self.fact.new(json_objects.EQUIPMENT)
-        self.equipment2 = self.fact.new(json_objects.EQUIPMENT2)
+        self.mock_hat = mock.MagicMock(slot='head')
         self.equipped = entity.Equipped(None)
 
     def test_equip(self):
-        old = self.equipped.equip(self.equipment)
-        self.assertIs(self.equipped.equipment['head'], self.equipment)
+        old = self.equipped.equip(self.mock_hat)
+        self.assertIs(self.equipped.equipment['head'], self.mock_hat)
         self.assertIsNone(old)
 
     def test_equip_already_there(self):
-        self.equipped.equip(self.equipment)
-        old = self.equipped.equip(self.equipment2)
-        self.assertIs(self.equipped.equipment['head'], self.equipment2)
-        self.assertIs(old, self.equipment)
+        mock_helmet = mock.MagicMock(slot='head')
+        self.equipped.equip(self.mock_hat)
+        old = self.equipped.equip(mock_helmet)
+        self.assertIs(self.equipped.equipment['head'], mock_helmet)
+        self.assertIs(old, self.mock_hat)
 
     def test_remove(self):
-        self.equipped.equip(self.equipment)
+        self.equipped.equip(self.mock_hat)
         ent = self.equipped.remove('head')
-        self.assertIs(ent, self.equipment)
+        self.assertIs(ent, self.mock_hat)
         self.assertNotIn('head', self.equipped.equipment)
 
     def test_remove_not_there(self):
@@ -168,14 +151,25 @@ class TestEquipped(unittest.TestCase):
         self.assertIsNone(ent)
 
     def test_get(self):
-        self.equipped.equip(self.equipment)
+        self.equipped.equip(self.mock_hat)
         ent = self.equipped.get('head')
-        self.assertIs(ent, self.equipment)
-        self.assertIs(self.equipped.equipment['head'], self.equipment)
+        self.assertIs(ent, self.mock_hat)
+        self.assertIs(self.equipped.equipment['head'], self.mock_hat)
 
     def test_get_not_there(self):
         ent = self.equipped.get('head')
-        self.assertIsNone(ent, self.equipment)
+        self.assertIsNone(ent, self.mock_hat)
+
+    def test_wearing(self):
+        self.mock_hat.spec = mock.MagicMock(name='hat')
+        self.equipped.equip(self.mock_hat)
+        wearing = self.equipped.wearing(self.mock_hat)
+        self.assertIs(wearing, self.mock_hat.slot)
+
+    def test_not_wearing(self):
+        self.mock_hat.spec = mock.MagicMock(name='hat')
+        wearing = self.equipped.wearing(self.mock_hat)
+        self.assertIsNone(wearing)
 
 
 # Main #################################################################

@@ -16,6 +16,7 @@ General
 * consider this a beta release 0.1 and start using changelog and branches when making changes.
 * Get setup.py setup so it is possible to install and run the game.
 * Figure out how to get the docs hosted on the gitlab webpage so they are viewable once it is public. This might need to wait until it is public.
+* should find a way to use a different readme on github and gitlab
 
 Features and Fixes
 ------------------
