@@ -7,7 +7,7 @@
       "name": "list",
       "once": 0,
       "subjects": [],
-      "type": "inform",
+      "type": "event",
       "verb": "use"
     },
     "53b33006-f98c-430e-aee0-53002171c8b8": {
