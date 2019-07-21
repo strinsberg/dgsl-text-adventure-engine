@@ -6,37 +6,18 @@ DGSL Text Adventure Engine
 
 The DGSL Text Adventure Engine is a program for running custom text based adventure games.
 
-Game worlds can be created using the DGSL World Editor (add link). **No Coding Required**. These worlds can then be loaded by the engine and played. You can then share them with your friends that also have a copy of the DGSL engine.
+## Goal
+To allow people to build and share their own text based adventure games without needing to know how to program.
 
-**Note** This project is still a work in progress. With the world editor and game engine it is possible to create worlds and play them, but both programs may be subject to changes that break compatibility with older versions.
+## Status
+This program will eventually have some sample worlds added. This will allow users to get a feel for what is possible with the engine. Unfortunately these sample worlds are not yet available.
 
-The engine comes with 2 Test worlds. The first 'Disaster on the Good Ship Lethbridge' was part of a school group project by myself and Max Niu. This project was also the inspiration for the game engine, hence the DGSL in the title. The second world 'Mystery of Stumplewood' is designed to showcase some of the capability of the engine and world editor. As a story it may be lacking a little bit, but it should be a good example of the complex behavior that can added to the games.
+Both programs are still in early development and subject to major changes. Also, Without a proper set of instructions for using the world editor, and some kind of validation script to help detect errors in custom worlds, it is not ready for public use yet.
 
-This project is designed to allow people to make and share their own text based adventure games with each other without needing to know how to computer program. The style of games intended to be made with it is more like the old school text adventure games where the player explores a world and interacts with items and other characters.
+Once some sample worlds are created and added to the repo then some instructions for installation and use will be added.
 
-This project is not designed to create interactive novels where text is given and a player picks an option and then more text is given. It may be possible to do this with the engine, but it would likely be unpleasant. There are many other tools that can be used for doing this.
+## Additional Info
+This program is an extension of a C++ text adventure game that myself and Max Niu created in the spring of 2019 for University of Lethbridge cpsc2720. I have taken parts of the design and ported them to python 3 and made it possible to load game information from json files. I then wrote the companion world editor to facilitate world construction and editing. My hope is that it will be possible for people with no programming knowledge to build interesting and even complex text based games and share them with their friends easily. However, the goal is not to make a program that can do absolutely anything. There will be limitations on the kinds of games that can be built.
 
-Another thing that may be conspicuously lacking is any kind of combat system and stats. There are some features that allow a player to where equipment that can protect them and eventually it will be possible to use tools or weapons that could affect other items or characters. However, these will all be one time actions that will have the desired effect or fail. eg) hitting a person with a sword will just kill them if they are not protected from it. It will not do x damage and then give them the opportunity to retaliate. There is no health and mana etc. This is not because these things might not be fun, but they add a lot of complexity and there are many other game types that do this kind of thing better.
-
-Installation
-============
-
-There is no way as yet to install.
-
-To give it a try
-1. clone the repo and cd into it
-2. run the quick start script
-
-```
-$ python3 dgsl-quickstart
-```
-
-3. copy a world from the worlds directory into .dgsl/worlds/
-4. run the program
-
-```
-$ python3 dgsl.py
-```
-
-
-**Additional instructions and user information coming soon.**
+## Updates
+I hope to have the sample worlds and some documentation done by the end of summer 2019. time permitting, I would also like to have enough documentation available for the world editor to make public beta use possible. When updates are available I will update the repo with necessary information.

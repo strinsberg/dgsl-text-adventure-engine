@@ -40,7 +40,6 @@ Events
 ------
 * It would be interesting to find a way to allow more entities than the player to be affected by events.
 
-
 Environment
 -----------
 * It would be cool to have environments that could be added to a room. This could then allow some different actions in the room or something like that. Though I am not sure how it could be made easily customizable.
