@@ -19,5 +19,7 @@ Once some sample worlds are created and added to the repo then some instructions
 ## Additional Info
 This program is an extension of a C++ text adventure game that myself and Max Niu created in the spring of 2019 for University of Lethbridge cpsc2720. I have taken parts of the design and ported them to python 3 and made it possible to load game information from json files. I then wrote the companion world editor to facilitate world construction and editing. My hope is that it will be possible for people with no programming knowledge to build interesting and even complex text based games and share them with their friends easily. However, the goal is not to make a program that can do absolutely anything. There will be limitations on the kinds of games that can be built.
 
+The project is mirrored on GitHub and GitLab to take advantage of GitLabs continuous integration tools.
+
 ## Updates
 I hope to have the sample worlds and some documentation done by the end of summer 2019. time permitting, I would also like to have enough documentation available for the world editor to make public beta use possible. When updates are available I will update the repo with necessary information.
