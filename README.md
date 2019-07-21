@@ -31,21 +31,12 @@ To give it a try
 $ python3 dgsl-quickstart
 ```
 
-3. run the program
+3. copy a world from the worlds directory into .dgsl/worlds/
+4. run the program
 
 ```
 $ python3 dgsl.py
 ```
 
-How To Play a World
-===================
 
-The DGSL World Editor will have instructions for making worlds.
-
-If you have a .world file place it in .dgsl/worlds directory that should be located in your home directory if you ran the quick start.
-
-When you start the engine select the option to load a world (saved games are not possible yet). Enter the name of your world and the game should start.
-
-Type help to get information on how to enter commands and what commands are available.
-
-TODO: Create a more detailed user manual.
+**Additional instructions and user information coming soon.**

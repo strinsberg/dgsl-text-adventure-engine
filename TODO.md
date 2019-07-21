@@ -5,17 +5,18 @@ Priority
 --------
 
 * hidden items are not properly hidden for some verbs or methods of collection.
+* Add proper documentation to all classes and methods
+* Get coverage back to 100%
 
 General
 -------
 
-* **Fix unit tests**. They need to be updated to work with the changes and bug fixes. Also try to make them cleaner and use proper testing structures so they are not so coupled to other modules.
+* Add some documentation on how to use the project.
+* Update unit tests to use mocks so they are less coupled and cleaner
 * Add the new testing world to the test folder and update continuous integration to make a proper folder and copy it if need be to run a game creation or world creation test.
-* Work on the documentation for both the code and using the engine.
 * Do some UML diagrams for current design elements
-* consider this a beta release 0.1 and start using changelog and branches when making changes.
 * Get setup.py setup so it is possible to install and run the game.
-* Figure out how to get the docs hosted on the gitlab webpage so they are viewable once it is public. This might need to wait until it is public.
+* Figure out how to get the docs hosted on the gitlab webpage so they are viewable.
 * should find a way to use a different readme on github and gitlab
 
 Features and Fixes
@@ -37,10 +38,7 @@ Ideas
 
 Events
 ------
-* I wonder if in the future it would be possible to decide what in a room is affected by an action? Say the player does something that is not directly to an object, but that object wants to respond to that action anyway? Could they observe the player when they enter the room? and then un-observe when they leave again? Then the player could have events in their own events object under the games verbs and they could do nothing but be observable. I suppose that then quests and other things would be able to subscribe to the player and be activated when the player did things. It would have to be a different kind of observer pair than the events have I think. Some information might need to be passed to notify (like the verb). maybe there could even be different ones for different things, like an entity observer and a quest observer. Also perhaps even other events can subscribe to these events easily. That way they could be triggered on a specific player action.
-* There could even be one that was for all player actions. Then the entity and quest notify could just send info rather than having the events observed. The entity could just be told what verb was used and execute the associated event if it has it. If the entity has many events but only one that they want to observe the player then they can just have that event registered directly. This would be more flexible.
-* Another thing is how actions that would affect every entity in the room would work? Maybe they could just get the contents of the room they are in and do something to all of them. Could even use a visitor to get certain kinds of things based on the type of event it is. I imagine this would be the best way to do it. Probably even instead of using the entity of the event the affected of the event could be used to get all things in the room.
-* it might be necessary to have a way to register with the player for all actions. Or there could be a way to have a special event tag that would be run after the players action by the game. Say hidden verbs that end with _turnend. Then before looking for input, or even before showing the results each object in the players current room could be searched for events that have the right verb and they could all be run one at a time and their affects applied to the player. I think for starters it would be esiest to have them subscribe directly to player events.
+* It would be interesting to find a way to allow more entities than the player to be affected by events.
 
 
 Environment
