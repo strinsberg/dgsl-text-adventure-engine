@@ -19,9 +19,6 @@ General
 * Get setup.py setup so it is possible to install and run the game.
 * Add save and load commands
 
-Features and Fixes
-------------------
-
 Ideas
 =====
 
