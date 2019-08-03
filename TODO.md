@@ -34,7 +34,7 @@ Quests
 ------
 
 * implicit quests are fine, but it would be cool to have some kind of simple quest system with a quest log to keep track of things you are asked to do. Puzzles can still force the player to find and do things without being told, but having quests can give the player an idea of what to work on next and add story elements.
-* Quest log would be a compnent added to the player that could be accessed with it's own command. Once open it could be it's own sub-process with it's own commands and output.
+* Quest log would be a component added to the player that could be accessed with it's own command. Once open it could be it's own sub-process with it's own commands and output.
 * There could be events for adding and removing quests from a players quest log. So you could talk to someone and they would give you a quest, or you could get an object and it would start a quest.
 * There could also be conditions to check to see if a player had a particular quest or had finished a quest.
 * quests could be their own type and work similar to events and conditions. They could have information that would be displayed in the quest log. They could have a condition attached to them and be setup to check those conditions at certain times or when certain actions were performed. They could also have a completion event and a field that would record if they were complete. Some might need to check periodically to make sure they were still completed, like events that require you to collect an item. If it was dropped the quest would have to be notified.
@@ -45,7 +45,9 @@ Events
 * It would be interesting to find a way to allow more entities than the player to be affected by events.
 * It should be possible to associate more than one verb with an event. Possibly have the main verb as the key in the events table and then extra verbs in an event object as the value. If a verb isn't found it can check the extra verbs in each event and see if its there before saying false. Or events can be stored in a tuple with a list of verbs and the event object. Since there will never be enough events to make searching for one this way time consuming it is probably simplest. Then each events verb list can be checked to run the appropriate event.
 * When implementing observers and notify it may be necessary to add some more flexibility to it. Sending the verb that was used might be a start. Also, instead of just executing events there might be a way to execute them differently based on the notify, like not printing a message if notified. Also, call order with notify might be difficult.
-* A dynamic move event that somehow remebers where you moved from so it can take you back. Say for carrying an item that moves you to a location that is not accessible by any other means. You would want to go back to where you left from or at least a convinient location close by.
+* A dynamic move event that somehow remembers where you moved from so it can take you back. Say for carrying an item that moves you to a location that is not accessible by any other means. You would want to go back to where you left from or at least a convenient location close by.
+* Change description event, or an event that is triggered in addition to the description so you can put all the stuff that might change in the event and it can update when it needs to.
+* Different ways to subscribe to an observer so that the event that subscribed can behave in an appropriate way. As in you can pass the message that you want notify to pass back to you and determine what to do with it. Or even pass a function or object that will do the right thing when called so that there do not have to be if-then-else in notify. though there will likely not be too many different notify situations for an event. Plus this kid of thing will have to be added to the editor so it needs to remain simple.
 
 Environment
 -----------
