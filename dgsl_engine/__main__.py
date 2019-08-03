@@ -1,10 +1,10 @@
 """Script to run the DGSL Application."""
 import os
+import site
 from dgsl_engine.game_factory import GameFactory, name_to_path
 from dgsl_engine.user_input import Menu
 
-VERSION = 0.1
-DGSL_DIR = os.path.join(os.path.expanduser('~'), '.dgsl')
+VERSION = '0.2.0'
 
 
 def main():
@@ -24,7 +24,7 @@ def main():
     if idx == 0:
         world_name = input("What world would you like to load? ")
         world_path = os.path.join(
-            DGSL_DIR, 'worlds', name_to_path(world_name))
+            site.USER_BASE, 'worlds', name_to_path(world_name))
 
         if os.path.exists(world_path):
             game = GameFactory().new(world_path)
