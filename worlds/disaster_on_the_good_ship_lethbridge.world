@@ -1,0 +1,732 @@
+{
+  "name": "Disaster on The Good Ship Lethbridge",
+  "objects": {
+    "0e6abdf6-df33-462a-a3c2-b9b2abc499cb": {
+      "active": 0,
+      "description": "a standard automatic ships door",
+      "events": [
+        {
+          "id": "e8eaa49e-3193-4f00-a297-9ec40b828d76",
+          "name": "to main hall",
+          "verb": "use"
+        }
+      ],
+      "hidden": 0,
+      "id": "0e6abdf6-df33-462a-a3c2-b9b2abc499cb",
+      "items": [],
+      "name": "a door to the main hall",
+      "obtainable": 0,
+      "type": "entity"
+    },
+    "0f86cffb-0628-4cf8-a38a-65af2a28a38d": {
+      "destination": {
+        "id": "b2d67ca5-e43e-422b-b64b-eab7fa5b2214",
+        "name": "the main engine control room"
+      },
+      "id": "0f86cffb-0628-4cf8-a38a-65af2a28a38d",
+      "message": "",
+      "name": "to engineering",
+      "once": 0,
+      "subjects": [],
+      "type": "move",
+      "verb": "use"
+    },
+    "1479d359-f0a4-470a-a9cc-826c55084c7c": {
+      "active": 0,
+      "description": "a standard automatic ships door",
+      "events": [
+        {
+          "id": "1f075ec7-6658-4e20-a381-b77be88fd721",
+          "name": "to spanners",
+          "verb": "use"
+        }
+      ],
+      "hidden": 0,
+      "id": "1479d359-f0a4-470a-a9cc-826c55084c7c",
+      "items": [],
+      "name": "a door to the engineer's quaters",
+      "obtainable": 0,
+      "type": "entity"
+    },
+    "1b24d759-8cb4-436f-841b-b518c71a8091": {
+      "active": 1,
+      "description": "a standard automatic sliding door. There is a little grease on it.",
+      "events": [
+        {
+          "id": "9c6d130c-f1ea-403d-a118-184f6e800130",
+          "name": "to common",
+          "verb": "use"
+        }
+      ],
+      "hidden": 0,
+      "id": "1b24d759-8cb4-436f-841b-b518c71a8091",
+      "items": [],
+      "name": "a door to the common area",
+      "obtainable": 0,
+      "type": "entity"
+    },
+    "1f075ec7-6658-4e20-a381-b77be88fd721": {
+      "destination": {
+        "id": "d13cabdc-56a5-458a-a534-e519d3dcbfb0",
+        "name": "the engineers quaters"
+      },
+      "id": "1f075ec7-6658-4e20-a381-b77be88fd721",
+      "message": "",
+      "name": "to spanners",
+      "once": 0,
+      "subjects": [],
+      "type": "move",
+      "verb": "use"
+    },
+    "23f53553-707a-4e19-ab17-fc9bbacc0e12": {
+      "destination": {
+        "id": "e491a8e1-3639-42ec-ac69-3fe4f66d8680",
+        "name": "the main hall"
+      },
+      "id": "23f53553-707a-4e19-ab17-fc9bbacc0e12",
+      "message": "",
+      "name": "to hall",
+      "once": 0,
+      "subjects": [],
+      "type": "move",
+      "verb": "use"
+    },
+    "2a85434f-aa2e-4b1d-9fd9-af15efcfa51c": {
+      "destination": {
+        "id": "92b64fee-c7ea-48e1-93f5-3ffd409251e1",
+        "name": "The captain's quaters"
+      },
+      "id": "2a85434f-aa2e-4b1d-9fd9-af15efcfa51c",
+      "message": "",
+      "name": "to captains",
+      "once": 0,
+      "subjects": [],
+      "type": "move",
+      "verb": "use"
+    },
+    "354d0019-9a3c-4a2b-89c2-470c47ca662d": {
+      "active": 1,
+      "description": "a thick metal door that leads first through a decompression chamber and then into empty space",
+      "events": [
+        {
+          "id": "d62ab09d-dfbe-4aa0-9b3d-4e60816f2617",
+          "name": "to space",
+          "verb": "use"
+        }
+      ],
+      "hidden": 0,
+      "id": "354d0019-9a3c-4a2b-89c2-470c47ca662d",
+      "items": [],
+      "name": "an airlock to space",
+      "obtainable": 0,
+      "type": "entity"
+    },
+    "369fae2e-677e-4c07-b24d-fa3d1ea4a6be": {
+      "active": 1,
+      "description": "a thick metal door that leads first through a decompression chamber and then into the bridge",
+      "events": [
+        {
+          "id": "c6ba8b8e-02dd-4abb-9ed2-47527b4a0c71",
+          "name": "to bridge",
+          "verb": "use"
+        }
+      ],
+      "hidden": 0,
+      "id": "369fae2e-677e-4c07-b24d-fa3d1ea4a6be",
+      "items": [],
+      "name": "an airlock to the bridge",
+      "obtainable": 0,
+      "type": "entity"
+    },
+    "395b34a3-81e6-4927-b0c8-990caba6ee2d": {
+      "active": 1,
+      "description": "a standard automatic sliding door",
+      "events": [
+        {
+          "id": "23f53553-707a-4e19-ab17-fc9bbacc0e12",
+          "name": "to hall",
+          "verb": "use"
+        }
+      ],
+      "hidden": 0,
+      "id": "395b34a3-81e6-4927-b0c8-990caba6ee2d",
+      "items": [],
+      "name": "a door to the main hall",
+      "obtainable": 0,
+      "type": "entity"
+    },
+    "40938473-f9dc-416d-a20a-3ec5523cfba1": {
+      "destination": {
+        "id": "52ed4341-e36d-4950-afcc-9df72ebfbded",
+        "name": "the cargo bay"
+      },
+      "id": "40938473-f9dc-416d-a20a-3ec5523cfba1",
+      "message": "",
+      "name": "to cargo",
+      "once": 0,
+      "subjects": [],
+      "type": "move",
+      "verb": "use"
+    },
+    "4cd5e361-8219-4446-ba99-b8847a4f7dbc": {
+      "active": 1,
+      "description": "You are on the bridge. It is the command center for your small ship. There are control stations and a nice looking captains chair in the center. Your first mate Lars Philbur is suspended from the cieling with tenacles you are pretty sure he didn't have the last time you saw him.",
+      "events": [],
+      "hidden": 0,
+      "id": "4cd5e361-8219-4446-ba99-b8847a4f7dbc",
+      "items": [
+        {
+          "id": "354d0019-9a3c-4a2b-89c2-470c47ca662d",
+          "name": "an airlock to space"
+        }
+      ],
+      "name": "the command bridge",
+      "obtainable": 0,
+      "type": "room"
+    },
+    "52ed4341-e36d-4950-afcc-9df72ebfbded": {
+      "active": 1,
+      "description": "You are in a room that holds the ships cargo. There are large crates and containers everywhere.",
+      "events": [],
+      "hidden": 0,
+      "id": "52ed4341-e36d-4950-afcc-9df72ebfbded",
+      "items": [
+        {
+          "id": "5be0d983-5530-492f-92d0-8ce7ce16965e",
+          "name": "a door to the main hall"
+        },
+        {
+          "id": "c3466729-6d04-4ed1-88ff-8e88ecc58f7e",
+          "name": "an airlock to space"
+        }
+      ],
+      "name": "the cargo bay",
+      "obtainable": 0,
+      "type": "room"
+    },
+    "57b77b5c-e272-4659-8c71-7c03bb656d28": {
+      "active": 1,
+      "description": "a view of debris drifting by. Most likely from the lethbridge.",
+      "events": [],
+      "hidden": 0,
+      "id": "57b77b5c-e272-4659-8c71-7c03bb656d28",
+      "items": [],
+      "name": "a viewport",
+      "obtainable": 0,
+      "type": "entity"
+    },
+    "5867b324-9c12-4a5d-b82a-b55da38314a1": {
+      "destination": {
+        "id": "ada661e4-6290-4766-b773-d8ceab8a47d2",
+        "name": "the common area"
+      },
+      "id": "5867b324-9c12-4a5d-b82a-b55da38314a1",
+      "message": "",
+      "name": "to common",
+      "once": 0,
+      "subjects": [],
+      "type": "move",
+      "verb": "use"
+    },
+    "5be0d983-5530-492f-92d0-8ce7ce16965e": {
+      "active": 1,
+      "description": "a standard automatic sliding door",
+      "events": [
+        {
+          "id": "9a526739-3ae5-4f63-b191-7789431e162f",
+          "name": "to hall",
+          "verb": "use"
+        }
+      ],
+      "hidden": 0,
+      "id": "5be0d983-5530-492f-92d0-8ce7ce16965e",
+      "items": [],
+      "name": "a door to the main hall",
+      "obtainable": 0,
+      "type": "entity"
+    },
+    "633e93c7-2ce2-4bb8-9272-8711ba132497": {
+      "active": 0,
+      "description": "a standard automatic ships door",
+      "events": [
+        {
+          "id": "0f86cffb-0628-4cf8-a38a-65af2a28a38d",
+          "name": "to engineering",
+          "verb": "use"
+        }
+      ],
+      "hidden": 0,
+      "id": "633e93c7-2ce2-4bb8-9272-8711ba132497",
+      "items": [],
+      "name": "a door to main engineering",
+      "obtainable": 0,
+      "type": "entity"
+    },
+    "66826359-b459-4f07-b1d8-6b08fa72837b": {
+      "active": 1,
+      "description": "a door to main engineering. It first leads through a decontamination chamber.",
+      "events": [
+        {
+          "id": "e7982f9a-d2d5-4123-aba9-b52a59bccb93",
+          "name": "to engineering",
+          "verb": "use"
+        }
+      ],
+      "hidden": 0,
+      "id": "66826359-b459-4f07-b1d8-6b08fa72837b",
+      "items": [],
+      "name": "a door to main engineering",
+      "obtainable": 0,
+      "type": "entity"
+    },
+    "6c93d1b1-7dde-4726-b769-bb763c66f258": {
+      "active": 1,
+      "description": "a door much thicker than other doors you have used. There is a large radiation warning symbol on it. It first leads through a decontamination chamber.",
+      "events": [
+        {
+          "id": "9dc0de85-fd65-4b45-8c5a-e1cfff759db4",
+          "name": "to reactor",
+          "verb": "use"
+        }
+      ],
+      "hidden": 0,
+      "id": "6c93d1b1-7dde-4726-b769-bb763c66f258",
+      "items": [],
+      "name": "a door to the reactor room",
+      "obtainable": 0,
+      "type": "entity"
+    },
+    "72838d2e-6927-4822-8ff6-f81f758640c6": {
+      "active": 1,
+      "description": "a standard automatic sliding door",
+      "events": [
+        {
+          "id": "5867b324-9c12-4a5d-b82a-b55da38314a1",
+          "name": "to common",
+          "verb": "use"
+        }
+      ],
+      "hidden": 0,
+      "id": "72838d2e-6927-4822-8ff6-f81f758640c6",
+      "items": [],
+      "name": "a door to the common area",
+      "obtainable": 0,
+      "type": "entity"
+    },
+    "776091ab-be5b-4452-97f8-1d56cf361ac2": {
+      "active": 1,
+      "description": "a standard automatic sliding door",
+      "events": [
+        {
+          "id": "2a85434f-aa2e-4b1d-9fd9-af15efcfa51c",
+          "name": "to captains",
+          "verb": "use"
+        }
+      ],
+      "hidden": 0,
+      "id": "776091ab-be5b-4452-97f8-1d56cf361ac2",
+      "items": [],
+      "name": "a door to the captain's quaters",
+      "obtainable": 0,
+      "type": "entity"
+    },
+    "92b64fee-c7ea-48e1-93f5-3ffd409251e1": {
+      "active": 1,
+      "description": "You are in the best room on the ship. It has nice furnishings and is a lot larger than the other crew members' quaters. It is your sanctuary from the demands of your position.",
+      "events": [],
+      "hidden": 0,
+      "id": "92b64fee-c7ea-48e1-93f5-3ffd409251e1",
+      "items": [
+        {
+          "id": "72838d2e-6927-4822-8ff6-f81f758640c6",
+          "name": "a door to the common area"
+        },
+        {
+          "id": "57b77b5c-e272-4659-8c71-7c03bb656d28",
+          "name": "a viewport"
+        },
+        {
+          "id": "c34d74c0-ef3b-4c33-bfff-2fa0349d4a59",
+          "name": "a computer terminal"
+        }
+      ],
+      "name": "The captain's quaters",
+      "obtainable": 0,
+      "type": "room"
+    },
+    "9a526739-3ae5-4f63-b191-7789431e162f": {
+      "destination": {
+        "id": "e491a8e1-3639-42ec-ac69-3fe4f66d8680",
+        "name": "the main hall"
+      },
+      "id": "9a526739-3ae5-4f63-b191-7789431e162f",
+      "message": "",
+      "name": "to hall",
+      "once": 0,
+      "subjects": [],
+      "type": "move",
+      "verb": "use"
+    },
+    "9c6d130c-f1ea-403d-a118-184f6e800130": {
+      "destination": {
+        "id": "ada661e4-6290-4766-b773-d8ceab8a47d2",
+        "name": "the common area"
+      },
+      "id": "9c6d130c-f1ea-403d-a118-184f6e800130",
+      "message": "",
+      "name": "to common",
+      "once": 0,
+      "subjects": [],
+      "type": "move",
+      "verb": "use"
+    },
+    "9dc0de85-fd65-4b45-8c5a-e1cfff759db4": {
+      "destination": {
+        "id": "a5ecea92-6235-4318-baac-8a3f6161c839",
+        "name": "the reactor room"
+      },
+      "id": "9dc0de85-fd65-4b45-8c5a-e1cfff759db4",
+      "message": "",
+      "name": "to reactor",
+      "once": 0,
+      "subjects": [],
+      "type": "move",
+      "verb": "use"
+    },
+    "a5ecea92-6235-4318-baac-8a3f6161c839": {
+      "active": 1,
+      "description": "You are in a room with a massive fusion reactor. There are conduits and cables running everywhere. The room has been flooded with gamma radiation and will likely take a very long time to decontaminate.",
+      "events": [],
+      "hidden": 0,
+      "id": "a5ecea92-6235-4318-baac-8a3f6161c839",
+      "items": [
+        {
+          "id": "66826359-b459-4f07-b1d8-6b08fa72837b",
+          "name": "a door to main engineering"
+        }
+      ],
+      "name": "the reactor room",
+      "obtainable": 0,
+      "type": "room"
+    },
+    "ada661e4-6290-4766-b773-d8ceab8a47d2": {
+      "active": 1,
+      "description": "You are in a room where the crew relax and socialize after a long day in space",
+      "events": [],
+      "hidden": 0,
+      "id": "ada661e4-6290-4766-b773-d8ceab8a47d2",
+      "items": [
+        {
+          "id": "776091ab-be5b-4452-97f8-1d56cf361ac2",
+          "name": "a door to the captain's quaters"
+        },
+        {
+          "id": "1479d359-f0a4-470a-a9cc-826c55084c7c",
+          "name": "a door to the engineer's quaters"
+        },
+        {
+          "id": "0e6abdf6-df33-462a-a3c2-b9b2abc499cb",
+          "name": "a door to the main hall"
+        }
+      ],
+      "name": "the common area",
+      "obtainable": 0,
+      "type": "room"
+    },
+    "b2d67ca5-e43e-422b-b64b-eab7fa5b2214": {
+      "active": 1,
+      "description": "You are in main engineering. There are controls panels and displays everywhere.",
+      "events": [],
+      "hidden": 0,
+      "id": "b2d67ca5-e43e-422b-b64b-eab7fa5b2214",
+      "items": [
+        {
+          "id": "6c93d1b1-7dde-4726-b769-bb763c66f258",
+          "name": "a door to the reactor room"
+        },
+        {
+          "id": "395b34a3-81e6-4927-b0c8-990caba6ee2d",
+          "name": "a door to the main hall"
+        }
+      ],
+      "name": "the main engine control room",
+      "obtainable": 0,
+      "type": "room"
+    },
+    "b30f6bde-ce86-49e4-a31d-ff89151138e1": {
+      "id": "b30f6bde-ce86-49e4-a31d-ff89151138e1",
+      "message": "There is no way you can use this door. Not even a core wrench could fix it. Better find another way to the bridge.",
+      "name": "broken",
+      "once": 0,
+      "subjects": [],
+      "type": "event",
+      "verb": "use"
+    },
+    "c3466729-6d04-4ed1-88ff-8e88ecc58f7e": {
+      "active": 1,
+      "description": "a thick metal door that leads first through a decompression chamber and then into empty space",
+      "events": [
+        {
+          "id": "e1da3322-4b6f-43cc-8425-7e2c6317fb4f",
+          "name": "to space",
+          "verb": "use"
+        }
+      ],
+      "hidden": 0,
+      "id": "c3466729-6d04-4ed1-88ff-8e88ecc58f7e",
+      "items": [],
+      "name": "an airlock to space",
+      "obtainable": 0,
+      "type": "entity"
+    },
+    "c34d74c0-ef3b-4c33-bfff-2fa0349d4a59": {
+      "active": 1,
+      "description": "",
+      "events": [],
+      "hidden": 0,
+      "id": "c34d74c0-ef3b-4c33-bfff-2fa0349d4a59",
+      "items": [],
+      "name": "a computer terminal",
+      "obtainable": 0,
+      "type": "entity"
+    },
+    "c6ba8b8e-02dd-4abb-9ed2-47527b4a0c71": {
+      "destination": {
+        "id": "4cd5e361-8219-4446-ba99-b8847a4f7dbc",
+        "name": "the command bridge"
+      },
+      "id": "c6ba8b8e-02dd-4abb-9ed2-47527b4a0c71",
+      "message": "",
+      "name": "to bridge",
+      "once": 0,
+      "subjects": [],
+      "type": "move",
+      "verb": "use"
+    },
+    "cb484fe1-5a90-42a9-95fb-9cb7ac04c899": {
+      "active": 0,
+      "description": "a standard automatic sliding door",
+      "events": [
+        {
+          "id": "d43e97a7-67e1-4879-b5dc-64ddad6c7449",
+          "name": "to cargo",
+          "verb": "use"
+        }
+      ],
+      "hidden": 0,
+      "id": "cb484fe1-5a90-42a9-95fb-9cb7ac04c899",
+      "items": [],
+      "name": "a door to the cargo bay",
+      "obtainable": 0,
+      "type": "entity"
+    },
+    "cb94965d-3348-45e3-b9c9-7e8383f1a732": {
+      "destination": {
+        "id": "ada661e4-6290-4766-b773-d8ceab8a47d2",
+        "name": "the common area"
+      },
+      "id": "cb94965d-3348-45e3-b9c9-7e8383f1a732",
+      "message": "",
+      "name": "to common",
+      "once": 0,
+      "subjects": [],
+      "type": "move",
+      "verb": "use"
+    },
+    "d13cabdc-56a5-458a-a534-e519d3dcbfb0": {
+      "active": 1,
+      "description": "You are in the room of your engineer Clem Spanner. There are tools lying around and technical schematics up on his wall monitor.",
+      "events": [],
+      "hidden": 0,
+      "id": "d13cabdc-56a5-458a-a534-e519d3dcbfb0",
+      "items": [
+        {
+          "id": "1b24d759-8cb4-436f-841b-b518c71a8091",
+          "name": "a door to the common area"
+        }
+      ],
+      "name": "the engineers quaters",
+      "obtainable": 0,
+      "type": "room"
+    },
+    "d43e97a7-67e1-4879-b5dc-64ddad6c7449": {
+      "destination": {
+        "id": "52ed4341-e36d-4950-afcc-9df72ebfbded",
+        "name": "the cargo bay"
+      },
+      "id": "d43e97a7-67e1-4879-b5dc-64ddad6c7449",
+      "message": "",
+      "name": "to cargo",
+      "once": 0,
+      "subjects": [],
+      "type": "move",
+      "verb": "use"
+    },
+    "d62ab09d-dfbe-4aa0-9b3d-4e60816f2617": {
+      "destination": {
+        "id": "d8f34d0f-09a6-48ef-9e48-2a4ca540ea74",
+        "name": "outer space"
+      },
+      "id": "d62ab09d-dfbe-4aa0-9b3d-4e60816f2617",
+      "message": "",
+      "name": "to space",
+      "once": 0,
+      "subjects": [],
+      "type": "move",
+      "verb": "use"
+    },
+    "d6e21e57-c7e3-458f-8964-3a7d873e92f1": {
+      "active": 1,
+      "description": "a standard automatic ships door",
+      "events": [
+        {
+          "id": "cb94965d-3348-45e3-b9c9-7e8383f1a732",
+          "name": "to common",
+          "verb": "use"
+        }
+      ],
+      "hidden": 0,
+      "id": "d6e21e57-c7e3-458f-8964-3a7d873e92f1",
+      "items": [],
+      "name": "a door to the common area",
+      "obtainable": 0,
+      "type": "entity"
+    },
+    "d8f34d0f-09a6-48ef-9e48-2a4ca540ea74": {
+      "active": 1,
+      "description": "You are in the cold unforgiving vacuum of space. There is a large star very close by. A small green jedi is meditating on your ships antenna.",
+      "events": [],
+      "hidden": 0,
+      "id": "d8f34d0f-09a6-48ef-9e48-2a4ca540ea74",
+      "items": [
+        {
+          "id": "e7b21463-f4c5-4210-b098-c5b2ed3ee08c",
+          "name": "an airlock to the cargo bay"
+        },
+        {
+          "id": "369fae2e-677e-4c07-b24d-fa3d1ea4a6be",
+          "name": "an airlock to the bridge"
+        }
+      ],
+      "name": "outer space",
+      "obtainable": 0,
+      "type": "room"
+    },
+    "e1da3322-4b6f-43cc-8425-7e2c6317fb4f": {
+      "destination": {
+        "id": "d8f34d0f-09a6-48ef-9e48-2a4ca540ea74",
+        "name": "outer space"
+      },
+      "id": "e1da3322-4b6f-43cc-8425-7e2c6317fb4f",
+      "message": "",
+      "name": "to space",
+      "once": 0,
+      "subjects": [],
+      "type": "move",
+      "verb": "use"
+    },
+    "e491a8e1-3639-42ec-ac69-3fe4f66d8680": {
+      "active": 1,
+      "description": "You are in a hall that connects the ships various sections",
+      "events": [],
+      "hidden": 0,
+      "id": "e491a8e1-3639-42ec-ac69-3fe4f66d8680",
+      "items": [
+        {
+          "id": "d6e21e57-c7e3-458f-8964-3a7d873e92f1",
+          "name": "a door to the common area"
+        },
+        {
+          "id": "633e93c7-2ce2-4bb8-9272-8711ba132497",
+          "name": "a door to main engineering"
+        },
+        {
+          "id": "cb484fe1-5a90-42a9-95fb-9cb7ac04c899",
+          "name": "a door to the cargo bay"
+        },
+        {
+          "id": "fc47d4a1-3bd4-4ec8-ba8c-20538f484661",
+          "name": "a door to the bridge"
+        }
+      ],
+      "name": "the main hall",
+      "obtainable": 0,
+      "type": "room"
+    },
+    "e7982f9a-d2d5-4123-aba9-b52a59bccb93": {
+      "destination": {
+        "id": "b2d67ca5-e43e-422b-b64b-eab7fa5b2214",
+        "name": "the main engine control room"
+      },
+      "id": "e7982f9a-d2d5-4123-aba9-b52a59bccb93",
+      "message": "",
+      "name": "to engineering",
+      "once": 0,
+      "subjects": [],
+      "type": "move",
+      "verb": "use"
+    },
+    "e7b21463-f4c5-4210-b098-c5b2ed3ee08c": {
+      "active": 1,
+      "description": "a thick metal door that leads first through a decompression chamber and then into the cargo bay",
+      "events": [
+        {
+          "id": "40938473-f9dc-416d-a20a-3ec5523cfba1",
+          "name": "to cargo",
+          "verb": "use"
+        }
+      ],
+      "hidden": 0,
+      "id": "e7b21463-f4c5-4210-b098-c5b2ed3ee08c",
+      "items": [],
+      "name": "an airlock to the cargo bay",
+      "obtainable": 0,
+      "type": "entity"
+    },
+    "e8eaa49e-3193-4f00-a297-9ec40b828d76": {
+      "destination": {
+        "id": "e491a8e1-3639-42ec-ac69-3fe4f66d8680",
+        "name": "the main hall"
+      },
+      "id": "e8eaa49e-3193-4f00-a297-9ec40b828d76",
+      "message": "",
+      "name": "to main hall",
+      "once": 0,
+      "subjects": [],
+      "type": "move",
+      "verb": "use"
+    },
+    "fc47d4a1-3bd4-4ec8-ba8c-20538f484661": {
+      "active": 1,
+      "description": "a standard automatic ships door. It is mangled and looks almost like it was welded shut.",
+      "events": [
+        {
+          "id": "b30f6bde-ce86-49e4-a31d-ff89151138e1",
+          "name": "broken",
+          "verb": "use"
+        }
+      ],
+      "hidden": 0,
+      "id": "fc47d4a1-3bd4-4ec8-ba8c-20538f484661",
+      "items": [],
+      "name": "a door to the bridge",
+      "obtainable": 0,
+      "type": "entity"
+    },
+    "player": {
+      "description": "an interpid captain",
+      "events": [],
+      "id": "player",
+      "items": [],
+      "name": "player",
+      "start": {
+        "id": "4cd5e361-8219-4446-ba99-b8847a4f7dbc",
+        "name": "the command bridge"
+      },
+      "type": "player"
+    }
+  },
+  "player": "player",
+  "version": "1.0",
+  "welcome": "Can you save the universe in this space adventure."
+}

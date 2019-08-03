@@ -18,6 +18,7 @@ General
 * Do some UML diagrams for current design elements
 * Get setup.py setup so it is possible to install and run the game.
 * Add save and load commands
+* choosing a world to load should give a list of available worlds. At least until there could be too many of them. Maybe even saves. Or there should be a way to type part of your world name in the way that the parser does and give a list if there are any conflicts.
 
 Ideas
 =====
