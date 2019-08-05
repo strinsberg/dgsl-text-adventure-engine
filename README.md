@@ -20,7 +20,7 @@ The World Editor is functional, but lacks the necessary documentation to be usef
 1. [Installation](#Installation)
 2. [Loading a World](#Loading-a-World)
 3. [How to Play](#How-to-Play)
-    * [Input]([#Game-Input])
+    * [Input](#Game-Input)
     * [Actions](#List-of-Actions)
     * [Commands](#Game-Commands)
     * [Common Responses](#Common-Responses)
