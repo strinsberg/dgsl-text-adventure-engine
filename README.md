@@ -184,7 +184,7 @@ Attempts to use an object in the world. If an object is usable you will interact
     For some reason you can't
     ```
 
-4. Talk
+4. Talk  
 Interacts with an NPC. It may start an interaction or They may just respond. Sometimes talking to them more than once will give you different results. It is also possible that the options available in the interactions will differ for various reasons. For example you have, or don't have, an item.
     ```
     > talk barbara
@@ -261,7 +261,7 @@ Lists the items in your inventory and any equipment you are wearing.
     A space suit
     ```
 
-If you specify an item you will be told if you have it or not.
+    If you specify an item you will be told if you have it or not.
     ```
     > inventory medkit
 
