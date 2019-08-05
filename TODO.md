@@ -4,9 +4,12 @@ TODOs
 Priority
 --------
 
-1. Finish a sample world
-2. Finish code documentation
-3. Update and finish unit testing
+* Finish a sample world
+* Finish code documentation
+* Update and finish unit testing
+* Add a condition to check active
+* Fix condition to be able to test an entity other than player
+* Fix ordered events to work properly with conditionals
 
 General
 -------
@@ -16,6 +19,10 @@ General
 * Do some UML diagrams for current design elements
 * Add save and load commands
 * Set up the choose world menu to give a selection of worlds to load, or make it possible to specify only part of a world name and give a menu if there is more than one of the same name.
+* Update display
+* Update Parser
+* Add additional events
+* Add new verbs and custom verbs
 
 
 Bugs
@@ -82,3 +89,4 @@ Parsing
 * Adjust the parser to be able to handle commands with 2 objects like give x to y
 * Along with these consider having the parser remove articles and stuff that does not really determine the identity of the object
 * Should spend some time trying to work with the parser to make it possible to give commands in a slightly more natural way. This is not all that hard, but some kind of grammar would have to be created if a recursive decent parser was to be created. Also, the way I allow items to be collected with only parts of their text might make this more difficult.
+* If parser needs to know what words are verbs ahead of time custom verbs etc. can be retrieved by walking all items and looking for the verbs in their events dicts.
