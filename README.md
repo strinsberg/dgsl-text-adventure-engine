@@ -87,7 +87,7 @@ From here you explore the world and try to save the galaxy!
 How To Play
 ===========
 
-### Game input
+### Game Input
 
 All input takes one of the following forms:
 ```
@@ -299,7 +299,7 @@ Quits the game. Because there is no saving your progress will be lost.
     Thanks for playing
     ```
 
-### Common action responses
+### Common Responses
 * The item you are looking for could not be found
     ```
     There is no <noun>
