@@ -43,7 +43,7 @@ Once installed the program can be started from the command line.
 $ dgsl
 ```
 
-[Contents](#Contents)
+* [Back to Contents](#Contents)
 
 Loading a World
 ===============
@@ -86,7 +86,7 @@ There is a medkit
 
 From here you explore the world and try to save the galaxy!
 
-[Contents](#Contents)
+* [Back to Contents](#Contents)
 
 How To Play
 ===========
@@ -135,7 +135,7 @@ Input is not case sensitive. The following should both work the same.
 
 I hope to make the parser a little more flexible eventually. As well as actions that take two nouns like *> give gold to guard* or *> use medkit on barbara*.
 
-[Contents](#Contents)
+* [Back to Contents](#Contents)
 
 ### List of Actions
 
@@ -290,7 +290,7 @@ Lists the items in your inventory and any equipment you are wearing.
     You don't have that
     ```
 
-[Contents](#Contents)
+* [Back to Contents](#Contents)
 
 ### Game Commands
 
@@ -307,7 +307,7 @@ Quits the game. Because there is no saving your progress will be lost.
     Thanks for playing
     ```
 
-[Contents](#Contents)
+* [Back to Contents](#Contents)
 
 ### Common Responses
 
@@ -330,7 +330,8 @@ Quits the game. Because there is no saving your progress will be lost.
     ```
     You don't have what you need
     ```
-[Contents](#Contents)
+
+* [Back to Contents](#Contents)
 
 Tips
 ====
@@ -345,4 +346,4 @@ Tips
 
 5. One of the primary purposes of equipment is to protect you. If you enter a hostile environment and are not wearing the right equipment you might die. Equipment may protect you from other effects as well. Some equipment only protects you if you wearing it, but some you only need to have in your inventory.
 
-[Contents](#Contents)
+* [Back to Contents](#Contents)
