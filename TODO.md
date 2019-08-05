@@ -10,6 +10,7 @@ Priority
 * Add a condition to check active
 * Fix condition to be able to test an entity other than player
 * Fix ordered events to work properly with conditionals
+* Write another world and try to get a feel for features that are missing or poorly designed
 
 General
 -------
@@ -38,6 +39,7 @@ Ideas
 * Adjust how display works for listing a rooms contents. Would be nice to have the room description and then a section of doors, but all in a nice sentence. Then a list of things in the room. Possibly also changing the way an item should be named as well.
 * Custom messages for inactive items could be a neat thing to add. It might change the way the world editor deals with states, but it would make the game more expressive.
 * When describing things list objects with the same name in a container only once with a number. ie) there are 4 gold coins. Also, see if you can get the parser to accept asking to get 4 gold coins if there are 4. Perhaps even a get all.
+* Maybe add an ordered option for interactions. It is possible to adjust the events with an ordered event, but it is not possible to change the option text. And it might be possible with conditions or observers to make options appear and disappear as other events happen, but it could get complicated.
 
 
 Items
