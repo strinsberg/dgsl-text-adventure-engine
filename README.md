@@ -15,6 +15,16 @@ Both programs are still in the early stages of development. If you install the E
 
 The World Editor is functional, but lacks the necessary documentation to be useful at this time.
 
+## Contents
+
+1. [Installation](#Installation)
+2. [Loading a World](#Loading-a-World)
+3. [How to Play](#How-to-Play)
+    * [Input]([#Game-Input])
+    * [Actions](#List-of-Actions)
+    * [Commands](#Game-Commands)
+    * [Common Responses](#Common-Responses)
+4. [Tips](#Tips)
 
 Installation
 ============
@@ -34,7 +44,7 @@ $ dgsl
 ```
 
 Loading a World
-===================
+===============
 
 When you run dgsl in the terminal you will first be given some options.
 

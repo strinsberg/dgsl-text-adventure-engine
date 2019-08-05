@@ -5,31 +5,39 @@ Priority
 --------
 
 1. Finish a sample world
-2. Documentation for starting and playing a world
-3. Finish code documentation
-4. Update and finish unit testing
+2. Finish code documentation
+3. Update and finish unit testing
 
 General
 -------
 
-* Add some documentation on how to use the project.
 * Update unit tests to use mocks so they are less coupled and cleaner
 * Add the new testing world to the test folder and update continuous integration to make a proper folder and copy it if need be to run a game creation or world creation test.
 * Do some UML diagrams for current design elements
-* Get setup.py setup so it is possible to install and run the game.
 * Add save and load commands
-* choosing a world to load should give a list of available worlds. At least until there could be too many of them. Maybe even saves. Or there should be a way to type part of your world name in the way that the parser does and give a list if there are any conflicts.
+* Set up the choose world menu to give a selection of worlds to load, or make it possible to specify only part of a world name and give a menu if there is more than one of the same name.
+
+
+Bugs
+----
+
+* Conditions are currently not working for any target except the player. This needs to be fixed because it seriously limits their usefulness.
+* Ordered events are not treating conditionals as unfinished if they have their failure events run instead of success.
+
 
 Ideas
 =====
 
+* Adjust how display works for listing a rooms contents. Would be nice to have the room description and then a section of doors, but all in a nice sentence. Then a list of things in the room. Possibly also changing the way an item should be named as well.
 * Custom messages for inactive items could be a neat thing to add. It might change the way the world editor deals with states, but it would make the game more expressive.
 * When describing things list objects with the same name in a container only once with a number. ie) there are 4 gold coins. Also, see if you can get the parser to accept asking to get 4 gold coins if there are 4. Perhaps even a get all.
+
 
 Items
 -----
 
 * A structure for a 2 way door. I like the idea of being able to create an item that leads you somewhere, but many doors just lead to a room and then another door has to be created to lead back. Having a predefined structure that can make both in one object would be handy for most generic doors. At the very least by having something in the world editor that makes them both for you.
+* 2 way doors could just be implemented with a move event that is tied to an object instead of a room. It could lead you to the other object. This could also be cool for things like teleporters or portals that you could move around with you. It could also be part of a dynamic move event that creates a hidden object when you use the dynamic move object. The next time you use it it can take you back to the hidden object and remove it.
 
 Quests
 ------
@@ -49,6 +57,8 @@ Events
 * A dynamic move event that somehow remembers where you moved from so it can take you back. Say for carrying an item that moves you to a location that is not accessible by any other means. You would want to go back to where you left from or at least a convenient location close by.
 * Change description event, or an event that is triggered in addition to the description so you can put all the stuff that might change in the event and it can update when it needs to.
 * Different ways to subscribe to an observer so that the event that subscribed can behave in an appropriate way. As in you can pass the message that you want notify to pass back to you and determine what to do with it. Or even pass a function or object that will do the right thing when called so that there do not have to be if-then-else in notify. though there will likely not be too many different notify situations for an event. Plus this kid of thing will have to be added to the editor so it needs to remain simple.
+* An event to check if something is active is needed. Possibly even one for hidden.
+
 
 Environment
 -----------
