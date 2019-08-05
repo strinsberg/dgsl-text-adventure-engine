@@ -22,9 +22,10 @@ def main():
     idx = menu.ask()
 
     if idx == 0:
-        world_name = input("What world would you like to load? ")
+        # input("What world would you like to load? ")
+        world_name = "disaster on the good ship lethbridge"
         world_path = os.path.join(
-            site.USER_BASE, 'worlds', name_to_path(world_name))
+            site.USER_BASE, 'dgsl/worlds', name_to_path(world_name))
 
         if os.path.exists(world_path):
             game = GameFactory().new(world_path)

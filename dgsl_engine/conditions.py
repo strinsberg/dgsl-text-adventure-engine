@@ -22,7 +22,7 @@ class Question:  # pylint: disable=too-few-public-methods
         print(self.question)
         ans = self._in("Answer: ")
         print()
-        if ans.strip() == self.answer:
+        if ans.strip().lower() == self.answer.lower():
             return True
         return False
 

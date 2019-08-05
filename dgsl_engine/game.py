@@ -34,7 +34,7 @@ class Game:  # pylint: disable=too-few-public-methods
         self._out(self.world.player.owner.describe())
 
         while True:
-            raw_input = self._in("\n> ")
+            raw_input = self._in("\n> ").lower()
             self._out("\n----------------------------------------------------")
             parsed_input = self.parser.parse(raw_input)
 
