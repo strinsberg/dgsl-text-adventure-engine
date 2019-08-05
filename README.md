@@ -49,7 +49,7 @@ Welcome to the DGSL Text Adventure Engine
 Choice: 
 ```
 
-To play the sample world select 1 and type the worlds name in lower case.
+To play the sample world select option 1. Then type the world name in lower case.
 
 ```
 Choice: 1
@@ -60,7 +60,9 @@ What world would you like to load? disaster on the good ship lethbridge
 This will start the game from the beginning.
 ```
 ----------------------------------------------------
-You are in the best room on the ship. It has nice furnishings and is a lot larger than the other crew members' quaters. It is your sanctuary from the demands of your position.
+You are in the best room on the ship. It has nice furnishings
+and is a lot larger than the other crew members' quaters. It is 
+your sanctuary from the demands of your position.
 There is a door to the common area
 There is a viewport
 There is a computer terminal
@@ -85,7 +87,7 @@ All input takes one of the following forms:
 
 A noun can be more than one word. All words will be used to find the noun. You do not have to type the full name of an item to interact with it. The words must be in the same order as they are in the item name though.
 
-If there were 'a door to the common area'. The following would work.
+If there is *a door to the common area* in your current room. The following would work.
 ```
 > use door
 > use door to common
@@ -117,198 +119,200 @@ Input is not case sensitive. The following should both work the same.
 > get box
 ```
 
-I hope to make the parser a little more flexible eventually. As well as actions that take two nouns like 'give gold to guard' or 'use medkit on barbara'.
+I hope to make the parser a little more flexible eventually. As well as actions that take two nouns like *> give gold to guard* or *> use medkit on barbara*.
 
 ### List of Actions
 
 1.  Get    
 Moves an item from the room you are in into your inventory. The item can be in the room or nested inside a container in the room and you will be able to take it.
-```
-> get box
+    ```
+    > get box
 
----------------------------------------------------
-You take the box
-```
+    ---------------------------------------------------
+    You take the box
+    ```
 
-Or if the box is not something you can take
-```
-> get box
+    Or if the box is not something you can take
+    ```
+    > get box
 
----------------------------------------------------
-You can't take that
-```
+    ---------------------------------------------------
+    You can't take that
+    ```
 
 2.  Drop  
 Removes an item from your inventory and places it in the room.  
-```
-> drop box
+    ```
+    > drop box
 
----------------------------------------------------
-You drop the box
-```
+    ---------------------------------------------------
+    You drop the box
+    ```
 
-Or if you don't have the box
-```
-> drop box
+    Or if you don't have the box
+    ```
+    > drop box
 
----------------------------------------------------
-You don't have that
-```
+    ---------------------------------------------------
+    You don't have that
+    ```
 
 3. Use   
 Attempts to use an object in the world. If an object is usable you will interact it.
-```
-> use door to the common area
+    ```
+    > use door to the common area
 
-----------------------------------------------------
-You are in a room where the crew relax and socialize after a long day in space
-There is a door to the captain's room
-etc...
-```
+    ----------------------------------------------------
+    You are in a room where the crew relax and socialize after a long day in space
+    There is a door to the captain's room
+    etc...
+    ```
 
-Or if you can't use something
-```
-> use medkit
+    Or if you can't use something
+    ```
+    > use medkit
 
----------------------------------------------------
-You can't use that
-```
+    ---------------------------------------------------
+    You can't use that
+    ```
 
-Or if something is useable, but is currently inactive.
-```
-> use door to the engineer's room
+    Or if something is useable, but is currently inactive.
+    ```
+    > use door to the engineer's room
 
----------------------------------------------------
-For some reason you can't
-```
+    ---------------------------------------------------
+    For some reason you can't
+    ```
 
 4. Talk
 Interacts with an NPC. It may start an interaction or They may just respond. Sometimes talking to them more than once will give you different results. It is also possible that the options available in the interactions will differ for various reasons. For example you have, or don't have, an item.
-```
-> talk barbara
+    ```
+    > talk barbara
 
------------------------------------------------------
-"Oh I don't feel so good...
+    -----------------------------------------------------
+    "Oh I don't feel so good...
 
-1. What's happening?
-2. Heal her                       -- Only if you have the medkit
-Choice: 
-```
+    1. What's happening?
+    2. Heal her                       -- Only if you have the medkit
+    Choice: 
+    ```
 
-Or
-```
-> talk whinny
+    Or
+    ```
+    > talk whinny
 
----------------------------------------------------
-"You need to get to the bridge quickly"
+    ---------------------------------------------------
+    "You need to get to the bridge quickly"
 
-> talk whinny
+    > talk whinny
 
----------------------------------------------------
-"What are you still doing here!"
-```
+    ---------------------------------------------------
+    "What are you still doing here!"
+    ```
 
 5. Look  
 If you type only look it will give information about the room you are in.
-```
-> look
+    ```
+    > look
 
-----------------------------------------------------
-You are in a room where the crew relax and socialize after a long day in space
-There is a door to the captain's room
-etc...
-```
+    ----------------------------------------------------
+    You are in a room where the crew relax and socialize after a long day in space
+    There is a door to the captain's room
+    etc...
+    ```
 
-Or if you specify an object in the room or your inventory.
-```
-> look medkit
+    Or if you specify an object in the room or your inventory.
+    ```
+    > look medkit
 
-----------------------------------------------------
-You see a first aid kit that could save someones life.
-```
+    ----------------------------------------------------
+    You see a first aid kit that could save someones life.
+    ```
 
-6. Equip
+6. Equip  
 Allows you to equip different kinds of equipment. For the sample game there are only suits. If you are wearing a similar piece of equipment it will be removed and placed in your inventory.
-```
-> equip space suit
+    ```
+    > equip space suit
 
------------------------------------------------------
-You equip it
-```
+    -----------------------------------------------------
+    You equip it
+    ```
 
 
-7. Remove
+7. Remove  
 Removes a piece of equipment that you are wearing.
-```
-> remove space suit
+    ```
+    > remove space suit
 
------------------------------------------------------
-You remove it
-```
+    -----------------------------------------------------
+    You remove it
+    ```
 
 7. Inventory  
 Lists the items in your inventory and any equipment you are wearing.
-```
-> inventory
+    ```
+    > inventory
 
-----------------------------------------------------
-You are carrying ...
-A medkit
+    ----------------------------------------------------
+    You are carrying ...
+    A medkit
 
-You are wearing ...
-A space suit
-```
+    You are wearing ...
+    A space suit
+    ```
 
 If you specify an item you will be told if you have it or not.
-```
-> inventory medkit
+    ```
+    > inventory medkit
 
-----------------------------------------------------
-You have that
+    ----------------------------------------------------
+    You have that
 
-> inventory viewport
+    > inventory viewport
 
-----------------------------------------------------
-You don't have that
-```
+    ----------------------------------------------------
+    You don't have that
+    ```
 
 ### Game Commands
 
 There is only one game command right now. Others like Help, Save, and Load will be added eventually.
 
-* Exit
+* Exit  
 Quits the game. Because there is no saving your progress will be lost.
-```
-> exit
+    ```
+    > exit
 
-----------------------------------------------------
-Quitting ...
+    ----------------------------------------------------
+    Quitting ...
 
-Thanks for playing
-```
+    Thanks for playing
+    ```
 
 ### Common action responses
 * The item you are looking for could not be found
-```
-There is no <noun>
-```
+    ```
+    There is no <noun>
+    ```
 
 * Unavailable Action
-```
-You don't know how to <verb>
-```
+    ```
+    You don't know how to <verb>
+    ```
 
 * Inactive item
-```
-For some reason you can't
-```
+    ```
+    For some reason you can't
+    ```
 
 * You need a specific item in your inventory to take the action
-```
-You don't have what you need
-```
+    ```
+    You don't have what you need
+    ```
   
-# Tips
+Tips
+====
+
 1. Items can be active or inactive. Look for ways to activate them. They may not always let you know when you have done the right thing.
 
 2. Some items are not obtainable. If you are told you can't get something that means you can't ever get it. You don't need to keep trying.
@@ -316,3 +320,5 @@ You don't have what you need
 3. Interaction with NPC is not always the same. Try different things. You never know if an NPC might have more to say or be more responsive if you have something they want in your inventory.
 
 4. There is no limit to how much you can carry. 
+
+5. One of the primary purposes of equipment is to protect you. If you enter a hostile environment and are not wearing the right equipment you might die. Equipment may protect you from other effects as well. Some equipment only protects you if you wearing it, but some you only need to have in your inventory.
