@@ -119,7 +119,7 @@ class EventConnector:
         conditional.success = self.world.events[success_id]
         conditional.failure = self.world.events[fail_id]
         conditional.condition = event_factory.make_condition(
-            self.world_json[cond_id])
+            self.world_json[cond_id], self.world)
 
     def visit_interaction(self, interaction):
         """empty"""
@@ -141,7 +141,8 @@ class EventConnector:
 
         if opt_json['type'] == 'conditional_option':
             cond_id = opt_json['condition']['id']
-            condition = event_factory.make_condition(self.world_json[cond_id])
+            condition = event_factory.make_condition(
+                self.world_json[cond_id], self.world)
             interaction.add(inter.ConditionalOption(text, event, condition))
         else:
             interaction.add(inter.Option(text, event))

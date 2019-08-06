@@ -35,6 +35,9 @@ class World:
         """
         self.events[event.id] = event
 
+    def accept(self, visitor):
+        visitor.visit_world(self)
+
 
 class WorldDetails:  # pylint: disable=too-few-public-methods
     """World detials data class"""

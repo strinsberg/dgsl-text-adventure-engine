@@ -30,8 +30,12 @@ class Question:  # pylint: disable=too-few-public-methods
 class HasItem:  # pylint: disable=too-few-public-methods
     """Has Item"""
 
-    def __init__(self, item_id):
+    def __init__(self, item_id, other_json=None, world=None):
         self.item_id = item_id
+        self.other = None
+        if other_json is not None and world is not None:
+            collector = collectors.EntityIdCollector(other_json['id'], world)
+            self.other = collector.collect()
 
     def test(self, container):
         """
@@ -42,7 +46,10 @@ class HasItem:  # pylint: disable=too-few-public-methods
         Returns:
 
         """
-        item = container.get(self.item_id)
+        if self.other is None:
+            item = container.get(self.item_id)
+        else:
+            item = self.other.get(self.item_id)
         if item is not None:
             return True
         return False

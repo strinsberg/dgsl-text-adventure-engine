@@ -75,12 +75,13 @@ def _setup_interaction(event, obj):
     event.break_out = obj['breakout']
 
 
-def make_condition(cond_json):
+def make_condition(cond_json, world=None):
     """empty"""
     try:
         type_ = cond_json['type']
         if type_ == 'hasItem':
-            return conditions.HasItem(cond_json['item']['id'])
+            return conditions.HasItem(cond_json['item']['id'],
+                                      other_json=cond_json['other'], world=world)
         if type_ == 'question':
             return conditions.Question(
                 cond_json['question'], cond_json['answer'])

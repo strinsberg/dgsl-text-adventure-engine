@@ -30,8 +30,7 @@ class EntityCollector:
 
     def visit_entity(self, entity):
         """Visit and entity."""
-        if (entity.spec.name.find(self.obj) > -1
-                or entity.spec.description.find(self.obj) > -1):
+        if entity.spec.name.lower().find(self.obj) > -1:
             self.entities.append(entity)
         # Split the obj text into words
         # count how many words are present in a name or a description
@@ -200,3 +199,8 @@ class EntityIdCollector:
     def visit_equipment(self, equipment):
         """empty"""
         self.visit_entity(equipment)
+
+    def visit_world(self, world):
+        """empty"""
+        if self.obj_id in world.entities:
+            self.result = world.entities[self.obj_id]
