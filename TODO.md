@@ -4,11 +4,10 @@ TODOs
 Priority
 --------
 
-* Finish a sample world
+* Play test sample world. A couple things don't seem quite right yet.
 * Finish code documentation
 * Update and finish unit testing
 * Add a condition to check active
-* Fix condition to be able to test an entity other than player
 * Fix ordered events to work properly with conditionals
 * Write another world and try to get a feel for features that are missing or poorly designed
 
@@ -29,9 +28,8 @@ General
 Bugs
 ----
 
-* Conditions are currently not working for any target except the player. This needs to be fixed because it seriously limits their usefulness.
 * Ordered events are not treating conditionals as unfinished if they have their failure events run instead of success.
-
+* Not sure that one time events are working properly. At least with enter events, but that shouldn't be different from any other events.
 
 Ideas
 =====
