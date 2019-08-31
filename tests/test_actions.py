@@ -396,17 +396,23 @@ class TestInventory(unittest.TestCase):
         self.assertEqual(result, "You don't have that")
 
     def test_check_inventory(self):
-        self.player.inventory.items = [self.entity]
-        self.player.equipped.equipment = [self.equipment]
+        import dgsl_engine.entity_base as entity_base  # only place it is used
 
-        result = self.action.take_action(None, None)
+        player = mock.MagicMock()
+        inv = entity_base.Inventory()
+        equ = entity_base.Equipped(player)
+        inv.add(self.entity)
+        equ.equip(self.equipment)
+
+        player.inventory = inv
+        player.equipped = equ
+
+        action = actions.CheckInventory(player)
+        result = action.take_action(None, None)
         self.assertEqual(result, ("You are carrying ...\na silver ring\n\n"
                                   "You are wearing ...\na really big hat"))
 
     def test_check_inventory_nothing(self):
-        self.player.inventory.items = []
-        self.player.equipped.equipment = []
-
         result = self.action.take_action(None, None)
         self.assertEqual(result, ("You are carrying ...\nNothing\n\n"
                                   "You are wearing ...\nNothing"))

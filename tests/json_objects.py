@@ -12,6 +12,7 @@ def _extend(obj, extra):
 HAS_ITEM = {
     'type': 'hasItem',
     'item': {'id': 'm3wsf0dm'},
+    'other': None,
 }
 
 QUESTION = {

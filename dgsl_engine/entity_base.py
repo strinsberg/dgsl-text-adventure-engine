@@ -172,6 +172,9 @@ class Inventory:
         for k in self.items:
             yield self.items[k]
 
+    def empty(self):
+        return len(self.items) == 0
+
     def add(self, item):
         """Add an Entity to the inventory.
 
@@ -221,6 +224,9 @@ class Equipped:
     def __iter__(self):
         for k in self.equipment:
             yield self.equipment[k]
+
+    def empty(self):
+        return len(self.equipment) == 0
 
     def equip(self, equipment):
         """empty"""

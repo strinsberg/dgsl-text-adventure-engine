@@ -1,4 +1,5 @@
 import unittest
+import unittest.mock as mock
 import dgsl_engine.event_factory as factory
 import dgsl_engine.exceptions as exceptions
 from . import json_objects
