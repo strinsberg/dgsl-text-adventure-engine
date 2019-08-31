@@ -36,3 +36,7 @@ def main():
     else:
         print()
         print('See you soon!')
+
+
+if __name__ == '__main__':
+    main()

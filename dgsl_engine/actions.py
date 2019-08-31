@@ -262,14 +262,14 @@ class CheckInventory(Action):
         if entity is None:
             result = ["You are carrying ..."]
             if self.player.inventory.items:
-                for item in self.player.inventory.items:
+                for item in self.player.inventory:
                     result.append(item.spec.name)
             else:
                 result.append("Nothing")
 
             result.append("\nYou are wearing ...")
             if self.player.equipped.equipment:
-                for item in self.player.equipped.equipment:
+                for item in self.player.equipped:
                     result.append(item.spec.name)
             else:
                 result.append("Nothing")
