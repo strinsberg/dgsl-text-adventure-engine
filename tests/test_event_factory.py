@@ -36,6 +36,18 @@ class TestEventFactory(unittest.TestCase):
         event = self.fact.new(self.obj)
         self.assertEqual(event.id, OBJ['id'])
 
+    def test_end_game(self):
+        self.obj['type'] = 'end_game'
+        event = self.fact.new(self.obj)
+        self.assertEqual(event.id, OBJ['id'])
+
+    def test_new_interaction(self):
+        self.obj['type'] = 'interaction'
+        self.obj['breakout'] = True
+        event = self.fact.new(self.obj)
+        self.assertEqual(event.id, OBJ['id'])
+        self.assertTrue(event.break_out)
+
     def test_new_unfinished_object_throws(self):
         with self.assertRaises(exceptions.InvalidParameterError):
             self.fact.new({'id': '09r8320'})

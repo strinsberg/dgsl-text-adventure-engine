@@ -86,7 +86,7 @@ class OrderedGroup(GroupEvent):
         if self.idx < len(self.events) - 1:
             self.idx += 1
         else:
-            if self.only_once and self.events[self.idx].is_done:
+            if self.only_once or self.events[self.idx].is_done:
                 self.is_done = True
 
         if res != '':

@@ -37,7 +37,7 @@ class TestHasItem(unittest.TestCase):
     def setUp(self):
         self.container = mock.MagicMock()
         self.entity = mock.MagicMock()
-        self.has_item = conditions.HasItem('382038')
+        self.has_item = conditions.HasItem('SOMEID')
 
     def test_has_item(self):
         self.container.get.return_value = self.entity
@@ -48,6 +48,17 @@ class TestHasItem(unittest.TestCase):
         self.container.get.return_value = None
         res = self.has_item.test(self.container)
         self.assertFalse(res)
+
+    @mock.patch("dgsl_engine.collectors.EntityIdCollector")
+    def test_has_item_other(self, collector):
+        has_item = conditions.HasItem('SOMEID', mock.MagicMock(), mock.Mock())
+
+        other = mock.MagicMock()
+        other.get.return_value = self.entity
+        collector.collect.return_value = other
+
+        res = has_item.test(other)
+        self.assertTrue(res)
 
 
 class TestProtected(unittest.TestCase):
