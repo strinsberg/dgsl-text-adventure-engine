@@ -1,4 +1,5 @@
 import unittest
+import unittest.mock as mock
 import dgsl_engine.game as game
 import dgsl_engine.world as world
 import dgsl_engine.user_input as user_input
@@ -24,7 +25,9 @@ class TestGame(unittest.TestCase):
         self.game._in = self.input.make_stream()
         self.maxDiff = None
 
-    def test_run(self):
+    @mock.patch('dgsl_engine.user_input.Menu')
+    def test_run(self, mock_quit_menu):
+        mock_quit_menu.return_value.ask.return_value = 1
         self.game.run()
         out = self.output.get_text()
         expected_out = (
