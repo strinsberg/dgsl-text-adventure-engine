@@ -173,4 +173,4 @@ def is_event(obj):
 
 def create_later(obj):
     """empty"""
-    return obj['type'] in ['option', 'conditional_option', 'hasItem', 'protected', 'question']
+    return obj['type'] in ['option', 'conditional_option', 'hasItem', 'protected', 'question', 'is_active']

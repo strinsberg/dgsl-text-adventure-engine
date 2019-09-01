@@ -87,6 +87,11 @@ def make_condition(cond_json, world=None):
                 cond_json['question'], cond_json['answer'])
         if type_ == 'protected':
             return conditions.Protected(cond_json['effects'])
+        if type_ == 'is_active':
+            id_ = cond_json['item']['id']
+            entity = world.entities[id_]
+            return conditions.IsActive(entity)
+
         raise exceptions.InvalidParameterError(
             "Condition Factory Error: Invalid object of type " + str(type_))
 
