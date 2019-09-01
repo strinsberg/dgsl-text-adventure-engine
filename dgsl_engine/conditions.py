@@ -50,6 +50,7 @@ class HasItem:  # pylint: disable=too-few-public-methods
             item = container.get(self.item_id)
         else:
             item = self.other.get(self.item_id)
+
         if item is not None:
             return True
         return False
@@ -107,3 +108,12 @@ def _get_valid_carried(character):
         if not equip.must_equip and not equip.equipped:
             results.append(equip)
     return results
+
+
+class IsActive:
+
+    def __init__(self, entity):
+        self.entity = entity
+
+    def test(self, unused=None):
+        return self.entity.states.active

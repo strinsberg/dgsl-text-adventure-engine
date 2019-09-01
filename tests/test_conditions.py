@@ -92,3 +92,23 @@ class TestProtected(unittest.TestCase):
         self.player.equipped.append(self.cap)
         result = self.protected.test(self.player)
         self.assertFalse(result)
+
+
+class TestIsActive(unittest.TestCase):
+    def test_is_active(self):
+        entity = mock.MagicMock()
+        entity.states.active = True
+
+        condition = conditions.IsActive(entity)
+        result = condition.test()
+
+        self.assertTrue(result)
+
+    def test_not_active(self):
+        entity = mock.MagicMock()
+        entity.states.active = False
+
+        condition = conditions.IsActive(entity)
+        result = condition.test()
+
+        self.assertFalse(result)
