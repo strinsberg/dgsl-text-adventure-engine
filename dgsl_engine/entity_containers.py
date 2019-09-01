@@ -89,9 +89,12 @@ class Room(Container):
     def describe(self):
         """empty"""
         desc = [self.spec.description]
-        desc.extend(
-            ["There is " + item.spec.name for item in self.inventory
-             if not isinstance(item, Player)])
+        if not self.inventory.empty():
+            desc.append("")
+            desc.append("There is ...")
+            desc.extend(
+                ["   " + item.spec.name for item in self.inventory
+                 if not isinstance(item, Player)])
         return "\n".join(desc)
 
     def enter(self, affected):

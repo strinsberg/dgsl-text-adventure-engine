@@ -84,7 +84,7 @@ class TestMoveEntity(unittest.TestCase):
         result = self.move.execute(self.entity)
         self.assertEqual(
             result, ('You have moved to a new location.\n\n'
-                     "You are in a ravine\nThere is a silver ring\n\n"
+                     "You are in a ravine\n\nThere is ...\n   a silver ring\n\n"
                      'Welcome to the room!'))
 
     def test_execute_raises(self):
