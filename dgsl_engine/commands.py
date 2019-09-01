@@ -1,4 +1,5 @@
 """Game commands like quit and save."""
+from . import user_input
 
 
 def execute_command(verb, arg, game):
@@ -26,6 +27,17 @@ def _quit(game):
     Returns:
 
     """
-    # eventually offer to save game
-    game.end = True
-    return "Quitting ..."
+    menu = user_input.Menu(['Save and Quit (not implemented)', 'Quit'])
+    answer = menu.ask()
+
+    result = "Quitting ..."
+
+    if answer == 0:
+        # save game here. add game save logic to the result before returning
+        game.end = True
+    elif answer == 1:
+        game.end = True
+    else:
+        result = "Cancelled"
+
+    return result
