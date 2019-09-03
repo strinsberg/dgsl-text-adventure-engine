@@ -4,10 +4,7 @@ TODOs
 Priority
 --------
 
-* Play test sample world. A couple things don't seem quite right yet.
-* Finish code documentation
 * Update and finish unit testing
-* Fix ordered events to work properly with conditionals
 
 General
 -------
