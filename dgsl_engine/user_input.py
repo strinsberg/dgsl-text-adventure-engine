@@ -68,6 +68,7 @@ class Menu:  # pylint: disable=too-few-public-methods
         for i, choice in enumerate(self.choices):
             self._out("{}. {}".format(str(i + 1), choice))
         self._out(str("{}. {}".format(len(self.choices) + 1, "Cancel")))
+        self._out()
 
         # Validate to make sure it is an int?
         if input_ is None:
