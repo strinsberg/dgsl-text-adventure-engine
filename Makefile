@@ -21,7 +21,7 @@ lint-tests:
 # Make all sphinx documentation
 .PHONY: docs
 docs:
-	cd docs/sphinx; \
+	cd docs/code; \
 	make clean; \
 	make html
 
