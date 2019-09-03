@@ -4,21 +4,20 @@ from . import exceptions
 
 
 class GroupEvent(event_base.Event):
-    """Group"""
+    """An event that holds and executes a group of events all at once.
+
+    Events still execute in the order they are added in.
+
+    Attributes:
+        events (Event): The events to execute.
+    """
 
     def __init__(self, obj_id):
         super(GroupEvent, self).__init__(obj_id)
         self.events = []
 
     def execute(self, affected):
-        """
-
-        Args:
-          affected:
-
-        Returns:
-
-        """
+        """Executes all the events it contains and returns the results."""
         results = []
 
         result = super(GroupEvent, self).execute(affected)
@@ -33,13 +32,10 @@ class GroupEvent(event_base.Event):
         return "\n".join(results)
 
     def add(self, event):
-        """
+        """Add a given event.
 
-        Args:
-          event:
-
-        Returns:
-
+        Raises:
+            InvalidParameterError: If an event is already in the group.
         """
         for self_event in self.events:
             if event.id == self_event.id:
@@ -49,19 +45,20 @@ class GroupEvent(event_base.Event):
         self.events.append(event)
 
     def accept(self, visitor):
-        """
-
-        Args:
-          visitor:
-
-        Returns:
-
-        """
+        """Accepts a visitor."""
         visitor.visit_group(self)
 
 
 class OrderedGroup(GroupEvent):
-    """Ordered"""
+    """A Group of events that executes events in order one at a time.
+
+    Unlike group only one event is executed at a time.
+
+    Attributes:
+        idx (int): The current event to execute.
+        last (bool): Weather or not to repeat the final event once all
+            events have been executed or to do nothing.
+    """
 
     def __init__(self, obj_id):
         super(OrderedGroup, self).__init__(obj_id)
@@ -69,14 +66,7 @@ class OrderedGroup(GroupEvent):
         self.last = False
 
     def execute(self, affected):
-        """
-
-        Args:
-          affected:
-
-        Returns:
-
-        """
+        """Executes the current event and returns the result."""
         if self.is_done:
             return ''
 
@@ -96,13 +86,10 @@ class OrderedGroup(GroupEvent):
         return res_super
 
     def add(self, event):
-        """
+        """Adds an event to the end of the group.
 
-        Args:
-          event:
-
-        Returns:
-
+        Raises:
+            InvalidParameterError: If an event is already in the group.
         """
         size = len(self.events)
         if size >= 1:
@@ -114,7 +101,14 @@ class OrderedGroup(GroupEvent):
 
 
 class ConditionalEvent(event_base.Event):
-    """Conditional"""
+    """Tests a condition and executes a success or failure event.
+
+    Attributes:
+        condition (Conditional): The condition to test.
+        success (Event): The event to execute if the condition succeeds.
+        failure (Event): The event to execute if the condition fails.
+        passed (bool): Weather the condition has been satisfied or not.
+    """
 
     def __init__(self, obj_id):
         super(ConditionalEvent, self).__init__(obj_id)
@@ -124,14 +118,7 @@ class ConditionalEvent(event_base.Event):
         self.passed = False
 
     def execute(self, affected):
-        """
-
-        Args:
-          affected:
-
-        Returns:
-
-        """
+        """Tests the condition and execute the appropriate event."""
         self.passed = False
         succeeded = self.condition.test(affected)
 
@@ -152,14 +139,7 @@ class ConditionalEvent(event_base.Event):
         return res_super
 
     def accept(self, visitor):
-        """
-
-        Args:
-          visitor:
-
-        Returns:
-
-        """
+        """Accept a visitor."""
         visitor.visit_conditional(self)
 
     def _check_if_done(self):
