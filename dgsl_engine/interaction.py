@@ -23,11 +23,12 @@ class Interaction(event_base.Event):
         """
         # This may not be ideal
         if self.message is not None and self.message != '':
-            print(self.message + '\n')
+            print(self.message)
 
         while True:
             options, choices = self._make_choices(affected)
             menu = user_input.Menu(choices)
+            print()
 
             idx = menu.ask()
 
@@ -39,7 +40,7 @@ class Interaction(event_base.Event):
                     print('Cancelled')
                 break
             elif idx < 0:
-                print('Not a valid choice!\n')
+                print('Not a valid choice!')
                 continue
             else:
                 result, end = options[idx].choose(affected)

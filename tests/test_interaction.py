@@ -35,7 +35,7 @@ class TestInteraction(unittest.TestCase):
 
         self.assertEqual(
             self.str_out.getvalue(),
-            ("\n--------------------------------------------------\n"
+            ("\n\n--------------------------------------------------\n"
              "Have some free advice\n"))
 
     @mock.patch('dgsl_engine.user_input.Menu')
@@ -47,7 +47,7 @@ class TestInteraction(unittest.TestCase):
 
         self.assertEqual(
             self.str_out.getvalue(),
-            ("\n--------------------------------------------------\n"
+            ("\n\n--------------------------------------------------\n"
              "Thank you for the help\n"))
 
     @mock.patch('dgsl_engine.user_input.Menu')
@@ -59,7 +59,7 @@ class TestInteraction(unittest.TestCase):
 
         self.assertEqual(
             self.str_out.getvalue(),
-            ("\n--------------------------------------------------\n"
+            ("\n\n--------------------------------------------------\n"
              "Cancelled\n"))
 
     @mock.patch('dgsl_engine.user_input.Menu')
@@ -71,7 +71,7 @@ class TestInteraction(unittest.TestCase):
 
         self.assertEqual(
             self.str_out.getvalue(),
-            ("\n--------------------------------------------------\n"
+            ("\n\n--------------------------------------------------\n"
              "Not a valid choice!\n\n"
              "\n--------------------------------------------------\n"
              "Cancelled\n"))
