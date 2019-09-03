@@ -39,12 +39,12 @@ class Container(entity_base.Entity):
         return False
 
     def get(self, item_id):
-        """empty"""
+        """Get an item from the Container by ID."""
         collector = collectors.EntityIdCollector(item_id, self)
         return collector.collect()
 
     def describe(self):
-        """empty"""
+        """Returns the description of the container."""
         desc = [self.spec.description]
         if self.states.active:
             desc.extend(
@@ -52,7 +52,7 @@ class Container(entity_base.Entity):
         return "\n".join(desc)
 
     def accept(self, visitor):
-        """empty"""
+        """Accept a visitor."""
         visitor.visit_container(self)
 
     def __repr__(self):
@@ -76,7 +76,7 @@ class Room(Container):
         self.states.hidden = False
 
     def add(self, item):
-        """See Container.add.
+        """See Container.add
 
         Raises:
             ContainerError: If  the entity is a Room.
@@ -87,7 +87,7 @@ class Room(Container):
         return False
 
     def describe(self):
-        """empty"""
+        """Returns a description of the room."""
         desc = [self.spec.description]
         if not self.inventory.empty():
             desc.append("")
@@ -98,7 +98,14 @@ class Room(Container):
         return "\n".join(desc)
 
     def enter(self, affected):
-        """empty"""
+        """Runs events that trigger when the player enters the room.
+
+        Args:
+            affected (Entity): The entity the events will affect.
+
+        Returns:
+            str: A description of the results.
+        """
         result = []
         result.append(self.describe())
         if self.events.has_event('enter'):
@@ -109,7 +116,7 @@ class Room(Container):
         return '\n'.join(result)
 
     def accept(self, visitor):
-        """empty"""
+        """Accepts a visitor."""
         visitor.visit_room(self)
 
     def __repr__(self):
@@ -118,14 +125,17 @@ class Room(Container):
 
 
 class Character(Container, ABC):
-    """empty"""
+    """Base for the Player and NPCs.
+
+    Attributes:
+        equipped (Equipped): The equipment the character is wearing."""
 
     def __init__(self, obj_id):
         super(Character, self).__init__(obj_id)
         self.equipped = entity_base.Equipped(self)
 
     def describe(self):
-        """empty"""
+        """Returns the characters description."""
         return self.spec.description
 
 
@@ -142,7 +152,7 @@ class Player(Character):
         self.states.hidden = False
 
     def accept(self, visitor):
-        """empty"""
+        """Accepts a visitor."""
         visitor.visit_player(self)
 
     def __repr__(self):
@@ -161,7 +171,7 @@ class Npc(Character):
             self.spec.id, self.spec.name, self._repr_contents())
 
     def accept(self, visitor):
-        """empty"""
+        """Accepts a visitor."""
         visitor.visit_npc(self)
 
 
@@ -172,6 +182,10 @@ class ContainerError(Exception):
 
 
 # Helpers ##############################################################
+
+# These functions overload the add functions for different container
+# types. This mostly keeps containers, rooms, and characters from
+# containing rooms.
 
 @singledispatch
 def _add_to_container(item, container):
