@@ -49,6 +49,7 @@ class EntityFactory:  # pylint: disable=too-few-public-methods
 
 
 def _setup_entity(entity, obj):
+    """Sets all common attributes for entities."""
     entity.spec.name = obj['name']
     entity.spec.description = obj['description']
 
@@ -59,6 +60,7 @@ def _setup_entity(entity, obj):
 
 
 def _setup_equipment(entity, obj):
+    """Setups the extra attributes for equipment."""
     entity.protects = obj['protects']
     entity.slot = obj['slot']
     entity.must_equip = num_to_bool(obj['must_equip'])

@@ -6,10 +6,12 @@ class Event:
     """Base for all Events that execute in response to player
     actions.
 
-    Args:
-
-    Returns:
-
+    Attributes:
+        only_once (bool): True if the event should only be executed once.
+        is_done (bool): If the event is finished and will not happen again.
+        message (str): The message to return when the event executes.
+        subjects (Event): Events to be notified when the event is executed.
+            (Not implemented properly yet).
     """
 
     def __init__(self, obj_id):
@@ -29,36 +31,21 @@ class Event:
 
         Returns:
           str: A description of the results.
-
         """
         if self.is_done:
             result = ''
         else:
             result = self.message if self.message is not None else ''
             self._check_if_done()
-        # Add the results of observers later
+        # Add the results of subjects later
         return result
 
     def accept(self, visitor):
-        """
-
-        Args:
-          visitor:
-
-        Returns:
-
-        """
+        """Accepts a visitor."""
         visitor.visit_event(self)
 
     def register(self, event):
-        """
-
-        Args:
-          event:
-
-        Returns:
-
-        """
+        """Register a given event as an observer."""
         self.subjects.append(event)
 
     def _check_if_done(self):
@@ -71,21 +58,20 @@ class Event:
 
 # Should be move and be about the player
 class MoveEntity(Event):
-    """Event to move an entity to a destination."""
+    """Event to move an entity to a destination.
+
+    Currently only works for moving the player.
+
+    Attributes:
+        destination (Container): The Container to move the entity to.
+    """
 
     def __init__(self, obj_id):
         super(MoveEntity, self).__init__(obj_id)
         self.destination = None
 
     def execute(self, affected):
-        """
-
-        Args:
-          affected:
-
-        Returns:
-
-        """
+        """Moves the Player(affected) to the destination."""
         actions.move(affected, self.destination)
 
         result = []
@@ -100,14 +86,7 @@ class MoveEntity(Event):
         return '\n'.join(result)
 
     def accept(self, visitor):
-        """
-
-        Args:
-          visitor:
-
-        Returns:
-
-        """
+        """Accepts a visitor."""
         visitor.visit_move(self)
 
     def __repr__(self):
@@ -115,7 +94,7 @@ class MoveEntity(Event):
 
 
 class Give(Event):
-    """Give """
+    """Gives an item to the player."""
 
     def __init__(self, obj_id):
         super(Give, self).__init__(obj_id)
