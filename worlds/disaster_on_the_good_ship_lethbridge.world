@@ -680,7 +680,7 @@
     },
     "4cd5e361-8219-4446-ba99-b8847a4f7dbc": {
       "active": 1,
-      "description": "You are on the bridge. It is the command center for your small ship. There are control stations and a nice looking captains chair in the center. Your first mate Lars Philbur is suspended from the cieling with tenacles you are pretty sure he didn't have the last time you saw him.",
+      "description": "You are on the bridge. It is the command center for your small ship. There are control stations and a nice looking captains chair in the center. Your first mate Lars Philbur is suspended from the ceiling by tenacles you are pretty sure he didn't have the last time you saw him.",
       "events": [
         {
           "id": "1805c1fb-dcf2-4b0d-a5f2-470cf727a014",
@@ -1073,7 +1073,7 @@
     },
     "6ceffbb0-ae85-4c53-96d3-434f8234c98a": {
       "id": "6ceffbb0-ae85-4c53-96d3-434f8234c98a",
-      "message": "You wouldn't even know where to start",
+      "message": "You wouln't even know where to start!",
       "name": "careful",
       "once": 0,
       "subjects": [],
@@ -1759,7 +1759,7 @@
     },
     "bbaf410f-fd38-4931-a7f9-7df1502c8f56": {
       "id": "bbaf410f-fd38-4931-a7f9-7df1502c8f56",
-      "message": "\"The reactor s unstable and the reactor room has filled with gamma radiation. We have to get power restored so you can get to the bridge through the cargo bay.\"",
+      "message": "\"The reactor has become unstable and the reactor room has filled with gamma radiation. We have to get power restored so you can get to the bridge through the cargo bay.\"",
       "name": "next",
       "once": 0,
       "subjects": [],
@@ -2428,7 +2428,7 @@
         "id": "103de460-0b08-49f7-9445-39a10e719aa9",
         "name": "a small green jedi"
       },
-      "message": "He gives you a light sabe.",
+      "message": "He gives you a light saber.",
       "name": "saber",
       "once": 0,
       "subjects": [],
