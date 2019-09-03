@@ -110,10 +110,12 @@ def _get_valid_carried(character):
     return results
 
 
-class IsActive:
+class IsActive:  # pylint: disable=too-few-public-methods
+    """empty"""
 
     def __init__(self, entity):
         self.entity = entity
 
-    def test(self, unused=None):
+    def test(self, _=None):
+        """empty"""
         return self.entity.states.active

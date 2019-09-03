@@ -173,6 +173,7 @@ class Inventory:
             yield self.items[k]
 
     def empty(self):
+        """Returns true if the inventory is empty."""
         return len(self.items) == 0
 
     def add(self, item):
@@ -226,6 +227,7 @@ class Equipped:
             yield self.equipment[k]
 
     def empty(self):
+        """Returns True if the equipment is empty."""
         return len(self.equipment) == 0
 
     def equip(self, equipment):

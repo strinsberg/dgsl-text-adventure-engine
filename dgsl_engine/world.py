@@ -36,6 +36,7 @@ class World:
         self.events[event.id] = event
 
     def accept(self, visitor):
+        """empty"""
         visitor.visit_world(self)
 
 
@@ -173,4 +174,5 @@ def is_event(obj):
 
 def create_later(obj):
     """empty"""
-    return obj['type'] in ['option', 'conditional_option', 'hasItem', 'protected', 'question', 'is_active']
+    return obj['type'] in ['option', 'conditional_option', 'hasItem',
+                           'protected', 'question', 'is_active']
