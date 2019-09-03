@@ -16,6 +16,9 @@ class EventFactory:  # pylint: disable=too-few-public-methods
 
         Args:
             obj (dict): A json object with information for an event.
+
+        Returns:
+            Event: The newly constructed event.
         """
         try:
             type_ = obj['type']
@@ -76,7 +79,15 @@ def _setup_interaction(event, obj):
 
 
 def make_condition(cond_json, world=None):
-    """empty"""
+    """Creates a new condition.
+
+    Args:
+        cond_json (dict): The json blueprint for the condition.
+        world (World): The world that is being constructed.
+
+    Return:
+        Condition: The newly created condition.
+    """
     try:
         type_ = cond_json['type']
         if type_ == 'hasItem':

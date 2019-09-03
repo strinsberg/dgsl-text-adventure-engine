@@ -11,13 +11,13 @@ class GameFactory:  # pylint: disable=too-few-public-methods
     """Creates a new game with some default components."""
 
     def new(self, world_path):  # pylint: disable=no-self-use
-        """
+        """Creates a new game with default components.
 
         Args:
-          world_name:
+          world_path (str): The path to the world for the game.
 
         Returns:
-
+            Game: The newly created game.
         """
         parser = user_input.Parser()
 
@@ -36,13 +36,13 @@ class GameFactory:  # pylint: disable=too-few-public-methods
 
 
 def name_to_path(name):
-    """
+    """Turns a world name into a path ending with .world.
 
     Args:
-        name:
+        name (str): The name to convert.
 
     Returns:
-
+        str: The new path.
     """
     words = name.split()
     return "_".join(words) + ".world"
