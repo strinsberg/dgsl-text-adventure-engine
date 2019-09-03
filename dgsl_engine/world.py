@@ -5,7 +5,14 @@ from . import visitors
 
 
 class World:
-    """A Game world that holds entities and the player."""
+    """A Game world that holds entities and the player.
+
+    Attributes:
+        details (WorldDetails): The information about the world.
+        player (Player): The player character.
+        entities (dict): All the entities in the world. Keys are entity IDs.
+        events (dict): All the events in the world. Keys are event IDs.
+    """
 
     def __init__(self):
         self.details = None
@@ -14,34 +21,27 @@ class World:
         self.events = {}
 
     def add_entity(self, entity):
-        """
-
-        Args:
-          entity:
-
-        Returns:
-
-        """
+        """Adds a given entity to the worlds entities."""
         self.entities[entity.spec.id] = entity
 
     def add_event(self, event):
-        """
-
-        Args:
-          event:
-
-        Returns:
-
-        """
+        """Adds a given event to the worlds events."""
         self.events[event.id] = event
 
     def accept(self, visitor):
-        """empty"""
+        """Accepts a visitor."""
         visitor.visit_world(self)
 
 
 class WorldDetails:  # pylint: disable=too-few-public-methods
-    """World detials data class"""
+    """World details data.
+
+    Attributes:
+        name (str): The worlds name
+        welcome (str): Information about the world.
+        opening (str): The text to start the story.
+        version (str): The worlds version.
+    """
 
     def __init__(self, name, welcome, opening, version):
         self.name = name
@@ -51,20 +51,22 @@ class WorldDetails:  # pylint: disable=too-few-public-methods
 
 
 class WorldFactory:  # pylint: disable=too-few-public-methods
-    """Creates a new world from a compatible json object."""
+    """Creates a new world from a compatible json blueprint.
+
+    Attributes:
+        entity_factory: A factory object for creating entities from
+            entity json blueprints.
+        event_factory: A factory object for creating events from
+            event json blueprints.
+    """
 
     def __init__(self):
         self.entity_factory = entity_factory.EntityFactory()
         self.event_factory = event_factory.EventFactory()
 
     def new(self, world_json):
-        """
-
-        Args:
-          world_json:
-
-        Returns:
-
+        """Creates and returns a new World object from the given
+        json blueprint.
         """
         new_world = World()
 
@@ -75,14 +77,13 @@ class WorldFactory:  # pylint: disable=too-few-public-methods
         return new_world
 
     def _create_objects(self, new_world, world_json):
-        """
+        """Creates ad adds entities and events to the world.
 
-        Args:
-          new_world:
-          world_json:
+        just provides them with the information to make the objects, but
+        does not add entities or events that they contain yet.
 
-        Returns:
-
+        Some objects like conditions and options are not created until
+        connection time.
         """
         objects = world_json['objects']
         for id_ in objects:
@@ -103,14 +104,10 @@ class WorldFactory:  # pylint: disable=too-few-public-methods
 
 
 def _connect_objects(new_world, world_json):
-    """
+    """Connects all the objects in a world together.
 
-    Args:
-        new_world:
-        world_json:
-
-    Returns:
-
+    Some objects like options and conditions are created when
+    the objects that need them are connected.
     """
     for id_ in world_json['objects']:
         obj = world_json['objects'][id_]
@@ -129,15 +126,7 @@ def _connect_objects(new_world, world_json):
 
 
 def _setup_world(new_world, world_json):
-    """
-
-    Args:
-        new_world:
-        world_json:
-
-    Returns:
-
-    """
+    """Adds the world details to a world."""
     details = WorldDetails(
         world_json['name'], world_json['welcome'],
         "You are playing this game!", world_json['version'])
@@ -146,26 +135,12 @@ def _setup_world(new_world, world_json):
 
 
 def is_entity(obj):
-    """
-
-    Args:
-      obj:
-
-    Returns:
-
-    """
+    """Checks if json blueprint is an entity."""
     return obj['type'] in ['entity', 'container', 'room', 'player', 'equipment', 'npc']
 
 
 def is_event(obj):
-    """
-
-    Args:
-      obj:
-
-    Returns:
-
-    """
+    """Checks if json blueprint is an entity."""
     return obj['type'] in ['inform', 'event', 'move', 'give', 'end_game',
                            'take', 'toggle_active',
                            'toggle_obtainable', 'toggle_hidden', 'group',
@@ -173,6 +148,7 @@ def is_event(obj):
 
 
 def create_later(obj):
-    """empty"""
+    """Checks if json blueprint is an object that has creation delayed
+    until connection time."""
     return obj['type'] in ['option', 'conditional_option', 'hasItem',
                            'protected', 'question', 'is_active']

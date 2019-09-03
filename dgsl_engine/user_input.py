@@ -9,7 +9,12 @@ class ParseCodes(enum.Enum):
 
 
 class Parser:  # pylint: disable=too-few-public-methods
-    """Turns raw user input into form useable by a resolver."""
+    """Turns raw user input into form useable by a resolver.
+
+    Attributes:
+        verbs: A list of acceptable verbs.
+        commands: A list of commands.
+    """
 
     def __init__(self):
         self.verbs = ['get', 'take', 'drop', 'equip', 'remove', 'go',
@@ -17,13 +22,13 @@ class Parser:  # pylint: disable=too-few-public-methods
         self.commands = ['quit', 'exit']
 
     def parse(self, user_input):
-        """
+        """Parses a string of user input.
 
         Args:
-          user_input:
+          user_input (str): The user input to parse.
 
         Returns:
-
+            dict: A dictionary with the split up parts of the input.
         """
         words = user_input.strip().split()
         verb = words[0]
@@ -49,7 +54,11 @@ class Parser:  # pylint: disable=too-few-public-methods
 
 
 class Menu:  # pylint: disable=too-few-public-methods
-    """Asks a user to choose one of a list of choices."""
+    """Asks a user to choose one of a list of choices.
+
+    Attributes:
+        choices: A list of menu items to choose from.
+    """
 
     def __init__(self, choices, out=print, _in=input):
         self.choices = choices
@@ -57,13 +66,13 @@ class Menu:  # pylint: disable=too-few-public-methods
         self._in = _in
 
     def ask(self, input_=None):
-        """
+        """Display the menu choices and asks for a choice.
 
         Args:
-          input_: (Default value = None)
+          input_: input to use (only for testing, should be eliminated).
 
         Returns:
-
+            int: The chosen menu item.
         """
         for i, choice in enumerate(self.choices):
             self._out("{}. {}".format(str(i + 1), choice))
@@ -88,12 +97,5 @@ class MenuFactory:  # pylint: disable=too-few-public-methods
     """Creates a Menu"""
 
     def make(self, choices):  # pylint: disable=no-self-use
-        """
-
-        Args:
-          choices:
-
-        Returns:
-
-        """
+        """Returns a menu with the choices."""
         return Menu(choices)
