@@ -1,0 +1,2504 @@
+{
+  "name": "Disaster on The Good Ship Lethbridge",
+  "objects": {
+    "01e69a73-d378-4ccc-adf0-1ae73f52be50": {
+      "breakout": 1,
+      "events": [
+        {
+          "id": "1d714ad1-7a3d-42bc-a6eb-7dbda3da218c",
+          "name": "fiddle"
+        },
+        {
+          "id": "c5351487-a2ac-46c0-ad28-5e0bd9d43e3e",
+          "name": "smack it"
+        },
+        {
+          "id": "7139479c-8d53-48b8-905b-4e81cc375d4b",
+          "name": "dump"
+        }
+      ],
+      "id": "01e69a73-d378-4ccc-adf0-1ae73f52be50",
+      "message": "This is really complicated. Good thing you asked Clem what to do!",
+      "name": "fix it",
+      "once": 1,
+      "options": [
+        {
+          "id": "1d714ad1-7a3d-42bc-a6eb-7dbda3da218c",
+          "name": "fiddle"
+        },
+        {
+          "id": "c5351487-a2ac-46c0-ad28-5e0bd9d43e3e",
+          "name": "smack it"
+        },
+        {
+          "id": "7139479c-8d53-48b8-905b-4e81cc375d4b",
+          "name": "dump"
+        }
+      ],
+      "subjects": [],
+      "type": "interaction",
+      "verb": "use"
+    },
+    "0418facc-4945-4022-99d2-6d1d621ce43e": {
+      "id": "0418facc-4945-4022-99d2-6d1d621ce43e",
+      "message": "The door to Clem Spanner's room is now unlocked.",
+      "name": "unlocked",
+      "once": 0,
+      "subjects": [],
+      "type": "event",
+      "verb": null
+    },
+    "0493d6f8-b99b-4399-8621-28f60e58cbf8": {
+      "active": 1,
+      "description": "a big fluffy leather recliner",
+      "events": [
+        {
+          "id": "5bbb5ce3-bdd6-482e-91e3-43e8770d4609",
+          "name": "to good",
+          "verb": "use"
+        }
+      ],
+      "hidden": 0,
+      "id": "0493d6f8-b99b-4399-8621-28f60e58cbf8",
+      "items": [],
+      "name": "a comfy chair",
+      "obtainable": 0,
+      "type": "entity"
+    },
+    "0672202d-935b-424f-858d-20051787bfc0": {
+      "condition": {
+        "id": "de418aac-8813-4d38-99c7-2bac3416f636",
+        "name": "has"
+      },
+      "event": {
+        "id": "ea6d35c9-c883-4d34-b69c-418489226265",
+        "name": "thanks",
+        "verb": null
+      },
+      "id": "0672202d-935b-424f-858d-20051787bfc0",
+      "name": "help",
+      "text": "Help her",
+      "type": "conditional_option"
+    },
+    "0a32f33f-afca-4184-a607-bb1c0dd68ae4": {
+      "id": "0a32f33f-afca-4184-a607-bb1c0dd68ae4",
+      "item": {
+        "id": "8993082b-5c75-4096-9906-f9e8398840f1",
+        "name": "a core wrench"
+      },
+      "name": "wrench",
+      "other": {
+        "id": "105f11da-3bf0-4205-a44e-ee5c67fd5757",
+        "name": "Clem Spanner"
+      },
+      "type": "hasItem"
+    },
+    "0b79a83a-29aa-4379-9237-1a63ae9c8431": {
+      "id": "0b79a83a-29aa-4379-9237-1a63ae9c8431",
+      "message": "Now you should be able to get into the cargo bay!",
+      "name": "what next",
+      "once": 0,
+      "subjects": [],
+      "type": "event",
+      "verb": null
+    },
+    "0e3733ff-b4e8-45eb-8067-49c5bd9b38d0": {
+      "id": "0e3733ff-b4e8-45eb-8067-49c5bd9b38d0",
+      "message": "Access Denied!",
+      "name": "wrong code",
+      "once": 0,
+      "subjects": [],
+      "type": "event",
+      "verb": null
+    },
+    "0e6abdf6-df33-462a-a3c2-b9b2abc499cb": {
+      "active": 0,
+      "description": "a standard automatic ships door",
+      "events": [
+        {
+          "id": "e8eaa49e-3193-4f00-a297-9ec40b828d76",
+          "name": "to main hall",
+          "verb": "use"
+        }
+      ],
+      "hidden": 0,
+      "id": "0e6abdf6-df33-462a-a3c2-b9b2abc499cb",
+      "items": [],
+      "name": "a door to the main hall",
+      "obtainable": 0,
+      "type": "entity"
+    },
+    "0f86cffb-0628-4cf8-a38a-65af2a28a38d": {
+      "destination": {
+        "id": "b2d67ca5-e43e-422b-b64b-eab7fa5b2214",
+        "name": "the main engine control room"
+      },
+      "id": "0f86cffb-0628-4cf8-a38a-65af2a28a38d",
+      "message": "",
+      "name": "to engineering",
+      "once": 0,
+      "subjects": [],
+      "type": "move",
+      "verb": "use"
+    },
+    "103de460-0b08-49f7-9445-39a10e719aa9": {
+      "active": 1,
+      "description": "a very familiar looking little green man meditating on your ships antenna.",
+      "events": [
+        {
+          "id": "2ee56eba-d530-44a5-8931-1e3901c5c3a2",
+          "name": "say hello",
+          "verb": "talk"
+        }
+      ],
+      "hidden": 0,
+      "id": "103de460-0b08-49f7-9445-39a10e719aa9",
+      "items": [
+        {
+          "id": "41281e93-277b-425b-bc05-7b439dccbc63",
+          "name": "a light saber"
+        }
+      ],
+      "name": "a small green jedi",
+      "obtainable": 0,
+      "type": "npc"
+    },
+    "105f11da-3bf0-4205-a44e-ee5c67fd5757": {
+      "active": 1,
+      "description": "you cheif engineer",
+      "events": [
+        {
+          "id": "4d8c0295-35f9-4b34-bc64-70c65ea09927",
+          "name": "talk",
+          "verb": "talk"
+        }
+      ],
+      "hidden": 0,
+      "id": "105f11da-3bf0-4205-a44e-ee5c67fd5757",
+      "items": [
+        {
+          "id": "8993082b-5c75-4096-9906-f9e8398840f1",
+          "name": "a core wrench"
+        }
+      ],
+      "name": "Clem Spanner",
+      "obtainable": 0,
+      "type": "npc"
+    },
+    "1479d359-f0a4-470a-a9cc-826c55084c7c": {
+      "active": 0,
+      "description": "a standard automatic ships door",
+      "events": [
+        {
+          "id": "a1eaa750-769d-4ac8-ae2a-6c49a01c97e9",
+          "name": "spanners",
+          "verb": "use"
+        }
+      ],
+      "hidden": 0,
+      "id": "1479d359-f0a4-470a-a9cc-826c55084c7c",
+      "items": [],
+      "name": "a door to the engineer's quaters",
+      "obtainable": 0,
+      "type": "entity"
+    },
+    "1805b1d2-ab83-450a-86a8-2a27585d5e3b": {
+      "id": "1805b1d2-ab83-450a-86a8-2a27585d5e3b",
+      "item": {
+        "id": "19b45fee-3aef-4741-9349-3d1dfff64dd7",
+        "name": "a box of cookies"
+      },
+      "item_owner": {
+        "id": "9ef835f5-3190-4888-a435-267da4887664",
+        "name": "Whinny Mae"
+      },
+      "message": "\"Here take this box of cookies. It will probably help you out.\"",
+      "name": "cookie",
+      "once": 0,
+      "subjects": [],
+      "type": "give",
+      "verb": ""
+    },
+    "1805c1fb-dcf2-4b0d-a5f2-470cf727a014": {
+      "condition": {
+        "id": "c0e327ff-ae5d-4dc5-8894-97b28a0597ec",
+        "name": "have saber"
+      },
+      "failure": {
+        "id": "a4099b45-9d69-4ccc-a38d-00e602254569",
+        "name": "blank",
+        "verb": null
+      },
+      "id": "1805c1fb-dcf2-4b0d-a5f2-470cf727a014",
+      "message": "Upon entering the bridge Lars fires his laser torch at you. Luckily you have the lightsaber and you deflect the blast.",
+      "name": "blast",
+      "once": 0,
+      "subjects": [],
+      "success": {
+        "id": "ebcc6ef2-7f38-477a-83b8-e7926338d5dc",
+        "name": "deflect",
+        "verb": null
+      },
+      "type": "conditional",
+      "verb": "enter"
+    },
+    "19b45fee-3aef-4741-9349-3d1dfff64dd7": {
+      "active": 1,
+      "description": "a whole bunch of really tasty cookies.",
+      "events": [],
+      "hidden": 0,
+      "id": "19b45fee-3aef-4741-9349-3d1dfff64dd7",
+      "items": [],
+      "name": "a box of cookies",
+      "obtainable": 1,
+      "type": "entity"
+    },
+    "1b24d759-8cb4-436f-841b-b518c71a8091": {
+      "active": 1,
+      "description": "a standard automatic sliding door. There is a little grease on it.",
+      "events": [
+        {
+          "id": "9c6d130c-f1ea-403d-a118-184f6e800130",
+          "name": "to common",
+          "verb": "use"
+        }
+      ],
+      "hidden": 0,
+      "id": "1b24d759-8cb4-436f-841b-b518c71a8091",
+      "items": [],
+      "name": "a door to the common area",
+      "obtainable": 0,
+      "type": "entity"
+    },
+    "1bf6acc4-145c-47a8-98ed-e52352fb1063": {
+      "id": "1bf6acc4-145c-47a8-98ed-e52352fb1063",
+      "message": "It appears power has been restored to the hall door",
+      "name": "to hall",
+      "once": 0,
+      "state": "Active",
+      "subjects": [],
+      "target": {
+        "id": "0e6abdf6-df33-462a-a3c2-b9b2abc499cb",
+        "name": "a door to the main hall"
+      },
+      "type": "toggle_active",
+      "verb": null
+    },
+    "1d714ad1-7a3d-42bc-a6eb-7dbda3da218c": {
+      "event": {
+        "id": "2f234dfd-8ee5-40fa-80d4-dfe1229f8291",
+        "name": "blown up",
+        "verb": null
+      },
+      "id": "1d714ad1-7a3d-42bc-a6eb-7dbda3da218c",
+      "name": "fiddle",
+      "text": "Fiddle with it",
+      "type": "option"
+    },
+    "1d912e51-7747-4852-b903-afa705aae8b0": {
+      "answer": "4396",
+      "id": "1d912e51-7747-4852-b903-afa705aae8b0",
+      "name": "Input Code",
+      "question": "Input Code",
+      "type": "question"
+    },
+    "1db01da6-febb-4ff4-add8-160bc60beec8": {
+      "active": 1,
+      "description": "a suit to protect you from the lack of atmosphere in space.",
+      "events": [],
+      "hidden": 0,
+      "id": "1db01da6-febb-4ff4-add8-160bc60beec8",
+      "items": [],
+      "must_equip": 1,
+      "name": "a space suit",
+      "obtainable": 1,
+      "protects": [
+        "space"
+      ],
+      "slot": "body",
+      "type": "equipment"
+    },
+    "1f6bbbae-67d9-4251-b288-1548ae870ef1": {
+      "active": 1,
+      "description": "a fuse that has been burnt out by a power surge.",
+      "events": [],
+      "hidden": 0,
+      "id": "1f6bbbae-67d9-4251-b288-1548ae870ef1",
+      "items": [],
+      "name": "a wrecked fuse",
+      "obtainable": 1,
+      "type": "entity"
+    },
+    "2003bd7d-d4bf-467a-94ba-dc31810c8f63": {
+      "event": {
+        "id": "dcb8f4a9-ec75-4914-8ba3-d08e9dca8261",
+        "name": "status of crew",
+        "verb": null
+      },
+      "id": "2003bd7d-d4bf-467a-94ba-dc31810c8f63",
+      "name": "status",
+      "text": "Where is everyone else?",
+      "type": "option"
+    },
+    "22d61aef-c40f-4ffd-a22a-681dc704dc72": {
+      "condition": {
+        "id": "f16cf1a8-6d2c-4576-b64d-e6d70c28d36b",
+        "name": "medkit"
+      },
+      "event": {
+        "id": "6099cbb5-9264-462c-9a0f-1d54e87e0a00",
+        "name": "open engine room",
+        "verb": null
+      },
+      "id": "22d61aef-c40f-4ffd-a22a-681dc704dc72",
+      "name": "open engineering door",
+      "text": "Can you help me open the door to main engineering?",
+      "type": "conditional_option"
+    },
+    "23f53553-707a-4e19-ab17-fc9bbacc0e12": {
+      "destination": {
+        "id": "e491a8e1-3639-42ec-ac69-3fe4f66d8680",
+        "name": "the main hall"
+      },
+      "id": "23f53553-707a-4e19-ab17-fc9bbacc0e12",
+      "message": "",
+      "name": "to hall",
+      "once": 0,
+      "subjects": [],
+      "type": "move",
+      "verb": "use"
+    },
+    "284b5a6c-f0e2-49b2-8571-0a4ca2555df0": {
+      "id": "284b5a6c-f0e2-49b2-8571-0a4ca2555df0",
+      "message": "\"Quick you need to get to the bridge. I'll be ok you have to stop Lars.\"",
+      "name": "quick",
+      "once": 0,
+      "subjects": [],
+      "type": "event",
+      "verb": ""
+    },
+    "2a7e5a45-fb3f-4794-bbeb-a119dfe115b4": {
+      "active": 1,
+      "description": "your first officer. He standing upside down on the ceiling and looks sinister.",
+      "events": [
+        {
+          "id": "c721bc90-a792-4543-9250-8efc7c7f0f37",
+          "name": "final",
+          "verb": "talk"
+        }
+      ],
+      "hidden": 0,
+      "id": "2a7e5a45-fb3f-4794-bbeb-a119dfe115b4",
+      "items": [],
+      "name": "Lars Philbur",
+      "obtainable": 0,
+      "type": "npc"
+    },
+    "2a85434f-aa2e-4b1d-9fd9-af15efcfa51c": {
+      "destination": {
+        "id": "92b64fee-c7ea-48e1-93f5-3ffd409251e1",
+        "name": "The captain's quaters"
+      },
+      "id": "2a85434f-aa2e-4b1d-9fd9-af15efcfa51c",
+      "message": "",
+      "name": "to captains",
+      "once": 0,
+      "subjects": [],
+      "type": "move",
+      "verb": "use"
+    },
+    "2bc8eb1b-d85e-4376-aaf0-8502f1086dd5": {
+      "id": "2bc8eb1b-d85e-4376-aaf0-8502f1086dd5",
+      "item": {
+        "id": "19b45fee-3aef-4741-9349-3d1dfff64dd7",
+        "name": "a box of cookies"
+      },
+      "message": "",
+      "name": "cookie",
+      "new_owner": {
+        "id": "103de460-0b08-49f7-9445-39a10e719aa9",
+        "name": "a small green jedi"
+      },
+      "once": 0,
+      "subjects": [],
+      "type": "take",
+      "verb": ""
+    },
+    "2cae489b-e134-45a4-ba36-21ccc98c9823": {
+      "id": "2cae489b-e134-45a4-ba36-21ccc98c9823",
+      "item": {
+        "id": "7e780e18-3da0-4bff-97db-0356006bf2da",
+        "name": "a fresh fuse"
+      },
+      "message": "",
+      "name": "get fuse",
+      "new_owner": {
+        "id": "67ad5bbe-e24e-413a-8c4c-7748761245c6",
+        "name": "an open control panel"
+      },
+      "once": 0,
+      "subjects": [],
+      "type": "take",
+      "verb": ""
+    },
+    "2ee56eba-d530-44a5-8931-1e3901c5c3a2": {
+      "condition": {
+        "id": "981c466f-3d9e-4e35-934e-f2bc1d4f9d7a",
+        "name": "have cookies"
+      },
+      "failure": {
+        "id": "be71387f-877b-4f67-bdef-3bd9ddbe8295",
+        "name": "don't bother",
+        "verb": null
+      },
+      "id": "2ee56eba-d530-44a5-8931-1e3901c5c3a2",
+      "message": "",
+      "name": "say hello",
+      "once": 0,
+      "subjects": [],
+      "success": {
+        "id": "e41c2b90-a307-4206-b06b-16c77f79e3b2",
+        "name": "exchange",
+        "verb": null
+      },
+      "type": "conditional",
+      "verb": "talk"
+    },
+    "2f234dfd-8ee5-40fa-80d4-dfe1229f8291": {
+      "id": "2f234dfd-8ee5-40fa-80d4-dfe1229f8291",
+      "message": "Some lights start flashing and sirens go off. Then the ship blows up and vapourizes you and everyone on it. It's probably not the end you were hoping for, but you may have saved the day.",
+      "name": "blown up",
+      "once": 0,
+      "subjects": [],
+      "type": "end_game",
+      "verb": null
+    },
+    "354d0019-9a3c-4a2b-89c2-470c47ca662d": {
+      "active": 1,
+      "description": "a thick metal door that leads first through a decompression chamber and then into empty space",
+      "events": [
+        {
+          "id": "d62ab09d-dfbe-4aa0-9b3d-4e60816f2617",
+          "name": "to space",
+          "verb": "use"
+        }
+      ],
+      "hidden": 0,
+      "id": "354d0019-9a3c-4a2b-89c2-470c47ca662d",
+      "items": [],
+      "name": "an airlock to space",
+      "obtainable": 0,
+      "type": "entity"
+    },
+    "369fae2e-677e-4c07-b24d-fa3d1ea4a6be": {
+      "active": 1,
+      "description": "a thick metal door that leads first through a decompression chamber and then into the bridge",
+      "events": [
+        {
+          "id": "c6ba8b8e-02dd-4abb-9ed2-47527b4a0c71",
+          "name": "to bridge",
+          "verb": "use"
+        }
+      ],
+      "hidden": 0,
+      "id": "369fae2e-677e-4c07-b24d-fa3d1ea4a6be",
+      "items": [],
+      "name": "an airlock to the bridge",
+      "obtainable": 0,
+      "type": "entity"
+    },
+    "395b34a3-81e6-4927-b0c8-990caba6ee2d": {
+      "active": 1,
+      "description": "a standard automatic sliding door",
+      "events": [
+        {
+          "id": "23f53553-707a-4e19-ab17-fc9bbacc0e12",
+          "name": "to hall",
+          "verb": "use"
+        }
+      ],
+      "hidden": 0,
+      "id": "395b34a3-81e6-4927-b0c8-990caba6ee2d",
+      "items": [],
+      "name": "a door to the main hall",
+      "obtainable": 0,
+      "type": "entity"
+    },
+    "3d98192d-bbde-45f8-8933-91e4dcacfbe4": {
+      "breakout": 0,
+      "events": [
+        {
+          "id": "9497fcac-0c77-4b59-a7be-9c5f7baa8acc",
+          "name": "what"
+        },
+        {
+          "id": "0672202d-935b-424f-858d-20051787bfc0",
+          "name": "help"
+        },
+        {
+          "id": "2003bd7d-d4bf-467a-94ba-dc31810c8f63",
+          "name": "status"
+        },
+        {
+          "id": "22d61aef-c40f-4ffd-a22a-681dc704dc72",
+          "name": "open engineering door"
+        }
+      ],
+      "id": "3d98192d-bbde-45f8-8933-91e4dcacfbe4",
+      "message": "\"I don't feel so good\"",
+      "name": "talk",
+      "once": 0,
+      "options": [
+        {
+          "id": "9497fcac-0c77-4b59-a7be-9c5f7baa8acc",
+          "name": "what"
+        },
+        {
+          "id": "0672202d-935b-424f-858d-20051787bfc0",
+          "name": "help"
+        },
+        {
+          "id": "2003bd7d-d4bf-467a-94ba-dc31810c8f63",
+          "name": "status"
+        },
+        {
+          "id": "22d61aef-c40f-4ffd-a22a-681dc704dc72",
+          "name": "open engineering door"
+        }
+      ],
+      "subjects": [],
+      "type": "interaction",
+      "verb": "talk"
+    },
+    "40938473-f9dc-416d-a20a-3ec5523cfba1": {
+      "destination": {
+        "id": "52ed4341-e36d-4950-afcc-9df72ebfbded",
+        "name": "the cargo bay"
+      },
+      "id": "40938473-f9dc-416d-a20a-3ec5523cfba1",
+      "message": "",
+      "name": "to cargo",
+      "once": 0,
+      "subjects": [],
+      "type": "move",
+      "verb": "use"
+    },
+    "41281e93-277b-425b-bc05-7b439dccbc63": {
+      "active": 1,
+      "description": "an well used jedi weapon.",
+      "events": [],
+      "hidden": 0,
+      "id": "41281e93-277b-425b-bc05-7b439dccbc63",
+      "items": [],
+      "name": "a light saber",
+      "obtainable": 1,
+      "type": "entity"
+    },
+    "429cc1d2-35db-4a02-bd5c-5986d3cfc41d": {
+      "active": 1,
+      "description": "a first aid kit that could save someones life.",
+      "events": [],
+      "hidden": 0,
+      "id": "429cc1d2-35db-4a02-bd5c-5986d3cfc41d",
+      "items": [],
+      "name": "a medkit",
+      "obtainable": 1,
+      "type": "entity"
+    },
+    "43ea853c-2c28-4cca-9416-ff890d444ae0": {
+      "id": "43ea853c-2c28-4cca-9416-ff890d444ae0",
+      "name": "core is active",
+      "other": null,
+      "type": "is_active"
+    },
+    "45d27fad-12d7-4ded-be8e-df4e62413216": {
+      "atmosphere": "oxygen",
+      "effects": [
+        "radiation"
+      ],
+      "id": "45d27fad-12d7-4ded-be8e-df4e62413216",
+      "name": "have hazmat",
+      "type": "protected"
+    },
+    "47f4f116-549e-4830-8d98-5ef1f1e12941": {
+      "id": "47f4f116-549e-4830-8d98-5ef1f1e12941",
+      "message": "Access Denied!",
+      "name": "denied",
+      "once": 0,
+      "subjects": [],
+      "type": "event",
+      "verb": null
+    },
+    "4946c3f6-ca05-4792-b8bd-fa18483ecaff": {
+      "id": "4946c3f6-ca05-4792-b8bd-fa18483ecaff",
+      "message": "Dumping the core leaves the ship dead in space. You and your crew eventually run out of air and perish. Whatever has afflicted Lars will just attack those that find your ship.",
+      "name": "dumped core",
+      "once": 0,
+      "subjects": [],
+      "type": "end_game",
+      "verb": null
+    },
+    "4a251b75-c2c5-41e2-8012-2123d12752e4": {
+      "condition": {
+        "id": "8af15391-0b66-4054-b264-50b168ca09b3",
+        "name": "good fuse"
+      },
+      "failure": {
+        "id": "57431c24-5931-431f-bcf0-a81775f57f6c",
+        "name": "no fuse",
+        "verb": null
+      },
+      "id": "4a251b75-c2c5-41e2-8012-2123d12752e4",
+      "message": "",
+      "name": "new fuse",
+      "once": 0,
+      "subjects": [],
+      "success": {
+        "id": "1bf6acc4-145c-47a8-98ed-e52352fb1063",
+        "name": "to hall",
+        "verb": null
+      },
+      "type": "conditional",
+      "verb": null
+    },
+    "4b01a146-c1e8-4cd5-a1af-448229195234": {
+      "active": 1,
+      "description": "your bed",
+      "events": [
+        {
+          "id": "b69ba95b-9c52-45f7-9dd5-2931f4ca2d5e",
+          "name": "die",
+          "verb": "use"
+        }
+      ],
+      "hidden": 0,
+      "id": "4b01a146-c1e8-4cd5-a1af-448229195234",
+      "items": [],
+      "name": "a bed",
+      "obtainable": 0,
+      "type": "entity"
+    },
+    "4cd5e361-8219-4446-ba99-b8847a4f7dbc": {
+      "active": 1,
+      "description": "You are on the bridge. It is the command center for your small ship. There are control stations and a nice looking captains chair in the center. Your first mate Lars Philbur is suspended from the ceiling by tenacles you are pretty sure he didn't have the last time you saw him.",
+      "events": [
+        {
+          "id": "1805c1fb-dcf2-4b0d-a5f2-470cf727a014",
+          "name": "blast",
+          "verb": "enter"
+        }
+      ],
+      "hidden": 0,
+      "id": "4cd5e361-8219-4446-ba99-b8847a4f7dbc",
+      "items": [
+        {
+          "id": "354d0019-9a3c-4a2b-89c2-470c47ca662d",
+          "name": "an airlock to space"
+        },
+        {
+          "id": "2a7e5a45-fb3f-4794-bbeb-a119dfe115b4",
+          "name": "Lars Philbur"
+        }
+      ],
+      "name": "the command bridge",
+      "obtainable": 0,
+      "type": "room"
+    },
+    "4d8c0295-35f9-4b34-bc64-70c65ea09927": {
+      "breakout": 0,
+      "events": [
+        {
+          "id": "eb66cf59-09af-4f17-9690-c6df461d0c96",
+          "name": "restore"
+        },
+        {
+          "id": "59acb620-9fd1-4132-9381-25343034eb71",
+          "name": "how"
+        },
+        {
+          "id": "c2af0e25-ca75-4e3a-8a0c-3c4c7dd7aafc",
+          "name": "take wrench"
+        },
+        {
+          "id": "62a66cac-a326-41d5-ae09-1547a636bdaa",
+          "name": "status"
+        },
+        {
+          "id": "e0475818-9440-4946-82a5-ad1c1b1513c3",
+          "name": "core active"
+        }
+      ],
+      "id": "4d8c0295-35f9-4b34-bc64-70c65ea09927",
+      "message": "\"We have to hurry if we are going to save Lars!\"",
+      "name": "talk",
+      "once": 0,
+      "options": [
+        {
+          "id": "eb66cf59-09af-4f17-9690-c6df461d0c96",
+          "name": "restore"
+        },
+        {
+          "id": "59acb620-9fd1-4132-9381-25343034eb71",
+          "name": "how"
+        },
+        {
+          "id": "c2af0e25-ca75-4e3a-8a0c-3c4c7dd7aafc",
+          "name": "take wrench"
+        },
+        {
+          "id": "62a66cac-a326-41d5-ae09-1547a636bdaa",
+          "name": "status"
+        },
+        {
+          "id": "e0475818-9440-4946-82a5-ad1c1b1513c3",
+          "name": "core active"
+        }
+      ],
+      "subjects": [],
+      "type": "interaction",
+      "verb": "talk"
+    },
+    "50b964ce-6250-4a23-8970-029d09c1d1ec": {
+      "id": "50b964ce-6250-4a23-8970-029d09c1d1ec",
+      "message": "Access Granted!",
+      "name": "unlock",
+      "once": 1,
+      "state": "Active",
+      "subjects": [],
+      "target": {
+        "id": "1479d359-f0a4-470a-a9cc-826c55084c7c",
+        "name": "a door to the engineer's quaters"
+      },
+      "type": "toggle_active",
+      "verb": null
+    },
+    "52ed4341-e36d-4950-afcc-9df72ebfbded": {
+      "active": 1,
+      "description": "You are in a room that holds the ships cargo. There are large crates and containers everywhere.",
+      "events": [],
+      "hidden": 0,
+      "id": "52ed4341-e36d-4950-afcc-9df72ebfbded",
+      "items": [
+        {
+          "id": "5be0d983-5530-492f-92d0-8ce7ce16965e",
+          "name": "a door to the main hall"
+        },
+        {
+          "id": "c3466729-6d04-4ed1-88ff-8e88ecc58f7e",
+          "name": "an airlock to space"
+        },
+        {
+          "id": "b7a7d98d-9ccc-42e7-8f37-af540140d37a",
+          "name": "an ancient celestial object"
+        },
+        {
+          "id": "9ef835f5-3190-4888-a435-267da4887664",
+          "name": "Whinny Mae"
+        },
+        {
+          "id": "edf9d155-1aad-44b9-b3bc-864301beedaf",
+          "name": "a space suit closet"
+        }
+      ],
+      "name": "the cargo bay",
+      "obtainable": 0,
+      "type": "room"
+    },
+    "56c9921e-cf56-4c9e-8429-cd3107b2efe3": {
+      "id": "56c9921e-cf56-4c9e-8429-cd3107b2efe3",
+      "item": {
+        "id": "cb484fe1-5a90-42a9-95fb-9cb7ac04c899",
+        "name": "a door to the cargo bay"
+      },
+      "name": "is core active",
+      "type": "is_active"
+    },
+    "57431c24-5931-431f-bcf0-a81775f57f6c": {
+      "id": "57431c24-5931-431f-bcf0-a81775f57f6c",
+      "message": "You don't have what you need to fix this",
+      "name": "no fuse",
+      "once": 0,
+      "subjects": [],
+      "type": "event",
+      "verb": null
+    },
+    "57b77b5c-e272-4659-8c71-7c03bb656d28": {
+      "active": 1,
+      "description": "debris drifting by the window. Most likely from the lethbridge.",
+      "events": [],
+      "hidden": 0,
+      "id": "57b77b5c-e272-4659-8c71-7c03bb656d28",
+      "items": [],
+      "name": "a viewport",
+      "obtainable": 0,
+      "type": "entity"
+    },
+    "5867b324-9c12-4a5d-b82a-b55da38314a1": {
+      "destination": {
+        "id": "ada661e4-6290-4766-b773-d8ceab8a47d2",
+        "name": "the common area"
+      },
+      "id": "5867b324-9c12-4a5d-b82a-b55da38314a1",
+      "message": "",
+      "name": "to common",
+      "once": 0,
+      "subjects": [],
+      "type": "move",
+      "verb": "use"
+    },
+    "59acb620-9fd1-4132-9381-25343034eb71": {
+      "event": {
+        "id": "e7d45f25-3095-42a6-9016-b677f9daa4be",
+        "name": "smack",
+        "verb": null
+      },
+      "id": "59acb620-9fd1-4132-9381-25343034eb71",
+      "name": "how",
+      "text": "How do I fix the core?",
+      "type": "option"
+    },
+    "5bbb5ce3-bdd6-482e-91e3-43e8770d4609": {
+      "id": "5bbb5ce3-bdd6-482e-91e3-43e8770d4609",
+      "message": "It feels so good to sit in this chair. Your a bad captain. You should be saving your ship!",
+      "name": "to good",
+      "once": 0,
+      "subjects": [],
+      "type": "event",
+      "verb": "use"
+    },
+    "5bc9a63f-7a85-4d73-88e9-958d8a499633": {
+      "active": 1,
+      "description": "the power source for your ship.",
+      "events": [
+        {
+          "id": "01e69a73-d378-4ccc-adf0-1ae73f52be50",
+          "name": "fix it",
+          "verb": "use"
+        }
+      ],
+      "hidden": 0,
+      "id": "5bc9a63f-7a85-4d73-88e9-958d8a499633",
+      "items": [],
+      "name": "the reactor core",
+      "obtainable": 0,
+      "type": "entity"
+    },
+    "5be0d983-5530-492f-92d0-8ce7ce16965e": {
+      "active": 1,
+      "description": "a standard automatic sliding door",
+      "events": [
+        {
+          "id": "9a526739-3ae5-4f63-b191-7789431e162f",
+          "name": "to hall",
+          "verb": "use"
+        }
+      ],
+      "hidden": 0,
+      "id": "5be0d983-5530-492f-92d0-8ce7ce16965e",
+      "items": [],
+      "name": "a door to the main hall",
+      "obtainable": 0,
+      "type": "entity"
+    },
+    "5f4c4cfb-75dd-4333-b026-c2cd8002d704": {
+      "id": "5f4c4cfb-75dd-4333-b026-c2cd8002d704",
+      "message": "Just then a forcefield comes up around Lars. Clem's voice comes over the intercom telling you he has restored full power to the ship. You transfer Lars to a secure container, but somehow the alien infection spreads. Eventually you all fall prey to it. In time the whole galaxy is infested! ",
+      "name": "capture",
+      "once": 0,
+      "subjects": [],
+      "type": "end_game",
+      "verb": null
+    },
+    "6099cbb5-9264-462c-9a0f-1d54e87e0a00": {
+      "id": "6099cbb5-9264-462c-9a0f-1d54e87e0a00",
+      "message": "\"Clem locked himself in there to keep out lars. I will signal him.\"  She pulls out a small device and presses some buttons. \"It should be open now. Hurry, we need to act fast.\"",
+      "name": "open engine room",
+      "once": 1,
+      "state": "Active",
+      "subjects": [],
+      "target": {
+        "id": "633e93c7-2ce2-4bb8-9272-8711ba132497",
+        "name": "a door to main engineering"
+      },
+      "type": "toggle_active",
+      "verb": null
+    },
+    "617ff617-7a8a-459f-9440-00b739576039": {
+      "events": [
+        {
+          "id": "284b5a6c-f0e2-49b2-8571-0a4ca2555df0",
+          "name": "quick",
+          "verb": ""
+        },
+        {
+          "id": "76beb6e1-5036-47a3-811a-ac9cb3f98598",
+          "name": "still here",
+          "verb": ""
+        },
+        {
+          "id": "768e9e46-f871-49be-901e-37a54c09190a",
+          "name": "space",
+          "verb": ""
+        },
+        {
+          "id": "1805b1d2-ab83-450a-86a8-2a27585d5e3b",
+          "name": "cookie",
+          "verb": ""
+        },
+        {
+          "id": "b5b914ff-5932-42bf-b147-902a7200f407",
+          "name": "stop",
+          "verb": ""
+        }
+      ],
+      "id": "617ff617-7a8a-459f-9440-00b739576039",
+      "message": "",
+      "name": "talk whinny",
+      "once": 0,
+      "repeats": 0,
+      "subjects": [],
+      "type": "ordered",
+      "verb": "talk"
+    },
+    "62a66cac-a326-41d5-ae09-1547a636bdaa": {
+      "event": {
+        "id": "bbaf410f-fd38-4931-a7f9-7df1502c8f56",
+        "name": "next",
+        "verb": null
+      },
+      "id": "62a66cac-a326-41d5-ae09-1547a636bdaa",
+      "name": "status",
+      "text": "What's our status?",
+      "type": "option"
+    },
+    "633e93c7-2ce2-4bb8-9272-8711ba132497": {
+      "active": 0,
+      "description": "a standard automatic ships door",
+      "events": [
+        {
+          "id": "0f86cffb-0628-4cf8-a38a-65af2a28a38d",
+          "name": "to engineering",
+          "verb": "use"
+        }
+      ],
+      "hidden": 0,
+      "id": "633e93c7-2ce2-4bb8-9272-8711ba132497",
+      "items": [],
+      "name": "a door to main engineering",
+      "obtainable": 0,
+      "type": "entity"
+    },
+    "6418b1d1-040d-46fb-8916-d37974ce5c2c": {
+      "id": "6418b1d1-040d-46fb-8916-d37974ce5c2c",
+      "item": {
+        "id": "7e780e18-3da0-4bff-97db-0356006bf2da",
+        "name": "a fresh fuse"
+      },
+      "name": "fuse",
+      "other": null,
+      "type": "hasItem"
+    },
+    "66826359-b459-4f07-b1d8-6b08fa72837b": {
+      "active": 1,
+      "description": "a door to main engineering. It first leads through a decontamination chamber.",
+      "events": [
+        {
+          "id": "e7982f9a-d2d5-4123-aba9-b52a59bccb93",
+          "name": "to engineering",
+          "verb": "use"
+        }
+      ],
+      "hidden": 0,
+      "id": "66826359-b459-4f07-b1d8-6b08fa72837b",
+      "items": [],
+      "name": "a door to main engineering",
+      "obtainable": 0,
+      "type": "entity"
+    },
+    "67ad5bbe-e24e-413a-8c4c-7748761245c6": {
+      "active": 1,
+      "description": "a scorched opening in the wall with a control panel hanging by a couple of wires. It looks like some of the fuses inside are burnt out.",
+      "events": [
+        {
+          "id": "6d4e5a89-37fb-4e82-b3a9-318788bed494",
+          "name": "fix",
+          "verb": "use"
+        }
+      ],
+      "hidden": 0,
+      "id": "67ad5bbe-e24e-413a-8c4c-7748761245c6",
+      "items": [
+        {
+          "id": "1f6bbbae-67d9-4251-b288-1548ae870ef1",
+          "name": "a wrecked fuse"
+        }
+      ],
+      "name": "an open control panel",
+      "obtainable": 0,
+      "type": "container"
+    },
+    "6ac1cc43-a6f3-4cca-bf69-f013e0b738bd": {
+      "active": 1,
+      "description": "A messy bed",
+      "events": [
+        {
+          "id": "9beade40-5c57-44ad-a7cd-1f6422ad1ac1",
+          "name": "use",
+          "verb": "use"
+        }
+      ],
+      "hidden": 0,
+      "id": "6ac1cc43-a6f3-4cca-bf69-f013e0b738bd",
+      "items": [],
+      "name": "Clem's bed",
+      "obtainable": 0,
+      "type": "entity"
+    },
+    "6c93d1b1-7dde-4726-b769-bb763c66f258": {
+      "active": 1,
+      "description": "a door much thicker than other doors you have used. There is a large radiation warning symbol on it. It first leads through a decontamination chamber.",
+      "events": [
+        {
+          "id": "9dc0de85-fd65-4b45-8c5a-e1cfff759db4",
+          "name": "to reactor",
+          "verb": "use"
+        }
+      ],
+      "hidden": 0,
+      "id": "6c93d1b1-7dde-4726-b769-bb763c66f258",
+      "items": [],
+      "name": "a door to the reactor room",
+      "obtainable": 0,
+      "type": "entity"
+    },
+    "6ceffbb0-ae85-4c53-96d3-434f8234c98a": {
+      "id": "6ceffbb0-ae85-4c53-96d3-434f8234c98a",
+      "message": "You wouln't even know where to start!",
+      "name": "careful",
+      "once": 0,
+      "subjects": [],
+      "type": "event",
+      "verb": "use"
+    },
+    "6d4e5a89-37fb-4e82-b3a9-318788bed494": {
+      "condition": {
+        "id": "6418b1d1-040d-46fb-8916-d37974ce5c2c",
+        "name": "fuse"
+      },
+      "failure": {
+        "id": "bab4e262-4207-4688-9067-f274a8a0308d",
+        "name": "nope",
+        "verb": null
+      },
+      "id": "6d4e5a89-37fb-4e82-b3a9-318788bed494",
+      "message": "",
+      "name": "fix",
+      "once": 0,
+      "subjects": [],
+      "success": {
+        "id": "a03d0e97-1ea5-45c7-b648-1aac1a694ab5",
+        "name": "fix",
+        "verb": null
+      },
+      "type": "conditional",
+      "verb": "use"
+    },
+    "6f35f295-a7b8-4279-85a5-77906e6aa24d": {
+      "destination": {
+        "id": "d13cabdc-56a5-458a-a534-e519d3dcbfb0",
+        "name": "the engineers quaters"
+      },
+      "id": "6f35f295-a7b8-4279-85a5-77906e6aa24d",
+      "message": "",
+      "name": "to spanners",
+      "once": 0,
+      "subjects": [],
+      "type": "move",
+      "verb": null
+    },
+    "707ef248-a990-4e84-ac68-024cb10cfdfe": {
+      "active": 1,
+      "description": "a suit that will protect you from the horrors of gamma radiation exposure.",
+      "events": [],
+      "hidden": 0,
+      "id": "707ef248-a990-4e84-ac68-024cb10cfdfe",
+      "items": [],
+      "must_equip": 1,
+      "name": "a hazmat suit",
+      "obtainable": 1,
+      "protects": [
+        "radiation"
+      ],
+      "slot": "body",
+      "type": "equipment"
+    },
+    "7139479c-8d53-48b8-905b-4e81cc375d4b": {
+      "event": {
+        "id": "4946c3f6-ca05-4792-b8bd-fa18483ecaff",
+        "name": "dumped core",
+        "verb": null
+      },
+      "id": "7139479c-8d53-48b8-905b-4e81cc375d4b",
+      "name": "dump",
+      "text": "Dump the core",
+      "type": "option"
+    },
+    "72838d2e-6927-4822-8ff6-f81f758640c6": {
+      "active": 1,
+      "description": "a standard automatic sliding door",
+      "events": [
+        {
+          "id": "5867b324-9c12-4a5d-b82a-b55da38314a1",
+          "name": "to common",
+          "verb": "use"
+        }
+      ],
+      "hidden": 0,
+      "id": "72838d2e-6927-4822-8ff6-f81f758640c6",
+      "items": [],
+      "name": "a door to the common area",
+      "obtainable": 0,
+      "type": "entity"
+    },
+    "72c04cc6-b4e3-4bdc-898e-63143a36cf6a": {
+      "active": 1,
+      "description": "a closet containing all kinds of tools for repairing a spaceship. Your a smart captain, but you don't know what most of this stuff is for.",
+      "events": [],
+      "hidden": 0,
+      "id": "72c04cc6-b4e3-4bdc-898e-63143a36cf6a",
+      "items": [
+        {
+          "id": "7e780e18-3da0-4bff-97db-0356006bf2da",
+          "name": "a fresh fuse"
+        }
+      ],
+      "name": "a tool closet",
+      "obtainable": 0,
+      "type": "container"
+    },
+    "7449d266-b513-4279-a978-87d459325f6b": {
+      "id": "7449d266-b513-4279-a978-87d459325f6b",
+      "message": "",
+      "name": "good",
+      "once": 0,
+      "subjects": [],
+      "type": "event",
+      "verb": null
+    },
+    "751645fc-fd4d-48b2-bf39-5c0e27d77551": {
+      "active": 1,
+      "description": "a keypad lock for locking and unlocking doors.",
+      "events": [
+        {
+          "id": "80e9aa3d-5d63-430d-a86c-5c257a6b397a",
+          "name": "lock",
+          "verb": "use"
+        }
+      ],
+      "hidden": 0,
+      "id": "751645fc-fd4d-48b2-bf39-5c0e27d77551",
+      "items": [],
+      "name": "a keypad lock for engineer's door",
+      "obtainable": 0,
+      "type": "entity"
+    },
+    "7555c795-b62d-48ef-a89d-643ac0bfc885": {
+      "id": "7555c795-b62d-48ef-a89d-643ac0bfc885",
+      "message": "",
+      "name": "power door",
+      "once": 1,
+      "state": "Active",
+      "subjects": [],
+      "target": {
+        "id": "0e6abdf6-df33-462a-a3c2-b9b2abc499cb",
+        "name": "a door to the main hall"
+      },
+      "type": "toggle_active",
+      "verb": ""
+    },
+    "768e9e46-f871-49be-901e-37a54c09190a": {
+      "id": "768e9e46-f871-49be-901e-37a54c09190a",
+      "message": "\"Get a space suit and get out the airlock. It's the only way to the bridge.\"",
+      "name": "space",
+      "once": 0,
+      "subjects": [],
+      "type": "event",
+      "verb": ""
+    },
+    "76beb6e1-5036-47a3-811a-ac9cb3f98598": {
+      "id": "76beb6e1-5036-47a3-811a-ac9cb3f98598",
+      "message": "\"What are you still doing here. You have to save the ship!\"",
+      "name": "still here",
+      "once": 0,
+      "subjects": [],
+      "type": "event",
+      "verb": ""
+    },
+    "776091ab-be5b-4452-97f8-1d56cf361ac2": {
+      "active": 1,
+      "description": "a standard automatic sliding door",
+      "events": [
+        {
+          "id": "2a85434f-aa2e-4b1d-9fd9-af15efcfa51c",
+          "name": "to captains",
+          "verb": "use"
+        }
+      ],
+      "hidden": 0,
+      "id": "776091ab-be5b-4452-97f8-1d56cf361ac2",
+      "items": [],
+      "name": "a door to the captain's quaters",
+      "obtainable": 0,
+      "type": "entity"
+    },
+    "7e780e18-3da0-4bff-97db-0356006bf2da": {
+      "active": 1,
+      "description": "a brand new fuse for fixing control circuits",
+      "events": [],
+      "hidden": 0,
+      "id": "7e780e18-3da0-4bff-97db-0356006bf2da",
+      "items": [],
+      "name": "a fresh fuse",
+      "obtainable": 1,
+      "type": "entity"
+    },
+    "80e9aa3d-5d63-430d-a86c-5c257a6b397a": {
+      "condition": {
+        "id": "ce28f206-3fe3-4a00-b3d6-69d7ac889caf",
+        "name": "code"
+      },
+      "failure": {
+        "id": "47f4f116-549e-4830-8d98-5ef1f1e12941",
+        "name": "denied",
+        "verb": null
+      },
+      "id": "80e9aa3d-5d63-430d-a86c-5c257a6b397a",
+      "message": "",
+      "name": "lock",
+      "once": 0,
+      "subjects": [],
+      "success": {
+        "id": "50b964ce-6250-4a23-8970-029d09c1d1ec",
+        "name": "unlock",
+        "verb": null
+      },
+      "type": "conditional",
+      "verb": "use"
+    },
+    "841f95fd-e993-49a4-88ea-70fbc41ca92a": {
+      "condition": {
+        "id": "b0b29787-8516-4bdd-9bc6-7ec09dc07093",
+        "name": "have saber"
+      },
+      "event": {
+        "id": "f78c9f66-1fa6-4652-aff7-8bdf7f2affe8",
+        "name": "kill lars",
+        "verb": null
+      },
+      "id": "841f95fd-e993-49a4-88ea-70fbc41ca92a",
+      "name": "saber",
+      "text": "Use the light saber",
+      "type": "conditional_option"
+    },
+    "845ef4f9-ff3b-48a8-97dc-246068d5fc11": {
+      "id": "845ef4f9-ff3b-48a8-97dc-246068d5fc11",
+      "message": "You are not protected from the radiation. Even in text it would be too horrible to describe your fate!",
+      "name": "gama death",
+      "once": 0,
+      "subjects": [],
+      "type": "end_game",
+      "verb": null
+    },
+    "8993082b-5c75-4096-9906-f9e8398840f1": {
+      "active": 1,
+      "description": "a tool that can fix almost anything, but is really shines fixing reactor cores.",
+      "events": [],
+      "hidden": 0,
+      "id": "8993082b-5c75-4096-9906-f9e8398840f1",
+      "items": [],
+      "name": "a core wrench",
+      "obtainable": 1,
+      "type": "entity"
+    },
+    "8af15391-0b66-4054-b264-50b168ca09b3": {
+      "id": "8af15391-0b66-4054-b264-50b168ca09b3",
+      "item": {
+        "id": "7e780e18-3da0-4bff-97db-0356006bf2da",
+        "name": "a fresh fuse"
+      },
+      "name": "good fuse",
+      "other": {
+        "id": "player",
+        "name": "player"
+      },
+      "type": "hasItem"
+    },
+    "8d2068f9-f496-4b0e-9ab6-08509e2bf66a": {
+      "active": 1,
+      "description": "a list of the crew members of the ship.",
+      "events": [
+        {
+          "id": "e297c6f6-0e92-42fd-b4e1-0ecc3743ef5a",
+          "name": "read",
+          "verb": "look"
+        }
+      ],
+      "hidden": 0,
+      "id": "8d2068f9-f496-4b0e-9ab6-08509e2bf66a",
+      "items": [],
+      "name": "a crew manifest",
+      "obtainable": 1,
+      "type": "entity"
+    },
+    "92b64fee-c7ea-48e1-93f5-3ffd409251e1": {
+      "active": 1,
+      "description": "You are in the best room on the ship. It has nice furnishings and is a lot larger than the other crew members' quaters. It is your sanctuary from the demands of your position.",
+      "events": [],
+      "hidden": 0,
+      "id": "92b64fee-c7ea-48e1-93f5-3ffd409251e1",
+      "items": [
+        {
+          "id": "72838d2e-6927-4822-8ff6-f81f758640c6",
+          "name": "a door to the common area"
+        },
+        {
+          "id": "57b77b5c-e272-4659-8c71-7c03bb656d28",
+          "name": "a viewport"
+        },
+        {
+          "id": "c34d74c0-ef3b-4c33-bfff-2fa0349d4a59",
+          "name": "a computer terminal"
+        },
+        {
+          "id": "4b01a146-c1e8-4cd5-a1af-448229195234",
+          "name": "a bed"
+        },
+        {
+          "id": "429cc1d2-35db-4a02-bd5c-5986d3cfc41d",
+          "name": "a medkit"
+        }
+      ],
+      "name": "The captain's room",
+      "obtainable": 0,
+      "type": "room"
+    },
+    "9497fcac-0c77-4b59-a7be-9c5f7baa8acc": {
+      "event": {
+        "id": "b5fd047c-94e5-419a-8a55-eef451199bed",
+        "name": "status",
+        "verb": null
+      },
+      "id": "9497fcac-0c77-4b59-a7be-9c5f7baa8acc",
+      "name": "what",
+      "text": "What happend?",
+      "type": "option"
+    },
+    "965941e8-dd8e-491c-8856-5ea8580a8f68": {
+      "event": {
+        "id": "e7d08453-c636-428c-8200-dbb277177f22",
+        "name": "escape",
+        "verb": null
+      },
+      "id": "965941e8-dd8e-491c-8856-5ea8580a8f68",
+      "name": "coward",
+      "text": "Use one of the escape pods",
+      "type": "option"
+    },
+    "981c466f-3d9e-4e35-934e-f2bc1d4f9d7a": {
+      "id": "981c466f-3d9e-4e35-934e-f2bc1d4f9d7a",
+      "item": {
+        "id": "19b45fee-3aef-4741-9349-3d1dfff64dd7",
+        "name": "a box of cookies"
+      },
+      "name": "have cookies",
+      "other": null,
+      "type": "hasItem"
+    },
+    "9a526739-3ae5-4f63-b191-7789431e162f": {
+      "destination": {
+        "id": "e491a8e1-3639-42ec-ac69-3fe4f66d8680",
+        "name": "the main hall"
+      },
+      "id": "9a526739-3ae5-4f63-b191-7789431e162f",
+      "message": "",
+      "name": "to hall",
+      "once": 0,
+      "subjects": [],
+      "type": "move",
+      "verb": "use"
+    },
+    "9beade40-5c57-44ad-a7cd-1f6422ad1ac1": {
+      "id": "9beade40-5c57-44ad-a7cd-1f6422ad1ac1",
+      "message": "You shouldn't sleep when the fate of the galaxy is at stakes!",
+      "name": "use",
+      "once": 1,
+      "subjects": [],
+      "type": "end_game",
+      "verb": "use"
+    },
+    "9c6d130c-f1ea-403d-a118-184f6e800130": {
+      "destination": {
+        "id": "ada661e4-6290-4766-b773-d8ceab8a47d2",
+        "name": "the common area"
+      },
+      "id": "9c6d130c-f1ea-403d-a118-184f6e800130",
+      "message": "",
+      "name": "to common",
+      "once": 0,
+      "subjects": [],
+      "type": "move",
+      "verb": "use"
+    },
+    "9dc0de85-fd65-4b45-8c5a-e1cfff759db4": {
+      "destination": {
+        "id": "a5ecea92-6235-4318-baac-8a3f6161c839",
+        "name": "the reactor room"
+      },
+      "id": "9dc0de85-fd65-4b45-8c5a-e1cfff759db4",
+      "message": "",
+      "name": "to reactor",
+      "once": 0,
+      "subjects": [],
+      "type": "move",
+      "verb": "use"
+    },
+    "9ef835f5-3190-4888-a435-267da4887664": {
+      "active": 1,
+      "description": "you ships medical officer",
+      "events": [
+        {
+          "id": "617ff617-7a8a-459f-9440-00b739576039",
+          "name": "talk whinny",
+          "verb": "talk"
+        }
+      ],
+      "hidden": 0,
+      "id": "9ef835f5-3190-4888-a435-267da4887664",
+      "items": [
+        {
+          "id": "19b45fee-3aef-4741-9349-3d1dfff64dd7",
+          "name": "a box of cookies"
+        }
+      ],
+      "name": "Whinny Mae",
+      "obtainable": 0,
+      "type": "npc"
+    },
+    "a03d0e97-1ea5-45c7-b648-1aac1a694ab5": {
+      "events": [
+        {
+          "id": "2cae489b-e134-45a4-ba36-21ccc98c9823",
+          "name": "get fuse",
+          "verb": ""
+        },
+        {
+          "id": "7555c795-b62d-48ef-a89d-643ac0bfc885",
+          "name": "power door",
+          "verb": ""
+        }
+      ],
+      "id": "a03d0e97-1ea5-45c7-b648-1aac1a694ab5",
+      "message": "You insert the fresh fuse and power is restored to the hall door",
+      "name": "fix",
+      "once": 0,
+      "repeats": 0,
+      "subjects": [],
+      "type": "group",
+      "verb": null
+    },
+    "a1eaa750-769d-4ac8-ae2a-6c49a01c97e9": {
+      "destination": {
+        "id": "d13cabdc-56a5-458a-a534-e519d3dcbfb0",
+        "name": "the engineers quaters"
+      },
+      "id": "a1eaa750-769d-4ac8-ae2a-6c49a01c97e9",
+      "message": "",
+      "name": "spanners",
+      "once": 0,
+      "subjects": [],
+      "type": "move",
+      "verb": "use"
+    },
+    "a29f0714-ec54-4b34-9d38-e1895b393d46": {
+      "active": 1,
+      "description": "a closet with hazmat gear in it. Good for protecting yourself from radiation.",
+      "events": [],
+      "hidden": 0,
+      "id": "a29f0714-ec54-4b34-9d38-e1895b393d46",
+      "items": [
+        {
+          "id": "707ef248-a990-4e84-ac68-024cb10cfdfe",
+          "name": "a hazmat suit"
+        }
+      ],
+      "name": "a hazmat closet",
+      "obtainable": 0,
+      "type": "container"
+    },
+    "a4099b45-9d69-4ccc-a38d-00e602254569": {
+      "id": "a4099b45-9d69-4ccc-a38d-00e602254569",
+      "message": "\"If you see this report it as a bug!\"",
+      "name": "blank",
+      "once": 0,
+      "subjects": [],
+      "type": "event",
+      "verb": null
+    },
+    "a5ecea92-6235-4318-baac-8a3f6161c839": {
+      "active": 1,
+      "description": "You are in a room with a massive fusion reactor. There are conduits and cables running everywhere. The room has been flooded with gamma radiation and will likely take a very long time to decontaminate.",
+      "events": [
+        {
+          "id": "a9864c8b-1be5-456f-bc4c-458f960dc3f2",
+          "name": "radiation",
+          "verb": "enter"
+        }
+      ],
+      "hidden": 0,
+      "id": "a5ecea92-6235-4318-baac-8a3f6161c839",
+      "items": [
+        {
+          "id": "66826359-b459-4f07-b1d8-6b08fa72837b",
+          "name": "a door to main engineering"
+        },
+        {
+          "id": "5bc9a63f-7a85-4d73-88e9-958d8a499633",
+          "name": "the reactor core"
+        }
+      ],
+      "name": "the reactor room",
+      "obtainable": 0,
+      "type": "room"
+    },
+    "a72f5d40-ff14-4ea5-9e23-bbc7b9b72760": {
+      "id": "a72f5d40-ff14-4ea5-9e23-bbc7b9b72760",
+      "message": "\"mmm... Cookies you have.\"",
+      "name": "patience",
+      "once": 0,
+      "subjects": [],
+      "type": "event",
+      "verb": null
+    },
+    "a9864c8b-1be5-456f-bc4c-458f960dc3f2": {
+      "condition": {
+        "id": "45d27fad-12d7-4ded-be8e-df4e62413216",
+        "name": "have hazmat"
+      },
+      "failure": {
+        "id": "845ef4f9-ff3b-48a8-97dc-246068d5fc11",
+        "name": "gama death",
+        "verb": null
+      },
+      "id": "a9864c8b-1be5-456f-bc4c-458f960dc3f2",
+      "message": "",
+      "name": "radiation",
+      "once": 0,
+      "subjects": [],
+      "success": {
+        "id": "7449d266-b513-4279-a978-87d459325f6b",
+        "name": "good",
+        "verb": null
+      },
+      "type": "conditional",
+      "verb": "enter"
+    },
+    "aa84c3c5-7fb4-40c7-a59e-6067398a2958": {
+      "id": "aa84c3c5-7fb4-40c7-a59e-6067398a2958",
+      "message": "\"You will need to go into the reactor room and fix the core. I will stay here and work the controls.\"",
+      "name": "fix core",
+      "once": 0,
+      "subjects": [],
+      "type": "event",
+      "verb": null
+    },
+    "ada661e4-6290-4766-b773-d8ceab8a47d2": {
+      "active": 1,
+      "description": "You are in a room where the crew relax and socialize after a long day in space",
+      "events": [],
+      "hidden": 0,
+      "id": "ada661e4-6290-4766-b773-d8ceab8a47d2",
+      "items": [
+        {
+          "id": "776091ab-be5b-4452-97f8-1d56cf361ac2",
+          "name": "a door to the captain's quaters"
+        },
+        {
+          "id": "1479d359-f0a4-470a-a9cc-826c55084c7c",
+          "name": "a door to the engineer's quaters"
+        },
+        {
+          "id": "0e6abdf6-df33-462a-a3c2-b9b2abc499cb",
+          "name": "a door to the main hall"
+        },
+        {
+          "id": "751645fc-fd4d-48b2-bf39-5c0e27d77551",
+          "name": "a keypad lock for engineer's door"
+        },
+        {
+          "id": "f0472b08-894d-4425-9617-fea4b88206dd",
+          "name": "a coffee table"
+        },
+        {
+          "id": "0493d6f8-b99b-4399-8621-28f60e58cbf8",
+          "name": "a comfy chair"
+        },
+        {
+          "id": "67ad5bbe-e24e-413a-8c4c-7748761245c6",
+          "name": "an open control panel"
+        }
+      ],
+      "name": "the common area",
+      "obtainable": 0,
+      "type": "room"
+    },
+    "b0b29787-8516-4bdd-9bc6-7ec09dc07093": {
+      "id": "b0b29787-8516-4bdd-9bc6-7ec09dc07093",
+      "item": {
+        "id": "41281e93-277b-425b-bc05-7b439dccbc63",
+        "name": "a light saber"
+      },
+      "name": "have saber",
+      "other": null,
+      "type": "hasItem"
+    },
+    "b2d67ca5-e43e-422b-b64b-eab7fa5b2214": {
+      "active": 1,
+      "description": "You are in main engineering. There are controls panels and displays everywhere.",
+      "events": [
+        {
+          "id": "d5b280f1-64dc-4343-818e-844ff295936b",
+          "name": "greeting",
+          "verb": "enter"
+        }
+      ],
+      "hidden": 0,
+      "id": "b2d67ca5-e43e-422b-b64b-eab7fa5b2214",
+      "items": [
+        {
+          "id": "6c93d1b1-7dde-4726-b769-bb763c66f258",
+          "name": "a door to the reactor room"
+        },
+        {
+          "id": "395b34a3-81e6-4927-b0c8-990caba6ee2d",
+          "name": "a door to the main hall"
+        },
+        {
+          "id": "105f11da-3bf0-4205-a44e-ee5c67fd5757",
+          "name": "Clem Spanner"
+        },
+        {
+          "id": "a29f0714-ec54-4b34-9d38-e1895b393d46",
+          "name": "a hazmat closet"
+        }
+      ],
+      "name": "the main engine control room",
+      "obtainable": 0,
+      "type": "room"
+    },
+    "b30f6bde-ce86-49e4-a31d-ff89151138e1": {
+      "id": "b30f6bde-ce86-49e4-a31d-ff89151138e1",
+      "message": "There is no way you can use this door. Not even a core wrench could fix it. Better find another way to the bridge.",
+      "name": "broken",
+      "once": 0,
+      "subjects": [],
+      "type": "event",
+      "verb": "use"
+    },
+    "b5b914ff-5932-42bf-b147-902a7200f407": {
+      "id": "b5b914ff-5932-42bf-b147-902a7200f407",
+      "message": "\"Stop talking to me already and get going. I had no idea you were such a bad captain.\"",
+      "name": "stop",
+      "once": 0,
+      "subjects": [],
+      "type": "event",
+      "verb": ""
+    },
+    "b5fd047c-94e5-419a-8a55-eef451199bed": {
+      "id": "b5fd047c-94e5-419a-8a55-eef451199bed",
+      "message": "\"We brought aboard an ancient satelite. When Lars inspected it something happend to him. He went crazy. We tried to control him, but he escaped to the bridge and blasted the door with his laser torch.\"",
+      "name": "status",
+      "once": 0,
+      "subjects": [],
+      "type": "event",
+      "verb": null
+    },
+    "b69ba95b-9c52-45f7-9dd5-2931f4ca2d5e": {
+      "id": "b69ba95b-9c52-45f7-9dd5-2931f4ca2d5e",
+      "message": "You slept through the disaster! The consequnences are unfathomable!",
+      "name": "die",
+      "once": 0,
+      "subjects": [],
+      "type": "end_game",
+      "verb": "use"
+    },
+    "b7a7d98d-9ccc-42e7-8f37-af540140d37a": {
+      "active": 1,
+      "description": "a strange peice of alien equipment. It looks like it has been is space for a long time.",
+      "events": [
+        {
+          "id": "6ceffbb0-ae85-4c53-96d3-434f8234c98a",
+          "name": "careful",
+          "verb": "use"
+        }
+      ],
+      "hidden": 0,
+      "id": "b7a7d98d-9ccc-42e7-8f37-af540140d37a",
+      "items": [],
+      "name": "an ancient celestial object",
+      "obtainable": 0,
+      "type": "entity"
+    },
+    "bab4e262-4207-4688-9067-f274a8a0308d": {
+      "id": "bab4e262-4207-4688-9067-f274a8a0308d",
+      "message": "You don't have what you need to fix this",
+      "name": "nope",
+      "once": 0,
+      "subjects": [],
+      "type": "event",
+      "verb": null
+    },
+    "bbaf410f-fd38-4931-a7f9-7df1502c8f56": {
+      "id": "bbaf410f-fd38-4931-a7f9-7df1502c8f56",
+      "message": "\"The reactor has become unstable and the reactor room has filled with gamma radiation. We have to get power restored so you can get to the bridge through the cargo bay.\"",
+      "name": "next",
+      "once": 0,
+      "subjects": [],
+      "type": "event",
+      "verb": null
+    },
+    "bbe7da05-4aa0-4f8a-81f4-782997976a26": {
+      "id": "bbe7da05-4aa0-4f8a-81f4-782997976a26",
+      "item": {
+        "id": "1f6bbbae-67d9-4251-b288-1548ae870ef1",
+        "name": "a wrecked fuse"
+      },
+      "name": "old fuse",
+      "other": {
+        "id": "67ad5bbe-e24e-413a-8c4c-7748761245c6",
+        "name": "an open control panel"
+      },
+      "type": "hasItem"
+    },
+    "be71387f-877b-4f67-bdef-3bd9ddbe8295": {
+      "id": "be71387f-877b-4f67-bdef-3bd9ddbe8295",
+      "message": "It's rude to interupt a jedi's meditation.",
+      "name": "don't bother",
+      "once": 0,
+      "subjects": [],
+      "type": "event",
+      "verb": null
+    },
+    "bf682e56-89af-4958-b0e4-90d3c4f5e527": {
+      "event": {
+        "id": "d78b305d-b50c-4fb9-88f4-784da3e69fe6",
+        "name": "star",
+        "verb": null
+      },
+      "id": "bf682e56-89af-4958-b0e4-90d3c4f5e527",
+      "name": "sun",
+      "text": "Fly the ship into a nearby star",
+      "type": "option"
+    },
+    "c0e327ff-ae5d-4dc5-8894-97b28a0597ec": {
+      "id": "c0e327ff-ae5d-4dc5-8894-97b28a0597ec",
+      "item": {
+        "id": "41281e93-277b-425b-bc05-7b439dccbc63",
+        "name": "a light saber"
+      },
+      "name": "have saber",
+      "other": null,
+      "type": "hasItem"
+    },
+    "c2af0e25-ca75-4e3a-8a0c-3c4c7dd7aafc": {
+      "condition": {
+        "id": "0a32f33f-afca-4184-a607-bb1c0dd68ae4",
+        "name": "wrench"
+      },
+      "event": {
+        "id": "d5736744-576b-4381-825b-6ef011378749",
+        "name": "give wrench",
+        "verb": null
+      },
+      "id": "c2af0e25-ca75-4e3a-8a0c-3c4c7dd7aafc",
+      "name": "take wrench",
+      "text": "Get the core wrench",
+      "type": "conditional_option"
+    },
+    "c3466729-6d04-4ed1-88ff-8e88ecc58f7e": {
+      "active": 1,
+      "description": "a thick metal door that leads first through a decompression chamber and then into empty space",
+      "events": [
+        {
+          "id": "e1da3322-4b6f-43cc-8425-7e2c6317fb4f",
+          "name": "to space",
+          "verb": "use"
+        }
+      ],
+      "hidden": 0,
+      "id": "c3466729-6d04-4ed1-88ff-8e88ecc58f7e",
+      "items": [],
+      "name": "an airlock to space",
+      "obtainable": 0,
+      "type": "entity"
+    },
+    "c34d74c0-ef3b-4c33-bfff-2fa0349d4a59": {
+      "active": 1,
+      "description": "a large touchscreen computer terminal built into the wall.",
+      "events": [
+        {
+          "id": "d02f99b7-5c4b-41d1-bce5-d3a432492d33",
+          "name": "use",
+          "verb": "use"
+        }
+      ],
+      "hidden": 0,
+      "id": "c34d74c0-ef3b-4c33-bfff-2fa0349d4a59",
+      "items": [],
+      "name": "a computer terminal",
+      "obtainable": 0,
+      "type": "entity"
+    },
+    "c5351487-a2ac-46c0-ad28-5e0bd9d43e3e": {
+      "condition": {
+        "id": "fc5185e5-6488-4cc5-8997-a45f548b2de4",
+        "name": "have wrench"
+      },
+      "event": {
+        "id": "e209b3f4-06cc-42ac-86c7-544a04b5ee63",
+        "name": "power on",
+        "verb": null
+      },
+      "id": "c5351487-a2ac-46c0-ad28-5e0bd9d43e3e",
+      "name": "smack it",
+      "text": "Smack it real hard!",
+      "type": "conditional_option"
+    },
+    "c6ba8b8e-02dd-4abb-9ed2-47527b4a0c71": {
+      "destination": {
+        "id": "4cd5e361-8219-4446-ba99-b8847a4f7dbc",
+        "name": "the command bridge"
+      },
+      "id": "c6ba8b8e-02dd-4abb-9ed2-47527b4a0c71",
+      "message": "",
+      "name": "to bridge",
+      "once": 0,
+      "subjects": [],
+      "type": "move",
+      "verb": "use"
+    },
+    "c721bc90-a792-4543-9250-8efc7c7f0f37": {
+      "breakout": 1,
+      "events": [
+        {
+          "id": "bf682e56-89af-4958-b0e4-90d3c4f5e527",
+          "name": "sun"
+        },
+        {
+          "id": "841f95fd-e993-49a4-88ea-70fbc41ca92a",
+          "name": "saber"
+        },
+        {
+          "id": "965941e8-dd8e-491c-8856-5ea8580a8f68",
+          "name": "coward"
+        },
+        {
+          "id": "efc1ccd4-1e7e-4ee8-82af-2e8e493f6e38",
+          "name": "capture"
+        }
+      ],
+      "id": "c721bc90-a792-4543-9250-8efc7c7f0f37",
+      "message": "\"HAHAHA You can never defeat me! Many have tried, but only posponed the inevitable. The galaxy will be mine!\"",
+      "name": "final",
+      "once": 0,
+      "options": [
+        {
+          "id": "bf682e56-89af-4958-b0e4-90d3c4f5e527",
+          "name": "sun"
+        },
+        {
+          "id": "841f95fd-e993-49a4-88ea-70fbc41ca92a",
+          "name": "saber"
+        },
+        {
+          "id": "965941e8-dd8e-491c-8856-5ea8580a8f68",
+          "name": "coward"
+        },
+        {
+          "id": "efc1ccd4-1e7e-4ee8-82af-2e8e493f6e38",
+          "name": "capture"
+        }
+      ],
+      "subjects": [],
+      "type": "interaction",
+      "verb": "talk"
+    },
+    "cb484fe1-5a90-42a9-95fb-9cb7ac04c899": {
+      "active": 0,
+      "description": "a standard automatic sliding door",
+      "events": [
+        {
+          "id": "d43e97a7-67e1-4879-b5dc-64ddad6c7449",
+          "name": "to cargo",
+          "verb": "use"
+        }
+      ],
+      "hidden": 0,
+      "id": "cb484fe1-5a90-42a9-95fb-9cb7ac04c899",
+      "items": [],
+      "name": "a door to the cargo bay",
+      "obtainable": 0,
+      "type": "entity"
+    },
+    "cb94965d-3348-45e3-b9c9-7e8383f1a732": {
+      "destination": {
+        "id": "ada661e4-6290-4766-b773-d8ceab8a47d2",
+        "name": "the common area"
+      },
+      "id": "cb94965d-3348-45e3-b9c9-7e8383f1a732",
+      "message": "",
+      "name": "to common",
+      "once": 0,
+      "subjects": [],
+      "type": "move",
+      "verb": "use"
+    },
+    "ce28f206-3fe3-4a00-b3d6-69d7ac889caf": {
+      "answer": "4396",
+      "id": "ce28f206-3fe3-4a00-b3d6-69d7ac889caf",
+      "name": "code",
+      "question": "Input Code",
+      "type": "question"
+    },
+    "d02f99b7-5c4b-41d1-bce5-d3a432492d33": {
+      "id": "d02f99b7-5c4b-41d1-bce5-d3a432492d33",
+      "message": "Red Alert! Systems Critical!",
+      "name": "use",
+      "once": 0,
+      "subjects": [],
+      "type": "event",
+      "verb": "use"
+    },
+    "d13cabdc-56a5-458a-a534-e519d3dcbfb0": {
+      "active": 1,
+      "description": "You are in the room of your engineer Clem Spanner. There are tools lying around and technical schematics up on his wall monitor.",
+      "events": [],
+      "hidden": 0,
+      "id": "d13cabdc-56a5-458a-a534-e519d3dcbfb0",
+      "items": [
+        {
+          "id": "1b24d759-8cb4-436f-841b-b518c71a8091",
+          "name": "a door to the common area"
+        },
+        {
+          "id": "72c04cc6-b4e3-4bdc-898e-63143a36cf6a",
+          "name": "a tool closet"
+        },
+        {
+          "id": "6ac1cc43-a6f3-4cca-bf69-f013e0b738bd",
+          "name": "Clem's bed"
+        }
+      ],
+      "name": "the engineers room",
+      "obtainable": 0,
+      "type": "room"
+    },
+    "d43e97a7-67e1-4879-b5dc-64ddad6c7449": {
+      "destination": {
+        "id": "52ed4341-e36d-4950-afcc-9df72ebfbded",
+        "name": "the cargo bay"
+      },
+      "id": "d43e97a7-67e1-4879-b5dc-64ddad6c7449",
+      "message": "",
+      "name": "to cargo",
+      "once": 0,
+      "subjects": [],
+      "type": "move",
+      "verb": "use"
+    },
+    "d5736744-576b-4381-825b-6ef011378749": {
+      "id": "d5736744-576b-4381-825b-6ef011378749",
+      "item": {
+        "id": "8993082b-5c75-4096-9906-f9e8398840f1",
+        "name": "a core wrench"
+      },
+      "item_owner": {
+        "id": "105f11da-3bf0-4205-a44e-ee5c67fd5757",
+        "name": "Clem Spanner"
+      },
+      "message": "\"Your gonna need this.\"",
+      "name": "give wrench",
+      "once": 0,
+      "subjects": [],
+      "type": "give",
+      "verb": null
+    },
+    "d5b280f1-64dc-4343-818e-844ff295936b": {
+      "id": "d5b280f1-64dc-4343-818e-844ff295936b",
+      "message": "\"Im glad your finally here. I need your help.\"",
+      "name": "greeting",
+      "once": 1,
+      "subjects": [],
+      "type": "event",
+      "verb": "enter"
+    },
+    "d62ab09d-dfbe-4aa0-9b3d-4e60816f2617": {
+      "destination": {
+        "id": "d8f34d0f-09a6-48ef-9e48-2a4ca540ea74",
+        "name": "outer space"
+      },
+      "id": "d62ab09d-dfbe-4aa0-9b3d-4e60816f2617",
+      "message": "",
+      "name": "to space",
+      "once": 0,
+      "subjects": [],
+      "type": "move",
+      "verb": "use"
+    },
+    "d6e21e57-c7e3-458f-8964-3a7d873e92f1": {
+      "active": 1,
+      "description": "a standard automatic ships door",
+      "events": [
+        {
+          "id": "cb94965d-3348-45e3-b9c9-7e8383f1a732",
+          "name": "to common",
+          "verb": "use"
+        }
+      ],
+      "hidden": 0,
+      "id": "d6e21e57-c7e3-458f-8964-3a7d873e92f1",
+      "items": [],
+      "name": "a door to the common area",
+      "obtainable": 0,
+      "type": "entity"
+    },
+    "d78b305d-b50c-4fb9-88f4-784da3e69fe6": {
+      "id": "d78b305d-b50c-4fb9-88f4-784da3e69fe6",
+      "message": "Before Lars can react you hit a button on  nearby control panel and send the ship on a collision course for the nearby start. You sacrifice yourself and your crew, but save the galaxy from an ancient evil.",
+      "name": "star",
+      "once": 0,
+      "subjects": [],
+      "type": "end_game",
+      "verb": null
+    },
+    "d8f34d0f-09a6-48ef-9e48-2a4ca540ea74": {
+      "active": 1,
+      "description": "You are in the cold unforgiving vacuum of space. There is a large star very close by. There is a small star ahead of the ship.",
+      "events": [],
+      "hidden": 0,
+      "id": "d8f34d0f-09a6-48ef-9e48-2a4ca540ea74",
+      "items": [
+        {
+          "id": "e7b21463-f4c5-4210-b098-c5b2ed3ee08c",
+          "name": "an airlock to the cargo bay"
+        },
+        {
+          "id": "369fae2e-677e-4c07-b24d-fa3d1ea4a6be",
+          "name": "an airlock to the bridge"
+        },
+        {
+          "id": "103de460-0b08-49f7-9445-39a10e719aa9",
+          "name": "a small green jedi"
+        }
+      ],
+      "name": "outer space",
+      "obtainable": 0,
+      "type": "room"
+    },
+    "dcb8f4a9-ec75-4914-8ba3-d08e9dca8261": {
+      "id": "dcb8f4a9-ec75-4914-8ba3-d08e9dca8261",
+      "message": "\"Whinny was pinned by a crate when Lars went crazy. Power was disrupted after the blast and Clem is in engineering trying to repair the damage.\"",
+      "name": "status of crew",
+      "once": 0,
+      "subjects": [],
+      "type": "event",
+      "verb": null
+    },
+    "de3a497a-ca88-40a6-b9f1-f5f1cb558aa2": {
+      "id": "de3a497a-ca88-40a6-b9f1-f5f1cb558aa2",
+      "message": "First you should remove the old fuse",
+      "name": "not yet",
+      "once": 0,
+      "subjects": [],
+      "type": "event",
+      "verb": null
+    },
+    "de418aac-8813-4d38-99c7-2bac3416f636": {
+      "id": "de418aac-8813-4d38-99c7-2bac3416f636",
+      "item": {
+        "id": "429cc1d2-35db-4a02-bd5c-5986d3cfc41d",
+        "name": "a medkit"
+      },
+      "name": "has",
+      "other": null,
+      "type": "hasItem"
+    },
+    "e0475818-9440-4946-82a5-ad1c1b1513c3": {
+      "condition": {
+        "id": "56c9921e-cf56-4c9e-8429-cd3107b2efe3",
+        "name": "is core active"
+      },
+      "event": {
+        "id": "0b79a83a-29aa-4379-9237-1a63ae9c8431",
+        "name": "what next",
+        "verb": null
+      },
+      "id": "e0475818-9440-4946-82a5-ad1c1b1513c3",
+      "name": "core active",
+      "text": "The core is fixed!",
+      "type": "conditional_option"
+    },
+    "e11f3c0b-71de-46fc-a1b6-2576b8f8bc5e": {
+      "active": 1,
+      "description": "your science officer. She appears to be pretty badly hurt.",
+      "events": [
+        {
+          "id": "3d98192d-bbde-45f8-8933-91e4dcacfbe4",
+          "name": "talk",
+          "verb": "talk"
+        }
+      ],
+      "hidden": 0,
+      "id": "e11f3c0b-71de-46fc-a1b6-2576b8f8bc5e",
+      "items": [],
+      "name": "Barbara McDougal",
+      "obtainable": 0,
+      "type": "npc"
+    },
+    "e1da3322-4b6f-43cc-8425-7e2c6317fb4f": {
+      "destination": {
+        "id": "d8f34d0f-09a6-48ef-9e48-2a4ca540ea74",
+        "name": "outer space"
+      },
+      "id": "e1da3322-4b6f-43cc-8425-7e2c6317fb4f",
+      "message": "",
+      "name": "to space",
+      "once": 0,
+      "subjects": [],
+      "type": "move",
+      "verb": "use"
+    },
+    "e209b3f4-06cc-42ac-86c7-544a04b5ee63": {
+      "id": "e209b3f4-06cc-42ac-86c7-544a04b5ee63",
+      "message": "Power has been restored to the ship. Good work.",
+      "name": "power on",
+      "once": 1,
+      "state": "Active",
+      "subjects": [],
+      "target": {
+        "id": "cb484fe1-5a90-42a9-95fb-9cb7ac04c899",
+        "name": "a door to the cargo bay"
+      },
+      "type": "toggle_active",
+      "verb": null
+    },
+    "e297c6f6-0e92-42fd-b4e1-0ecc3743ef5a": {
+      "id": "e297c6f6-0e92-42fd-b4e1-0ecc3743ef5a",
+      "message": "Crew Manifest: Clem id#4396, Lars id#8529, Barbara id#0141, Whinny id#9326",
+      "name": "read",
+      "once": 0,
+      "subjects": [],
+      "type": "event",
+      "verb": "look"
+    },
+    "e41c2b90-a307-4206-b06b-16c77f79e3b2": {
+      "events": [
+        {
+          "id": "f19fd2c6-4f75-42f5-8dc3-bf6321bcd39d",
+          "name": "saber",
+          "verb": ""
+        },
+        {
+          "id": "2bc8eb1b-d85e-4376-aaf0-8502f1086dd5",
+          "name": "cookie",
+          "verb": ""
+        }
+      ],
+      "id": "e41c2b90-a307-4206-b06b-16c77f79e3b2",
+      "message": "\"mmm... Cookies you have.\"",
+      "name": "exchange",
+      "once": 0,
+      "repeats": 0,
+      "subjects": [],
+      "type": "group",
+      "verb": null
+    },
+    "e491a8e1-3639-42ec-ac69-3fe4f66d8680": {
+      "active": 1,
+      "description": "You are in a hall that connects the ships various sections",
+      "events": [],
+      "hidden": 0,
+      "id": "e491a8e1-3639-42ec-ac69-3fe4f66d8680",
+      "items": [
+        {
+          "id": "d6e21e57-c7e3-458f-8964-3a7d873e92f1",
+          "name": "a door to the common area"
+        },
+        {
+          "id": "633e93c7-2ce2-4bb8-9272-8711ba132497",
+          "name": "a door to main engineering"
+        },
+        {
+          "id": "cb484fe1-5a90-42a9-95fb-9cb7ac04c899",
+          "name": "a door to the cargo bay"
+        },
+        {
+          "id": "fc47d4a1-3bd4-4ec8-ba8c-20538f484661",
+          "name": "a door to the bridge"
+        },
+        {
+          "id": "e11f3c0b-71de-46fc-a1b6-2576b8f8bc5e",
+          "name": "Barbara McDougal"
+        }
+      ],
+      "name": "the main hall",
+      "obtainable": 0,
+      "type": "room"
+    },
+    "e640b720-aa1e-478a-92f0-b568b0e923fa": {
+      "id": "e640b720-aa1e-478a-92f0-b568b0e923fa",
+      "item": {
+        "id": "429cc1d2-35db-4a02-bd5c-5986d3cfc41d",
+        "name": "a medkit"
+      },
+      "name": "medkit",
+      "other": null,
+      "type": "hasItem"
+    },
+    "e7982f9a-d2d5-4123-aba9-b52a59bccb93": {
+      "destination": {
+        "id": "b2d67ca5-e43e-422b-b64b-eab7fa5b2214",
+        "name": "the main engine control room"
+      },
+      "id": "e7982f9a-d2d5-4123-aba9-b52a59bccb93",
+      "message": "",
+      "name": "to engineering",
+      "once": 0,
+      "subjects": [],
+      "type": "move",
+      "verb": "use"
+    },
+    "e7b21463-f4c5-4210-b098-c5b2ed3ee08c": {
+      "active": 1,
+      "description": "a thick metal door that leads first through a decompression chamber and then into the cargo bay",
+      "events": [
+        {
+          "id": "40938473-f9dc-416d-a20a-3ec5523cfba1",
+          "name": "to cargo",
+          "verb": "use"
+        }
+      ],
+      "hidden": 0,
+      "id": "e7b21463-f4c5-4210-b098-c5b2ed3ee08c",
+      "items": [],
+      "name": "an airlock to the cargo bay",
+      "obtainable": 0,
+      "type": "entity"
+    },
+    "e7d08453-c636-428c-8200-dbb277177f22": {
+      "id": "e7d08453-c636-428c-8200-dbb277177f22",
+      "message": "You dive for an escape pod and the door closes just before Lars can grab you. You save yourself, but doom your crew to an unspeakable fate. In time you forget about the incident, but you won't be safe for long. You should have dealt with the alien when you had the chance.",
+      "name": "escape",
+      "once": 0,
+      "subjects": [],
+      "type": "end_game",
+      "verb": null
+    },
+    "e7d45f25-3095-42a6-9016-b677f9daa4be": {
+      "id": "e7d45f25-3095-42a6-9016-b677f9daa4be",
+      "message": "\"Just smack it real hard with the core wrench!\"",
+      "name": "smack",
+      "once": 0,
+      "subjects": [],
+      "type": "event",
+      "verb": null
+    },
+    "e8eaa49e-3193-4f00-a297-9ec40b828d76": {
+      "destination": {
+        "id": "e491a8e1-3639-42ec-ac69-3fe4f66d8680",
+        "name": "the main hall"
+      },
+      "id": "e8eaa49e-3193-4f00-a297-9ec40b828d76",
+      "message": "",
+      "name": "to main hall",
+      "once": 0,
+      "subjects": [],
+      "type": "move",
+      "verb": "use"
+    },
+    "ea6d35c9-c883-4d34-b69c-418489226265": {
+      "id": "ea6d35c9-c883-4d34-b69c-418489226265",
+      "item": {
+        "id": "429cc1d2-35db-4a02-bd5c-5986d3cfc41d",
+        "name": "a medkit"
+      },
+      "message": "\"Thanks I feel a little better now\"",
+      "name": "thanks",
+      "new_owner": {
+        "id": "e11f3c0b-71de-46fc-a1b6-2576b8f8bc5e",
+        "name": "Barbara McDougal"
+      },
+      "once": 0,
+      "subjects": [],
+      "type": "take",
+      "verb": null
+    },
+    "eb66cf59-09af-4f17-9690-c6df461d0c96": {
+      "event": {
+        "id": "aa84c3c5-7fb4-40c7-a59e-6067398a2958",
+        "name": "fix core",
+        "verb": null
+      },
+      "id": "eb66cf59-09af-4f17-9690-c6df461d0c96",
+      "name": "restore",
+      "text": "How can we restore power?",
+      "type": "option"
+    },
+    "ebcc6ef2-7f38-477a-83b8-e7926338d5dc": {
+      "id": "ebcc6ef2-7f38-477a-83b8-e7926338d5dc",
+      "message": "",
+      "name": "deflect",
+      "once": 0,
+      "subjects": [],
+      "type": "event",
+      "verb": null
+    },
+    "edf9d155-1aad-44b9-b3bc-864301beedaf": {
+      "active": 1,
+      "description": "a closet that holds space suits",
+      "events": [],
+      "hidden": 0,
+      "id": "edf9d155-1aad-44b9-b3bc-864301beedaf",
+      "items": [
+        {
+          "id": "1db01da6-febb-4ff4-add8-160bc60beec8",
+          "name": "a space suit"
+        }
+      ],
+      "name": "a space suit closet",
+      "obtainable": 0,
+      "type": "container"
+    },
+    "efc1ccd4-1e7e-4ee8-82af-2e8e493f6e38": {
+      "event": {
+        "id": "5f4c4cfb-75dd-4333-b026-c2cd8002d704",
+        "name": "capture",
+        "verb": null
+      },
+      "id": "efc1ccd4-1e7e-4ee8-82af-2e8e493f6e38",
+      "name": "capture",
+      "text": "Attempt to capture Lars",
+      "type": "option"
+    },
+    "f0472b08-894d-4425-9617-fea4b88206dd": {
+      "active": 1,
+      "description": "an antique mahogany coffee table",
+      "events": [],
+      "hidden": 0,
+      "id": "f0472b08-894d-4425-9617-fea4b88206dd",
+      "items": [
+        {
+          "id": "8d2068f9-f496-4b0e-9ab6-08509e2bf66a",
+          "name": "a crew manifest"
+        }
+      ],
+      "name": "a coffee table",
+      "obtainable": 0,
+      "type": "container"
+    },
+    "f16cf1a8-6d2c-4576-b64d-e6d70c28d36b": {
+      "id": "f16cf1a8-6d2c-4576-b64d-e6d70c28d36b",
+      "item": {
+        "id": "429cc1d2-35db-4a02-bd5c-5986d3cfc41d",
+        "name": "a medkit"
+      },
+      "name": "medkit",
+      "other": {
+        "id": "e11f3c0b-71de-46fc-a1b6-2576b8f8bc5e",
+        "name": "Barbara McDougal"
+      },
+      "type": "hasItem"
+    },
+    "f19fd2c6-4f75-42f5-8dc3-bf6321bcd39d": {
+      "id": "f19fd2c6-4f75-42f5-8dc3-bf6321bcd39d",
+      "item": {
+        "id": "41281e93-277b-425b-bc05-7b439dccbc63",
+        "name": "a light saber"
+      },
+      "item_owner": {
+        "id": "103de460-0b08-49f7-9445-39a10e719aa9",
+        "name": "a small green jedi"
+      },
+      "message": "He gives you a light saber.",
+      "name": "saber",
+      "once": 0,
+      "subjects": [],
+      "type": "give",
+      "verb": ""
+    },
+    "f78c9f66-1fa6-4652-aff7-8bdf7f2affe8": {
+      "id": "f78c9f66-1fa6-4652-aff7-8bdf7f2affe8",
+      "message": "You turn on the light saber and destroy Lars and the alien within him. It saddens you greatly to kill your close friend, but the galaxy is safe.",
+      "name": "kill lars",
+      "once": 0,
+      "subjects": [],
+      "type": "end_game",
+      "verb": null
+    },
+    "f83dd3a4-fb1d-44db-bda0-1533d154979d": {
+      "id": "f83dd3a4-fb1d-44db-bda0-1533d154979d",
+      "message": "Thanks for the medicine. I feel much better now.",
+      "name": "open engicontrol",
+      "once": 0,
+      "state": "Active",
+      "subjects": [],
+      "target": {
+        "id": "633e93c7-2ce2-4bb8-9272-8711ba132497",
+        "name": "a door to main engineering"
+      },
+      "type": "toggle_active",
+      "verb": null
+    },
+    "fc47d4a1-3bd4-4ec8-ba8c-20538f484661": {
+      "active": 1,
+      "description": "a standard automatic ships door. It is mangled and looks almost like it was welded shut.",
+      "events": [
+        {
+          "id": "b30f6bde-ce86-49e4-a31d-ff89151138e1",
+          "name": "broken",
+          "verb": "use"
+        }
+      ],
+      "hidden": 0,
+      "id": "fc47d4a1-3bd4-4ec8-ba8c-20538f484661",
+      "items": [],
+      "name": "a door to the bridge",
+      "obtainable": 0,
+      "type": "entity"
+    },
+    "fc5185e5-6488-4cc5-8997-a45f548b2de4": {
+      "id": "fc5185e5-6488-4cc5-8997-a45f548b2de4",
+      "item": {
+        "id": "8993082b-5c75-4096-9906-f9e8398840f1",
+        "name": "a core wrench"
+      },
+      "name": "have wrench",
+      "other": null,
+      "type": "hasItem"
+    },
+    "player": {
+      "description": "an interpid captain",
+      "events": [],
+      "id": "player",
+      "items": [],
+      "name": "player",
+      "start": {
+        "id": "92b64fee-c7ea-48e1-93f5-3ffd409251e1",
+        "name": "The captain's room"
+      },
+      "type": "player"
+    }
+  },
+  "player": "player",
+  "version": "1.0",
+  "welcome": "Can you save the universe from an ancient evil."
+}

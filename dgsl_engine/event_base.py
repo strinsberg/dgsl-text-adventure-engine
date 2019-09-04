@@ -6,10 +6,12 @@ class Event:
     """Base for all Events that execute in response to player
     actions.
 
-    Args:
-
-    Returns:
-
+    Attributes:
+        only_once (bool): True if the event should only be executed once.
+        is_done (bool): If the event is finished and will not happen again.
+        message (str): The message to return when the event executes.
+        subjects (Event): Events to be notified when the event is executed.
+            (Not implemented properly yet).
     """
 
     def __init__(self, obj_id):
@@ -29,36 +31,21 @@ class Event:
 
         Returns:
           str: A description of the results.
-
         """
         if self.is_done:
             result = ''
         else:
             result = self.message if self.message is not None else ''
             self._check_if_done()
-        # Add the results of observers later
+        # Add the results of subjects later
         return result
 
     def accept(self, visitor):
-        """
-
-        Args:
-          visitor:
-
-        Returns:
-
-        """
+        """Accepts a visitor."""
         visitor.visit_event(self)
 
     def register(self, event):
-        """
-
-        Args:
-          event:
-
-        Returns:
-
-        """
+        """Register a given event as an observer."""
         self.subjects.append(event)
 
     def _check_if_done(self):
@@ -71,21 +58,20 @@ class Event:
 
 # Should be move and be about the player
 class MoveEntity(Event):
-    """Event to move an entity to a destination."""
+    """Event to move an entity to a destination.
+
+    Currently only works for moving the player.
+
+    Attributes:
+        destination (Container): The Container to move the entity to.
+    """
 
     def __init__(self, obj_id):
         super(MoveEntity, self).__init__(obj_id)
         self.destination = None
 
     def execute(self, affected):
-        """
-
-        Args:
-          affected:
-
-        Returns:
-
-        """
+        """Moves the Player(affected) to the destination."""
         actions.move(affected, self.destination)
 
         result = []
@@ -100,14 +86,7 @@ class MoveEntity(Event):
         return '\n'.join(result)
 
     def accept(self, visitor):
-        """
-
-        Args:
-          visitor:
-
-        Returns:
-
-        """
+        """Accepts a visitor."""
         visitor.visit_move(self)
 
     def __repr__(self):
@@ -115,7 +94,12 @@ class MoveEntity(Event):
 
 
 class Give(Event):
-    """Give """
+    """Transfers an item from a Container to the Player.
+
+    Attributes:
+        item_id (str): The id of the item to transfer.
+        item_owner (str): The container to transfer the item from.
+    """
 
     def __init__(self, obj_id):
         super(Give, self).__init__(obj_id)
@@ -123,14 +107,7 @@ class Give(Event):
         self.item_owner = None
 
     def execute(self, affected):
-        """
-
-        Args:
-          affected:
-
-        Returns:
-
-        """
+        """Transfer the item from the item_owner to the Player(affected)."""
         item = self.item_owner.get(self.item_id)
         if item is not None:
             actions.move(item, affected)
@@ -138,14 +115,7 @@ class Give(Event):
         return super(Give, self).execute(affected)
 
     def accept(self, visitor):
-        """
-
-        Args:
-          visitor:
-
-        Returns:
-
-        """
+        """Accepts a visitor."""
         visitor.visit_give(self)
 
     def __repr__(self):
@@ -153,7 +123,12 @@ class Give(Event):
 
 
 class Take(Event):
-    """Take """
+    """Transfers a item from the player to a new container.
+
+    Attributes:
+        item_id (str): The item to transfer.
+        new_owner (Container): The container to transfer the item to.
+    """
 
     def __init__(self, obj_id):
         super(Take, self).__init__(obj_id)
@@ -161,14 +136,7 @@ class Take(Event):
         self.new_owner = None
 
     def execute(self, affected):
-        """
-
-        Args:
-          affected:
-
-        Returns:
-
-        """
+        """Transfers the item from the player to the new owner."""
         item = affected.get(self.item_id)
         if item is not None:
             actions.move(item, self.new_owner)
@@ -176,14 +144,7 @@ class Take(Event):
         return super(Take, self).execute(affected)
 
     def accept(self, visitor):
-        """
-
-        Args:
-          visitor:
-
-        Returns:
-
-        """
+        """Accepts a visitor."""
         visitor.visit_take(self)
 
     def __repr__(self):
@@ -191,36 +152,26 @@ class Take(Event):
 
 
 class Toggle(Event):
-    """ Event"""
+    """Base class for events that toggle entity states.
+
+    Attributes:
+        target (Entity): The entity to toggle.
+    """
 
     def __init__(self, obj_id):
         super(Toggle, self).__init__(obj_id)
         self.target = None
 
     def accept(self, visitor):
-        """
-
-        Args:
-          visitor:
-
-        Returns:
-
-        """
+        """Accepts a visitor."""
         visitor.visit_toggle(self)
 
 
 class ToggleActive(Toggle):
-    """Active """
+    """Toggle the active state of an entity."""
 
     def execute(self, affected):
-        """
-
-        Args:
-          affected:
-
-        Returns:
-
-        """
+        """Toggles the state of the target."""
         if self.is_done:
             return ''
         self.target.states.toggle_active()
@@ -231,17 +182,10 @@ class ToggleActive(Toggle):
 
 
 class ToggleObtainable(Toggle):
-    """ Obtainable"""
+    """Toggles weather an Entity is obtainable or not."""
 
     def execute(self, affected):
-        """
-
-        Args:
-          affected:
-
-        Returns:
-
-        """
+        """Toggles the obtainable state of the target."""
         if self.is_done:
             return ''
         self.target.states.toggle_obtainable()
@@ -252,17 +196,10 @@ class ToggleObtainable(Toggle):
 
 
 class ToggleHidden(Toggle):
-    """Hidden """
+    """Toggles the hidden state of an Entity."""
 
     def execute(self, affected):
-        """
-
-        Args:
-          affected:
-
-        Returns:
-
-        """
+        """Toggles the hidden state of the target."""
         if self.is_done:
             return ''
         if self.target is None:
@@ -276,10 +213,10 @@ class ToggleHidden(Toggle):
 
 
 class EndGame(Event):
-    """empty"""
+    """Event to end the game."""
 
     def execute(self, affected):
-        """empty"""
+        """Ends the game."""
         affected.states.hidden = True  # really only ever meant for the player
         return super(EndGame, self).execute(affected)
 

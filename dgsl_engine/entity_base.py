@@ -69,21 +69,21 @@ class EntityStates:
         self.hidden = False
 
     def toggle_active(self):
-        """empty"""
+        """Toggles the active state."""
         if self.active:
             self.active = False
         else:
             self.active = True
 
     def toggle_obtainable(self):
-        """empty"""
+        """Toggles the obtainable state."""
         if self.obtainable:
             self.obtainable = False
         else:
             self.obtainable = True
 
     def toggle_hidden(self):
-        """empty"""
+        """Toggles the hidden state."""
         if self.hidden:
             self.hidden = False
         else:
@@ -172,6 +172,10 @@ class Inventory:
         for k in self.items:
             yield self.items[k]
 
+    def empty(self):
+        """Returns true if the inventory is empty."""
+        return len(self.items) == 0
+
     def add(self, item):
         """Add an Entity to the inventory.
 
@@ -212,7 +216,14 @@ class Inventory:
 
 
 class Equipped:
-    """empty"""
+    """An inventory of worn equipment for a Character.
+
+    Attributes:
+        owner (Character): The character that is wearing the equipment."
+        equipment (dict): The worn equipment. The keys are the name of
+            the slot the equipment is being worn in and the values are
+            the equipment.
+    """
 
     def __init__(self, owner):
         self.owner = owner
@@ -222,8 +233,20 @@ class Equipped:
         for k in self.equipment:
             yield self.equipment[k]
 
+    def empty(self):
+        """Returns True if the equipment is empty."""
+        return len(self.equipment) == 0
+
     def equip(self, equipment):
-        """empty"""
+        """Equips the given equipment.
+
+        Args:
+            equipment (Equipment): The piece of equipment to equip.
+
+        Returns:
+            Equipment: If there is a piece of equipment already equipped
+                in the slot needed it is returned, otherwise None.
+        """
         slot = equipment.slot
         old = None
         if slot in self.equipment:
@@ -234,7 +257,14 @@ class Equipped:
         return old
 
     def remove(self, slot):
-        """empty"""
+        """Removes the piece of equipment from the given slot.
+
+        Args:
+            slot (str): The name of the slot to remove equipment from.
+
+        Returns:
+            Equipment: The piece of equipment in the given slot. If the
+                slot is empty then None."""
         old = None
         if slot in self.equipment:
             old = self.equipment[slot]
@@ -244,14 +274,22 @@ class Equipped:
         return old
 
     def wearing(self, equip):
-        """empty"""
+        """Check to see if a piece of equipment is being worn.
+
+        Args:
+            equip (Equipment): The equipment to check for.
+
+        Returns:
+            str: The slot the equipment is in, otherwise None."""
         for slot, item in self.equipment.items():
             if item.spec.name == equip.spec.name:
                 return slot
         return None
 
     def get(self, slot):
-        """empty"""
+        """Returns the equipment in a given slot, or None if the slot is
+        empty.
+        """
         if slot in self.equipment:
             return self.equipment[slot]
         return None

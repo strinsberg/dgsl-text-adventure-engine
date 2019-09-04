@@ -11,7 +11,7 @@ coverage:
 # Style
 .PHONY: lint
 lint:
-	pylint dgsl_engine dgsl.py
+	pylint dgsl_engine
 
 # Style on tests
 .PHONY: lint-tests

@@ -11,6 +11,7 @@ class Game:  # pylint: disable=too-few-public-methods
         parser (Parser): Get the users actions from input text.
         resolver (Resolver): Resolves the desired player action and
             returns a string of the result.
+        end (bool): True if the gme is over.
         _out: A function that displays output. (default print)
         _in_: A function that collects user input. (default input)
     """
@@ -34,7 +35,7 @@ class Game:  # pylint: disable=too-few-public-methods
         self._out(self.world.player.owner.describe())
 
         while True:
-            raw_input = self._in("\n> ")
+            raw_input = self._in("\n> ").lower()
             self._out("\n----------------------------------------------------")
             parsed_input = self.parser.parse(raw_input)
 

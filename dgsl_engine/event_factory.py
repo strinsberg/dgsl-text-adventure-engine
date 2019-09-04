@@ -16,6 +16,9 @@ class EventFactory:  # pylint: disable=too-few-public-methods
 
         Args:
             obj (dict): A json object with information for an event.
+
+        Returns:
+            Event: The newly constructed event.
         """
         try:
             type_ = obj['type']
@@ -75,17 +78,31 @@ def _setup_interaction(event, obj):
     event.break_out = obj['breakout']
 
 
-def make_condition(cond_json):
-    """empty"""
+def make_condition(cond_json, world=None):
+    """Creates a new condition.
+
+    Args:
+        cond_json (dict): The json blueprint for the condition.
+        world (World): The world that is being constructed.
+
+    Return:
+        Condition: The newly created condition.
+    """
     try:
         type_ = cond_json['type']
         if type_ == 'hasItem':
-            return conditions.HasItem(cond_json['item']['id'])
+            return conditions.HasItem(cond_json['item']['id'],
+                                      other_json=cond_json['other'], world=world)
         if type_ == 'question':
             return conditions.Question(
                 cond_json['question'], cond_json['answer'])
         if type_ == 'protected':
             return conditions.Protected(cond_json['effects'])
+        if type_ == 'is_active':
+            id_ = cond_json['item']['id']
+            entity = world.entities[id_]
+            return conditions.IsActive(entity)
+
         raise exceptions.InvalidParameterError(
             "Condition Factory Error: Invalid object of type " + str(type_))
 

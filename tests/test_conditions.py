@@ -37,7 +37,7 @@ class TestHasItem(unittest.TestCase):
     def setUp(self):
         self.container = mock.MagicMock()
         self.entity = mock.MagicMock()
-        self.has_item = conditions.HasItem('382038')
+        self.has_item = conditions.HasItem('SOMEID')
 
     def test_has_item(self):
         self.container.get.return_value = self.entity
@@ -48,6 +48,17 @@ class TestHasItem(unittest.TestCase):
         self.container.get.return_value = None
         res = self.has_item.test(self.container)
         self.assertFalse(res)
+
+    @mock.patch("dgsl_engine.collectors.EntityIdCollector")
+    def test_has_item_other(self, collector):
+        has_item = conditions.HasItem('SOMEID', mock.MagicMock(), mock.Mock())
+
+        other = mock.MagicMock()
+        other.get.return_value = self.entity
+        collector.collect.return_value = other
+
+        res = has_item.test(other)
+        self.assertTrue(res)
 
 
 class TestProtected(unittest.TestCase):
@@ -80,4 +91,24 @@ class TestProtected(unittest.TestCase):
         self.hat.equipped = False
         self.player.equipped.append(self.cap)
         result = self.protected.test(self.player)
+        self.assertFalse(result)
+
+
+class TestIsActive(unittest.TestCase):
+    def test_is_active(self):
+        entity = mock.MagicMock()
+        entity.states.active = True
+
+        condition = conditions.IsActive(entity)
+        result = condition.test()
+
+        self.assertTrue(result)
+
+    def test_not_active(self):
+        entity = mock.MagicMock()
+        entity.states.active = False
+
+        condition = conditions.IsActive(entity)
+        result = condition.test()
+
         self.assertFalse(result)

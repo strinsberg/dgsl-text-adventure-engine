@@ -39,7 +39,7 @@ class TestMenu(unittest.TestCase):
             self.out.get_text(), "1. climb the cliff\n"
             "2. eat the bagel\n"
             "3. jump around\n"
-            "4. Cancel\n")
+            "4. Cancel\n\n")
 
     def test_ask_out_range(self):
         idx = self.menu.ask(['10'])

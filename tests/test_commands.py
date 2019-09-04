@@ -1,4 +1,5 @@
 import unittest
+import unittest.mock as mock
 import dgsl_engine.commands as commands
 
 # Mocks ################################################################
@@ -21,9 +22,11 @@ class TestCommands(unittest.TestCase):
         message = commands.execute_command('any', 'None', self.game)
         self.assertEqual(message, 'Command None')
 
-    def test_quit(self):
+    @mock.patch('dgsl_engine.user_input.Menu')
+    def test_quit(self, mock_menu):
+        mock_menu.return_value.ask.return_value = 0
         message = commands.execute_command('quit', None, self.game)
-        self.assertEqual(message, 'Quitting ...')
+        self.assertEqual(message, '\nQuitting ...')
         self.assertTrue(self.game.end)
 
 

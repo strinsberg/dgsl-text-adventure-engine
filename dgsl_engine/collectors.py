@@ -29,11 +29,10 @@ class EntityCollector:
         return self.entities
 
     def visit_entity(self, entity):
-        """Visit and entity."""
-        if (entity.spec.name.find(self.obj) > -1
-                or entity.spec.description.find(self.obj) > -1):
+        """Visit an Entity."""
+        if entity.spec.name.lower().find(self.obj) > -1:
             self.entities.append(entity)
-        # Split the obj text into words
+        # In the future??? Split the obj text into words
         # count how many words are present in a name or a description
         # add the count and the entity if there is at least one.
         # Then in the action resolver one can decide if there is a best match
@@ -42,28 +41,28 @@ class EntityCollector:
         # words or just part of words.
 
     def visit_container(self, container):
-        """Visit a container."""
+        """Visit a Container."""
         self.visit_entity(container)
         for item in container:
             item.accept(self)
 
     def visit_room(self, room):
-        """empty"""
+        """Visit a Room"""
         self.visit_container(room)
 
     # Need a visit for character to deal with equipment.
     def visit_character(self, character):
-        """empty"""
+        """Visit a Character"""
         for equipment in character.equipped:
             equipment.accept(self)
 
     def visit_player(self, player):
-        """empty"""
+        """Visit a Player"""
         self.visit_container(player)
         self.visit_character(player)
 
     def visit_equipment(self, equipment):
-        """empty"""
+        """Visit Equipment"""
         self.visit_entity(equipment)
 
     def visit_npc(self, npc):
@@ -87,10 +86,16 @@ class EntityCollectorFactory:  # pylint: disable=too-few-public-methods
 
 
 class EntityTypeCollector:
-    """this is a little gross, better to make a base collector with all
-    the methods implemented with pass. then make specific type collectors
-    or something with just their method implemented. though this would not
-    work easily for multiple types."""
+    """A Collector that will collect all entities in from a list of types.
+
+    Attributes:
+        types (list): List of type names (str) to collect.
+        entity (Entity): An entity to collect or start collection with.
+        results (list): List of the entities that are of the given types.
+
+    Returns:
+        The list of results.
+    """
 
     def __init__(self, types, entity):
         self.types = types
@@ -98,59 +103,70 @@ class EntityTypeCollector:
         self.results = []
 
     def collect(self):
-        """empty"""
+        """Collect all entities of the given types from a given entity."""
         self.entity.accept(self)
         return self.results
 
     def visit_entity(self, entity):
-        """empty"""
+        """Visit an Entity"""
         if 'entity' in self.types:
             self.results.append(entity)
 
     def visit_container(self, entity):
-        """empty"""
+        """Visit a Container"""
         if 'container' in self.types:
             self.results.append(entity)
         self._collect_all(entity)
 
     def visit_player(self, entity):
-        """empty"""
+        """Visit a Player"""
         if 'player' in self.types:
             self.results.append(entity)
         self._collect_all(entity)
         self._collect_equipped(entity)
 
     def visit_npc(self, entity):
-        """empty"""
+        """Visit an Npc"""
         if 'npc' in self.types:
             self.results.append(entity)
         self._collect_all(entity)
         self._collect_equipped(entity)
 
     def visit_room(self, entity):
-        """empty"""
+        """Visit a Room"""
         if 'room' in self.types:
             self.results.append(entity)
         self._collect_all(entity)
 
     def visit_equipment(self, entity):
-        """empty"""
+        """Visit Equipment"""
         if 'equipment' in self.types:
             self.results.append(entity)
 
     def _collect_all(self, container):
-        """empty"""
+        """Visit all sub entities of a given Container."""
         for item in container:
             item.accept(self)
 
     def _collect_equipped(self, character):
-        """empty"""
+        """Visit all equipped items of a Character."""
         for item in character.equipped:
             item.accept(self)
 
 
 class EntityIdCollector:
-    """Collects an item with mathcing id. Will find it anywhere it is."""
+    """Collects an item with matching id looking in a given container
+    and its sub containers.
+
+    Attributes:
+        obj_id (str): The id of the object to find.
+        container (Container): The container to start looking in.
+        result (Entity): The result of the search. The Entity with the
+            given obj_id or None if no entity has the given obj_id.
+
+    Returns:
+        Entity: The Entity with the given obj_id if it is found,
+            otherwise None."""
 
     def __init__(self, obj_id, container):
         self.obj_id = obj_id
@@ -158,17 +174,17 @@ class EntityIdCollector:
         self.result = None
 
     def collect(self):
-        """empty"""
+        """Collect the desired Entity by ID."""
         self.container.accept(self)
         return self.result
 
     def visit_entity(self, entity):
-        """empty"""
+        """If the entity has the matching ID set it as the result."""
         if entity.spec.id == self.obj_id:
             self.result = entity
 
     def visit_container(self, container):
-        """empty"""
+        """Visit a Container."""
         self.visit_entity(container)
         for item in container:
             if self.result is None:
@@ -177,11 +193,11 @@ class EntityIdCollector:
                 break
 
     def visit_room(self, room):
-        """empty"""
+        """Visit a Room."""
         self.visit_container(room)
 
     def visit_character(self, character):
-        """empty"""
+        """Visit a Character."""
         self.visit_container(character)
         for item in character.equipped:
             if self.result is None:
@@ -190,13 +206,18 @@ class EntityIdCollector:
                 break
 
     def visit_player(self, player):
-        """empty"""
+        """Visit a Player"""
         self.visit_character(player)
 
     def visit_npc(self, npc):
-        """empty"""
+        """Visit an Npc"""
         self.visit_character(npc)
 
     def visit_equipment(self, equipment):
-        """empty"""
+        """Visit Equipment."""
         self.visit_entity(equipment)
+
+    def visit_world(self, world):
+        """Visit a World."""
+        if self.obj_id in world.entities:
+            self.result = world.entities[self.obj_id]

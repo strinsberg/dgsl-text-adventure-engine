@@ -81,6 +81,7 @@ class TestOrderedGroup(unittest.TestCase):
         self.ordered.execute(None)
         res = self.ordered.execute(None)
         self.assertEqual(res, '')
+        self.assertTrue(self.ordered.is_done)
 
 
 class TestConditionalEvent(unittest.TestCase):

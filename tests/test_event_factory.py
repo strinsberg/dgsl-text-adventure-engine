@@ -1,4 +1,5 @@
 import unittest
+import unittest.mock as mock
 import dgsl_engine.event_factory as factory
 import dgsl_engine.exceptions as exceptions
 from . import json_objects
@@ -34,6 +35,18 @@ class TestEventFactory(unittest.TestCase):
         self.obj['item']['id'] = 'none'
         event = self.fact.new(self.obj)
         self.assertEqual(event.id, OBJ['id'])
+
+    def test_end_game(self):
+        self.obj['type'] = 'end_game'
+        event = self.fact.new(self.obj)
+        self.assertEqual(event.id, OBJ['id'])
+
+    def test_new_interaction(self):
+        self.obj['type'] = 'interaction'
+        self.obj['breakout'] = True
+        event = self.fact.new(self.obj)
+        self.assertEqual(event.id, OBJ['id'])
+        self.assertTrue(event.break_out)
 
     def test_new_unfinished_object_throws(self):
         with self.assertRaises(exceptions.InvalidParameterError):

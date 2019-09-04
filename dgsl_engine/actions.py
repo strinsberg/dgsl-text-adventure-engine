@@ -56,12 +56,24 @@ class ActionResolver:
             result = message + result
         return result
 
-    def _get_entities(self, parsed_input, player, act):
+    def _get_entities(self, parsed_input, player, action):
+        """Collects all the entities that might be refered to by the input.
+
+        Args:
+            parsed_input (dict): The parsed player input.
+            player (Player): The player object.
+            action (Action): The action the player is taking.
+
+        Returns:
+            (Entity, Entity, str): Returns the entities being acted
+                upon and a message. All may be None if no entities are
+                found or there is no message.
+        """
         collector = self.collector_fact.make(parsed_input['object'],
                                              parsed_input['other'],
                                              player.owner)
 
-        entities = act.filter_entities(collector.collect())
+        entities = action.filter_entities(collector.collect())
 
         entity = None
         other = None
@@ -162,7 +174,18 @@ class Action(ABC):
         return None
 
     def filter_entities(self, entities):  # pylint: disable=no-self-use
-        """empty"""
+        """Filters a list of entities so that it contains only the
+        entities that are valid for the given action.
+
+        If not overridden by an action class will just return the given
+        entities list.
+
+        Args:
+            entities (list): List of Entities available to act on.
+
+        Returns:
+            (list): List of Entities that are able to be acted on by
+                the called action."""
         return entities
 
 
@@ -193,7 +216,7 @@ class Get(Action):
         return "You can't take that"
 
     def filter_entities(self, entities):
-        """empty"""
+        """Filters the player and any items the player is carrying."""
         if len(entities) <= 1:
             return entities
         result = []
@@ -261,15 +284,15 @@ class CheckInventory(Action):
         """See Action."""
         if entity is None:
             result = ["You are carrying ..."]
-            if self.player.inventory.items:
-                for item in self.player.inventory.items:
+            if not self.player.inventory.empty():
+                for item in self.player.inventory:
                     result.append(item.spec.name)
             else:
                 result.append("Nothing")
 
             result.append("\nYou are wearing ...")
-            if self.player.equipped.equipment:
-                for item in self.player.equipped.equipment:
+            if not self.player.equipped.empty():
+                for item in self.player.equipped:
                     result.append(item.spec.name)
             else:
                 result.append("Nothing")
@@ -284,9 +307,10 @@ class CheckInventory(Action):
 
 
 class Talk(Action):
-    """empty"""
+    """Action for talking with NPCs."""
 
     def take_action(self, entity, other):
+        """See Action"""
         if entity is not None:
             if not entity.states.active:
                 # perhaps replace with an inactive message
@@ -299,10 +323,10 @@ class Talk(Action):
 
 
 class Equip(Action):
-    """empty"""
+    """Action to equip equipment."""
 
     def take_action(self, entity, other):
-        """empty"""
+        """See Action."""
         if entity is None:
             return "Equip What?"
         # To properly deal with conditional events related to equipping
@@ -324,10 +348,10 @@ class Equip(Action):
 
 
 class Remove(Action):
-    """empty"""
+    """Action for removing worn equipment."""
 
     def take_action(self, entity, other):
-        """empty"""
+        """See Action."""
         if entity is None:
             return "Remove What?"
         slot = self.player.equipped.wearing(entity)
@@ -345,7 +369,7 @@ class Remove(Action):
 
 # Will most likely need multi verb events for this to work with use
 class Go(Action):
-    """empty"""
+    """Action to move the player in a given direction."""
 
     def take_action(self, entity, other):
         """empty"""
@@ -359,7 +383,7 @@ class Go(Action):
 
 
 class Place(Action):
-    """empty"""
+    """Action that will allow the player to put objects in containers."""
 
     def take_action(self, entity, other):
         """empty"""
