@@ -10,6 +10,7 @@
 - Actions can filter entities when considering more than one
 - End game event
 - Collector to find items by id
+- Condition to check if an entity is active
 
 ## Removed
 - Old start up scripts

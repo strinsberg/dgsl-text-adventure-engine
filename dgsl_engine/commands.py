@@ -31,17 +31,17 @@ def quit_game(game):
     Returns:
         str: A message about the result of the command.
     """
-    menu = user_input.Menu(['Save and Quit (not implemented)', 'Quit'])
+    menu = user_input.Menu(['Quit'])
     answer = menu.ask()
 
-    result = "Quitting ..."
+    result = "\nQuitting ..."
 
     if answer == 0:
         # save game here. add game save logic to the result before returning
         game.end = True
-    elif answer == 1:
-        game.end = True
+    # elif answer == 1:
+    #    game.end = True
     else:
-        result = "Cancelled"
+        result = "\nCancelled"
 
     return result

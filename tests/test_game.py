@@ -8,7 +8,7 @@ from . import fakes
 
 input_text = ['get test entity', 'drop test entity', 'dance', 'quit']
 results = ['You get entity', 'You drop entity', "You don't know how to dance"]
-other_results = ['Quitting ...\n', 'Thanks for playing']
+other_results = ['\nQuitting ...\n', 'Thanks for playing']
 
 
 class TestGame(unittest.TestCase):
@@ -27,7 +27,7 @@ class TestGame(unittest.TestCase):
 
     @mock.patch('dgsl_engine.user_input.Menu')
     def test_run(self, mock_quit_menu):
-        mock_quit_menu.return_value.ask.return_value = 1
+        mock_quit_menu.return_value.ask.return_value = 0
         self.game.run()
         out = self.output.get_text()
         expected_out = (

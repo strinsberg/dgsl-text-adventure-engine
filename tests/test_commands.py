@@ -26,7 +26,7 @@ class TestCommands(unittest.TestCase):
     def test_quit(self, mock_menu):
         mock_menu.return_value.ask.return_value = 0
         message = commands.execute_command('quit', None, self.game)
-        self.assertEqual(message, 'Quitting ...')
+        self.assertEqual(message, '\nQuitting ...')
         self.assertTrue(self.game.end)
 
 

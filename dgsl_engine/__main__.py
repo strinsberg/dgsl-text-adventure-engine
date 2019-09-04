@@ -18,12 +18,17 @@ def main():
     print(VERSION)
     print()
 
-    menu = Menu(['Load a world', 'Load a saved game (not implemented)'])
+    choices = ["Play 'Disaster on the Good Ship Lethbridge'",
+               'Load a custom World']
+    menu = Menu(choices)
     idx = menu.ask()
 
     if idx == 0:
-        # input("What world would you like to load? ")
         world_name = "disaster on the good ship lethbridge"
+    elif idx == 1:
+        world_name = input("What world would you like to load? ")
+
+    if idx < len(choices):
         world_path = os.path.join(
             site.USER_BASE, 'dgsl/worlds', name_to_path(world_name))
 
@@ -35,7 +40,7 @@ def main():
 
     else:
         print()
-        print('See you soon!')
+        print('Bye!')
 
 
 if __name__ == '__main__':
