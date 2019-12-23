@@ -11,9 +11,11 @@ The goal of this project, along with the DGSL World Editor, is to allow people t
 This program is an extension of a C++ text adventure game that myself and Max Niu created in the spring of 2019 at the University of Lethbridge. I have taken parts of the design and ported them to Python 3 and made it possible to load game information from json files. I then wrote the companion world editor to facilitate world construction and editing.
 
 ## Status
-The Engine can be used to play the test world *Disaster on the Good Ship Lethbridge*. There is no ability to save or load a game. I hope to continue adding features and tweaking things when I have time. While things are relatively stable right now, there are almost certainly still bugs. Also, everything is still open to change in ways that break older versions.
+New development is on hold (Dec 2019) as I continue University, possibley indefinately.
 
-The World Editor is functional, but lacks the necessary documentation to be useful creating custom worlds at this time. When the engine is stable I will move on to getting the editor documented and working so custom worlds can be created. This is after all the primary purpose of the project.
+The Engine can be used to play the test world *Disaster on the Good Ship Lethbridge*. There is currently no way to save or load a game.
+
+Creating custom worlds is not really feasible yet. The DGSL World editor is working, but without documentation on what things can be done or how these things can be done, it is not really useable.
 
 ## Contents
 
