@@ -8,7 +8,7 @@ A program for playing custom text based adventure game worlds made with the DGSL
 
 The goal of this project, along with the DGSL World Editor, is to allow people to create, share, and run their own text adventure games. All without writing any code. The World Editor provides a graphical interface to creates world files that can then be loaded by the Adventure Engine.
 
-This program is an extension of a C++ text adventure game that myself and Max Niu created in the spring of 2019 at the University of Lethbridge. I have taken parts of the design and ported them to Python 3 and made it possible to load game information from json files. I then wrote the companion world editor to facilitate world construction and editing.
+This program is an extension of a C++ text adventure game [Disaster on the Good Ship Lethbridge](https://github.com/strinsberg/good-ship-lethbridge) that myself and Max Niu created in the spring of 2019 at the University of Lethbridge. I have taken parts of the design and ported them to Python 3 and made it possible to load game information from json files. I then wrote the companion world editor to facilitate world construction and editing.
 
 ## Status
 This project is no longer being developed as of Dec 2020. I am currently working on a masters degree and it is not a priority.
